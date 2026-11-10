@@ -1,0 +1,19 @@
+# Replay fixture integrity gate, ported from Peri's lefthook configuration.
+# verify rejects legacy cassettes and world drift; world-check additionally
+# compares the world snapshot against a Peri checkout.
+pre-commit:
+  parallel: true
+  jobs:
+    - name: replay-fixtures
+      glob: "{fixtures/**,helpers/**,llm-replay/**,scripts/**,tests/replay-v2/**,package.json,package-lock.json}"
+      run: |
+        if [ ! -d node_modules ]; then
+          echo "[replay] node_modules 缺失；先运行 npm ci" >&2
+          exit 1
+        fi
+        npm run e2e:replay:verify
+        if [ -n "$PERI_SOURCE_ROOT" ]; then
+          npm run e2e:replay:world-check
+        else
+          echo "[replay] PERI_SOURCE_ROOT 未设置；跳过 world-check" >&2
+        fi

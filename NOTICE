@@ -1,0 +1,11 @@
+Peri E2E
+Copyright 2025 KonghaYao and Peri contributors
+
+This repository contains the end-to-end test suite of the Peri project
+(https://github.com/KonghaYao/peri), imported under the Apache License 2.0.
+The imported Peri revision is recorded in PROVENANCE.md.
+
+Modifications relative to the imported sources: the suite now lives at the
+repository root, path resolution is repository-relative and driven by
+PERI_SOURCE_ROOT / PERI_BINARY, and tui-tester is vendored as a local npm
+workspace package. See THIRD_PARTY_NOTICES.md for third-party components.

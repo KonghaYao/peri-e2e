@@ -1,0 +1,8 @@
+node_modules/
+dist/
+results/
+recordings/
+*.ansi
+index.jsonl
+report.html
+.env
