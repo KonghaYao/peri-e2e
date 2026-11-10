@@ -37,6 +37,27 @@
 | U08 | AskUser 多题多选 | 多选集合与题目顺序保持 |
 | U09 | 审批拒绝后明确允许 | 拒绝零副作用、下一轮批准恰好执行一次 |
 
+## world 快照与同步
+
+cassette `formatVersion` 为 2 时，请求正文不再各存一份完整 system prompt。共享快照位于 `world/`：
+
+- `world/system/skills.txt` 对应 `peri-acp/prompts/sections/13_skills.md`，稳定 leaf 为 `sys.skills`；
+- `world/system/compact.summary.txt` 对应 compact summary system prompt；
+- `world/tools/Agent.*.json` 保存 Agent tool schema（description 与 `send_only`）；
+- `world/system/block0.main.txt`、`world/system/block1.*.prefix.txt` / `*.tail.txt`、`world/tools/*.json` 由录制内容按字节拆分；
+- 其余无法映射的 system 段（如 T06 hook prompt）走内容寻址 leaf，`world:sync` 会列出这些未映射 leaf。
+
+请求 stub 只保留 messages/参数等 per-request 字节与 leaf/recipe 引用；`rawSha256`、`canonicalSha256` 与 response 哈希仍逐条校验，`requestRules` 的 typed-template pattern 在加载时按录制边界重新展开。cassette seal 的 `requestMeta` 保存每个 stub 的语义摘要与录制时 leaf 哈希序列；只有 stub 未变且变化的 leaf 全部属于 `world:sync` 映射时，加载器才报告 `report.worldDrift`。未映射 leaf（block0/block1/tail、T06 hook prompt 等）变化、stub 字面量/哈希字段变化都会让 verify 非零退出。
+
+高频 prompt 变更流程：
+
+1. `npm --prefix e2e run e2e:replay:world-check` 查看是否有 stale leaf；它同时用 cassette seal 的录制 `worldRefs` 交叉校验当前 world，未映射或缺失 leaf 不一致会直接失败。
+2. `npm --prefix e2e run e2e:replay:world-sync` 写入映射 leaf 与 `world/seal.json`。
+3. 审核 `git diff --stat`：`13_skills.md` 变化应只出现 2 个文件（skills leaf + seal）；Agent description/`send_only` 为 2 个 Agent leaf + seal；compact summary 为 1 个 leaf + seal。
+4. `npm --prefix e2e run e2e:replay:verify` 重新校验 30 cassettes / world seal；映射 leaf 变化会产生 worldDrift，verify 会非零退出，提交前需重录受影响 cassette（或显式重写录制哈希），本地 `e2e:replay` 不受影响。`world:check` 把映射 leaf 差异列为 `recorded.mappedDrift`（`requiresRerecord: true`），只有未映射/缺失 leaf 不一致才判 stale。
+
+限制：单条消息（如 U06 compact 用户指令）和 `summary_user_prompt.md` 不在 world 映射内，变化必须重录；只改 stub 字面量会被 `requestCoreSha256` 拒绝。`world:sync` 只同步上述源文件，未映射的 prompt 内容变化仍需重录。
+
 ## 证据与范围
 
 - 每个场景有独立 seed、cassette 和场景清单；初始化通过真实 ACP 创建新会话，重放使用新的临时目录。不会修改数据库表结构或直接伪造历史行。

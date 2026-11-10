@@ -1,0 +1,24 @@
+{
+  "v": 2,
+  "rawBytes": 98970,
+  "rawSha256": "44c5bd510a1611657e83b7683ca2a9adf81fe5237dce3cf7c2a9ad55f040443f",
+  "parts": [
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"S05_OLD_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    {
+      "leaf": "sys.block0.main",
+      "as": "json-string"
+    },
+    ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
+    {
+      "recipe": "sys.block1.main.t10",
+      "as": "json-string"
+    },
+    "}],\"tools\":",
+    {
+      "recipe": "tools.anthropic.main",
+      "as": "raw"
+    },
+    ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
+  ],
+  "canonicalSha256": "9b89e87580f303464ad6812b44faa84ea160ea2b7da8d5d0e9f814d3f6916285"
+}

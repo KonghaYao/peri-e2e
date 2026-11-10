@@ -1,5 +1,4 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
-import { accessSync, constants as fsConstants, existsSync } from "node:fs";
 import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -8,6 +7,8 @@ import { createInterface } from "node:readline";
 import headless from "@xterm/headless";
 import type { Terminal } from "@xterm/headless";
 import { startStdioAcpFixture } from "./stdio-acp-fixture.js";
+// 保持在 import 列表末尾：指纹取自 createReplayWorld.toString() 的编译文本，新增前置 import 会改变该文本并触发 fingerprint 门。
+import { accessSync, constants as fsConstants, existsSync } from "node:fs";
 
 const E2E_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const periSourceRoot = process.env.PERI_SOURCE_ROOT ? path.resolve(process.env.PERI_SOURCE_ROOT) : undefined;
