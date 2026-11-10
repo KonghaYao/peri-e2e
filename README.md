@@ -24,7 +24,7 @@ npm ci
 | --- | --- |
 | `PERI_BINARY` | 已构建 `peri` 的绝对路径，优先级最高；启动前校验存在且可执行 |
 | `PERI_E2E_BINARY` | 兼容旧名；`PERI_BINARY` 未设置时使用 |
-| `PERI_SOURCE_ROOT` | 可选，Peri checkout 绝对路径；默认尝试本仓父目录（需含 `Cargo.toml` 与 `dev.sh`） |
+| `PERI_SOURCE_ROOT` | Peri checkout 绝对路径；`world:sync` / `world-check` 与 replay 单测中的 world-check 用例必须显式设置。legacy helper 在未设置时才尝试本仓父目录 |
 | `PERI_E2E_REPLAY_FIXTURES` | 可选，覆盖 fixture 根目录（默认 `fixtures/replay-v2`） |
 | `PERI_E2E_REPLAY_RESULTS` | 可选，覆盖报告根目录（默认 `results/replay-v2/<invocation>`） |
 | `PERI_E2E_REPLAY_INVOCATION` | 可选，命名一次回放运行 |
@@ -40,11 +40,17 @@ npm ci
 
 ```bash
 npm run e2e:replay:check       # tsc 类型检查
-npm run e2e:replay:unit        # llm-replay 模块单测
+PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:unit  # llm-replay 模块单测（world-check 用例读 Peri 源码）
 npm run e2e:replay:verify      # fixture/world 完整性
 PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:world-check
 PERI_BINARY=/path/to/peri npm run e2e:replay
+EXPECTED_REPLAY_SCENARIOS=30 node scripts/check-replay-catalog.mjs
 ```
+
+`check-replay-catalog.mjs` 要求场景 ID 与封存 fixture 一一对应，零测试、重复 ID、
+缺失/多余 fixture 和新增 skip 都会失败。回放后加 `--results <invocation 目录>`
+可再核对每个场景都有 `passed` 的 `report.json`，避免 Vitest 对 skip 仍以 0 退出。
+30 是当前 world v2 的场景数；接回归档的 64 个增量后必须同步改为 94。
 
 默认只读取封存 fixture。缺录制、配置签名变化、请求漂移、额外/遗漏调用或错误
 终态都会失败。回放不会启动 fixture 上游，也不会调用线上模型；实际 Agent、工具、
@@ -79,6 +85,15 @@ node scripts/refresh-cassettes.mjs --peri-root /path/to/peri [--check]
 
 未映射 leaf 变化不能由 `world:sync` 解释，必须重录或走受控迁移；不要在未审核的
 情况下手工重封。
+
+### 本仓 CI
+
+`.github/workflows/ci.yml` 在 PR 与 `main` push 上运行。它从 `.github/peri-rev`
+读取固定 Peri commit，checkout 到 `peri-src` 并构建 `peri`，然后依次执行类型检查、
+replay 单测（`PERI_SOURCE_ROOT=peri-src`）、fixture verify、world-check、catalog
+静态检查和完整 30 场景回放；回放后再用 `check-replay-catalog.mjs --results` 核对
+实际执行报告。失败时上传 `results/replay-v2` 作为证据。更新被测版本只需修改
+`.github/peri-rev` 并同步 world/fixture 校验。
 
 ## 场景接口
 

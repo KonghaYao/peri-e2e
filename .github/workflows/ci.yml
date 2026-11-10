@@ -1,0 +1,116 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  replay:
+    name: Replay suite (Linux)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      # 30 = 当前 world v2 的业务场景数。E2E-02 接回 legacy/replay-v3 的 64 个
+      # 增量后必须同步改为 94；不要从实际 catalog 反向生成期望值，否则迁移遗漏
+      # 会被误报为通过。
+      EXPECTED_REPLAY_SCENARIOS: "30"
+    steps:
+      - name: Checkout peri-e2e
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Resolve pinned Peri revision
+        id: peri
+        run: |
+          rev="$(cat .github/peri-rev)"
+          rev="${rev//[$'\r\n ']/}"
+          if [[ ! "$rev" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "invalid Peri pin: '$rev' (.github/peri-rev must be a 40-char lowercase commit SHA)" >&2
+            exit 1
+          fi
+          echo "sha=$rev" >> "$GITHUB_OUTPUT"
+
+      # 被测源码 SHA 只来自 .github/peri-rev；构建产物的 target 与该 checkout 一一对应。
+      - name: Checkout Peri at pinned revision
+        uses: actions/checkout@v4
+        with:
+          repository: KonghaYao/peri
+          ref: ${{ steps.peri.outputs.sha }}
+          path: peri-src
+          persist-credentials: false
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.99.0
+
+      - name: Cache cargo registry and build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: peri-src -> target
+          key: e2e-replay
+          save-if: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build pinned peri binary
+        working-directory: peri-src
+        run: ./scripts/cargo-rmcp-patched.sh build --locked -p peri-tui --bin peri
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install peri-e2e dependencies
+        run: npm ci
+
+      - name: Type-check replay harness
+        run: npm run e2e:replay:check
+
+      # world-check 单测直接调用 refresh-cassettes.mjs，必须显式提供源码根。
+      - name: Run replay unit tests
+        env:
+          PERI_SOURCE_ROOT: ${{ github.workspace }}/peri-src
+        run: npm run e2e:replay:unit
+
+      - name: Verify replay fixtures
+        run: npm run e2e:replay:verify
+
+      # world seal 对应本次固定的 Peri checkout：未映射 leaf 变动但未 bump pin
+      # 时在这里失败。
+      - name: Check world snapshot against pinned Peri
+        env:
+          PERI_SOURCE_ROOT: ${{ github.workspace }}/peri-src
+        run: npm run e2e:replay:world-check
+
+      - name: Check replay catalog
+        run: node scripts/check-replay-catalog.mjs
+
+      - name: Run offline replay
+        env:
+          PERI_BINARY: ${{ github.workspace }}/peri-src/target/debug/peri
+          PERI_E2E_REPLAY_RESULTS: ${{ github.workspace }}/results/replay-v2/ci
+        run: npm run e2e:replay
+
+      # Vitest 对 skip 仍以 0 退出；用每个场景落盘的 report.json 复核实际执行数。
+      - name: Check replay results catalog
+        run: node scripts/check-replay-catalog.mjs --results results/replay-v2/ci
+
+      - name: Upload replay evidence on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: replay-results
+          path: results/replay-v2
+          retention-days: 7
+          if-no-files-found: ignore
