@@ -60,6 +60,7 @@ The runtime marks the following categories as sensitive by default (`default_req
 - `mcp__*` — prefixed MCP server tool; raw external MCP tools also require approval by bound source; builtin first-class capabilities follow their original tool's rule
 - `mcp__cron__cron_register` — scheduled task registration (can trigger arbitrary prompts later, equivalent to delegated execution rights)
 - `mcp__monitor__monitor_start` — monitor command execution (starts a shell command and watches its output)
+- `mcp__workflow__Workflow` — workflow delegation (launches a multi-agent workflow that bypasses HITL, equivalent to delegated execution rights)
 
 Whether a sensitive tool actually requires approval is decided by the current `PermissionMode`, not by this list alone.
 

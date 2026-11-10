@@ -3,7 +3,9 @@
  * 一次性迁移脚本：仅用于把 #374 新增的 `mcp__workflow__Workflow` 敏感项 re-anchor 到 replay world v2。
  * 禁止日常使用：日常 prompt 同步走 `e2e:replay:world-sync`；未映射 leaf 变化必须重录，不能用本脚本绕过 verify。
  *
- * 前置状态：world/system/block1.main.prefix.txt 已插入且仅插入一条新增敏感项。
+ * 前置状态：目标 prefix 已插入且仅插入一条新增敏感项；已 re-anchor 过的 prefix 保持原样。
+ * 2026-11 补漏：首次只落了 `block1.main.prefix`，A 系 root 使用的 `block1.replay-worker.prefix`
+ * 仍停留在 #374 之前，需再补一次；main 已锚定，因此本次仅 replay-worker 变化。
  * 脚本从 manifest + leaf 文件重建并重封 world，然后按新 world 重新渲染每个请求 stub：
  * 更新 rawBytes/rawSha256/canonicalSha256 与 cassette seal 的 requestMeta，响应字节原样复制。
  * 旧 world 在内存中按精确逆操作还原，用于断言仅多出这一行 prompt（含 canonical body）。
@@ -26,7 +28,9 @@ const {
 } = await load('llm-replay/world-store.mjs');
 const { replaceWorldDirectory } = await load('scripts/world-sync-swap.mjs');
 
-const TARGET_LEAF = 'sys.block1.main.prefix';
+const MAIN_PREFIX_LEAF = 'sys.block1.main.prefix';
+const REPLAY_WORKER_PREFIX_LEAF = 'sys.block1.replay-worker.prefix';
+const TARGET_LEAVES = [MAIN_PREFIX_LEAF, REPLAY_WORKER_PREFIX_LEAF];
 const ADDED_LINE = '- `mcp__workflow__Workflow` — workflow delegation (launches a multi-agent workflow that bypasses HITL, equivalent to delegated execution rights)';
 const ADDED_TEXT = `${ADDED_LINE}\\n`; // 原始 HTTP body 是 JSON 文本，换行被转义为反斜杠 + n。
 
@@ -62,15 +66,21 @@ for (const [id, meta] of Object.entries(manifest.leaves)) {
   leafBytes.set(id, bytes);
 }
 const changedLeaves = [...leafBytes].filter(([id, bytes]) => sha256(bytes) !== previousSeal.leaves[id]).map(([id]) => id);
-assert(changedLeaves.length === 1 && changedLeaves[0] === TARGET_LEAF,
-  `只允许 ${TARGET_LEAF} 变化，实际: ${changedLeaves.join(', ')}`);
+assert(changedLeaves.length > 0 && changedLeaves.every((id) => TARGET_LEAVES.includes(id)),
+  `只允许 ${TARGET_LEAVES.join(', ')} 变化，实际: ${changedLeaves.join(', ')}`);
+assert(text(leafBytes.get(MAIN_PREFIX_LEAF)).split(ADDED_LINE).length - 1 === 1,
+  `${MAIN_PREFIX_LEAF}: 已锚定的新增行必须保持恰好一次`);
 
-const targetText = text(leafBytes.get(TARGET_LEAF));
-const occurrences = targetText.split(ADDED_LINE).length - 1;
-assert(occurrences === 1, `${TARGET_LEAF}: 新增行应恰好出现一次，实际 ${occurrences} 次`);
-const baselineTargetText = targetText.replace(`${ADDED_LINE}\n`, '');
-assert(baselineTargetText.length === targetText.length - ADDED_LINE.length - 1 && !baselineTargetText.includes(ADDED_LINE),
-  `${TARGET_LEAF}: 无法唯一还原基线 leaf`);
+const baselineLeaves = new Map();
+for (const id of changedLeaves) {
+  const targetText = text(leafBytes.get(id));
+  const occurrences = targetText.split(ADDED_LINE).length - 1;
+  assert(occurrences === 1, `${id}: 新增行应恰好出现一次，实际 ${occurrences} 次`);
+  const baselineTargetText = targetText.replace(`${ADDED_LINE}\n`, '');
+  assert(baselineTargetText.length === targetText.length - ADDED_LINE.length - 1 && !baselineTargetText.includes(ADDED_LINE),
+    `${id}: 无法唯一还原基线 leaf`);
+  baselineLeaves.set(id, Buffer.from(baselineTargetText, 'utf8'));
+}
 
 function buildWorld(overrides) {
   const builder = createWorldBuilder({ generation: manifest.generation });
@@ -79,7 +89,7 @@ function buildWorld(overrides) {
   return builder;
 }
 const newWorld = buildWorld(new Map());
-const previousWorld = buildWorld(new Map([[TARGET_LEAF, Buffer.from(baselineTargetText, 'utf8')]]));
+const previousWorld = buildWorld(baselineLeaves);
 
 const cassetteIds = [];
 for (const entry of await readdir(fixtures, { withFileTypes: true })) {
@@ -134,7 +144,7 @@ try {
       const beforeBytes = previousWorld.renderParts(stub.parts);
       assert(sha256(beforeBytes) === stub.rawSha256, `${id}/${stubFile}: 逆推旧 world 渲染与录制 rawSha256 不符`);
       const afterBytes = newWorld.renderParts(stub.parts);
-      const affected = collectWorldRefs(stub.parts, previousWorld).some((ref) => ref.id === TARGET_LEAF);
+      const affected = collectWorldRefs(stub.parts, previousWorld).some((ref) => changedLeaves.includes(ref.id));
 
       const beforeText = text(beforeBytes);
       const beforeExpanded = expandTypedTemplateRules(entry.requestRules ?? [], beforeBytes);
@@ -243,7 +253,7 @@ try {
       leaves: stagedWorld.leaves.length,
       recipes: stagedWorld.recipes.length,
       changedLeaves,
-      leafSha256: stagedWorld.seal.leaves[TARGET_LEAF],
+      leafSha256: Object.fromEntries(changedLeaves.map((id) => [id, stagedWorld.seal.leaves[id]])),
       addedLine: ADDED_LINE,
     },
     cassettes: cassetteIds.length,
