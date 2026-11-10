@@ -5,7 +5,7 @@
  *   外部 fixture MCP server 与本地假 model server），满足 TEST-HERMETIC-001；
  * - 本地假 model server：记录每个请求 body（`isMain` = 含 tools 的主请求），
  *   第 1 个主请求可按 `toolPlan` 返回 tool_use（驱动 Agent 审批路径）；
- * - fixture MCP server：`e2e/fixtures/mcp-skill-fixture.mjs`，wire 日志即事实。
+ * - fixture MCP server：`fixtures/mcp-skill-fixture.mjs`，wire 日志即事实。
  *
  * 本文件不含断言，供 print/stdio 与 TUI 两个场景文件共用。
  */
@@ -13,10 +13,13 @@ import { createServer, type Server } from "node:http";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { PROJECT_ROOT } from "./peri.js";
+import { E2E_ROOT, PERI_SOURCE_ROOT } from "./peri.js";
 
-export const PERI_BIN = path.join(PROJECT_ROOT, "target/debug/peri");
-export const FIXTURE_SERVER = path.join(PROJECT_ROOT, "e2e", "fixtures", "mcp-skill-fixture.mjs");
+export const PERI_BIN =
+  process.env.PERI_BINARY ??
+  process.env.PERI_E2E_BINARY ??
+  (PERI_SOURCE_ROOT ? path.join(PERI_SOURCE_ROOT, "target/debug/peri") : "");
+export const FIXTURE_SERVER = path.join(E2E_ROOT, "fixtures", "mcp-skill-fixture.mjs");
 
 export const SKILL_NAME = "probe-skill";
 export const SKILL_DESC = "W6-PROBE-SKILL-DESC";

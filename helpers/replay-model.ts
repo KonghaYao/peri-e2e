@@ -16,9 +16,12 @@ import os from "node:os";
 import path from "node:path";
 import { TmuxTester } from "tui-tester";
 import type { TerminalSize } from "tui-tester";
-import { PROJECT_ROOT } from "./peri.js";
+import { PERI_SOURCE_ROOT, requirePeriSourceRoot } from "./peri.js";
 
-export const REPLAY_PERI_BIN = path.join(PROJECT_ROOT, "target/debug/peri");
+export const REPLAY_PERI_BIN =
+  process.env.PERI_BINARY ??
+  process.env.PERI_E2E_BINARY ??
+  (PERI_SOURCE_ROOT ? path.join(PERI_SOURCE_ROOT, "target/debug/peri") : "");
 /** 剧本未命中时的固定回复（主请求未命中计入 `misses`，辅助请求不计数）。 */
 export const REPLAY_FALLBACK_TEXT = "REPLAY-UNMATCHED-STEP";
 const DEFAULT_STEP_DELAY_MS = 150;
@@ -228,13 +231,14 @@ function shellQuote(value: string): string {
   return `'${value.replace(/'/g, `'\\''`)}'`;
 }
 
-/** 启动真实 peri TUI（隔离 HOME，`env -i` 不继承父进程凭据；cwd 默认 PROJECT_ROOT）。 */
+/** 启动真实 peri TUI（隔离 HOME，`env -i` 不继承父进程凭据；cwd 默认 Peri 源码根）。 */
 export async function launchReplayTui(options: {
   home: string;
   size?: TerminalSize;
-  /** peri 进程工作目录：默认 PROJECT_ROOT，保持 Read/Glob 相对路径语义。 */
+  /** peri 进程工作目录：默认 PERI_SOURCE_ROOT，保持 Read/Glob 相对路径语义。 */
   cwd?: string;
 }): Promise<TmuxTester> {
+  const periRoot = requirePeriSourceRoot();
   const env: Record<string, string> = {
     HOME: options.home,
     XDG_CONFIG_HOME: path.join(options.home, "config"),
@@ -255,7 +259,7 @@ export async function launchReplayTui(options: {
   const tester = new TmuxTester({
     command: ["/bin/sh", "-c", invocation].map(shellQuote),
     env: { HOME: env.HOME, PATH: env.PATH },
-    cwd: options.cwd ?? PROJECT_ROOT,
+    cwd: options.cwd ?? periRoot,
     size: options.size ?? { cols: 120, rows: 40 },
   });
   await tester.start();

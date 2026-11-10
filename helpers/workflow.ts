@@ -5,9 +5,9 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { TmuxTester } from "tui-tester";
 
-import { PROJECT_ROOT, sendPrompt } from "./peri.js";
+import { requirePeriSourceRoot, sendPrompt } from "./peri.js";
 
-const WORKFLOW_RUNS_DIR = join(PROJECT_ROOT, ".claude", "workflow-runs");
+const WORKFLOW_RUNS_DIR = join(requirePeriSourceRoot(), ".claude", "workflow-runs");
 
 export function existingWorkflowRunIds(): Set<string> {
   if (!existsSync(WORKFLOW_RUNS_DIR)) {

@@ -13,6 +13,14 @@
 The import excludes `.env`, `results/`, `recordings/`, `node_modules/`, and the
 `e2e/tui-tester` submodule gitlink. The suite now occupies the repository root.
 
+## Local modifications
+
+- Path resolution is repository-relative: `E2E_ROOT` for this repo, optional
+  `PERI_SOURCE_ROOT` / `PERI_BINARY` for the Peri checkout and binary.
+- `tui-tester` is vendored and wired as an npm workspace; the root TypeScript
+  version is pinned to `^5.9.2` for the hoisted tsup dts build (see
+  `THIRD_PARTY_NOTICES.md`).
+
 ## Non-fixture code from Peri PR #375
 
 | Item | Value |

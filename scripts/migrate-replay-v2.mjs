@@ -12,24 +12,30 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
 import { SOURCE_FILES, STABLE_LEAVES, classifyBlock1Prefix } from './replay-world-sources.mjs';
+import { assertPeriRoot, resolvePeriRoot } from './peri-root.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '../..');
-const fixtures = path.join(root, 'e2e/fixtures/replay-v2');
+const e2eRoot = path.resolve(here, '..');
+const fixtures = path.join(e2eRoot, 'fixtures/replay-v2');
 const worldDir = path.join(fixtures, 'world');
-const load = (relative) => import(pathToFileURL(path.join(root, relative)));
-const { loadCassette } = await load('e2e/llm-replay/cassette.mjs');
-const { createBindingRegistry } = await load('e2e/llm-replay/bindings.mjs');
-const { identityKey, sha256 } = await load('e2e/llm-replay/matcher.mjs');
+const load = (relative) => import(pathToFileURL(path.join(e2eRoot, relative)));
+const { loadCassette } = await load('llm-replay/cassette.mjs');
+const { createBindingRegistry } = await load('llm-replay/bindings.mjs');
+const { identityKey, sha256 } = await load('llm-replay/matcher.mjs');
 const {
   CASSETTE_FORMAT_VERSION, canonicalRecordedBody, collectWorldRefs, compactTypedTemplateRules,
   createWorldBuilder, encodeRequestStub, expandTypedTemplateRules, loadWorld,
   parseRequestSpans, requestCoreSha256, serializeRequestStub,
-} = await load('e2e/llm-replay/world-store.mjs');
+} = await load('llm-replay/world-store.mjs');
 
 const { values } = parseArgs({
-  options: { 'dry-run': { type: 'boolean', default: false }, json: { type: 'boolean', default: true } },
+  options: {
+    'dry-run': { type: 'boolean', default: false },
+    'peri-root': { type: 'string' },
+    json: { type: 'boolean', default: true },
+  },
 });
+const periRoot = await assertPeriRoot(resolvePeriRoot(values['peri-root']));
 
 const assert = (condition, message) => { if (!condition) throw new Error(message); };
 const exists = async (file) => readFile(file).then(() => true, () => false);
@@ -113,8 +119,8 @@ const versions = new Set(cassettes.map((item) => item.cassette.manifest.formatVe
 assert(versions.size === 1 && versions.has(1), `cassette 格式不一致或不是 v1: ${[...versions].join(',')}`);
 assert(!(await exists(worldDir)), 'cassette 仍是 v1，但 world/ 已存在；请先清理迁移残留');
 
-const skillsSource = await readFile(path.join(root, SOURCE_FILES.skills), 'utf8');
-const compactSummary = await readFile(path.join(root, SOURCE_FILES.compactSummary), 'utf8');
+const skillsSource = await readFile(path.join(periRoot, SOURCE_FILES.skills), 'utf8');
+const compactSummary = await readFile(path.join(periRoot, SOURCE_FILES.compactSummary), 'utf8');
 const intro = 'You are an interactive CLI tool that helps users with software engineering tasks.';
 
 const requests = [];

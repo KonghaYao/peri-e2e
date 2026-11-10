@@ -10,7 +10,7 @@ import {
   syntheticRequestEvidence, type ReplayTuiOptions, type ReplayWorld,
 } from "./llm-replay-tui.js";
 
-const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+const e2eRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const proxyModule = new URL("../llm-replay/proxy.mjs", import.meta.url).href;
 const bindingModule = new URL("../llm-replay/request-bindings.mjs", import.meta.url).href;
 const invocationId = process.env.PERI_E2E_REPLAY_INVOCATION ?? `${new Date().toISOString().replace(/[:.]/g, "-")}-${randomUUID().slice(0, 8)}`;
@@ -144,9 +144,9 @@ export async function runReplayScenario(definition: ReplayScenarioDefinition): P
     configure: definition.configure?.toString() ?? null,
     configVersion: definition.configVersion ?? null,
   })));
-  const fixtureRoot = path.resolve(process.env.PERI_E2E_REPLAY_FIXTURES ?? path.join(projectRoot, "e2e/fixtures/replay-v2"));
+  const fixtureRoot = path.resolve(process.env.PERI_E2E_REPLAY_FIXTURES ?? path.join(e2eRoot, "fixtures/replay-v2"));
   const fixtureDirectory = path.join(fixtureRoot, definition.id);
-  const reportRoot = path.resolve(process.env.PERI_E2E_REPLAY_RESULTS ?? path.join(projectRoot, "e2e/results/replay-v2", invocationId));
+  const reportRoot = path.resolve(process.env.PERI_E2E_REPLAY_RESULTS ?? path.join(e2eRoot, "results/replay-v2", invocationId));
   const world = await createReplayWorld();
   world.evidence = path.join(reportRoot, definition.id);
   await mkdir(world.evidence, { recursive: true });

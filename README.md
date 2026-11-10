@@ -1,27 +1,56 @@
 # Peri E2E
 
-完整测试命令以 [测试规范](../docs/standards/testing.md#82-peri-tui-e2e分层门禁) 为准。
-持久模型录放的业务范围见 [场景目录](fixtures/replay-v2/README.md)。
+Peri 的端到端测试套件，独立于 Peri 主仓维护。来源 commit、PR 映射与 fixture
+录制说明见 [PROVENANCE.md](PROVENANCE.md)。
+
+## 依赖
+
+- Node.js 与 npm（安装依赖；`postinstall` 会构建 vendored `tui-tester`）
+- Python 3 与 Unix PTY（replay-v2 的真实终端驱动）
+- 一个已构建的 `peri` 二进制（replay-v2）
+- tmux、Peri 源码与 `.env` 中的 judge 凭据（仅 legacy 套件，本地/手动运行）
+
+```bash
+npm ci
+```
+
+`tui-tester/` 是 MIT 许可的 vendored workspace（见
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)）；不提交 `dist/`，由
+`postinstall` / `npm run build:tui-tester` 生成。
+
+## 输入契约
+
+| 变量 | 含义 |
+| --- | --- |
+| `PERI_BINARY` | 已构建 `peri` 的绝对路径，优先级最高；启动前校验存在且可执行 |
+| `PERI_E2E_BINARY` | 兼容旧名；`PERI_BINARY` 未设置时使用 |
+| `PERI_SOURCE_ROOT` | 可选，Peri checkout 绝对路径；默认尝试本仓父目录（需含 `Cargo.toml` 与 `dev.sh`） |
+| `PERI_E2E_REPLAY_FIXTURES` | 可选，覆盖 fixture 根目录（默认 `fixtures/replay-v2`） |
+| `PERI_E2E_REPLAY_RESULTS` | 可选，覆盖报告根目录（默认 `results/replay-v2/<invocation>`） |
+| `PERI_E2E_REPLAY_INVOCATION` | 可选，命名一次回放运行 |
+
+二进制解析顺序：`PERI_BINARY` → `PERI_E2E_BINARY` →
+`PERI_SOURCE_ROOT/target/debug/peri`。replay-v2 只需要二进制；legacy 套件、
+`world:sync` / `world-check` / `migrate` 还需要 `PERI_SOURCE_ROOT`。没有源码根
+时，legacy 套件会在 vitest 配置中显式跳过并告警。
+
+`.env` 从本仓根读取，仅用于 legacy judge；不得提交。
 
 ## 离线业务回放
 
-在仓库根目录构建真实 Peri，再进入 `e2e/` 安装依赖。需要 Node、Python 3 和 Unix PTY；
-终端画面由 `@xterm/headless` 解析。`PERI_E2E_BINARY` 可指定已构建的二进制。
-
 ```bash
-bash scripts/cargo-rmcp-patched.sh build --locked -p peri-tui --bin peri
-cd e2e
-npm ci
-npm run e2e:replay:check
-npm run e2e:replay:unit
-npm run e2e:replay
+npm run e2e:replay:check       # tsc 类型检查
+npm run e2e:replay:unit        # llm-replay 模块单测
+npm run e2e:replay:verify      # fixture/world 完整性
+PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:world-check
+PERI_BINARY=/path/to/peri npm run e2e:replay
 ```
 
-默认只读取封存 fixture。缺录制、配置签名变化、请求漂移、额外/遗漏调用或错误终态都会失败。
-回放不会启动 fixture 上游，也不会调用线上模型。实际 Agent、工具、MCP、ACP、存储和 TUI 继续运行。
-每次使用新 HOME/work；通过真实 ACP 初始化新的会话，并用已声明的因果身份绑定动态 ID。
-默认回放以 3 个 worker 并行执行测试文件，文件内场景串行；显式录制保持单 worker。
-排查顺序问题可执行 `npm run e2e:replay -- --maxWorkers 1 --no-file-parallelism`。
+默认只读取封存 fixture。缺录制、配置签名变化、请求漂移、额外/遗漏调用或错误
+终态都会失败。回放不会启动 fixture 上游，也不会调用线上模型；实际 Agent、工具、
+MCP、ACP、存储和 TUI 继续运行。每次使用新 HOME/work，通过真实 ACP 初始化新的
+会话，并用已声明的因果身份绑定动态 ID。默认回放以 3 个 worker 并行执行测试
+文件，文件内场景串行；显式录制保持单 worker。
 
 更新录制必须显式执行：
 
@@ -31,9 +60,25 @@ npm run e2e:replay:record
 PERI_E2E_REPLAY_MODE=record npx vitest run --config vitest.replay-v2.config.ts --testNamePattern S01
 ```
 
-`CI` 环境拒绝 record。场景使用本地合成模型 fixture；通过这些测试不代表某个线上模型的质量。
-每个录制目录同时保存初始文件 seed、HTTP 原字节 cassette、环境绑定声明和工具参数派生计划。
-更新先写入独立临时目录，通过场景和封存校验后才替换旧 fixture。
+`CI` 环境拒绝 record。场景使用本地合成模型 fixture，通过这些测试不代表某个线上
+模型的质量。每个录制目录保存初始文件 seed、HTTP 原字节 cassette、环境绑定声明
+和工具参数派生计划。更新先写入独立临时目录，通过场景和封存校验后才替换旧
+fixture。场景目录见 [fixtures/replay-v2/README.md](fixtures/replay-v2/README.md)。
+
+### world:sync 与录制
+
+`world:sync` 把高频 prompt 源文件同步进 world 快照；`--check` 额外校验 cassette
+seal 的 `worldRefs`。两者都从 `PERI_SOURCE_ROOT`（或 `--peri-root`）读取 Peri
+源码：
+
+```bash
+PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:world-sync
+PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:world-check
+node scripts/refresh-cassettes.mjs --peri-root /path/to/peri [--check]
+```
+
+未映射 leaf 变化不能由 `world:sync` 解释，必须重录或走受控迁移；不要在未审核的
+情况下手工重封。
 
 ## 场景接口
 
@@ -57,19 +102,19 @@ await runReplayScenario({
 });
 ```
 
-`ctx.requests` 保留当前模式的原始请求，`ctx.checked(predicate)` 在代理错误时尽早失败。
-`runOptions.onRequest` 与共享绑定、证据采集串联，不能替换共享行为。
-`ctx.bindings` 注册显式 typed 值；重放只使用录制时冻结的精确字段模板，保留其余全文严格匹配。
-工具参数中的路径引用按白名单派生到当前 world，原始 cassette 不变。任意 shell 文本、签名和不透明状态不自动改写。
+`ctx.requests` 保留当前模式的原始请求，`ctx.checked(predicate)` 在代理错误时尽早
+失败。`runOptions.onRequest` 与共享绑定、证据采集串联，不能替换共享行为。
+`ctx.bindings` 注册显式 typed 值；重放只使用录制时冻结的精确字段模板，保留其余
+全文严格匹配。工具参数中的路径引用按白名单派生到当前 world，原始 cassette 不变。
 
-`configure` 的源码及默认配置有签名；变化后必须重录。闭包值或外部配置变化还应修改 `configVersion`。
-seed 中不得写入录制 world 的绝对路径或会话数据库。相对工作目录配置能直接复用，模型工具的绝对参数由 typed 路径绑定处理。
-record 通过后保留最终工作文件证据并删除旧 HOME/work，随后独立 replay 必须只依赖自己的新目录。
+`configure` 的源码及默认配置有签名；变化后必须重录。闭包值或外部配置变化还应
+修改 `configVersion`。seed 中不得写入录制 world 的绝对路径或会话数据库。
 
 ## 结果与时延
 
-每场景结果写入 `results/replay-v2/<invocation>/<id>/report.json`，同时保留屏幕 `.txt`、原始 `.pty`、
-请求 JSON 和 `final-work/`。失败也写报告，保留明确错误。`observe` 记录证据，不代替断言。
+每场景结果写入 `results/replay-v2/<invocation>/<id>/report.json`，同时保留屏幕
+`.txt`、原始 `.pty`、请求 JSON 和 `final-work/`。失败也写报告，保留明确错误。
+`observe` 记录证据，不代替断言。
 
 | 字段 | 含义 |
 | --- | --- |
@@ -80,8 +125,10 @@ record 通过后保留最终工作文件证据并删除旧 HOME/work，随后独
 | `cleanupMs` | 关闭进程/代理/fixture、清理录制世界 |
 | `totalMs` | 整个 case 的墙钟时延 |
 
-`driverMs` 和 `scenarioMs` 有包含关系，不能相加。真实重试 backoff、受控 gate 和应用刷新包含在场景时延中，
-不能把这些时间称为纯模型回放 CPU 开销。
+`driverMs` 和 `scenarioMs` 有包含关系，不能相加。真实重试 backoff、受控 gate 和
+应用刷新包含在场景时延中，不能把这些时间称为纯模型回放 CPU 开销。
 
-可用 `PERI_E2E_REPLAY_FIXTURES`、`PERI_E2E_REPLAY_RESULTS`、`PERI_E2E_REPLAY_INVOCATION` 指定 fixture 与报告位置。
-代理协议和管理 CLI 另见 [录放核心](llm-replay/README.md)。
+## legacy 套件
+
+`npm test` / `npm run e2e[:l0|l1|l2|release]` 保留原 Peri TUI 分层用例，依赖
+`PERI_SOURCE_ROOT`、tmux 与在线 LLM judge。它们不进默认 CI，只在本地按需运行。

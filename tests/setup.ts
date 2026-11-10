@@ -3,7 +3,7 @@
  */
 import dotenv from "dotenv";
 
-dotenv.config({ override: true }); // 加载 e2e/.env，覆盖全局环境变量
+dotenv.config({ override: true }); // 加载本仓根 .env，覆盖全局环境变量
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 import { beforeAll, afterAll, beforeEach, afterEach } from "vitest";

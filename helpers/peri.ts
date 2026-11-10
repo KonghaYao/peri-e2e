@@ -14,10 +14,33 @@ import type { ScreenCapture, TerminalSize } from "tui-tester";
 
 // ---- 路径解析 ----
 
-// e2e/helpers/peri.ts → e2e/ → 项目根目录
+// helpers/peri.ts → 本仓根；PERI_SOURCE_ROOT 指向可选的 Peri 源码检出。
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export const PROJECT_ROOT = path.resolve(__dirname, "..", "..");
-export const DEV_SH = path.join(PROJECT_ROOT, "dev.sh");
+export const E2E_ROOT = path.resolve(__dirname, "..");
+
+function isPeriSourceRoot(root: string): boolean {
+  return fs.existsSync(path.join(root, "Cargo.toml")) && fs.existsSync(path.join(root, "dev.sh"));
+}
+
+const inferredPeriRoot = path.resolve(E2E_ROOT, "..");
+export const PERI_SOURCE_ROOT: string | undefined = process.env.PERI_SOURCE_ROOT
+  ? path.resolve(process.env.PERI_SOURCE_ROOT)
+  : isPeriSourceRoot(inferredPeriRoot) ? inferredPeriRoot : undefined;
+
+/** @deprecated 旧名；legacy 套件专用。新代码用 PERI_SOURCE_ROOT / requirePeriSourceRoot()。 */
+export const PROJECT_ROOT = PERI_SOURCE_ROOT;
+export const DEV_SH = PERI_SOURCE_ROOT ? path.join(PERI_SOURCE_ROOT, "dev.sh") : "";
+
+/** legacy 套件（dev.sh + tmux）没有 Peri 源码时显式失败，而不是猜一个目录。 */
+export function requirePeriSourceRoot(): string {
+  if (!PERI_SOURCE_ROOT) {
+    throw new Error(
+      "legacy E2E 套件需要 PERI_SOURCE_ROOT 指向 Peri 检出（需包含 Cargo.toml 与 dev.sh）；" +
+        "replay-v2 套件只需 PERI_BINARY。",
+    );
+  }
+  return PERI_SOURCE_ROOT;
+}
 
 // ---- 默认配置 ----
 
@@ -51,7 +74,7 @@ function ensureHomeShellCompat(home: string): void {
 }
 
 export function createE2EModelHome(): string {
-  const rootEnvPath = path.join(PROJECT_ROOT, ".env");
+  const rootEnvPath = path.join(E2E_ROOT, ".env");
   const rootEnvironment = fs.existsSync(rootEnvPath)
     ? dotenv.parse(fs.readFileSync(rootEnvPath)) : {};
   const apiKey = process.env.OPENAI_API_KEY || rootEnvironment.OPENAI_API_KEY;
@@ -144,7 +167,7 @@ function resolvePeriWorkdir(options: PeriLaunchOptions): string {
     registerTempDirForCleanup(dir);
     return dir;
   }
-  return PROJECT_ROOT;
+  return requirePeriSourceRoot();
 }
 
 function devShCommand(
@@ -152,8 +175,9 @@ function devShCommand(
   env: Record<string, string>,
   extraArgs: string[] = [],
 ): string[] {
+  const periRoot = requirePeriSourceRoot();
   const base =
-    path.resolve(periWorkdir) === path.resolve(PROJECT_ROOT)
+    path.resolve(periWorkdir) === path.resolve(periRoot)
       ? [DEV_SH]
       : [DEV_SH, `--cwd=${periWorkdir}`];
   const args = [...base, ...extraArgs];
@@ -171,15 +195,16 @@ function createPeriTester(
   env: Record<string, string>,
   extraArgs: string[] = [],
 ): TmuxTester {
+  const periRoot = requirePeriSourceRoot();
   const size = options.size ?? DEFAULT_SIZE;
   const periWorkdir = resolvePeriWorkdir(options);
   return new TmuxTester({
     command: devShCommand(periWorkdir, env, extraArgs),
     size,
-    cwd: PROJECT_ROOT,
+    cwd: periRoot,
     env,
     debug: options.debug ?? false,
-    snapshotDir: path.join(PROJECT_ROOT, "e2e", "recordings"),
+    snapshotDir: path.join(E2E_ROOT, "recordings"),
   });
 }
 

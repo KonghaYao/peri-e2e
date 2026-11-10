@@ -18,22 +18,25 @@ import {
 } from './replay-world-sources.mjs';
 import { compareRecordedWorldRefs, readRecordedWorldRefs } from './replay-world-recorded.mjs';
 import { replaceWorldDirectory } from './world-sync-swap.mjs';
+import { assertPeriRoot, resolvePeriRoot } from './peri-root.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '../..');
-const load = (relative) => import(pathToFileURL(path.join(root, relative)));
-const { sha256 } = await load('e2e/llm-replay/matcher.mjs');
-const { WORLD_FORMAT_VERSION, loadWorld } = await load('e2e/llm-replay/world-store.mjs');
+const e2eRoot = path.resolve(here, '..');
+const load = (relative) => import(pathToFileURL(path.join(e2eRoot, relative)));
+const { sha256 } = await load('llm-replay/matcher.mjs');
+const { WORLD_FORMAT_VERSION, loadWorld } = await load('llm-replay/world-store.mjs');
 
 const { values } = parseArgs({
   options: {
     check: { type: 'boolean', default: false },
     world: { type: 'string' },
+    'peri-root': { type: 'string' },
     json: { type: 'boolean', default: true },
   },
 });
+const periRoot = await assertPeriRoot(resolvePeriRoot(values['peri-root']));
 
-const worldDir = path.resolve(values.world ?? path.join(root, 'e2e/fixtures/replay-v2/world'));
+const worldDir = path.resolve(values.world ?? path.join(e2eRoot, 'fixtures/replay-v2/world'));
 const world = await loadWorld(worldDir);
 
 function requiresLeaf(id) {
@@ -41,10 +44,10 @@ function requiresLeaf(id) {
 }
 
 const source = {
-  skills: await readFile(path.join(root, SOURCE_FILES.skills), 'utf8'),
-  compactSummary: await readFile(path.join(root, SOURCE_FILES.compactSummary), 'utf8'),
-  agentDescription: await readFile(path.join(root, SOURCE_FILES.agentDescription), 'utf8'),
-  agentSchema: await readFile(path.join(root, SOURCE_FILES.agentSchema), 'utf8'),
+  skills: await readFile(path.join(periRoot, SOURCE_FILES.skills), 'utf8'),
+  compactSummary: await readFile(path.join(periRoot, SOURCE_FILES.compactSummary), 'utf8'),
+  agentDescription: await readFile(path.join(periRoot, SOURCE_FILES.agentDescription), 'utf8'),
+  agentSchema: await readFile(path.join(periRoot, SOURCE_FILES.agentSchema), 'utf8'),
 };
 
 requiresLeaf(STABLE_LEAVES.skills);

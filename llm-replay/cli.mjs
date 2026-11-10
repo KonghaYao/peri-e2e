@@ -7,9 +7,9 @@ import { startReplayProxy } from './proxy.mjs';
 import { loadCassette } from './cassette.mjs';
 
 const usage = `用法：
-  node e2e/llm-replay/cli.mjs record --cassette DIR --run RUN [--port 0]
-  node e2e/llm-replay/cli.mjs replay --cassette DIR --run RUN [--timing fast|recorded]
-  node e2e/llm-replay/cli.mjs verify --cassette DIR
+  node llm-replay/cli.mjs record --cassette DIR --run RUN [--port 0]
+  node llm-replay/cli.mjs replay --cassette DIR --run RUN [--timing fast|recorded]
+  node llm-replay/cli.mjs verify --cassette DIR
 
 record 可重复给 --upstream LOGICAL_ORIGIN=TRANSPORT_ORIGIN，用本地 fixture 替换真实上游。
 --gates FILE 读取 [{identity:{owner,execution,call,attempt,purpose},afterBytes:N}] 控制门。

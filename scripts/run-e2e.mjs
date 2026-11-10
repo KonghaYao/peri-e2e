@@ -11,7 +11,7 @@
  * - 收集测试数据：vitest JSON 结果 + 录制索引（judge checks 明细）
  * - 输出：终端汇总 + Markdown 报告 + summary.json，反映具体失败点
  *
- * 用法（在 e2e/ 目录下）：
+ * 用法（在本仓根目录下）：
  *   node scripts/run-e2e.mjs                          # 交互式选择
  *   node scripts/run-e2e.mjs --tier release          # 发版全量（推荐，含 flake 门禁）
  *   node scripts/run-e2e.mjs --file tests/smoke/basic-question.test.ts --serial --retry 0

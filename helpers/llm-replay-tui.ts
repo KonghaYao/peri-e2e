@@ -1,4 +1,5 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
+import { accessSync, constants as fsConstants, existsSync } from "node:fs";
 import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -8,9 +9,35 @@ import headless from "@xterm/headless";
 import type { Terminal } from "@xterm/headless";
 import { startStdioAcpFixture } from "./stdio-acp-fixture.js";
 
-const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-export const REPLAY_BINARY = process.env.PERI_E2E_BINARY ?? path.join(projectRoot, "target/debug/peri");
+const E2E_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const periSourceRoot = process.env.PERI_SOURCE_ROOT ? path.resolve(process.env.PERI_SOURCE_ROOT) : undefined;
+
+/** 二进制优先级：PERI_BINARY → PERI_E2E_BINARY（兼容旧名）→ PERI_SOURCE_ROOT/target/debug/peri。 */
+function resolveReplayBinary(): string {
+  for (const name of ["PERI_BINARY", "PERI_E2E_BINARY"] as const) {
+    const value = process.env[name];
+    if (value) return path.resolve(value);
+  }
+  return path.join(periSourceRoot ?? E2E_ROOT, "target/debug/peri");
+}
+
+export const REPLAY_BINARY = resolveReplayBinary();
 export const FIXTURE_MODEL_ORIGIN = "http://fixture-model.test";
+
+/** 启动前显式校验，避免把“找不到二进制”误报成场景超时。 */
+export function assertReplayBinary(binary = REPLAY_BINARY): string {
+  if (!existsSync(binary)) {
+    throw new Error(
+      `Peri 二进制不存在：${binary}。设置 PERI_BINARY 为已构建的 peri，或设置 PERI_SOURCE_ROOT 使其指向 target/debug/peri。`,
+    );
+  }
+  try {
+    accessSync(binary, fsConstants.X_OK);
+  } catch {
+    throw new Error(`Peri 二进制不可执行：${binary}`);
+  }
+  return binary;
+}
 
 export interface ReplayWorld {
   root: string;
@@ -66,7 +93,7 @@ export function replayEnvironment(world: ReplayWorld, route?: { proxy: string; r
 
 export async function prepareReplaySessions(world: ReplayWorld, count = 1): Promise<string[]> {
   const peer = await startStdioAcpFixture({
-    binary: REPLAY_BINARY, cwd: world.work, home: world.home, env: replayEnvironment(world),
+    binary: assertReplayBinary(), cwd: world.work, home: world.home, env: replayEnvironment(world),
     onNotification() {}, onServerRequest() {},
     handleServerRequest(request) { return { error: { code: -32601, message: `unexpected preparation request: ${request.method}` } }; },
   });
@@ -120,9 +147,10 @@ export class ReplayTui {
   private readonly resizeReplies = new Map<number, { resolve(sequence: number): void; reject(error: Error): void; timer: ReturnType<typeof setTimeout> }>();
 
   private constructor(readonly world: ReplayWorld, readonly label: string, options: ReplayTuiOptions) {
+    assertReplayBinary();
     const cols = options.cols ?? 120, rows = options.rows ?? 40;
     this.terminal = new headless.Terminal({ cols, rows, scrollback: 5000, allowProposedApi: true });
-    this.child = spawn(process.env.PERI_E2E_PYTHON ?? "python3", [path.join(projectRoot, "e2e/helpers/llm-replay-pty.py")], {
+    this.child = spawn(process.env.PERI_E2E_PYTHON ?? "python3", [path.join(E2E_ROOT, "helpers/llm-replay-pty.py")], {
       cwd: world.work, stdio: ["pipe", "pipe", "pipe"],
       env: { PATH: process.env.PATH ?? "/usr/bin:/bin", LANG: "C.UTF-8" },
     });

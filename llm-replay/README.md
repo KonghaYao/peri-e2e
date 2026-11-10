@@ -4,21 +4,18 @@
 
 ## 快速运行
 
-先在仓库根目录构建真实 Peri：
+`tui-tester` 已 vendored 并作为 npm workspace 安装，无需 submodule。准备一个已构建的 Peri 二进制：
 
 ```bash
-bash scripts/cargo-rmcp-patched.sh build --locked -p peri-tui --bin peri
-git submodule update --init e2e/tui-tester
-cd e2e
 npm ci
 npm run e2e:replay:unit
 npm run e2e:replay:check
 npx tsc --noEmit --project tsconfig.replay-v2.json
 npm run e2e:replay:verify
-npm run e2e:replay
+PERI_BINARY=/path/to/peri npm run e2e:replay
 ```
 
-需要 Node、Python 3 与可用的 PTY。`PERI_E2E_BINARY` 可以指定已经构建的 Peri 二进制。默认 `e2e:replay` 只读取已封存的 v2 fixture，不启动模型上游，不补录缺失请求，不回退在线模型。显式更新 fixture 使用 `npm run e2e:replay:record`；CI 拒绝 record 模式。`npm run e2e:replay:smoke` 保留旧版同进程录制后重放的实验用例。
+需要 Node、Python 3 与可用的 PTY。`PERI_BINARY` 指定已构建的 Peri 二进制（兼容旧名 `PERI_E2E_BINARY`）；未设置时使用 `PERI_SOURCE_ROOT/target/debug/peri`。默认 `e2e:replay` 只读取已封存的 v2 fixture，不启动模型上游，不补录缺失请求，不回退在线模型。显式更新 fixture 使用 `npm run e2e:replay:record`；CI 拒绝 record 模式。`npm run e2e:replay:smoke` 保留旧版同进程录制后重放的实验用例。`world:sync` / `world-check` / `migrate` 需要 `PERI_SOURCE_ROOT`（或 `--peri-root`）指向 Peri 源码。
 
 v2 业务目录包含 30 个固定场景：S01–S06 流式与协议，T01–T06 工具与环境，A01–A06 子 Agent，U01–U09 会话与交互，I01–I03 并发隔离。完整目录见 [fixture 说明](../fixtures/replay-v2/README.md)。这些场景通过本地合成模型响应驱动真实模型适配器、ACP、Agent、工具与 TUI；录制来源标记为 `local-fixture-model`、`realLlm: false`，不代表线上模型质量或可用性验证。实际通过情况、耗时和证据以对应 invocation 的报告为准。
 
@@ -96,13 +93,13 @@ fast 模式去掉录制延时，recorded 模式按观察时间调度，实际时
 ## 独立代理 CLI
 
 ```bash
-node e2e/llm-replay/cli.mjs record --cassette ./case-tape --run recording --upstream http://fixture-model.test=http://127.0.0.1:9000
-node e2e/llm-replay/cli.mjs verify --cassette ./case-tape
-node e2e/llm-replay/cli.mjs replay --cassette ./case-tape --run replaying
+node llm-replay/cli.mjs record --cassette ./case-tape --run recording --upstream http://fixture-model.test=http://127.0.0.1:9000
+node llm-replay/cli.mjs verify --cassette ./case-tape
+node llm-replay/cli.mjs replay --cassette ./case-tape --run replaying
 ```
 
 以上 record 示例要求调用方已启动 9000 端口的本地模型源。`--upstream` 只在 record 使用；replay 不接受上游配置。可选 `--port`、`--timing fast|recorded`、`--gates <JSON文件>`。`verify` 校验已有封存及 body 完整性，不执行 Peri 业务。
 
 CLI 输出代理地址、独立管理地址及控制 token。管理请求携带 `x-peri-replay-admin`：`GET /status`，`POST /bind`、`/release`、`/complete`、`/seal`。身份绑定仍是显式步骤；CLI 不会根据请求到达自动推断两个运行中的会话关系。CLI 是原始代理入口，不负责创建 world、typed 请求绑定或业务断言；复用 v2 Peri 用例使用场景 runner 及持久 fixture。
 
-`PERI_E2E_REPLAY_FIXTURES` 可指定 fixture 根目录，`PERI_E2E_REPLAY_RESULTS` 可指定报告根目录，`PERI_E2E_REPLAY_INVOCATION` 可命名一次运行。默认报告位于 `e2e/results/replay-v2/<invocation>/<id>/`，包含准备、驱动、清理耗时，以及请求、原始 PTY、可见屏幕、ACP/代理状态和最终文件证据。I02 的第二个并行 run 在同一场景证据目录下单独保存。
+`PERI_E2E_REPLAY_FIXTURES` 可指定 fixture 根目录，`PERI_E2E_REPLAY_RESULTS` 可指定报告根目录，`PERI_E2E_REPLAY_INVOCATION` 可命名一次运行。默认报告位于 `results/replay-v2/<invocation>/<id>/`，包含准备、驱动、清理耗时，以及请求、原始 PTY、可见屏幕、ACP/代理状态和最终文件证据。I02 的第二个并行 run 在同一场景证据目录下单独保存。

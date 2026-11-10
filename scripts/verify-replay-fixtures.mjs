@@ -5,11 +5,11 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '../..');
-const fixtures = path.join(root, 'e2e/fixtures/replay-v2');
-const load = (relative) => import(pathToFileURL(path.join(root, relative)));
-const { loadCassette } = await load('e2e/llm-replay/cassette.mjs');
-const { loadWorld } = await load('e2e/llm-replay/world-store.mjs');
+const e2eRoot = path.resolve(here, '..');
+const fixtures = path.join(e2eRoot, 'fixtures/replay-v2');
+const load = (relative) => import(pathToFileURL(path.join(e2eRoot, relative)));
+const { loadCassette } = await load('llm-replay/cassette.mjs');
+const { loadWorld } = await load('llm-replay/world-store.mjs');
 
 const world = await loadWorld(path.join(fixtures, 'world'));
 const ids = (await readdir(fixtures, { withFileTypes: true }))
