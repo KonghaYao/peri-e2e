@@ -14,7 +14,7 @@ import { buildPeriForE2e } from "../../helpers/build.js";
  *   后不启动子代理，拒绝理由以 error tool_result 回传父会话。
  *
  * 夹具（隔离 HOME/cwd、假 model server、fixture MCP）见
- * `e2e/helpers/workspace-mcp-fixture.ts`；本文件只覆盖 TUI 通道。
+ * `helpers/workspace-mcp-fixture.ts`；本文件只覆盖 TUI 通道。
  */
 import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import { TmuxTester } from "tui-tester";

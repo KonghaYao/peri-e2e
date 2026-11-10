@@ -70,10 +70,10 @@ export function startModelServer(
     if (isMain) mainCount += 1;
     requests.push({ index: requests.length + 1, isMain, body });
     response.writeHead(200, { "content-type": "text/event-stream" });
-    const head = [
+    const head: Array<[string, object]> = [
       ["message_start", { type: "message_start", message: { id: `w6-${requests.length}`, type: "message", role: "assistant", model: body?.model ?? "w6-model", content: [], stop_reason: null, stop_sequence: null, usage: { input_tokens: 10, output_tokens: 0 } } }],
     ];
-    const tail = (stopReason: string) => [
+    const tail = (stopReason: string): Array<[string, object]> => [
       ["message_delta", { type: "message_delta", delta: { stop_reason: stopReason, stop_sequence: null }, usage: { output_tokens: 5 } }],
       ["message_stop", { type: "message_stop" }],
     ];

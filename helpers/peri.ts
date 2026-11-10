@@ -27,8 +27,11 @@ export const PERI_SOURCE_ROOT: string | undefined = process.env.PERI_SOURCE_ROOT
   ? path.resolve(process.env.PERI_SOURCE_ROOT)
   : isPeriSourceRoot(inferredPeriRoot) ? inferredPeriRoot : undefined;
 
-/** @deprecated 旧名；legacy 套件专用。新代码用 PERI_SOURCE_ROOT / requirePeriSourceRoot()。 */
-export const PROJECT_ROOT = PERI_SOURCE_ROOT;
+/**
+ * @deprecated 旧名；legacy 套件专用。
+ * 无源码根时回退到 E2E_ROOT，但 vitest legacy 套件已在无源码根时跳过，不会用它驱动 Peri。
+ */
+export const PROJECT_ROOT = PERI_SOURCE_ROOT ?? E2E_ROOT;
 export const DEV_SH = PERI_SOURCE_ROOT ? path.join(PERI_SOURCE_ROOT, "dev.sh") : "";
 
 /** legacy 套件（dev.sh + tmux）没有 Peri 源码时显式失败，而不是猜一个目录。 */

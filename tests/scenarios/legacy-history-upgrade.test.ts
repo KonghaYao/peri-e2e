@@ -7,7 +7,7 @@ import { randomUUID } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import { execFileSync } from "node:child_process";
 import { TmuxTester } from "tui-tester";
-import { PROJECT_ROOT, sendPrompt } from "../../helpers/peri.js";
+import { E2E_ROOT, PROJECT_ROOT, sendPrompt } from "../../helpers/peri.js";
 import { buildPeriForE2e } from "../../helpers/build.js";
 
 /**
@@ -113,7 +113,7 @@ describe("legacy history upgrade", () => {
 
   async function captureLayout(ui: TmuxTester, name: string) {
     const capture = await ui.captureScreen();
-    const output = path.join(process.env.E2E_RECORDINGS_DIR ?? path.join(PROJECT_ROOT, "e2e/recordings"), "history-panel-ui");
+    const output = path.join(process.env.E2E_RECORDINGS_DIR ?? path.join(E2E_ROOT, "recordings"), "history-panel-ui");
     fs.mkdirSync(output, { recursive: true });
     fs.writeFileSync(path.join(output, `${name}.json`), JSON.stringify(capture, null, 2));
     return capture;

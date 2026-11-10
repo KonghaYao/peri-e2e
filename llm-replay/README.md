@@ -53,7 +53,7 @@ I01 验证相同输入的双会话反转请求与响应顺序后，各自恢复�
 
 ## world 快照
 
-cassette `formatVersion` 为 2 时，system prompt 与 tool schema 从请求正文抽到共享 `e2e/fixtures/replay-v2/world/`，请求只保留 stub（其余字节原样）。加载顺序为 cassette seal → manifest → stub hash → world seal → 每条请求 raw/canonical hash → response hash。
+cassette `formatVersion` 为 2 时，system prompt 与 tool schema 从请求正文抽到共享 `fixtures/replay-v2/world/`，请求只保留 stub（其余字节原样）。加载顺序为 cassette seal → manifest → stub hash → world seal → 每条请求 raw/canonical hash → response hash。
 
 高频段有稳定 leaf：`sys.skills`、`sys.compact.summary`、`tools.Agent.*`（description + `send_only`）。`npm run e2e:replay:world-sync` 只在源文件变化时改写这些 leaf 与 `world/seal.json`；`npm run e2e:replay:world-check` 用于确认是否需要显式同步。block1 拆成 prefix + skills + tail，tools 按工具对象拆 leaf，因此 skills 变化不会改写 99 个请求或 30 个 cassette seal。未映射段（如 T06 hook prompt）保留内容寻址 leaf 并在同步报告中列出。
 

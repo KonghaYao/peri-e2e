@@ -29,8 +29,8 @@ import { buildPeriForE2e } from "../../helpers/build.js";
 import { readDelegationMetrics } from "../../helpers/delegation-metrics.js";
 import {
   createE2EModelHome,
+  E2E_ROOT,
   launchPeri,
-  PROJECT_ROOT,
   sendPrompt,
   waitForStableScreen,
 } from "../../helpers/peri.js";
@@ -39,7 +39,7 @@ import type { TmuxTester } from "tui-tester";
 const execFileAsync = promisify(execFile);
 const ENABLED = process.env.PERI_E2E_AUTONOMY === "1";
 const MIN_DELEGATIONS = Number(process.env.PERI_E2E_AUTONOMY_MIN_DELEGATIONS ?? "1");
-const FIXTURE = path.join(PROJECT_ROOT, "e2e", "fixtures", "autonomy-delegation");
+const FIXTURE = path.join(E2E_ROOT, "fixtures", "autonomy-delegation");
 const ACCEPTANCE_TIMEOUT_MS = 10 * 60_000;
 const describeAutonomy = describe.skipIf(!ENABLED);
 
@@ -146,7 +146,7 @@ describeAutonomy("subagent: autonomous delegation (real model, gated)", () => {
         ...metrics,
       };
 
-      const resultsDir = path.join(PROJECT_ROOT, "e2e", "results", "autonomy");
+      const resultsDir = path.join(E2E_ROOT, "results", "autonomy");
       await mkdir(resultsDir, { recursive: true });
       const stamp = new Date().toISOString().replace(/[:.]/g, "-");
       await writeFile(

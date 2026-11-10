@@ -3,7 +3,7 @@ import { buildPeriForE2e } from "../../helpers/build.js";
  * W6 A 线：真实二进制链路验收（print / stdio ACP）。
  *
  * 驱动 `target/debug/peri`（生产装配路径），本地假 model server（127.0.0.1）
- * 捕获模型请求，外部 fixture MCP server（stdio，`e2e/fixtures/mcp-skill-fixture.mjs`）
+ * 捕获模型请求，外部 fixture MCP server（stdio，`fixtures/mcp-skill-fixture.mjs`）
  * 记录收到的 JSON-RPC（`#recv` 行即 wire 事实）。
  *
  * 覆盖（计划 §8.2 必测矩阵的可观测子集）：
@@ -21,7 +21,7 @@ import { buildPeriForE2e } from "../../helpers/build.js";
  *   注入 is_error 回执（不静默启动不完整配置），父会话不因缺口中止。
  *
  * 夹具（makeWorld / 假 model server / fixture wire 读取）在
- * `e2e/helpers/workspace-mcp-fixture.ts`；TUI 面见同目录
+ * `helpers/workspace-mcp-fixture.ts`；TUI 面见同目录
  * `workspace-mcp-resources-tui.test.ts`。
  */
 import { afterEach, beforeAll, describe, expect, it } from "vitest";
