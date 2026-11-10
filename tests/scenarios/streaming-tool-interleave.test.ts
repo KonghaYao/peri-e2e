@@ -7,13 +7,14 @@
  * prompt 来源: prompts/ai-text-in-streaming.md
  */
 import { describe, it, expect, afterEach } from "vitest";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
   launchPeri,
   sendPrompt,
   takePeriSnapshot,
   waitForStableScreen,
-  PROJECT_ROOT,
+  E2E_ROOT,
 } from "../../helpers/peri.js";
 import { judge } from "../../helpers/judge.js";
 import type { TmuxTester } from "tui-tester";
@@ -43,6 +44,30 @@ function hasExpandedReasoning(text: string): boolean {
   );
 }
 
+/** 完成态 Read 卡头行：`✓ Read <path> — N lines`。 */
+function completedReadHeaders(text: string): Array<{ path: string; lines: number; index: number }> {
+  return [...text.matchAll(/✓\s+Read\s+(.+?)\s+\u2014\s+(\d+) lines/g)].map((match) => ({
+    path: match[1]!,
+    lines: Number(match[2]),
+    index: match.index!,
+  }));
+}
+
+/**
+ * Read 给每行加 `{:>6}\t` 前缀，ACP 再追加一行 `[Execution status: completed]`，
+ * 因此完整读取时卡片行数 = 文件按 \n 切分的条目数 + 1。选小于输出上限的文件；
+ * 加行号后接近 5,000 字节会被截断，卡片行数不再等于完整读取行数。
+ */
+function fullReadLineCount(file: string): number {
+  const lines = readFileSync(file, "utf8").split("\n");
+  const numberedBytes = lines.reduce((sum, line) => sum + 7 + Buffer.byteLength(line, "utf8"), 0)
+    + Math.max(0, lines.length - 1);
+  if (numberedBytes > 4_900) {
+    throw new Error(`${file} 加行号后约 ${numberedBytes} 字节，超过 Read 的 5,000 字节上限；请换更小的文件`);
+  }
+  return lines.length + 1;
+}
+
 describe("scenarios: streaming + tool interleave", () => {
   let tester: TmuxTester;
 
@@ -58,36 +83,60 @@ describe("scenarios: streaming + tool interleave", () => {
     async () => {
       tester = await launchPeri();
 
-      const readmePath = join(PROJECT_ROOT, "README.md");
-      const packagePath = join(PROJECT_ROOT, "e2e", "package.json");
+      const readTargets = [
+        join(E2E_ROOT, "package.json"),
+        join(E2E_ROOT, "vitest.replay-v2.config.ts"),
+      ];
+      const expectedReads = readTargets.map((file) => ({ file, lines: fullReadLineCount(file) }));
 
       // 记录提交前的屏幕作为基准
       const base = await tester.getScreenText();
 
-      // 隔离 HOME 时 cwd 为空临时目录，必须用绝对路径否则 Read 找不到文件
+      // 隔离 HOME 时 cwd 为空临时目录，必须用绝对路径否则 Read 找不到文件。
       await sendPrompt(
         tester,
-        `请严格按顺序：先说 1，然后调用 Read 读取 ${readmePath}，再说 2，再调用 Read 读取 ${packagePath}。必须至少完成 2 次 Read 工具调用，不要只解释。`,
+        `请严格按顺序：先说 1，然后调用 Read 读取 ${readTargets[0]}，再说 2，再调用 Read 读取 ${readTargets[1]}。必须至少完成 2 次 Read 工具调用，不要只解释。`,
       );
 
       await tester.waitFor(
-        (screen) => (screen.match(/✓\s+Read\b/g) ?? []).length >= 1,
+        (screen) => (screen.match(/✓\s+Read\b/g) ?? []).length >= 2,
         {
           timeout: 240_000,
           interval: 1000,
-          message: "等待至少一次 Read 工具完成",
+          message: "等待两次 Read 工具完成",
         },
       );
 
       await waitForStableScreen(tester, 180_000, base);
 
+      // 对话可能超出单屏：分别取顶部与底部，按目标文件在屏幕中的首次出现核对。
+      await tester.sendKey("home", { ctrl: true });
+      await tester.sleep(400);
       const capture = await takePeriSnapshot(tester, "streaming-tool-interleave");
+      await tester.sendKey("end", { ctrl: true });
+      await tester.sleep(400);
+      const bottomText = await tester.getScreenText();
+      const screens = capture.text === bottomText ? [capture.text] : [capture.text, bottomText];
 
       // 基本断言
       expect(capture.text.length).toBeGreaterThan(200);
-      const completedReadCards = capture.text.match(/✓\s+Read\b/g) ?? [];
-      expect(completedReadCards.length).toBeGreaterThanOrEqual(1);
       expect(capture.text).toMatch(/\b(?:[1-9]\d?|100)% ctx\b/);
+
+      // 两次读取必须实际成功，且卡片行数与完整文件内容一致、屏幕顺序与 prompt 一致。
+      const located = expectedReads.map((target) => {
+        for (const [screenIndex, screen] of screens.entries()) {
+          const matches = completedReadHeaders(screen).filter((header) => header.path === target.file);
+          expect(matches.length, `Read 卡片应恰好读取一次 ${target.file}`).toBeLessThanOrEqual(1);
+          if (matches.length === 1) {
+            expect(matches[0]!.lines, `${target.file} 的卡片行数应等于完整读取行数`).toBe(target.lines);
+            return { ...matches[0]!, screenIndex };
+          }
+        }
+        throw new Error(`未找到 ${target.file} 的完成态 Read 卡片`);
+      });
+      const inScreenOrder = located[0]!.screenIndex < located[1]!.screenIndex
+        || (located[0]!.screenIndex === located[1]!.screenIndex && located[0]!.index < located[1]!.index);
+      expect(inScreenOrder, "两次 Read 的屏幕顺序应与 prompt 一致").toBe(true);
 
       // 数量和状态栏格式由上面的确定性文本断言负责；Judge 只检查无法用
       // 字符串可靠表达的布局质量，避免把多个 Read 卡片或新版 `NN% ctx`
@@ -114,7 +163,7 @@ describe("scenarios: streaming + tool interleave", () => {
       // 第一轮：产生 reasoning + 简短回答
       await sendPrompt(
         tester,
-        `请先思考（reasoning）再回答：读取 ${join(PROJECT_ROOT, "README.md")} 的第一行，然后用一句话回答你读到了什么。`,
+        `请先思考（reasoning）再回答：读取 ${join(E2E_ROOT, "README.md")} 的第一行，然后用一句话回答你读到了什么。`,
       );
       // stable screen 可能命中工具等待窗口；先等主 turn footer，确保 completed
       // folding pass 已发生，再判断 reasoning 的默认折叠态。
