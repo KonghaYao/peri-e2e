@@ -45,6 +45,8 @@ export interface ReplayScenarioDefinition {
   sessionNames?: string[];
   configVersion?: string;
   logicalOrigin?: string;
+  /** 慢场景的真实上游等待；默认代理 30 秒期限，B10 需要覆盖 120 秒生产交接。 */
+  requestTimeoutMs?: number;
   configure?(world: ReplayWorld): Promise<void> | void;
   upstream?(world: ReplayWorld): Promise<{ url: string; close(): Promise<unknown> | unknown; [key: string]: any }>;
   runOptions?(context: ReplayScenarioContext): Promise<Record<string, any>> | Record<string, any>;
@@ -148,6 +150,9 @@ export async function runReplayScenario(definition: ReplayScenarioDefinition): P
   const fixtureDirectory = path.join(fixtureRoot, definition.id);
   const reportRoot = path.resolve(process.env.PERI_E2E_REPLAY_RESULTS ?? path.join(e2eRoot, "results/replay-v2", invocationId));
   const world = await createReplayWorld();
+  // 隔离环境必须在进程启动前存在；不放进 createReplayWorld 的文本，避免改变 fixture 指纹。
+  await Promise.all(["tmp", "state", "runtime"].map((name) =>
+    mkdir(path.join(world.home, name), { recursive: true, mode: 0o700 })));
   world.evidence = path.join(reportRoot, definition.id);
   await mkdir(world.evidence, { recursive: true });
   const report: ReplayScenarioReport = {
@@ -166,7 +171,7 @@ export async function runReplayScenario(definition: ReplayScenarioDefinition): P
   const terminals: ReplayTui[] = [];
   try {
     const { startReplayProxy } = await import(proxyModule);
-    const { createRequestBindingAdapter } = await import(bindingModule);
+    const { createRequestBindingAdapter, mergeBindingRules } = await import(bindingModule);
     let manifest: ScenarioManifest;
     if (mode === "record") {
       await mkdir(fixtureRoot, { recursive: true });
@@ -216,7 +221,7 @@ export async function runReplayScenario(definition: ReplayScenarioDefinition): P
     }
     const cassetteDir = path.join(staging ?? fixtureDirectory, "cassette");
     const proxyBootStarted = performance.now();
-    proxy = await startReplayProxy({ mode, cassetteDir,
+    proxy = await startReplayProxy({ mode, cassetteDir, requestTimeoutMs: definition.requestTimeoutMs,
       ...(mode === "record" ? { upstreams: [{ logicalOrigin: definition.logicalOrigin ?? FIXTURE_MODEL_ORIGIN, transportOrigin: upstream.url }] } : {}),
       provenance: { ...manifest.provenance, scenario: definition.id },
     });
@@ -247,7 +252,8 @@ export async function runReplayScenario(definition: ReplayScenarioDefinition): P
       resolveContext: supplied.resolveContext ?? identity.resolve,
       bindings: bindings.registry,
       bindingOwnerFor: bindings.bindingOwnerFor,
-      requestRules: (call: any) => [...bindings.requestRules(call), ...(typeof supplied.requestRules === "function" ? supplied.requestRules(call) : supplied.requestRules ?? [])],
+      requestRules: (call: any) => mergeBindingRules(bindings.requestRules(call),
+        typeof supplied.requestRules === "function" ? supplied.requestRules(call) : supplied.requestRules ?? []),
       portableResponses: mode === "replay" ? manifest.portableResponses : undefined,
       onRequest: async (observation: ReplayRequestObservation) => {
         syncOwners();

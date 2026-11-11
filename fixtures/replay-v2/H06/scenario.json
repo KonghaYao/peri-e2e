@@ -1,0 +1,206 @@
+{
+  "version": 2,
+  "id": "H06",
+  "title": "同会话并行 Shell 反序完成，任务身份、真实 Read 和通知不串线",
+  "provenance": {
+    "source": "local-fixture-model",
+    "realLlm": false
+  },
+  "sessionNames": [
+    "root"
+  ],
+  "seed": {
+    "directories": [
+      "home",
+      "home/.peri",
+      "home/tmp",
+      "work"
+    ],
+    "files": [
+      {
+        "path": "home/.peri/settings.json",
+        "sha256": "bf0303d1d85e9be8a95ae762af78670b6f8e75a8b649cc60ccae34f043272ff9",
+        "size": 585,
+        "mode": 384
+      }
+    ]
+  },
+  "recordedWorld": {
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-423bvb",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-423bvb/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-423bvb/work"
+  },
+  "recordedSessionIds": {
+    "root": "01a1c85c-2425-7113-94ba-31fb69fc0708"
+  },
+  "configurationFingerprint": "fdb468c32bb4911850fcda1d2f74355f19ce768c7ff9c7754011f6bb9514f1c3",
+  "bindings": [
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "root",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-423bvb",
+      "anchor": "isolated scenario root"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-423bvb/home",
+      "anchor": "isolated scenario home"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-423bvb/work",
+      "anchor": "isolated scenario work"
+    },
+    {
+      "owner": "world",
+      "kind": "date",
+      "alias": "today",
+      "recorded": "2026-11-11",
+      "anchor": "ambient UTC date in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "platform",
+      "alias": "platform",
+      "recorded": "macos",
+      "anchor": "ambient OS platform in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "os_version",
+      "alias": "os_version",
+      "recorded": "macOS 26.5.1",
+      "anchor": "ambient OS version in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "session",
+      "alias": "root",
+      "recorded": "01a1c85c-2425-7113-94ba-31fb69fc0708",
+      "anchor": "ACP session/new result"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "shell-a",
+      "recorded": "mcp-01a1c85c-2576-7dc2-9dc5-987eacaf4375",
+      "anchor": "Bash tool receipt H06-a"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "shell-b",
+      "recorded": "mcp-01a1c85c-2577-7ac0-9f67-238b561a5986",
+      "anchor": "Bash tool receipt H06-b"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "shell-b-remote",
+      "recorded": "shell-01a1c85c-2575-7e63-81a8-ad39e2fc7d28",
+      "anchor": "MCP remote task linked to Bash tool H06-b"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "shell-b-stdout",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-423bvb/home/tmp/peri-bg-shell-01a1c85c-2575-7e63-81a8-ad39e2fc7d28-b75bfa4e-8b87-45ab-9029-7b9dc3b04771-stdout.log",
+      "anchor": "terminal stdout reference for H06-b"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "shell-b-stderr",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-423bvb/home/tmp/peri-bg-shell-01a1c85c-2575-7e63-81a8-ad39e2fc7d28-dfcfbe64-5af8-4101-a447-d96a06a3d899-stderr.log",
+      "anchor": "terminal stderr reference for H06-b"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "shell-a-remote",
+      "recorded": "shell-01a1c85c-2573-71f3-9883-4e4dbcfb3a33",
+      "anchor": "MCP remote task linked to Bash tool H06-a"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "shell-a-stdout",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-423bvb/home/tmp/peri-bg-shell-01a1c85c-2573-71f3-9883-4e4dbcfb3a33-510f2a4c-28f4-4f53-b292-beebd4f1bb05-stdout.log",
+      "anchor": "terminal stdout reference for H06-a"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "shell-a-stderr",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-423bvb/home/tmp/peri-bg-shell-01a1c85c-2573-71f3-9883-4e4dbcfb3a33-0f149e76-8ca7-4ce4-910b-30d5b98b5a2f-stderr.log",
+      "anchor": "terminal stderr reference for H06-a"
+    }
+  ],
+  "portableResponses": [
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:3",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "H06-read-b",
+          "rules": [
+            {
+              "path": "/file_path",
+              "kind": "path",
+              "alias": "shell-b-stdout",
+              "mode": "path-prefix"
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "ff21202ea035931ccd4946f422ea981f54455c2b152057b114f944919596b70c"
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:5",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "H06-read-a",
+          "rules": [
+            {
+              "path": "/file_path",
+              "kind": "path",
+              "alias": "shell-a-stdout",
+              "mode": "path-prefix"
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "5a450ca2309b4632695ce624ba16e33659fa82e297202aa042a443608321ecd3"
+    }
+  ]
+}

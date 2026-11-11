@@ -1,0 +1,119 @@
+{
+  "version": 2,
+  "id": "H08",
+  "title": "下一用户回合进行中时 Shell 完成，通知恰好一次合入活动执行",
+  "provenance": {
+    "source": "local-fixture-model",
+    "realLlm": false
+  },
+  "sessionNames": [
+    "root"
+  ],
+  "seed": {
+    "directories": [
+      "home",
+      "home/.peri",
+      "home/runtime",
+      "home/state",
+      "home/tmp",
+      "work"
+    ],
+    "files": [
+      {
+        "path": "home/.peri/settings.json",
+        "sha256": "bf0303d1d85e9be8a95ae762af78670b6f8e75a8b649cc60ccae34f043272ff9",
+        "size": 585,
+        "mode": 384
+      }
+    ]
+  },
+  "recordedWorld": {
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-PYWvAN",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-PYWvAN/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-PYWvAN/work"
+  },
+  "recordedSessionIds": {
+    "root": "01a1c868-3b6a-7c03-8c9f-4c2d3c141f8c"
+  },
+  "configurationFingerprint": "df187f98305fa3062978e45f9894f9eb2f155bc72a91002ff8c9203cefb8e1a6",
+  "bindings": [
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "root",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-PYWvAN",
+      "anchor": "isolated scenario root"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-PYWvAN/home",
+      "anchor": "isolated scenario home"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-PYWvAN/work",
+      "anchor": "isolated scenario work"
+    },
+    {
+      "owner": "world",
+      "kind": "date",
+      "alias": "today",
+      "recorded": "2026-11-11",
+      "anchor": "ambient UTC date in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "platform",
+      "alias": "platform",
+      "recorded": "macos",
+      "anchor": "ambient OS platform in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "os_version",
+      "alias": "os_version",
+      "recorded": "macOS 26.5.1",
+      "anchor": "ambient OS version in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "session",
+      "alias": "root",
+      "recorded": "01a1c868-3b6a-7c03-8c9f-4c2d3c141f8c",
+      "anchor": "ACP session/new result"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "shell-h08",
+      "recorded": "mcp-01a1c868-3bfa-7830-a15e-3692b1a61e49",
+      "anchor": "Bash tool receipt H08-background"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "shell-h08-remote",
+      "recorded": "shell-01a1c868-3bf7-7513-8daf-89e69da4133f",
+      "anchor": "MCP remote task linked to Bash tool H08-background"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "shell-h08-stdout",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-PYWvAN/home/tmp/peri-bg-shell-01a1c868-3bf7-7513-8daf-89e69da4133f-2e8ac84f-33ba-43d0-9514-c0bd6ddc117c-stdout.log",
+      "anchor": "terminal stdout reference for H08-background"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "shell-h08-stderr",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-PYWvAN/home/tmp/peri-bg-shell-01a1c868-3bf7-7513-8daf-89e69da4133f-285a94d1-2d21-4bcd-aa7c-8d5fb51d0b46-stderr.log",
+      "anchor": "terminal stderr reference for H08-background"
+    }
+  ],
+  "portableResponses": []
+}

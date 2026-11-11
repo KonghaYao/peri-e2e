@@ -5,7 +5,7 @@ pre-commit:
   parallel: true
   jobs:
     - name: replay-fixtures
-      glob: "{fixtures/**,helpers/**,llm-replay/**,scripts/**,tests/replay-v2/**,package.json,package-lock.json}"
+      glob: "{config/**,fixtures/**,helpers/**,llm-replay/**,scripts/**,tests/replay-v2/**,package.json,package-lock.json}"
       run: |
         if [ ! -d node_modules ]; then
           echo "[replay] node_modules 缺失；先运行 npm ci" >&2

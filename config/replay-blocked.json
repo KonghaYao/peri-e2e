@@ -1,0 +1,6 @@
+{
+  "H05": "固定 Peri pin 上 Tasks 面板取消后只收到通用 MCP 取消通知，缺少 cancelled 快照与 stdout/stderr 引用；保留用例于 tests/replay-v2/H05.blocked.ts。",
+  "H12": "同上，ACP session/cancel 的终态提醒丢失 shell 取消结果；保留用例于 tests/replay-v2/H12.blocked.ts。",
+  "M10": "standalone monitor MCP 在正常 transport EOF 时以 “Workspace shell task cleanup incomplete” 退出 1；保留用例于 tests/replay-v2/monitor-wire.blocked.ts。",
+  "M11": "同 M10，正常 EOF 无法优雅退出，旧 task ID 不复活断言未获通过；保留用例于 tests/replay-v2/monitor-wire.blocked.ts。"
+}
