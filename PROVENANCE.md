@@ -26,7 +26,7 @@ The import excludes `.env`, `results/`, `recordings/`, `node_modules/`, and the
   `world:sync` / `world-check` require an explicit `PERI_SOURCE_ROOT`.
 - The catalog now has 66 scenarios: the original 30 plus B01–B12, H01–H12 and
   M01–M12 migrated from `legacy/replay-v3` (`19dd2d33166b4fe9abaf6556972879f58bed9d78`).
-  62 have world-v2 cassettes and pass real replay; H05, H12, M10 and M11 are
+  61 have world-v2 cassettes and pass real replay; B02, H05, H12, M10 and M11 are
   blocked by pinned Peri behavior and kept as `*.blocked.ts` cases outside the
   default replay (listed in `config/replay-blocked.json`).
   `.github/peri-rev` pins the product commit used by this repo's CI to

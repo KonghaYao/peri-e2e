@@ -42,12 +42,12 @@
 来源：`legacy/replay-v3`（commit `19dd2d33166b4fe9abaf6556972879f58bed9d78`，Peri PR #365 导出）。
 测试位于 `tests/replay-v2/`，复用当前 world v2、typed identity 与严格请求匹配；除阻塞项外均按 pin `4ba78d7e15f6040e5fa3192492987b17c0d0e2e6` 重录。
 
-### 异步 Agent（B01–B12，12/12 回放通过）
+### 异步 Agent（B01–B12，11/12 回放通过）
 
 | ID | 场景 | 必须核对的行为 |
 | --- | --- | --- |
 | B01 | 父挂起保持 working | 异步结果自动处理、只持久化一次、无第二次用户输入 |
-| B02 | 双异步 child 逆序完成 | 文件与结果按父调用锚点归属，working 终态准确 |
+| B02 | 双异步 child 逆序完成 | 阻塞：Linux CI 上右侧结果处理后左侧仍在运行，但 OSC 落到 idle；working 终态未保持 |
 | B03 | 取消普通父回合 | 不杀 Independent child，结果只自动续跑一次 |
 | B04 | Tasks 面板取消 child | Write 不发生、取消可见、父回合继续 |
 | B05 | 异步 child 401 | 失败真实回送，父继续且无假成功 |
@@ -93,7 +93,7 @@
 | M11 | monitor 实例重启 | 阻塞：同 M10，正常 EOF 无法优雅退出；旧 task ID 不复活断言未获通过 |
 | M12 | 非零退出 | 失败状态与 stderr 传播，终态仍可读全部事件 |
 
-H05、H12、M10、M11 的原断言保留在 `tests/replay-v2/*.blocked.ts`，不进入默认回放，也不计为通过；阻塞原因见 `config/replay-blocked.json`。默认门禁为 62 个可执行场景，catalog 仍按 66 个 ID 校验。D/J/L 尚未接回。
+B02、H05、H12、M10、M11 的原断言保留在 `tests/replay-v2/*.blocked.ts`，不进入默认回放，也不计为通过；阻塞原因见 `config/replay-blocked.json`。默认门禁为 61 个可执行场景，catalog 仍按 66 个 ID 校验。D/J/L 尚未接回。
 
 ## world 快照与同步
 cassette `formatVersion` 为 2 时，请求正文不再各存一份完整 system prompt。共享快照位于 `world/`：

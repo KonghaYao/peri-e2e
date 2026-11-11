@@ -50,7 +50,7 @@ EXPECTED_REPLAY_SCENARIOS=66 node scripts/check-replay-catalog.mjs
 `check-replay-catalog.mjs` 要求场景 ID 与封存 fixture 一一对应，零测试、重复 ID、
 缺失/多余 fixture 和新增 skip 都会失败。回放后加 `--results <invocation 目录>`
 可再核对每个场景都有 `passed` 的 `report.json`，避免 Vitest 对 skip 仍以 0 退出。
-66 是当前 catalog 场景数（既有 30 + 第一批 B/H/M 36）；其中 H05、H12、M10、M11 为固定 Peri pin 上的产品阻塞，原断言保留在 `*.blocked.ts`，不进入默认回放。D/J/L 接回后必须再显式改为 94。
+66 是当前 catalog 场景数（既有 30 + 第一批 B/H/M 36）；其中 B02、H05、H12、M10、M11 为固定 Peri pin 上的产品阻塞，原断言保留在 `*.blocked.ts`，不进入默认回放。D/J/L 接回后必须再显式改为 94。
 
 默认只读取封存 fixture。缺录制、配置签名变化、请求漂移、额外/遗漏调用或错误
 终态都会失败。回放不会启动 fixture 上游，也不会调用线上模型；实际 Agent、工具、
