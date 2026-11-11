@@ -160,6 +160,9 @@ export async function startReplayProxy({
     active.add(work);
     work.finally(() => active.delete(work));
   });
+  // Node 默认 5s 空闲后关闭 keep-alive，与 M07 的 5s deadline 等长，重试场景会复现连接已关闭：
+  // 首发送从未到达代理，客户端重试的 attempt 2 便会被 attempt_order 误拒。代理连接只服务于一个场景。
+  server.keepAliveTimeout = 0;
   server.on('clientError', (error, socket) => {
     globalErrors.push({ code: 'invalid_http', message: error.message });
     socket.destroy();
