@@ -1,0 +1,763 @@
+{
+  "formatVersion": 2,
+  "kind": "raw-http",
+  "provenance": {
+    "source": "local-fixture-model",
+    "realLlm": false,
+    "scenario": "H04"
+  },
+  "entries": [
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:1",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-11",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-11",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/198c5e32d409412642c2f84a8eeea1c3eaf4ce49de8b41c65483025017bf8ea7.stub.json"
+      },
+      "response": {
+        "file": "responses/198c5e32d409412642c2f84a8eeea1c3eaf4ce49de8b41c65483025017bf8ea7.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 1151,
+            "atMs": 8.757208000000901,
+            "sha256": "7fccc4fe16ba4c12f5c14d50e15d336368d8cce93f60635bd6c89792c672fb06"
+          }
+        ],
+        "size": 1151,
+        "submittedBytes": 1151,
+        "sha256": "7fccc4fe16ba4c12f5c14d50e15d336368d8cce93f60635bd6c89792c672fb06",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 8.891332999999577
+        },
+        "headersAtMs": 8.688666000000012,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:2",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/messages/3/content/0/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            },
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            }
+          ],
+          "patternSha256": "3964e5b54ed118910cf9f038f23e062b3906f87206fac6aefb112b81a67b68ef",
+          "recorded": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e"
+          },
+          "live": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e"
+          }
+        },
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-11",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-11",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/c3608f1bbb0ff23a1bbbe37295e11cb7e1a29b3c6837decdf069fa824692a076.stub.json"
+      },
+      "response": {
+        "file": "responses/c3608f1bbb0ff23a1bbbe37295e11cb7e1a29b3c6837decdf069fa824692a076.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 760,
+            "atMs": 8.923916000001554,
+            "sha256": "0f7597af7e81f11d20baba72c49c0e2b2140a465f4eed58e90baf34c25b54db4"
+          }
+        ],
+        "size": 760,
+        "submittedBytes": 760,
+        "sha256": "0f7597af7e81f11d20baba72c49c0e2b2140a465f4eed58e90baf34c25b54db4",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 9.049125000001368
+        },
+        "headersAtMs": 8.864916000000449,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:3",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/messages/3/content/0/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            },
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            }
+          ],
+          "patternSha256": "3964e5b54ed118910cf9f038f23e062b3906f87206fac6aefb112b81a67b68ef",
+          "recorded": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e"
+          },
+          "live": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e"
+          }
+        },
+        {
+          "path": "/messages/5/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            },
+            {
+              "kind": "task",
+              "alias": "shell-h04-remote"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            },
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            },
+            {
+              "kind": "path",
+              "alias": "shell-h04-stdout"
+            },
+            {
+              "kind": "path",
+              "alias": "shell-h04-stderr"
+            }
+          ],
+          "patternSha256": "e942f2f3e12b29e26c76e984ce497a30d75e3c5e487fefe3d21e2b352e96e15d",
+          "recorded": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e",
+            "task:shell-h04-remote": "shell-01a1c85b-c0ff-7172-937d-efb9914ea779",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352",
+            "path:shell-h04-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-30cf4110-8972-4266-b911-4731a8e30f74-stdout.log",
+            "path:shell-h04-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-4c10b015-4e35-44ab-8764-be6d8d88fccd-stderr.log"
+          },
+          "live": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e",
+            "task:shell-h04-remote": "shell-01a1c85b-c0ff-7172-937d-efb9914ea779",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352",
+            "path:shell-h04-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-30cf4110-8972-4266-b911-4731a8e30f74-stdout.log",
+            "path:shell-h04-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-4c10b015-4e35-44ab-8764-be6d8d88fccd-stderr.log"
+          }
+        },
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-11",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-11",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/f5b2aaa152ab35e7ce1fc08e3fe9485e54b4b3dcdf721eb72fca154587c4a4f5.stub.json"
+      },
+      "response": {
+        "file": "responses/f5b2aaa152ab35e7ce1fc08e3fe9485e54b4b3dcdf721eb72fca154587c4a4f5.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 969,
+            "atMs": 11.323834000000716,
+            "sha256": "db7c781288cbd692eda8484863c8e951d396db9bfc832fd29aa3c2db9f75612d"
+          }
+        ],
+        "size": 969,
+        "submittedBytes": 969,
+        "sha256": "db7c781288cbd692eda8484863c8e951d396db9bfc832fd29aa3c2db9f75612d",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 11.422624999999243
+        },
+        "headersAtMs": 11.256541999999172,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:4",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/messages/3/content/0/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            },
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            }
+          ],
+          "patternSha256": "3964e5b54ed118910cf9f038f23e062b3906f87206fac6aefb112b81a67b68ef",
+          "recorded": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e"
+          },
+          "live": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e"
+          }
+        },
+        {
+          "path": "/messages/5/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            },
+            {
+              "kind": "task",
+              "alias": "shell-h04-remote"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            },
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            },
+            {
+              "kind": "path",
+              "alias": "shell-h04-stdout"
+            },
+            {
+              "kind": "path",
+              "alias": "shell-h04-stderr"
+            }
+          ],
+          "patternSha256": "e942f2f3e12b29e26c76e984ce497a30d75e3c5e487fefe3d21e2b352e96e15d",
+          "recorded": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e",
+            "task:shell-h04-remote": "shell-01a1c85b-c0ff-7172-937d-efb9914ea779",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352",
+            "path:shell-h04-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-30cf4110-8972-4266-b911-4731a8e30f74-stdout.log",
+            "path:shell-h04-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-4c10b015-4e35-44ab-8764-be6d8d88fccd-stderr.log"
+          },
+          "live": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e",
+            "task:shell-h04-remote": "shell-01a1c85b-c0ff-7172-937d-efb9914ea779",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352",
+            "path:shell-h04-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-30cf4110-8972-4266-b911-4731a8e30f74-stdout.log",
+            "path:shell-h04-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-4c10b015-4e35-44ab-8764-be6d8d88fccd-stderr.log"
+          }
+        },
+        {
+          "path": "/messages/6/content/0/input/file_path",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "shell-h04-stdout"
+            }
+          ],
+          "patternSha256": "83d32de7d975b6725384ba8657096119513be005ba2ec92c6192946be06e0c1b",
+          "recorded": {
+            "path:shell-h04-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-30cf4110-8972-4266-b911-4731a8e30f74-stdout.log"
+          },
+          "live": {
+            "path:shell-h04-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-30cf4110-8972-4266-b911-4731a8e30f74-stdout.log"
+          }
+        },
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-11",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-11",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/db551377d7cfac3b7be9c3177ae0477dcebb8ec3fb3d483a4435654528a914d6.stub.json"
+      },
+      "response": {
+        "file": "responses/db551377d7cfac3b7be9c3177ae0477dcebb8ec3fb3d483a4435654528a914d6.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 969,
+            "atMs": 9.025041999999303,
+            "sha256": "bee7bd83e15da66c00e49932ea3006e776a1b8a47d7865826befa2c0a3d37199"
+          }
+        ],
+        "size": 969,
+        "submittedBytes": 969,
+        "sha256": "bee7bd83e15da66c00e49932ea3006e776a1b8a47d7865826befa2c0a3d37199",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 9.126125000000684
+        },
+        "headersAtMs": 8.962917000000743,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:5",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/messages/3/content/0/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            },
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            }
+          ],
+          "patternSha256": "3964e5b54ed118910cf9f038f23e062b3906f87206fac6aefb112b81a67b68ef",
+          "recorded": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e"
+          },
+          "live": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e"
+          }
+        },
+        {
+          "path": "/messages/5/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            },
+            {
+              "kind": "task",
+              "alias": "shell-h04-remote"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            },
+            {
+              "kind": "task",
+              "alias": "shell-h04"
+            },
+            {
+              "kind": "path",
+              "alias": "shell-h04-stdout"
+            },
+            {
+              "kind": "path",
+              "alias": "shell-h04-stderr"
+            }
+          ],
+          "patternSha256": "e942f2f3e12b29e26c76e984ce497a30d75e3c5e487fefe3d21e2b352e96e15d",
+          "recorded": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e",
+            "task:shell-h04-remote": "shell-01a1c85b-c0ff-7172-937d-efb9914ea779",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352",
+            "path:shell-h04-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-30cf4110-8972-4266-b911-4731a8e30f74-stdout.log",
+            "path:shell-h04-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-4c10b015-4e35-44ab-8764-be6d8d88fccd-stderr.log"
+          },
+          "live": {
+            "task:shell-h04": "mcp-01a1c85b-c100-7060-853c-18ece9aaf25e",
+            "task:shell-h04-remote": "shell-01a1c85b-c0ff-7172-937d-efb9914ea779",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352",
+            "path:shell-h04-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-30cf4110-8972-4266-b911-4731a8e30f74-stdout.log",
+            "path:shell-h04-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-4c10b015-4e35-44ab-8764-be6d8d88fccd-stderr.log"
+          }
+        },
+        {
+          "path": "/messages/6/content/0/input/file_path",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "shell-h04-stdout"
+            }
+          ],
+          "patternSha256": "83d32de7d975b6725384ba8657096119513be005ba2ec92c6192946be06e0c1b",
+          "recorded": {
+            "path:shell-h04-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-30cf4110-8972-4266-b911-4731a8e30f74-stdout.log"
+          },
+          "live": {
+            "path:shell-h04-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-30cf4110-8972-4266-b911-4731a8e30f74-stdout.log"
+          }
+        },
+        {
+          "path": "/messages/8/content/0/input/file_path",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "shell-h04-stderr"
+            }
+          ],
+          "patternSha256": "51f0b278f7cb6fedef4d31736255498920250a34ba1a777a8f90f21079e02992",
+          "recorded": {
+            "path:shell-h04-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-4c10b015-4e35-44ab-8764-be6d8d88fccd-stderr.log"
+          },
+          "live": {
+            "path:shell-h04-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/home/tmp/peri-foreground-shell-4c10b015-4e35-44ab-8764-be6d8d88fccd-stderr.log"
+          }
+        },
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-11",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-2Lb7eP/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-11",
+            "session:root": "01a1c85b-bfae-72f0-8912-0e07df3d7352"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/e180276468618b6a85886ad27bc2ec54049acbdd998cdb6feaf0f54b6b7f6719.stub.json"
+      },
+      "response": {
+        "file": "responses/e180276468618b6a85886ad27bc2ec54049acbdd998cdb6feaf0f54b6b7f6719.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 763,
+            "atMs": 8.70983299999898,
+            "sha256": "0f1af86c5a53445bfe0168d3b844cddc511b43e0ba3e24f97517efe61faa5a1d"
+          }
+        ],
+        "size": 763,
+        "submittedBytes": 763,
+        "sha256": "0f1af86c5a53445bfe0168d3b844cddc511b43e0ba3e24f97517efe61faa5a1d",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 8.816499999998996
+        },
+        "headersAtMs": 8.655875000000378,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    }
+  ]
+}

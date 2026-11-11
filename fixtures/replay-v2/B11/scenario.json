@@ -1,0 +1,124 @@
+{
+  "version": 2,
+  "id": "B11",
+  "title": "停止自动续跑后晚到 child 不复活父回合，显式输入后只消费一次",
+  "provenance": {
+    "source": "local-fixture-model",
+    "realLlm": false
+  },
+  "sessionNames": [
+    "root"
+  ],
+  "seed": {
+    "directories": [
+      "home",
+      "home/.peri",
+      "work",
+      "work/.claude",
+      "work/.claude/agents"
+    ],
+    "files": [
+      {
+        "path": "home/.peri/settings.json",
+        "sha256": "bf0303d1d85e9be8a95ae762af78670b6f8e75a8b649cc60ccae34f043272ff9",
+        "size": 585,
+        "mode": 384
+      },
+      {
+        "path": "work/.claude/agents/replay-worker.md",
+        "sha256": "130ad94c3946149d49237835d5748b2976f470943860dabaf74960b3d5844099",
+        "size": 165,
+        "mode": 420
+      }
+    ]
+  },
+  "recordedWorld": {
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-kw5ZVd",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-kw5ZVd/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-kw5ZVd/work"
+  },
+  "recordedSessionIds": {
+    "root": "01a1c85a-bf0e-7d70-bc15-2e40823cd4b5"
+  },
+  "configurationFingerprint": "1199e570291b46eea1f7fdeb8febac877fe6ff8384363528be29d8350f26debc",
+  "bindings": [
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "root",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-kw5ZVd",
+      "anchor": "isolated scenario root"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-kw5ZVd/home",
+      "anchor": "isolated scenario home"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-kw5ZVd/work",
+      "anchor": "isolated scenario work"
+    },
+    {
+      "owner": "world",
+      "kind": "date",
+      "alias": "today",
+      "recorded": "2026-11-11",
+      "anchor": "ambient UTC date in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "platform",
+      "alias": "platform",
+      "recorded": "macos",
+      "anchor": "ambient OS platform in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "os_version",
+      "alias": "os_version",
+      "recorded": "macOS 26.5.1",
+      "anchor": "ambient OS version in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "session",
+      "alias": "root",
+      "recorded": "01a1c85a-bf0e-7d70-bc15-2e40823cd4b5",
+      "anchor": "ACP session/new result"
+    },
+    {
+      "owner": "world",
+      "kind": "thread",
+      "alias": "child-first",
+      "recorded": "01a1c85a-bf9c-7801-a734-5bca17ef2e85",
+      "anchor": "created child first"
+    },
+    {
+      "owner": "world",
+      "kind": "thread",
+      "alias": "child-second",
+      "recorded": "01a1c85a-bf9d-75a1-957c-84593c8a007b",
+      "anchor": "created child second"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "task-B11-first",
+      "recorded": "bg-01a1c85a-bf9c-7801-a734-5bd674c7323e",
+      "anchor": "Agent background receipt B11-first"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "task-B11-second",
+      "recorded": "bg-01a1c85a-bf9d-75a1-957c-8462993f6286",
+      "anchor": "Agent background receipt B11-second"
+    }
+  ],
+  "portableResponses": []
+}

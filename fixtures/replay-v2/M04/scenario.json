@@ -1,0 +1,236 @@
+{
+  "version": 2,
+  "id": "M04",
+  "title": "monitor ring 溢出精确报告 7 个丢弃事件，并恢复全部剩余序号",
+  "provenance": {
+    "source": "local-fixture-model",
+    "realLlm": false
+  },
+  "sessionNames": [
+    "root"
+  ],
+  "seed": {
+    "directories": [
+      "home",
+      "home/.peri",
+      "home/tmp",
+      "work"
+    ],
+    "files": [
+      {
+        "path": "home/.peri/settings.json",
+        "sha256": "bf0303d1d85e9be8a95ae762af78670b6f8e75a8b649cc60ccae34f043272ff9",
+        "size": 585,
+        "mode": 384
+      },
+      {
+        "path": "work/monitor-source.py",
+        "sha256": "e8cd83ebda82f44798f15160ab53fca2ff2a0f0ee3db17ce0ccc55253349ee10",
+        "size": 2137,
+        "mode": 420
+      }
+    ]
+  },
+  "recordedWorld": {
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HieB9O",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HieB9O/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HieB9O/work"
+  },
+  "recordedSessionIds": {
+    "root": "01a1c861-30aa-7db1-857d-8baa5ab9b4b3"
+  },
+  "configurationFingerprint": "b28d88e77b29846f1b12f8d10687a802f831acfec9721c9983e5ba1b08bd00da",
+  "bindings": [
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "root",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HieB9O",
+      "anchor": "isolated scenario root"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HieB9O/home",
+      "anchor": "isolated scenario home"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HieB9O/work",
+      "anchor": "isolated scenario work"
+    },
+    {
+      "owner": "world",
+      "kind": "date",
+      "alias": "today",
+      "recorded": "2026-11-11",
+      "anchor": "ambient UTC date in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "platform",
+      "alias": "platform",
+      "recorded": "macos",
+      "anchor": "ambient OS platform in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "os_version",
+      "alias": "os_version",
+      "recorded": "macOS 26.5.1",
+      "anchor": "ambient OS version in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "session",
+      "alias": "root",
+      "recorded": "01a1c861-30aa-7db1-857d-8baa5ab9b4b3",
+      "anchor": "ACP session/new result"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "monitor-m04-host",
+      "recorded": "mcp-01a1c861-3236-7701-abba-436bc8092798",
+      "anchor": "monitor_start host receipt M04-start"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "monitor-m04-raw",
+      "recorded": "monitor-01a1c861-3233-7bb2-b29b-5fefc1fabeb7",
+      "anchor": "monitor_start raw receipt M04-start"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m04-event-8-ts",
+      "recorded": "2026-11-11T02:12:55.619598+00:00",
+      "anchor": "monitor M04-start event seq 8 capture timestamp"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m04-event-9-ts",
+      "recorded": "2026-11-11T02:12:55.619621+00:00",
+      "anchor": "monitor M04-start event seq 9 capture timestamp"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m04-event-10-ts",
+      "recorded": "2026-11-11T02:12:55.619644+00:00",
+      "anchor": "monitor M04-start event seq 10 capture timestamp"
+    }
+  ],
+  "portableResponses": [
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:4",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "M04-read-1",
+          "rules": [
+            {
+              "path": "/params/task_id",
+              "mode": "typed-template",
+              "segments": [
+                {
+                  "kind": "task",
+                  "alias": "monitor-m04-raw"
+                }
+              ],
+              "systemText": false
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "9f3e3e8b75cd7569185fb77029f78c6ceb224e36d3bdf68e6484b7b00243419a"
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:5",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "M04-read-2",
+          "rules": [
+            {
+              "path": "/params/task_id",
+              "mode": "typed-template",
+              "segments": [
+                {
+                  "kind": "task",
+                  "alias": "monitor-m04-raw"
+                }
+              ],
+              "systemText": false
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "f00e55680a37c67817b4f5bbdc251f8618507b47f51e06b62c2078d25addd7be"
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:6",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "M04-read-3",
+          "rules": [
+            {
+              "path": "/params/task_id",
+              "mode": "typed-template",
+              "segments": [
+                {
+                  "kind": "task",
+                  "alias": "monitor-m04-raw"
+                }
+              ],
+              "systemText": false
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "a1c5944cd204f3fce4202bc9d5f456084f58f11833bd158b57dce4726f196593"
+    }
+  ]
+}

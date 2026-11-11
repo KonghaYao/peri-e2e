@@ -1,0 +1,178 @@
+{
+  "version": 2,
+  "id": "H02",
+  "title": "后台 Shell 非零退出保留 stderr、exit code 与单次副作用",
+  "provenance": {
+    "source": "local-fixture-model",
+    "realLlm": false
+  },
+  "sessionNames": [
+    "root"
+  ],
+  "seed": {
+    "directories": [
+      "home",
+      "home/.peri",
+      "home/tmp",
+      "work"
+    ],
+    "files": [
+      {
+        "path": "home/.peri/settings.json",
+        "sha256": "bf0303d1d85e9be8a95ae762af78670b6f8e75a8b649cc60ccae34f043272ff9",
+        "size": 585,
+        "mode": 384
+      }
+    ]
+  },
+  "recordedWorld": {
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-r7C6vU",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-r7C6vU/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-r7C6vU/work"
+  },
+  "recordedSessionIds": {
+    "root": "01a1c85b-a7bb-7bb2-a549-a9076c26de1b"
+  },
+  "configurationFingerprint": "4a1d5d692078b67440f2cc31b28e9096eeb1aa1d61b14c5b01be47b31e61d133",
+  "bindings": [
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "root",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-r7C6vU",
+      "anchor": "isolated scenario root"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-r7C6vU/home",
+      "anchor": "isolated scenario home"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-r7C6vU/work",
+      "anchor": "isolated scenario work"
+    },
+    {
+      "owner": "world",
+      "kind": "date",
+      "alias": "today",
+      "recorded": "2026-11-11",
+      "anchor": "ambient UTC date in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "platform",
+      "alias": "platform",
+      "recorded": "macos",
+      "anchor": "ambient OS platform in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "os_version",
+      "alias": "os_version",
+      "recorded": "macOS 26.5.1",
+      "anchor": "ambient OS version in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "session",
+      "alias": "root",
+      "recorded": "01a1c85b-a7bb-7bb2-a549-a9076c26de1b",
+      "anchor": "ACP session/new result"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "shell-h02",
+      "recorded": "mcp-01a1c85b-ad10-74c2-a0c2-eefab81108e5",
+      "anchor": "Bash tool receipt H02-bash"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "shell-h02-remote",
+      "recorded": "shell-01a1c85b-ad0d-7532-96b4-b474f729e2b9",
+      "anchor": "MCP remote task linked to Bash tool H02-bash"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "shell-h02-stdout",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-r7C6vU/home/tmp/peri-bg-shell-01a1c85b-ad0d-7532-96b4-b474f729e2b9-d5c923e9-74a9-490b-8f9e-1b03d6f70e7e-stdout.log",
+      "anchor": "terminal stdout reference for H02-bash"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "shell-h02-stderr",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-r7C6vU/home/tmp/peri-bg-shell-01a1c85b-ad0d-7532-96b4-b474f729e2b9-4a53ff2c-eeaa-49d9-b314-b637430b3c73-stderr.log",
+      "anchor": "terminal stderr reference for H02-bash"
+    }
+  ],
+  "portableResponses": [
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:3",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "H02-read-stdout",
+          "rules": [
+            {
+              "path": "/file_path",
+              "kind": "path",
+              "alias": "shell-h02-stdout",
+              "mode": "path-prefix"
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "bcd393ba9e8cfc8da11a3d5739beca1962137d23161ecbba9d97c3d2c8c0af80"
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:4",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "H02-read-stderr",
+          "rules": [
+            {
+              "path": "/file_path",
+              "kind": "path",
+              "alias": "shell-h02-stderr",
+              "mode": "path-prefix"
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "68ed3f9b6d49cb87fcce879251b9a7fe82f6fca7e2794472f1ac4b8a98a17f0c"
+    }
+  ]
+}

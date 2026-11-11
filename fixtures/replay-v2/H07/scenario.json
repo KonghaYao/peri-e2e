@@ -1,0 +1,217 @@
+{
+  "version": 2,
+  "id": "H07",
+  "title": "跨会话取消被明确拒绝，原任务均可完成且真实 TUI 历史隔离",
+  "provenance": {
+    "source": "local-fixture-model",
+    "realLlm": false
+  },
+  "sessionNames": [
+    "A",
+    "B"
+  ],
+  "seed": {
+    "directories": [
+      "home",
+      "home/.peri",
+      "home/runtime",
+      "home/state",
+      "home/tmp",
+      "work"
+    ],
+    "files": [
+      {
+        "path": "home/.peri/settings.json",
+        "sha256": "bf0303d1d85e9be8a95ae762af78670b6f8e75a8b649cc60ccae34f043272ff9",
+        "size": 585,
+        "mode": 384
+      }
+    ]
+  },
+  "recordedWorld": {
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/work"
+  },
+  "recordedSessionIds": {
+    "A": "01a1c868-17ea-76d3-aed2-36e7da756bd0",
+    "B": "01a1c868-1820-7b73-8f4c-9b6d3af912f6"
+  },
+  "configurationFingerprint": "c75ae9c8f29a365fa7fe698a517edf922d2cd53a563ab96ad0badacf24a232cc",
+  "bindings": [
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "root",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I",
+      "anchor": "isolated scenario root"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/home",
+      "anchor": "isolated scenario home"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/work",
+      "anchor": "isolated scenario work"
+    },
+    {
+      "owner": "world",
+      "kind": "date",
+      "alias": "today",
+      "recorded": "2026-11-11",
+      "anchor": "ambient UTC date in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "platform",
+      "alias": "platform",
+      "recorded": "macos",
+      "anchor": "ambient OS platform in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "os_version",
+      "alias": "os_version",
+      "recorded": "macOS 26.5.1",
+      "anchor": "ambient OS version in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "session",
+      "alias": "A",
+      "recorded": "01a1c868-17ea-76d3-aed2-36e7da756bd0",
+      "anchor": "ACP session/new result"
+    },
+    {
+      "owner": "world",
+      "kind": "session",
+      "alias": "B",
+      "recorded": "01a1c868-1820-7b73-8f4c-9b6d3af912f6",
+      "anchor": "ACP session/new result"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "shell-A",
+      "recorded": "mcp-01a1c868-20ba-7ee1-a574-4f37cbac83a3",
+      "anchor": "Bash tool receipt H07-A"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "shell-B",
+      "recorded": "mcp-01a1c868-211a-79a2-9ae9-56da40ba8033",
+      "anchor": "Bash tool receipt H07-B"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "shell-B-remote",
+      "recorded": "shell-01a1c868-2117-7730-82cc-de9ac61bc9a0",
+      "anchor": "MCP remote task linked to Bash tool H07-B"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "shell-B-stdout",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/home/tmp/peri-bg-shell-01a1c868-2117-7730-82cc-de9ac61bc9a0-a75a5694-205c-42b7-b4e9-750bdf531e4c-stdout.log",
+      "anchor": "terminal stdout reference for H07-B"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "shell-B-stderr",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/home/tmp/peri-bg-shell-01a1c868-2117-7730-82cc-de9ac61bc9a0-63687c00-6ef4-4fb4-9717-0d6683d1536c-stderr.log",
+      "anchor": "terminal stderr reference for H07-B"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "shell-A-remote",
+      "recorded": "shell-01a1c868-20b6-73f3-bf81-852438a11912",
+      "anchor": "MCP remote task linked to Bash tool H07-A"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "shell-A-stdout",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/home/tmp/peri-bg-shell-01a1c868-20b6-73f3-bf81-852438a11912-e8dcf45f-46d2-4718-8673-6be87041ac03-stdout.log",
+      "anchor": "terminal stdout reference for H07-A"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "shell-A-stderr",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/home/tmp/peri-bg-shell-01a1c868-20b6-73f3-bf81-852438a11912-b3a6879e-3bc3-457b-acff-abe50e710752-stderr.log",
+      "anchor": "terminal stderr reference for H07-A"
+    }
+  ],
+  "portableResponses": [
+    {
+      "identity": {
+        "owner": "A",
+        "execution": "start",
+        "call": "reason:3",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "H07-read-A",
+          "rules": [
+            {
+              "path": "/file_path",
+              "kind": "path",
+              "alias": "shell-A-stdout",
+              "mode": "path-prefix"
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "47f0194e08c6b7418403d28199c490958f68f15b8db1111a1be27d6635d28fa0"
+    },
+    {
+      "identity": {
+        "owner": "B",
+        "execution": "start",
+        "call": "reason:3",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "H07-read-B",
+          "rules": [
+            {
+              "path": "/file_path",
+              "kind": "path",
+              "alias": "shell-B-stdout",
+              "mode": "path-prefix"
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "0f0b32fe1d5ae247373e1249658b5496e9046ceddc3f5fbb61c264cc8366cf31"
+    }
+  ]
+}

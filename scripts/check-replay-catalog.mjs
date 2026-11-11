@@ -4,7 +4,9 @@
  *
  * 静态模式统计 `runReplayScenario({ id: "XX" })`，要求场景数等于
  * EXPECTED_REPLAY_SCENARIOS，ID 不重复、fixture 不缺不多、没有声明 skip。
- * `--results <dir>` 额外核对每个 ID 都有 passed/replay 的 report.json，
+ * `config/replay-blocked.json` 显式登记产品阻塞 ID 与原因：这些 ID 计入 catalog，
+ * 但不要求可执行测试、fixture 或 report；它们不进入默认回放，也不能计为通过。
+ * `--results <dir>` 额外核对每个可执行 ID 都有 passed/replay 的 report.json，
  * 用于抓住 Vitest 以 0 退出但实际未执行（skip）的场景。
  */
 import { access, readdir, readFile } from 'node:fs/promises';
@@ -23,10 +25,19 @@ const { values } = parseArgs({
   },
 });
 
-// 30 = 当前 world v2 场景数；E2E-02 接回 64 个归档场景后必须显式改为 94。
-const expected = Number(values.expected ?? process.env.EXPECTED_REPLAY_SCENARIOS ?? 30);
+// 66 = catalog 场景数（既有 30 + E2E-02 第一批 B/H/M 36）；其中 4 个产品阻塞项
+// 暂留归档 cassette。D/J/L 接回后必须再显式改为 94，不要从实际 catalog 反向生成
+// 期望值，否则迁移遗漏会被误报为通过。
+const expected = Number(values.expected ?? process.env.EXPECTED_REPLAY_SCENARIOS ?? 66);
 const fixturesRoot = path.resolve(values.fixtures ?? path.join(e2eRoot, 'fixtures/replay-v2'));
 const errors = [];
+
+// 产品阻塞项不属于通过；显式登记原因，缺 fixture、无 report 都不算迁移遗漏。
+const blocked = JSON.parse(await readFile(path.join(e2eRoot, 'config/replay-blocked.json'), 'utf8'));
+for (const [id, reason] of Object.entries(blocked)) {
+  if (!/^[A-Z][0-9]{2}$/u.test(id)) errors.push(`阻塞项 ID 非法：${id}`);
+  if (typeof reason !== 'string' || reason.trim().length === 0) errors.push(`阻塞项 ${id} 缺少原因`);
+}
 
 if (!Number.isInteger(expected) || expected <= 0) {
   errors.push(`EXPECTED_REPLAY_SCENARIOS 必须是正整数，实际为 ${JSON.stringify(expected)}`);
@@ -61,12 +72,17 @@ for (const file of testFiles) {
 for (const [id, files] of idFiles) {
   if (files.length > 1) errors.push(`场景 ID ${id} 重复：${[...new Set(files)].join(', ')}`);
 }
-if (idFiles.size === 0) errors.push('未统计到任何业务场景 ID（零测试）');
 if (skipMarkers.length > 0) {
   errors.push(`存在未声明的新增 skip/todo：${skipMarkers.join('; ')}`);
 }
-if (idFiles.size !== expected) {
-  errors.push(`场景数 ${idFiles.size} 与期望 ${expected} 不一致；迁移后必须更新 EXPECTED_REPLAY_SCENARIOS`);
+for (const id of idFiles.keys()) {
+  if (blocked[id]) errors.push(`阻塞场景 ${id} 仍注册为可执行测试；恢复前不要计入通过`);
+}
+const scenarios = [...idFiles.keys(), ...Object.keys(blocked)].sort();
+if (scenarios.length !== new Set(scenarios).size) errors.push('场景 ID 重复（可执行测试与阻塞项冲突）');
+if (scenarios.length === 0) errors.push('未统计到任何业务场景 ID（零测试）');
+if (scenarios.length !== expected) {
+  errors.push(`场景数 ${scenarios.length} 与期望 ${expected} 不一致；迁移后必须更新 EXPECTED_REPLAY_SCENARIOS`);
 }
 
 // ---- 封存 fixture 目录 ----
@@ -87,7 +103,11 @@ for (const id of idFiles.keys()) {
   if (!fixtures.has(id)) errors.push(`场景 ${id} 缺少封存 fixture`);
 }
 for (const id of fixtures) {
-  if (!idFiles.has(id)) errors.push(`fixture ${id} 没有对应的业务场景测试`);
+  if (!idFiles.has(id)) {
+    errors.push(blocked[id]
+      ? `fixture ${id} 属于阻塞项；恢复前不应进入默认 fixture 集`
+      : `fixture ${id} 没有对应的业务场景测试`);
+  }
 }
 
 // ---- 实际执行报告（--results） ----
@@ -96,6 +116,7 @@ if (values.results) {
   const resultsRoot = path.resolve(e2eRoot, values.results);
   const reports = [];
   for (const id of [...idFiles.keys()].sort()) {
+    if (blocked[id]) continue;
     const reportFile = path.join(resultsRoot, id, 'report.json');
     let report;
     try {
@@ -113,7 +134,7 @@ if (values.results) {
     .filter((entry) => entry.isDirectory() && !entry.name.startsWith('.'))
     .map((entry) => entry.name);
   for (const id of resultEntries) {
-    if (!idFiles.has(id)) errors.push(`结果目录 ${id} 没有对应的业务场景测试`);
+    if (!idFiles.has(id) && !blocked[id]) errors.push(`结果目录 ${id} 没有对应的业务场景测试`);
   }
   results = { directory: resultsRoot, reports: reports.length };
 }
@@ -121,7 +142,9 @@ if (values.results) {
 const report = {
   passed: errors.length === 0,
   expected,
-  scenarios: [...idFiles.keys()].sort(),
+  scenarios,
+  executed: [...idFiles.keys()].sort(),
+  blocked: Object.fromEntries(Object.entries(blocked).sort(([left], [right]) => left.localeCompare(right))),
   testFiles,
   fixtures: [...fixtures].sort(),
   skipMarkers,

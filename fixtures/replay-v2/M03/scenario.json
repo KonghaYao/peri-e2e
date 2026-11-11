@@ -1,0 +1,299 @@
+{
+  "version": 2,
+  "id": "M03",
+  "title": "monitor 终态继续分页，exclusive cursor 单调且事件无遗漏无重复",
+  "provenance": {
+    "source": "local-fixture-model",
+    "realLlm": false
+  },
+  "sessionNames": [
+    "root"
+  ],
+  "seed": {
+    "directories": [
+      "home",
+      "home/.peri",
+      "home/tmp",
+      "work"
+    ],
+    "files": [
+      {
+        "path": "home/.peri/settings.json",
+        "sha256": "bf0303d1d85e9be8a95ae762af78670b6f8e75a8b649cc60ccae34f043272ff9",
+        "size": 585,
+        "mode": 384
+      },
+      {
+        "path": "work/monitor-source.py",
+        "sha256": "e8cd83ebda82f44798f15160ab53fca2ff2a0f0ee3db17ce0ccc55253349ee10",
+        "size": 2137,
+        "mode": 420
+      }
+    ]
+  },
+  "recordedWorld": {
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-g0XKyn",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-g0XKyn/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-g0XKyn/work"
+  },
+  "recordedSessionIds": {
+    "root": "01a1c861-261c-7a53-84da-9a03ee3035d6"
+  },
+  "configurationFingerprint": "34423444bf3f901658b5a0116adb5e64ddc320f63750dbb251e747b4e4f50a79",
+  "bindings": [
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "root",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-g0XKyn",
+      "anchor": "isolated scenario root"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-g0XKyn/home",
+      "anchor": "isolated scenario home"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-g0XKyn/work",
+      "anchor": "isolated scenario work"
+    },
+    {
+      "owner": "world",
+      "kind": "date",
+      "alias": "today",
+      "recorded": "2026-11-11",
+      "anchor": "ambient UTC date in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "platform",
+      "alias": "platform",
+      "recorded": "macos",
+      "anchor": "ambient OS platform in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "os_version",
+      "alias": "os_version",
+      "recorded": "macOS 26.5.1",
+      "anchor": "ambient OS version in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "session",
+      "alias": "root",
+      "recorded": "01a1c861-261c-7a53-84da-9a03ee3035d6",
+      "anchor": "ACP session/new result"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "monitor-m03-host",
+      "recorded": "mcp-01a1c861-27b0-73c2-949b-e92efa219af3",
+      "anchor": "monitor_start host receipt M03-start"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "monitor-m03-raw",
+      "recorded": "monitor-01a1c861-27ad-7c23-9c77-da649850181c",
+      "anchor": "monitor_start raw receipt M03-start"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m03-event-1-ts",
+      "recorded": "2026-11-11T02:12:52.909470+00:00",
+      "anchor": "monitor M03-start event seq 1 capture timestamp"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m03-event-2-ts",
+      "recorded": "2026-11-11T02:12:52.909492+00:00",
+      "anchor": "monitor M03-start event seq 2 capture timestamp"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m03-event-3-ts",
+      "recorded": "2026-11-11T02:12:52.909497+00:00",
+      "anchor": "monitor M03-start event seq 3 capture timestamp"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m03-event-4-ts",
+      "recorded": "2026-11-11T02:12:52.909535+00:00",
+      "anchor": "monitor M03-start event seq 4 capture timestamp"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m03-event-5-ts",
+      "recorded": "2026-11-11T02:12:52.909561+00:00",
+      "anchor": "monitor M03-start event seq 5 capture timestamp"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m03-event-6-ts",
+      "recorded": "2026-11-11T02:12:52.909586+00:00",
+      "anchor": "monitor M03-start event seq 6 capture timestamp"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m03-event-7-ts",
+      "recorded": "2026-11-11T02:12:52.909614+00:00",
+      "anchor": "monitor M03-start event seq 7 capture timestamp"
+    }
+  ],
+  "portableResponses": [
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:4",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "M03-read-1",
+          "rules": [
+            {
+              "path": "/params/task_id",
+              "mode": "typed-template",
+              "segments": [
+                {
+                  "kind": "task",
+                  "alias": "monitor-m03-raw"
+                }
+              ],
+              "systemText": false
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "fb63021286b05ebe69e205b4bcceb3868a5b98f8527011f5bd7573eed72e70b3"
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:5",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "M03-read-2",
+          "rules": [
+            {
+              "path": "/params/task_id",
+              "mode": "typed-template",
+              "segments": [
+                {
+                  "kind": "task",
+                  "alias": "monitor-m03-raw"
+                }
+              ],
+              "systemText": false
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "fb991c9c8c420aa0023578a6570f9ce78e534541f3f450e5229ea44e8a2c1723"
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:6",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "M03-read-3",
+          "rules": [
+            {
+              "path": "/params/task_id",
+              "mode": "typed-template",
+              "segments": [
+                {
+                  "kind": "task",
+                  "alias": "monitor-m03-raw"
+                }
+              ],
+              "systemText": false
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "a15d19039c5ae69568306999068ff2641225401432dc94e797df4130267802f6"
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:7",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "M03-read-4",
+          "rules": [
+            {
+              "path": "/params/task_id",
+              "mode": "typed-template",
+              "segments": [
+                {
+                  "kind": "task",
+                  "alias": "monitor-m03-raw"
+                }
+              ],
+              "systemText": false
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "5f7d573ba049bad5e10f708f2dd779eeacf6d146e3553ff63f1e9608f8831523"
+    }
+  ]
+}

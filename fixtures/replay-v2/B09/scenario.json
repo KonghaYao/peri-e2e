@@ -1,0 +1,124 @@
+{
+  "version": 2,
+  "id": "B09",
+  "title": "full-async-tools 对 Agent 缺省及显式 false 均强制后台",
+  "provenance": {
+    "source": "local-fixture-model",
+    "realLlm": false
+  },
+  "sessionNames": [
+    "root"
+  ],
+  "seed": {
+    "directories": [
+      "home",
+      "home/.peri",
+      "work",
+      "work/.claude",
+      "work/.claude/agents"
+    ],
+    "files": [
+      {
+        "path": "home/.peri/settings.json",
+        "sha256": "48d8d00a7f91c2a7701d413304e00cb523637f58aa38c2fbf5c0aa7028910f36",
+        "size": 619,
+        "mode": 384
+      },
+      {
+        "path": "work/.claude/agents/replay-worker.md",
+        "sha256": "130ad94c3946149d49237835d5748b2976f470943860dabaf74960b3d5844099",
+        "size": 165,
+        "mode": 420
+      }
+    ]
+  },
+  "recordedWorld": {
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-CAXmka",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-CAXmka/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-CAXmka/work"
+  },
+  "recordedSessionIds": {
+    "root": "01a1c858-e03a-7132-bf9e-8a5b27e90d17"
+  },
+  "configurationFingerprint": "97939e0099c1696395742ad745b701c9336952d39f5a094666043d2452b8bce3",
+  "bindings": [
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "root",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-CAXmka",
+      "anchor": "isolated scenario root"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-CAXmka/home",
+      "anchor": "isolated scenario home"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-CAXmka/work",
+      "anchor": "isolated scenario work"
+    },
+    {
+      "owner": "world",
+      "kind": "date",
+      "alias": "today",
+      "recorded": "2026-11-11",
+      "anchor": "ambient UTC date in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "platform",
+      "alias": "platform",
+      "recorded": "macos",
+      "anchor": "ambient OS platform in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "os_version",
+      "alias": "os_version",
+      "recorded": "macOS 26.5.1",
+      "anchor": "ambient OS version in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "session",
+      "alias": "root",
+      "recorded": "01a1c858-e03a-7132-bf9e-8a5b27e90d17",
+      "anchor": "ACP session/new result"
+    },
+    {
+      "owner": "world",
+      "kind": "thread",
+      "alias": "child-explicit",
+      "recorded": "01a1c858-e171-7682-9a26-d27bb612c6a3",
+      "anchor": "created child explicit"
+    },
+    {
+      "owner": "world",
+      "kind": "thread",
+      "alias": "child-omitted",
+      "recorded": "01a1c858-e171-7682-9a26-d25ca270e9a5",
+      "anchor": "created child omitted"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "task-B09-omitted",
+      "recorded": "bg-01a1c858-e171-7682-9a26-d2645ae331d8",
+      "anchor": "Agent background receipt B09-omitted"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "task-B09-explicit",
+      "recorded": "bg-01a1c858-e171-7682-9a26-d2899a882cf3",
+      "anchor": "Agent background receipt B09-explicit"
+    }
+  ],
+  "portableResponses": []
+}

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
+import net from 'node:net';
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -253,4 +254,40 @@ test('同 run 内不同 owner 可有独立进程 generation，旧 generation 被
   assert.equal(response.status, 409);
   assert.equal(JSON.parse(response.text).error, 'stale_generation');
   assert.throws(() => replay.completeRun('stale'), { code: 'run_incomplete' });
+});
+
+test('场景内连接空闲超过 Node 默认 keep-alive 窗口后仍继续同一 run', async (t) => {
+  const { cassetteDir } = await recordPair(t);
+  const replay = await startReplayProxy({ mode: 'replay', cassetteDir });
+  t.after(() => replay.close());
+  replay.createRun('idle');
+  const port = Number(new URL(replay.url).port);
+  const socket = net.connect(port, '127.0.0.1');
+  await new Promise((resolve, reject) => { socket.once('connect', resolve); socket.once('error', reject); });
+  t.after(() => socket.destroy());
+  // 原始 socket 复现 reqwest 语义：连接被服务端空闲关闭后，客户端不会透明重连。
+  const exchange = async (id, marker) => {
+    const payload = JSON.stringify(body);
+    const head = [
+      'POST /v1/messages HTTP/1.1', `Host: 127.0.0.1:${port}`, 'content-type: application/json',
+      ...Object.entries(contextHeaders({ run: 'idle', ...id }, endpoint)).map(([name, value]) => `${name}: ${value}`),
+      `content-length: ${Buffer.byteLength(payload)}`, 'connection: keep-alive', '', '',
+    ].join('\r\n');
+    socket.write(head + payload);
+    let received = '';
+    await new Promise((resolve, reject) => {
+      const timer = setTimeout(() => { cleanup(); reject(new Error(`等待响应超时：${marker}`)); }, 10_000);
+      const onData = (chunk) => { received += chunk.toString('utf8'); if (received.includes(marker)) { cleanup(); resolve(); } };
+      const onClose = () => { cleanup(); reject(new Error(`连接在响应前关闭：${marker}`)); };
+      const onError = (error) => { cleanup(); reject(error); };
+      const cleanup = () => { clearTimeout(timer); socket.off('data', onData); socket.off('close', onClose); socket.off('error', onError); };
+      socket.on('data', onData); socket.on('close', onClose); socket.on('error', onError);
+    });
+    return received;
+  };
+  assert.match(await exchange(identity('A'), 'answer-1'), /HTTP\/1\.1 200/);
+  await new Promise((resolve) => setTimeout(resolve, 7_500));
+  assert.match(await exchange(identity('B'), 'answer-2'), /HTTP\/1\.1 200/);
+  await settled(replay, 'idle', 2);
+  assert.equal(replay.completeRun('idle').passed, true);
 });

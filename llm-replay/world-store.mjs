@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import path from 'node:path';
 import { canonicalBody, canonicalJson, ReplayError, sha256 } from './matcher.mjs';
 import { createBindingRegistry } from './bindings.mjs';
-import { templateFor } from './template-text.mjs';
+import { tokenBoundary } from './template-text.mjs';
 import { isSyncedWorldLeaf } from './world-mapping.mjs';
 
 export const WORLD_FORMAT_VERSION = 2;
@@ -702,21 +702,54 @@ function systemTextFor(rule, body) {
   return false;
 }
 
+/** 按 pattern 顺序定位录制值；相等时间戳可对应不同字段别名，不能按值集合重排。 */
 function segmentsFromPattern(text, pattern, recorded, systemText, rulePath) {
-  const distinct = new Map();
+  const found = (value, from, kind) => {
+    let at = text.indexOf(value, from);
+    while (at !== -1 && !tokenBoundary(text, at, { kind, recorded: value }, 'recorded', systemText)) {
+      at = text.indexOf(value, at + value.length);
+    }
+    return at;
+  };
+  const values = new Map();
   for (const reference of pattern) {
     const key = recordedKey(reference.kind, reference.alias);
     const value = recorded[key];
     if (typeof value !== 'string' || !value) fail('binding_template_ambiguous', 'pattern 缺少录制值', { path: rulePath, reference: key });
-    distinct.set(key, { kind: reference.kind, alias: reference.alias, recorded: value });
+    if (!values.has(key)) values.set(key, { kind: reference.kind, alias: reference.alias, value });
   }
-  // 复用录制时的同一套边界扫描：pattern 重复引用同一别名表示该值在字段中重复出现。
-  const segments = templateFor(text, [...distinct.values()], 'recorded', systemText);
-  if (!segments) fail('binding_template_ambiguous', '绑定值在字段中一次也未出现', { path: rulePath });
-  const actual = segments.filter((part) => typeof part !== 'string').map(({ kind, alias }) => ({ kind, alias }));
-  const same = actual.length === pattern.length
-    && actual.every((reference, index) => reference.kind === pattern[index].kind && reference.alias === pattern[index].alias);
-  if (!same) fail('binding_template_ambiguous', '绑定出现序列与冻结 pattern 不符', { path: rulePath, expected: pattern, actual });
+  const segments = [], matched = [];
+  let cursor = 0;
+  for (const reference of pattern) {
+    const key = recordedKey(reference.kind, reference.alias);
+    const value = recorded[key];
+    const at = found(value, cursor, reference.kind);
+    if (at === -1) {
+      fail('binding_template_ambiguous', found(value, 0, reference.kind) === -1
+        ? '绑定值在字段中一次也未出现' : '绑定值未按冻结 pattern 顺序出现', { path: rulePath, reference: key });
+    }
+    if (at > cursor) segments.push(text.slice(cursor, at));
+    segments.push({ kind: reference.kind, alias: reference.alias });
+    matched.push({ start: at, end: at + value.length });
+    cursor = at + value.length;
+  }
+  // 同一值在字段里还有未被 pattern 消费的出现时，模板仍有歧义，不能静默保留字面量。
+  for (const { kind, alias, value } of values.values()) {
+    for (let at = found(value, 0, kind); at !== -1; at = found(value, at + value.length, kind)) {
+      if (matched.some((span) => at >= span.start && at < span.end)) continue;
+      const actual = [];
+      for (const entry of values.values()) {
+        for (let position = found(entry.value, 0, entry.kind); position !== -1; position = found(entry.value, position + entry.value.length, entry.kind)) {
+          actual.push({ position, reference: { kind: entry.kind, alias: entry.alias } });
+        }
+      }
+      actual.sort((left, right) => left.position - right.position);
+      fail('binding_template_ambiguous', '绑定出现序列与冻结 pattern 不符', {
+        path: rulePath, expected: pattern, actual: actual.map((entry) => entry.reference),
+      });
+    }
+  }
+  if (cursor < text.length) segments.push(text.slice(cursor));
   return segments;
 }
 
@@ -792,7 +825,9 @@ export function canonicalRecordedBody(rawBytes, rules, bindingList) {
     unique.set(key, binding);
   }
   const declarations = [...unique.values()].map((binding) => ({
-    owner: binding.owner, kind: binding.kind, alias: binding.alias, recorded: binding.recorded, anchor: 'cassette-load',
+    // 不同字段可在同一毫秒取到相同值；时间戳身份按因果别名区分，不能合并为一个录制身份。
+    owner: binding.owner, kind: binding.kind, alias: binding.alias, recorded: binding.recorded,
+    anchor: `cassette-load:${binding.kind}:${binding.alias}`,
   }));
   const registry = createBindingRegistry({ runId: 'cassette-load', declarations });
   for (const declaration of declarations) {

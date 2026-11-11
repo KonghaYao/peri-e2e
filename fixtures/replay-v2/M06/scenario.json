@@ -1,0 +1,313 @@
+{
+  "version": 2,
+  "id": "M06",
+  "title": "monitor_stop 真正退出进程树，重复停止不改变终态或追加迟到事件",
+  "provenance": {
+    "source": "local-fixture-model",
+    "realLlm": false
+  },
+  "sessionNames": [
+    "root"
+  ],
+  "seed": {
+    "directories": [
+      "home",
+      "home/.peri",
+      "home/tmp",
+      "work"
+    ],
+    "files": [
+      {
+        "path": "home/.peri/settings.json",
+        "sha256": "bf0303d1d85e9be8a95ae762af78670b6f8e75a8b649cc60ccae34f043272ff9",
+        "size": 585,
+        "mode": 384
+      },
+      {
+        "path": "work/monitor-source.py",
+        "sha256": "e8cd83ebda82f44798f15160ab53fca2ff2a0f0ee3db17ce0ccc55253349ee10",
+        "size": 2137,
+        "mode": 420
+      }
+    ]
+  },
+  "recordedWorld": {
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ijQi20",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ijQi20/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ijQi20/work"
+  },
+  "recordedSessionIds": {
+    "root": "01a1c864-1eda-7213-bc18-1b69dea5fb5a"
+  },
+  "configurationFingerprint": "615e2fdd2579321ed55a1857cbba5299044718736606e40b93409efe5f277891",
+  "bindings": [
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "root",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ijQi20",
+      "anchor": "isolated scenario root"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ijQi20/home",
+      "anchor": "isolated scenario home"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ijQi20/work",
+      "anchor": "isolated scenario work"
+    },
+    {
+      "owner": "world",
+      "kind": "date",
+      "alias": "today",
+      "recorded": "2026-11-11",
+      "anchor": "ambient UTC date in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "platform",
+      "alias": "platform",
+      "recorded": "macos",
+      "anchor": "ambient OS platform in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "os_version",
+      "alias": "os_version",
+      "recorded": "macOS 26.5.1",
+      "anchor": "ambient OS version in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "session",
+      "alias": "root",
+      "recorded": "01a1c864-1eda-7213-bc18-1b69dea5fb5a",
+      "anchor": "ACP session/new result"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "monitor-m06-host",
+      "recorded": "mcp-01a1c864-2047-75c1-b2c0-b71c65afa3f8",
+      "anchor": "monitor_start host receipt M06-start"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "monitor-m06-raw",
+      "recorded": "monitor-01a1c864-2045-7423-a48e-a892390e255d",
+      "anchor": "monitor_start raw receipt M06-start"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m06-M06-stop-1-startedAt",
+      "recorded": "2026-11-11T02:16:07.493056+00:00",
+      "anchor": "monitor M06-start tool M06-stop-1 field /startedAt"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m06-M06-stop-1-lastUpdatedAt",
+      "recorded": "2026-11-11T02:16:07.862760+00:00",
+      "anchor": "monitor M06-start tool M06-stop-1 field /lastUpdatedAt"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m06-M06-stop-1-deadlineAt",
+      "recorded": "2026-11-11T03:16:07.493059+00:00",
+      "anchor": "monitor M06-start tool M06-stop-1 field /deadlineAt"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m06-M06-stop-1-finishedAt",
+      "recorded": "2026-11-11T02:16:07.862760+00:00",
+      "anchor": "monitor M06-start tool M06-stop-1 field /finishedAt"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m06-M06-stop-2-startedAt",
+      "recorded": "2026-11-11T02:16:07.493056+00:00",
+      "anchor": "monitor M06-start tool M06-stop-2 field /startedAt"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m06-M06-stop-2-lastUpdatedAt",
+      "recorded": "2026-11-11T02:16:07.862760+00:00",
+      "anchor": "monitor M06-start tool M06-stop-2 field /lastUpdatedAt"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m06-M06-stop-2-deadlineAt",
+      "recorded": "2026-11-11T03:16:07.493059+00:00",
+      "anchor": "monitor M06-start tool M06-stop-2 field /deadlineAt"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m06-M06-stop-2-finishedAt",
+      "recorded": "2026-11-11T02:16:07.862760+00:00",
+      "anchor": "monitor M06-start tool M06-stop-2 field /finishedAt"
+    },
+    {
+      "owner": "world",
+      "kind": "timestamp",
+      "alias": "monitor-m06-event-1-ts",
+      "recorded": "2026-11-11T02:16:07.610415+00:00",
+      "anchor": "monitor M06-start event seq 1 capture timestamp"
+    }
+  ],
+  "portableResponses": [
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:4",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "M06-stop-1",
+          "rules": [
+            {
+              "path": "/params/task_id",
+              "mode": "typed-template",
+              "segments": [
+                {
+                  "kind": "task",
+                  "alias": "monitor-m06-raw"
+                }
+              ],
+              "systemText": false
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "a2e4f9ec56ebffbd034c41ac2bdbb1e13ea396ef96d60c5f1736197408203b61"
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:5",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "M06-stop-2",
+          "rules": [
+            {
+              "path": "/params/task_id",
+              "mode": "typed-template",
+              "segments": [
+                {
+                  "kind": "task",
+                  "alias": "monitor-m06-raw"
+                }
+              ],
+              "systemText": false
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "fa88d89c024c38d277990ef204b04173ef69423bd2b110458429151c0dd27f95"
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:6",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "M06-read",
+          "rules": [
+            {
+              "path": "/params/task_id",
+              "mode": "typed-template",
+              "segments": [
+                {
+                  "kind": "task",
+                  "alias": "monitor-m06-raw"
+                }
+              ],
+              "systemText": false
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "2dcc709c65ca211f58d81db26fb38f8b2bb3eb0612434d57473ef8fc211011af"
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "start",
+        "call": "reason:8",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "M06-read-empty",
+          "rules": [
+            {
+              "path": "/params/task_id",
+              "mode": "typed-template",
+              "segments": [
+                {
+                  "kind": "task",
+                  "alias": "monitor-m06-raw"
+                }
+              ],
+              "systemText": false
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "ba381ec626e483f862e6986d35e699c14e5edafa5328dc254c6e63a9544b7b22"
+    }
+  ]
+}

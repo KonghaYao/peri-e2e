@@ -81,9 +81,13 @@ export async function createReplayWorld(): Promise<ReplayWorld> {
 export function replayEnvironment(world: ReplayWorld, route?: { proxy: string; run: string }): Record<string, string> {
   return {
     HOME: world.home,
+    USERPROFILE: world.home,
     XDG_CONFIG_HOME: path.join(world.home, "config"),
     XDG_CACHE_HOME: path.join(world.home, "cache"),
     XDG_DATA_HOME: path.join(world.home, "data"),
+    XDG_STATE_HOME: path.join(world.home, "state"),
+    XDG_RUNTIME_DIR: path.join(world.home, "runtime"),
+    TMPDIR: path.join(world.home, "tmp"), TMP: path.join(world.home, "tmp"), TEMP: path.join(world.home, "tmp"),
     PATH: process.env.PATH ?? "/usr/local/bin:/usr/bin:/bin",
     TERM: "xterm-256color", LANG: "C.UTF-8", LC_ALL: "C.UTF-8", TZ: "UTC",
     HTTP_PROXY: "http://127.0.0.1:9", HTTPS_PROXY: "http://127.0.0.1:9", ALL_PROXY: "http://127.0.0.1:9",

@@ -24,10 +24,19 @@ The import excludes `.env`, `results/`, `recordings/`, `node_modules/`, and the
   `world-12c4186a13a664ec`): cassettes keep per-request bytes plus leaf/recipe
   references instead of duplicating the shared system/tool prefixes.
   `world:sync` / `world-check` require an explicit `PERI_SOURCE_ROOT`.
-- The current catalog has 30 scenarios and 99 modeled requests. `npm run
-  e2e:replay:verify` reports 30 cassettes, 99 entries, 0 legacy entries and
-  0 world drift; `.github/peri-rev` pins the product commit used by this repo's
-  CI to `4ba78d7e15f6040e5fa3192492987b17c0d0e2e6`.
+- The catalog now has 66 scenarios: the original 30 plus B01–B12, H01–H12 and
+  M01–M12 migrated from `legacy/replay-v3` (`19dd2d33166b4fe9abaf6556972879f58bed9d78`).
+  61 have world-v2 cassettes and pass real replay; B02, H05, H12, M10 and M11 are
+  blocked by pinned Peri behavior and kept as `*.blocked.ts` cases outside the
+  default replay (listed in `config/replay-blocked.json`).
+  `.github/peri-rev` pins the product commit used by this repo's CI to
+  `4ba78d7e15f6040e5fa3192492987b17c0d0e2e6`.
+- Migration restored typed `timestamp` bindings, explicit-rule precedence over
+  automatic binding rules, isolated TMP/XDG directories for every test process,
+  and the slow-scenario proxy timeout. The 62 world-v2 fixtures were explicitly
+  re-recorded against the pinned binary because the archived cassettes used
+  format v1 and the harness configuration/isolation changed. D/J/L remain for
+  the next batch.
 
 ## Non-fixture code from Peri PR #375
 
