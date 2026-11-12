@@ -3,8 +3,7 @@ import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { runReplayScenario } from "../../helpers/llm-replay-suite.js";
-import { REPLAY_BINARY, replayEnvironment } from "../../helpers/llm-replay-tui.js";
-import { startStdioAcpFixture } from "../../helpers/stdio-acp-fixture.js";
+import { replayEnvironment, startReplaySessionPeers } from "../../helpers/llm-replay-tui.js";
 
 const PREFIX_A = "I03_A_VISIBLE_BEFORE_CANCEL";
 const FORBIDDEN_A = "I03_A_FORBIDDEN_LATE_SUFFIX";
@@ -72,13 +71,16 @@ describe("I03 — one cancelled session does not cancel its peer or its next exe
       ] }),
       run: async (ctx) => {
         const notifications: any[] = [];
-        const peer = await startStdioAcpFixture({
-          binary: REPLAY_BINARY, cwd: ctx.world.work, home: ctx.world.home,
+        const group = await startReplaySessionPeers({
+          world: ctx.world,
+          sessionIds: ctx.sessionIds,
           env: replayEnvironment(ctx.world, { proxy: ctx.proxy.url, run: ctx.runId }),
-          onNotification: (message) => notifications.push(message), onServerRequest() {},
-          handleServerRequest(request) { return { error: { code: -32601, message: `unexpected I03 server request ${request.method}` } }; },
+          clientMeta: { "peri.userInputQueue": true },
+          notifications,
+          serverRequestLabel: "unexpected I03 server request",
         });
-        let peerClosed = false;
+        const peer = group.peer;
+        let peersClosed = false;
         const eventsFor = (alias: "A" | "B") => notifications.filter((message) => message.params?.sessionId === ctx.sessionIds[alias]);
         const textFor = (alias: "A" | "B") => JSON.stringify(eventsFor(alias));
         const assertHealthy = () => expect(ctx.proxy.snapshot(ctx.runId).errors).toEqual([]);
@@ -126,12 +128,6 @@ describe("I03 — one cancelled session does not cancel its peer or its next exe
           ctx.identity.finish(ctx.sessionIds[attempt.alias]!);
         };
         try {
-          const initialized = await peer.call("initialize", { protocolVersion: 1, clientCapabilities: { _meta: { "peri.userInputQueue": true } } });
-          expect(initialized.error).toBeUndefined();
-          for (const alias of ["A", "B"] as const) {
-            const loaded = await peer.call("session/load", { sessionId: ctx.sessionIds[alias], cwd: ctx.world.work, mcpServers: [] });
-            expect(loaded.error, JSON.stringify(loaded)).toBeUndefined();
-          }
           const firstA = await enqueue("A", "turn-1", "I03_START_CANCEL_A", "00000000-0000-0000-0000-000000000301");
           await ctx.run.waitReached(identity("A"), { timeout: 30_000 });
           const firstB = await enqueue("B", "turn-1", "I03_START_KEEP_B", "00000000-0000-0000-0000-000000000302");
@@ -185,11 +181,7 @@ describe("I03 — one cancelled session does not cancel its peer or its next exe
             ["A", "turn-1", "client_abort"], ["A", "turn-2", "complete"], ["B", "turn-1", "complete"],
           ]);
           ctx.observe("isolated_completion", { calls, notifications });
-          for (const alias of ["A", "B"] as const) {
-            const closed = await peer.call("session/close", { sessionId: ctx.sessionIds[alias] });
-            expect(closed.error).toBeUndefined();
-          }
-          expect(await peer.close()).toBe(0); peerClosed = true;
+          await group.close(); peersClosed = true;
           const completionOrder = (left: string[], right: string[]) => JSON.stringify(left).localeCompare(JSON.stringify(right));
           expect(notifications.filter((message) => message.method === "peri/agent_event_done")
             .map((message) => [message.params.sessionId, message.params.requestId, message.params.stopReason]).sort(completionOrder)).toEqual([
@@ -211,9 +203,9 @@ describe("I03 — one cancelled session does not cancel its peer or its next exe
           }
         } finally {
           await writeFile(path.join(ctx.world.evidence, "I03-acp-notifications.json"), JSON.stringify(notifications, null, 2));
-          if (!peerClosed) {
-            await writeFile(path.join(ctx.world.evidence, "I03-acp-failure.json"), await peer.diagnostics());
-            await peer.close();
+          if (!peersClosed) {
+            await writeFile(path.join(ctx.world.evidence, "I03-acp-failure.json"), JSON.stringify(await group.diagnostics(), null, 2));
+            await group.closeBestEffort();
           }
         }
       },
