@@ -7,6 +7,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sha256 } from './matcher.mjs';
+import { loadWorld } from './world-store.mjs';
 
 const execute = promisify(execFile);
 const e2eRoot = fileURLToPath(new URL('..', import.meta.url));
@@ -39,25 +40,111 @@ async function rewriteLeaf(world, id, content) {
 async function run(args) {
   try {
     const { stdout } = await execute(process.execPath, [script, ...args], { cwd: e2eRoot });
-    return { code: 0, report: JSON.parse(stdout) };
+    return { code: 0, report: JSON.parse(stdout), stderr: '' };
   } catch (error) {
     const stdout = error.stdout ?? '';
-    return { code: typeof error.code === 'number' ? error.code : 1, report: stdout ? JSON.parse(stdout) : null };
+    return {
+      code: typeof error.code === 'number' ? error.code : 1,
+      report: stdout.trim() ? JSON.parse(stdout) : null,
+      stderr: error.stderr ?? '',
+    };
   }
 }
 
-test('手工改写未映射 block0 并重封 world seal 时 world:check 非零且 stale', async (t) => {
+const SEND_ONLY = `"send_only": {
+    "type": "boolean",
+    "default": false,
+    "description": "When true, only queue a non-empty prompt to the live background sub-agent identified by resume_thread_id. If it has no live receiver, fail without loading or resuming a persisted thread."
+  },`;
+
+const SECTIONS = [
+  ['01_intro', '01_intro.md', 'Cached', 1],
+  ['02_system', '02_system.md', 'Cached', 2],
+  ['03_doing_tasks', '03_doing_tasks.md', 'Cached', 3],
+  ['04_actions', '04_actions.md', 'Cached', 4],
+  ['05_using_tools', '05_using_tools.md', 'Cached', 5],
+  ['06_tone_style', '06_tone_style.md', 'Cached', 6],
+  ['07_runtime', '07_runtime.md', 'Uncached', 1],
+  ['env', 'env.md', 'Environment', 0],
+];
+
+const MOD_RS = `const BASE_SECTIONS: [(&str, &str, PromptSectionZone, u16); 8] = [
+${SECTIONS.map(([id, file, zone, order]) => `    (
+        "${id}",
+        include_str!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../peri-acp/prompts/sections/${file}"
+        )),
+        PromptSectionZone::${zone},
+        ${order},
+    ),`).join('\n')}
+];`;
+
+/** 由 world 现有 leaf 反推一个合成 Peri 源树，用于制造“源已变化”的场景。 */
+async function syntheticPeriSource(t, worldDir, { block0 } = {}) {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'peri-world-check-source-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  await mkdir(path.join(root, 'peri-acp/prompts/sections'), { recursive: true });
+  await mkdir(path.join(root, 'peri-middlewares/src/subagent/tool/descriptions'), { recursive: true });
+  await mkdir(path.join(root, 'peri-agent/src/agent/compact_v2/descriptions'), { recursive: true });
+  await mkdir(path.join(root, 'peri-middlewares/src/default_system_prompt'), { recursive: true });
+  const world = await loadWorld(worldDir);
+  const sections = ['01_intro', '02_system', '03_doing_tasks', '04_actions', '05_using_tools', '06_tone_style'];
+  const block = block0 ?? world.leafBytes('sys.block0.main').toString('utf8');
+  await writeFile(path.join(root, 'Cargo.toml'), '');
+  for (const [index, id] of sections.entries()) {
+    await writeFile(path.join(root, `peri-acp/prompts/sections/${id}.md`), index === 0 ? block : '');
+  }
+  await writeFile(path.join(root, 'peri-acp/prompts/sections/13_skills.md'), world.leafBytes('sys.skills'));
+  await writeFile(path.join(root, 'peri-agent/src/agent/compact_v2/descriptions/summary_system_prompt.md'), world.leafBytes('sys.compact.summary'));
+  const agentId = world.leaves.find((id) => id.startsWith('tools.Agent.'));
+  const agent = JSON.parse(world.leafBytes(agentId).toString('utf8'));
+  await writeFile(path.join(root, 'peri-middlewares/src/subagent/tool/descriptions/agent.md'), agent.description);
+  await writeFile(path.join(root, 'peri-middlewares/src/subagent/tool/define.rs'), SEND_ONLY);
+  await writeFile(path.join(root, 'peri-middlewares/src/default_system_prompt/mod.rs'), MOD_RS);
+  return root;
+}
+
+test('手工改写未映射 leaf 并重封 world seal 时 world:check 非零且 stale', async (t) => {
   const { world } = await fixture(t);
-  const original = await readFile(path.join(world, 'system/block0.main.txt'));
-  await rewriteLeaf(world, 'sys.block0.main', Buffer.concat([original, Buffer.from('\nTAMPERED\n')]));
+  const original = await readFile(path.join(world, 'system/block1.main.prefix.txt'));
+  await rewriteLeaf(world, 'sys.block1.main.prefix', Buffer.concat([original, Buffer.from('\nTAMPERED\n')]));
 
   const { code, report } = await run(['--check', '--world', world]);
   assert.equal(code, 1);
   assert.equal(report.stale, true);
   assert.deepEqual(report.staleReasons, ['cassette_unmapped_drift']);
-  assert.deepEqual(report.recorded.unmappedDrift, ['sys.block0.main']);
+  assert.deepEqual(report.recorded.unmappedDrift, ['sys.block1.main.prefix']);
   assert.deepEqual(report.recorded.mappedDrift, []);
   assert.deepEqual(report.updated, []);
+});
+
+test('block0 与源不等值时 world:check 判 stale，同步后只报告源等值 drift', async (t) => {
+  const { world } = await fixture(t);
+  const original = await readFile(path.join(world, 'system/block0.main.txt'));
+  const source = await syntheticPeriSource(t, world, { block0: `${original.toString('utf8')}\nCHANGED` });
+
+  await rewriteLeaf(world, 'sys.block0.main', Buffer.concat([original, Buffer.from('\nTAMPERED\n')]));
+
+  const before = await run(['--check', '--world', world, '--peri-root', source]);
+  assert.equal(before.code, 1);
+  assert.deepEqual(before.report.updated, ['sys.block0.main']);
+  assert.deepEqual(before.report.staleReasons, ['source_not_synced']);
+  assert.deepEqual(before.report.recorded.mappedDrift, ['sys.block0.main']);
+  assert.deepEqual(before.report.recorded.unanchoredDrift, ['sys.block0.main']);
+  assert.equal(before.report.recorded.requiresRerecord, true);
+
+  const synced = await run(['--world', world, '--peri-root', source]);
+  assert.equal(synced.code, 0);
+  assert.deepEqual(synced.report.updated, ['sys.block0.main']);
+
+  const after = await run(['--check', '--world', world, '--peri-root', source]);
+  assert.equal(after.code, 0);
+  assert.equal(after.report.stale, false);
+  assert.deepEqual(after.report.recorded.mappedDrift, ['sys.block0.main']);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['sys.block0.main']);
+  assert.deepEqual(after.report.recorded.unanchoredDrift, []);
+  assert.equal(after.report.recorded.requiresRerecord, false);
 });
 
 test('干净基线 world:check 为 0 且录制引用全部一致', async (t) => {
@@ -104,6 +191,47 @@ test('mapped sys.skills 经 world:sync 后只报告待重录，不判为未映�
   assert.equal(after.report.stale, false);
   assert.deepEqual(after.report.staleReasons, []);
   assert.deepEqual(after.report.recorded.mappedDrift, ['sys.skills']);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['sys.skills']);
   assert.deepEqual(after.report.recorded.unmappedDrift, []);
-  assert.equal(after.report.recorded.requiresRerecord, true);
+  assert.equal(after.report.recorded.requiresRerecord, false);
+});
+
+test('篡改 tools.Agent.* 非管理字段并重封 world 时 world:check 失败', async (t) => {
+  const { world } = await fixture(t);
+  const periRoot = await syntheticPeriSource(t, world);
+  const id = 'tools.Agent.anthropic';
+  const original = JSON.parse(await readFile(path.join(world, 'tools/Agent.anthropic.json'), 'utf8'));
+  await rewriteLeaf(world, id, JSON.stringify({ ...original, name: 'AgentTampered' }));
+
+  const { code, report, stderr } = await run(['--check', '--world', world, '--peri-root', periRoot]);
+  assert.equal(code, 1);
+  assert.equal(report, null);
+  assert.match(stderr, new RegExp(`${id}: name/schema 等非管理字段与全量模板不一致`, 'u'));
+});
+
+test('Agent description 正常源同步后 world:check 通过且不要求重录', async (t) => {
+  const { world } = await fixture(t);
+  const ids = ['tools.Agent.anthropic', 'tools.Agent.responses'];
+  const original = JSON.parse(await readFile(path.join(world, 'tools/Agent.anthropic.json'), 'utf8'));
+  const periRoot = await syntheticPeriSource(t, world);
+  await writeFile(
+    path.join(periRoot, 'peri-middlewares/src/subagent/tool/descriptions/agent.md'),
+    `${original.description}\nUPDATED FROM SOURCE`,
+  );
+
+  const before = await run(['--check', '--world', world, '--peri-root', periRoot]);
+  assert.equal(before.code, 1);
+  assert.deepEqual(before.report.updated, ids);
+
+  const synced = await run(['--world', world, '--peri-root', periRoot]);
+  assert.equal(synced.code, 0);
+  assert.deepEqual(synced.report.updated, ids);
+
+  const after = await run(['--check', '--world', world, '--peri-root', periRoot]);
+  assert.equal(after.code, 0);
+  assert.equal(after.report.stale, false);
+  // 当前 cassette 只录制了 Anthropic 请求，因此只有 anthropic leaf 出现在录制引用中。
+  assert.deepEqual(after.report.recorded.mappedDrift, ['tools.Agent.anthropic']);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['tools.Agent.anthropic']);
+  assert.equal(after.report.recorded.requiresRerecord, false);
 });

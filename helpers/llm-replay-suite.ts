@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { performance } from "node:perf_hooks";
 import { ScenarioIdentity } from "./llm-replay-identity.js";
 import { declareReplayAmbientBindings } from "./llm-replay-runtime.js";
+import { openRecordWorld, type RecordWorldSession } from "./llm-replay-world.js";
 import {
   createReplayWorld, FIXTURE_MODEL_ORIGIN, prepareReplaySessions, ReplayTui,
   syntheticRequestEvidence, type ReplayTuiOptions, type ReplayWorld,
@@ -163,6 +164,7 @@ export async function runReplayScenario(definition: ReplayScenarioDefinition): P
   let upstream: any;
   let staging: string | undefined;
   let lock: string | undefined;
+  let recordWorld: RecordWorldSession | undefined;
   const lockToken = randomUUID();
   let scenarioStarted: number | undefined;
   let driverFinished = false;
@@ -175,6 +177,8 @@ export async function runReplayScenario(definition: ReplayScenarioDefinition): P
     let manifest: ScenarioManifest;
     if (mode === "record") {
       await mkdir(fixtureRoot, { recursive: true });
+      // 共享 world 的全局锁先于场景锁：prompt 段与 tail recipe 的分配必须串行。
+      recordWorld = await openRecordWorld(fixtureRoot);
       const requestedLock = path.join(fixtureRoot, `.lock-${definition.id}`);
       try { await mkdir(requestedLock); }
       catch (error) {
@@ -223,6 +227,7 @@ export async function runReplayScenario(definition: ReplayScenarioDefinition): P
     const proxyBootStarted = performance.now();
     proxy = await startReplayProxy({ mode, cassetteDir, requestTimeoutMs: definition.requestTimeoutMs,
       ...(mode === "record" ? { upstreams: [{ logicalOrigin: definition.logicalOrigin ?? FIXTURE_MODEL_ORIGIN, transportOrigin: upstream.url }] } : {}),
+      ...(mode === "record" && recordWorld ? { world: recordWorld.builder, slots: recordWorld.slots } : {}),
       provenance: { ...manifest.provenance, scenario: definition.id },
     });
     report.timings.proxyBootMs = performance.now() - proxyBootStarted;
@@ -275,10 +280,17 @@ export async function runReplayScenario(definition: ReplayScenarioDefinition): P
     report.proxy = await proxy.completeRun(currentRun);
     if (mode === "replay" && report.proxy.upstreamCalls !== 0) throw new Error("offline replay contacted an upstream");
     if (mode === "record") {
+      const recording = recordWorld;
+      if (!recording) throw new Error("record world session missing");
       await proxy.seal();
+      const validated = await recording.sealAndValidate(cassetteDir);
+      report.observations.push({ name: "record-world", value: validated, atMs: performance.now() - started });
       manifest.bindings = bindings.snapshotDeclarations();
-      manifest.portableResponses = await bindings.responsePlans(cassetteDir, { tools: definition.portableTools });
+      manifest.portableResponses = await bindings.responsePlans(cassetteDir, { tools: definition.portableTools, worldDir: recording.stagingWorldDir });
       await writeFile(path.join(staging!, "scenario.json"), JSON.stringify(manifest, null, 2));
+      // world 先提交，再发布 cassette：提交失败时旧 world 保持不动；cassette 发布失败只会留下未被引用的新增 leaf。
+      const worldCommit = await recording.commit();
+      report.observations.push({ name: "record-world-commit", value: worldCommit, atMs: performance.now() - started });
       const previous = `${fixtureDirectory}.previous-${randomUUID()}`;
       let hadPrevious = false;
       try { await rename(fixtureDirectory, previous); hadPrevious = true; }
@@ -316,6 +328,7 @@ export async function runReplayScenario(definition: ReplayScenarioDefinition): P
       await cleanup(() => Promise.all([rm(world.home, { recursive: true, force: true }), rm(world.work, { recursive: true, force: true })]));
     }
     if (staging) await cleanup(() => rm(staging!, { recursive: true, force: true }));
+    if (recordWorld) await cleanup(() => recordWorld!.close());
     if (lock) await cleanup(async () => {
       const owner = JSON.parse(await readFile(path.join(lock!, "owner.json"), "utf8"));
       if (owner.token !== lockToken) throw new Error("recording lock ownership changed during this run");

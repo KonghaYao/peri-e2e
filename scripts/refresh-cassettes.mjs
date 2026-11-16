@@ -2,7 +2,7 @@
 /**
  * world:sync —— 把高频 prompt 源文件同步进 replay world 快照。
  *
- * 只更新受源码映射的 leaf（skills、compact summary、Agent description/send_only）和 seal；
+ * 只更新受源码映射的 leaf（block0、skills、compact summary、Agent description/send_only）和 seal；
  * 其余 leaf 与 manifest 原样保留。源未变化时不写任何文件（幂等）。
  * 未映射（内容寻址）leaf 会在报告中列出，提醒审核而非静默忽略。
  *
@@ -14,7 +14,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
 import {
-  SOURCE_FILES, STABLE_LEAVES, agentDescriptionLeafIds, agentSchemaOf, expectedSendOnly,
+  STABLE_LEAVES, loadSourceLeaves,
 } from './replay-world-sources.mjs';
 import { compareRecordedWorldRefs, readRecordedWorldRefs } from './replay-world-recorded.mjs';
 import { replaceWorldDirectory } from './world-sync-swap.mjs';
@@ -43,15 +43,9 @@ function requiresLeaf(id) {
   if (!world.hasLeaf(id)) throw new Error(`world 缺少稳定 leaf ${id}，无法映射对应源文件`);
 }
 
-const source = {
-  skills: await readFile(path.join(periRoot, SOURCE_FILES.skills), 'utf8'),
-  compactSummary: await readFile(path.join(periRoot, SOURCE_FILES.compactSummary), 'utf8'),
-  agentDescription: await readFile(path.join(periRoot, SOURCE_FILES.agentDescription), 'utf8'),
-  agentSchema: await readFile(path.join(periRoot, SOURCE_FILES.agentSchema), 'utf8'),
-};
-
+const updates = await loadSourceLeaves(world, periRoot);
 requiresLeaf(STABLE_LEAVES.skills);
-requiresLeaf(STABLE_LEAVES.compactSummary);
+requiresLeaf(STABLE_LEAVES.block0);
 
 function recipeReferences(parts, leaf, seen = new Set()) {
   return parts.some((part) => {
@@ -64,26 +58,7 @@ const skillsReferenced = Object.values(world.manifest.recipes)
   .some((parts) => recipeReferences(parts, STABLE_LEAVES.skills));
 if (!skillsReferenced) throw new Error('world 中没有 recipe 引用 sys.skills，skills 变化不会进入请求');
 
-const updates = new Map([
-  [STABLE_LEAVES.skills, Buffer.from(source.skills, 'utf8')],
-  [STABLE_LEAVES.compactSummary, Buffer.from(source.compactSummary, 'utf8')],
-]);
-
-// Agent description 与 send_only 共享同一 tool leaf；带参数化 schema 的 provider 也一并更新。
-const sendOnly = expectedSendOnly(source.agentSchema);
-for (const id of agentDescriptionLeafIds(world)) {
-  const current = world.leafBytes(id).toString('utf8');
-  let tool;
-  try { tool = JSON.parse(current); }
-  catch { throw new Error(`${id}: leaf 不是合法 JSON，拒绝改写`); }
-  if (JSON.stringify(tool) !== current) throw new Error(`${id}: leaf JSON 无法无损往返，拒绝改写`);
-  tool.description = source.agentDescription;
-  agentSchemaOf(tool).properties.send_only = structuredClone(sendOnly);
-  const next = JSON.stringify(tool);
-  if (next !== current) updates.set(id, Buffer.from(next, 'utf8'));
-}
-
-const changed = [...updates].filter(([id, bytes]) => !bytes.equals(world.leafBytes(id)));
+const changed = [...updates].filter(([id, bytes]) => !world.hasLeaf(id) || !bytes.equals(world.leafBytes(id)));
 const unmappedLeaves = world.leaves.filter((id) => id.startsWith('sys.sha256.') || id.startsWith('tools.sha256.'));
 const report = {
   updated: changed.map(([id]) => id),
@@ -94,6 +69,9 @@ const report = {
 
 if (values.check) {
   const recorded = compareRecordedWorldRefs(world, await readRecordedWorldRefs(path.dirname(worldDir)));
+  // 源派生且已与源等值的 mapped drift 只需重封引用，不要求重录；其余 drift 仍要求重录。
+  const sourceAnchoredDrift = recorded.mappedDrift.filter((id) => updates.get(id)?.equals(world.leafBytes(id)));
+  const unanchoredDrift = recorded.mappedDrift.filter((id) => !sourceAnchoredDrift.includes(id));
   const staleReasons = [];
   if (changed.length) staleReasons.push('source_not_synced');
   if (recorded.unmappedDrift.length) staleReasons.push('cassette_unmapped_drift');
@@ -101,7 +79,12 @@ if (values.check) {
   const stale = staleReasons.length > 0;
   console.log(JSON.stringify({
     ...report,
-    recorded: { ...recorded, requiresRerecord: recorded.mappedDrift.length > 0 },
+    recorded: {
+      ...recorded,
+      requiresRerecord: unanchoredDrift.length > 0,
+      sourceAnchoredDrift,
+      unanchoredDrift,
+    },
     staleReasons,
     stale,
   }, null, 2));

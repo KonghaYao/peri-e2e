@@ -71,14 +71,20 @@ async function recordAll(t, { bodies = [anthropicBody()], world, suffix = '' } =
 function mappedBody() {
   return Buffer.from(JSON.stringify({
     model: 'fixture-model', max_tokens: 32000, stream: true,
-    system: [{ type: 'text', text: 'STABLE SKILLS' }, { type: 'text', text: 'STATIC BLOCK' }],
+    system: [
+      { type: 'text', text: 'STABLE SKILLS' },
+      { type: 'text', text: 'STATIC BLOCK' },
+      { type: 'text', text: 'UNMAPPED PREFIX' },
+    ],
     messages: [{ role: 'user', content: 'same question' }],
   }));
 }
 
 const mappedSlots = (field) => (field.path === '/system/0/text'
   ? { leaf: 'sys.skills' }
-  : field.path === '/system/1/text' ? { leaf: 'sys.block0.main' } : null);
+  : field.path === '/system/1/text'
+    ? { leaf: 'sys.block0.main' }
+    : field.path === '/system/2/text' ? { leaf: 'sys.block1.main.prefix' } : null);
 
 async function recordMapped(t) {
   const directory = await temporary(t);
@@ -86,6 +92,7 @@ async function recordMapped(t) {
   const builder = createWorldBuilder({ generation: 'mapped' });
   builder.addLeaf('sys.skills', 'STABLE SKILLS');
   builder.addLeaf('sys.block0.main', 'STATIC BLOCK');
+  builder.addLeaf('sys.block1.main.prefix', 'UNMAPPED PREFIX');
   const body = mappedBody();
   const writer = await createCassetteWriter(cassetteDir, { world: builder, slots: mappedSlots, provenance: { source: 'test' } });
   const capture = await writer.begin(identity(), {
@@ -307,7 +314,8 @@ test('mapped leaf 更新报告 worldDrift，未映射 leaf 变化与 legacy 都�
   assert.ok(clean.manifest.entries.length);
   const seal = JSON.parse(await readFile(path.join(fixture.cassetteDir, 'seal.json'), 'utf8'));
   const [entry] = clean.entries.values();
-  assert.deepEqual(seal.requestMeta[entry.request.stub].worldRefs.map((ref) => ref.id), ['sys.skills', 'sys.block0.main']);
+  assert.deepEqual(seal.requestMeta[entry.request.stub].worldRefs.map((ref) => ref.id),
+    ['sys.skills', 'sys.block0.main', 'sys.block1.main.prefix']);
 
   await rewriteWorldLeaf(fixture.worldDir, 'sys.skills', 'STABLE SKILLS updated');
   const drifted = await loadCassette(fixture.cassetteDir);
@@ -315,6 +323,11 @@ test('mapped leaf 更新报告 worldDrift，未映射 leaf 变化与 legacy 都�
   assert.deepEqual(drifted.report.worldDrift[0].leaves, ['sys.skills']);
   const [driftedEntry] = drifted.entries.values();
   assert.match(driftedEntry.request.canonicalBody, /STABLE SKILLS updated/u);
+
+  // block0 是源派生 leaf，内容变化可报告 drift，而不是结构损坏。
+  await rewriteWorldLeaf(fixture.worldDir, 'sys.block0.main', 'STATIC BLOCK updated');
+  const blockDrift = await loadCassette(fixture.cassetteDir);
+  assert.ok(blockDrift.report.worldDrift.some((item) => item.leaves.includes('sys.block0.main')));
 
   // 漂移必须让 CLI verify 非零退出。
   const verify = await execute(process.execPath, [cli, 'verify', '--cassette', fixture.cassetteDir])
@@ -324,9 +337,9 @@ test('mapped leaf 更新报告 worldDrift，未映射 leaf 变化与 legacy 都�
   assert.equal(JSON.parse(verify.stdout).passed, false);
 
   // 未映射 leaf 的变化不能被 drift 解释。
-  await rewriteWorldLeaf(fixture.worldDir, 'sys.block0.main', 'STATIC BLOCK tampered');
+  await rewriteWorldLeaf(fixture.worldDir, 'sys.block1.main.prefix', 'UNMAPPED PREFIX tampered');
   await assert.rejects(loadCassette(fixture.cassetteDir),
-    (error) => error.code === 'world_drift_unmapped_leaf' && error.details.leaf === 'sys.block0.main');
+    (error) => error.code === 'world_drift_unmapped_leaf' && error.details.leaf === 'sys.block1.main.prefix');
 });
 
 test('legacy v2 cassette 让 CLI verify 非零退出', async (t) => {
