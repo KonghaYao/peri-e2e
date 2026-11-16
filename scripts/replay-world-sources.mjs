@@ -9,7 +9,7 @@ export { AGENT_LEAF_PREFIX, STABLE_LEAVES };
 export const SOURCE_FILES = Object.freeze({
   skills: 'peri-acp/prompts/sections/13_skills.md',
   agentDescription: 'peri-middlewares/src/subagent/tool/descriptions/agent.md',
-  agentSchema: 'peri-middlewares/src/subagent/tool/define.rs',
+  agentSchema: 'peri-middlewares/src/subagent/tool/define/sub_agent_tool.rs',
   compactSummary: 'peri-agent/src/agent/compact_v2/descriptions/summary_system_prompt.md',
 });
 
@@ -36,12 +36,12 @@ const SEND_ONLY = Object.freeze({
   description: 'When true, only queue a non-empty prompt to the live background sub-agent identified by resume_thread_id. If it has no live receiver, fail without loading or resuming a persisted thread.',
 });
 
-/** 复用旧生成器的契约检查：define.rs 的 send_only 定义变化时必须显式失败。 */
+/** 复用旧生成器的契约检查：Agent schema 的 send_only 定义变化时必须显式失败。 */
 export function expectedSendOnly(defineSource) {
   const field = defineSource.match(/"send_only": \{([\s\S]*?)\n\s*\},/u)?.[1] ?? '';
   if (!field.includes('"type": "boolean"') || !field.includes('"default": false')
       || !field.includes(JSON.stringify(SEND_ONLY.description))) {
-    throw new Error('send_only fixture schema does not match current define.rs contract');
+    throw new Error('send_only fixture schema does not match current Agent schema contract');
   }
   return structuredClone(SEND_ONLY);
 }
