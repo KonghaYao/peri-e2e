@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 99051,
-  "rawSha256": "27f4d3e198ad08d7458201471a0992d795be8561f7e15e47916c435b19ca98cb",
+  "rawBytes": 98556,
+  "rawSha256": "24b23febc537fc42bbe1e55dbfff9e3e9e330d96dc41e457aa6b5832fe6cef2f",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder>[Context has been compacted. The summary below replaced earlier history. If it contains Recovery resources, before any other tool call use SkillTool to reload each listed, non-preloaded skill by its exact canonical name. If a reload fails, use the failure guidance, including DiscoverSkillsTool when directed, or report that the skill cannot be recovered. Rules in the summary are hints; the reloaded body is authoritative. A newer explicit user instruction takes precedence.]\\n\\nThis session continues from a previous conversation. Below is a summary of the prior dialogue.\\n\\nCOMPACT_SUMMARY_KEPT: The prior completed task recorded the seed value 731.</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"CONTINUE_AFTER_COMPACT\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "c332389b0a814554f0dc9d28ad5cb003fcbaff2016d1e36ae8afbf1b8eb76f01"
+  "canonicalSha256": "dd7d45d5411b9231056e0cea8b69bd6ca86ce658ebbc81ed3eda191cd273b425"
 }

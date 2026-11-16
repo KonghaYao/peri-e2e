@@ -1,9 +1,9 @@
 {
   "v": 2,
-  "rawBytes": 99061,
-  "rawSha256": "883fc4e22843693b9ebd9462a880e9e156cd2417080d3511268e73bc756da428",
+  "rawBytes": 98407,
+  "rawSha256": "655c0a4b0e5a2f4d243219f3d9055f077f994a2864ef588b43c121449f905af9",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"A_STREAM_IN_BACKGROUND\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"A_STREAM_IN_BACKGROUND\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
@@ -20,5 +20,5 @@
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "bf3c618e79cd98c92c35db70f15e053920d0981d5d5cedd36ccd9d21d1df9b0f"
+  "canonicalSha256": "b1d1bb52ca9c5afa9808780a419b9ee386a839b4478e5a60efd9493798738dcb"
 }

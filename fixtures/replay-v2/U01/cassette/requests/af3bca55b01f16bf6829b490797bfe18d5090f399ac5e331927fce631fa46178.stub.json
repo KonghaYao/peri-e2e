@@ -1,9 +1,9 @@
 {
   "v": 2,
-  "rawBytes": 99165,
-  "rawSha256": "f6d31863d3d34f16c33d929bd5fc98660cb3a08463905b48c202f99ae183d536",
+  "rawBytes": 98511,
+  "rawSha256": "d78092f3496c0d7e921b58158bd2dd079d60c5e46a46263318e342e4b685f58b",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"BEFORE_PROCESS_RESTART\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"BEFORE_RESTART_STORED\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"AFTER_PROCESS_RESTART\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"BEFORE_PROCESS_RESTART\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"BEFORE_RESTART_STORED\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"AFTER_PROCESS_RESTART\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "0ebadbfef476c004942354de390035675be7b9b0a1f9a3d48fb9948c6dcd3843"
+  "canonicalSha256": "58bf0accbbabd78c34ed4c4bf65d843d53c349f5d8fcb2d809e0a4170546671c"
 }

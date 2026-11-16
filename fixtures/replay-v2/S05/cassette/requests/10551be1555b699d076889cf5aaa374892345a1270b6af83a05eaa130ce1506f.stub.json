@@ -1,9 +1,9 @@
 {
   "v": 2,
-  "rawBytes": 99771,
-  "rawSha256": "a744f1b6eef315df7752ff73fb1ee428027de334c4ec53f82affbeb6edad4b9e",
+  "rawBytes": 99117,
+  "rawSha256": "52e06e7f0a486f4eaae7f55dff57f3318bbe79120638e9bbbe49d91183ba53e2",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"S05_OLD_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"S05_PREFIX_VISIBLE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"guidance\\\" source=\\\"model_runtime\\\" kind=\\\"stream_interrupted\\\" severity=\\\"warning\\\" delivery=\\\"required\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;模型流中断，正在继续。&quot;\\\" metadata=\\\"{&quot;reason&quot;:&quot;stream_interrupted&quot;}\\\">上一条回复在流式传输中被上游切断，并非你主动结束。从保存的断点继续，不要重复已输出内容或已完成的工具调用；参数被截断的工具调用需要重新发起。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"S05_NEW_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"S05_OLD_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"S05_PREFIX_VISIBLE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"guidance\\\" source=\\\"model_runtime\\\" kind=\\\"stream_interrupted\\\" severity=\\\"warning\\\" delivery=\\\"required\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;模型流中断，正在继续。&quot;\\\" metadata=\\\"{&quot;reason&quot;:&quot;stream_interrupted&quot;}\\\">上一条回复在流式传输中被上游切断，并非你主动结束。从保存的断点继续，不要重复已输出内容或已完成的工具调用；参数被截断的工具调用需要重新发起。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"S05_NEW_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "97f869bc6dff09c1c57d8c50c614333c8b00ab6e04934f447fe32565b9967ed3"
+  "canonicalSha256": "8dd1fae581c73c5587b7a99a508cd5e476bb1bf636c8459c51ec12250c4bd1ba"
 }

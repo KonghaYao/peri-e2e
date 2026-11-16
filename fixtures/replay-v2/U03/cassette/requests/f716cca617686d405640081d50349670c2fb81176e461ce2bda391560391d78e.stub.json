@@ -1,9 +1,9 @@
 {
   "v": 2,
-  "rawBytes": 99319,
-  "rawSha256": "c0bf688af7bff99638c042bc99f7cb559de23c82904e76b85b7029fdbb540f69",
+  "rawBytes": 98665,
+  "rawSha256": "1c550400e15567f034fba62eb198f4ebb95e5779b50ee9e1eca8867074ed9448",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"QUEUE_FIRST_INPUT\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"FIRST_QUEUE_PREFIX FIRST_QUEUE_DONE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"QUEUE_SECOND_INPUT\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"SECOND_QUEUE_REPLY\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"QUEUE_THIRD_INPUT\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"QUEUE_FIRST_INPUT\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"FIRST_QUEUE_PREFIX FIRST_QUEUE_DONE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"QUEUE_SECOND_INPUT\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"SECOND_QUEUE_REPLY\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"QUEUE_THIRD_INPUT\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "4d884dc06519993a637b02d2b80b22b984300b15a7e8cc442a53418119e928e4"
+  "canonicalSha256": "ba2a296c017889bca3081df67d90ca0f64018be5b895c1e1afac1e4d99c92f99"
 }

@@ -8,10 +8,10 @@ import { contentText, resultText, tool, type CallIdentity } from "./agents-fixtu
 export const monitorNames = ["monitor_start", "monitor_read", "monitor_stop", "monitor_list"];
 export const portableMonitorTools = { ExecuteExtraTool: ["/params/task_id"] };
 export const discoverMonitor = (id: string) => tool(`${id}-discover`, "SearchExtraTools", {
-  query: `select:${monitorNames.map((name) => `mcp__monitor__${name}`).join(",")}`,
+  query: `select:${monitorNames.map((name) => `mcp__peri__${name}`).join(",")}`,
 });
 export const monitorTool = (id: string, name: string, params: Record<string, unknown>) =>
-  tool(id, "ExecuteExtraTool", { tool_name: `mcp__monitor__${name}`, params });
+  tool(id, "ExecuteExtraTool", { tool_name: `mcp__peri__${name}`, params });
 export const monitorCall = (execution: string, call: string, owner = "root"): CallIdentity =>
   ({ owner, execution, call, purpose: "reason", attempt: 1 });
 export const monitorCommand = (name: string, mode = name) => `python3 monitor-source.py ${name} ${mode}`;
@@ -237,14 +237,14 @@ export class MonitorBindings {
   onRequest = async (observation: ReplayRequestObservation) => {
     const body = JSON.parse(observation.request.body.toString()), calls = new Map<string, any>(), rules: any[] = [];
     for (const message of body.messages ?? []) for (const block of Array.isArray(message.content) ? message.content : []) {
-      if (block.type === "tool_use" && block.name === "ExecuteExtraTool" && block.input?.tool_name?.startsWith("mcp__monitor__")) calls.set(block.id, block.input);
+      if (block.type === "tool_use" && block.name === "ExecuteExtraTool" && block.input?.tool_name?.startsWith("mcp__peri__")) calls.set(block.id, block.input);
     }
     for (let mi = 0; mi < (body.messages ?? []).length; mi++) {
       const blocks = body.messages[mi].content; if (!Array.isArray(blocks)) continue;
       for (let bi = 0; bi < blocks.length; bi++) {
         const block = blocks[bi], input = calls.get(block.tool_use_id);
         if (block.type !== "tool_result" || !input) continue;
-        const id = block.tool_use_id, name = input.tool_name.slice("mcp__monitor__".length), text = contentText(block.content);
+        const id = block.tool_use_id, name = input.tool_name.slice("mcp__peri__".length), text = contentText(block.content);
         if (name === "monitor_start" && !block.is_error) {
           const spec = this.specs.find((candidate) => candidate.id === id); expect(spec).toBeDefined(); expect(input.params.command).toBe(spec!.command);
           const host = text.match(/Background task started: (mcp-[A-Za-z0-9_-]+)\./u)?.[1];

@@ -1,19 +1,19 @@
 {
   "v": 2,
-  "rawBytes": 99989,
-  "rawSha256": "7e8709e5482c4dc776c4cc848065dee6d3567e0f1f98ba6afdb235c2bf0be9b3",
+  "rawBytes": 99335,
+  "rawSha256": "1861f4e2b9752af242a94932c0389e98b2a1d15764fa8fa4d44bc70964de635e",
   "parts": [
     "{\"model\":\"fixture-model\",\"input\":[{\"type\":\"message\",\"role\":\"developer\",\"content\":[{\"type\":\"input_text\",\"text\":",
     {
       "recipe": "sys.responses.main.t11",
       "as": "json-string"
     },
-    "}]},{\"type\":\"message\",\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"S06_RESPONSES_WRITE\"}]},{\"type\":\"message\",\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"id\":\"s06-tool\",\"type\":\"function_call\",\"call_id\":\"s06-call\",\"name\":\"Write\",\"arguments\":\"{\\\"file_path\\\":\\\"/tmp/peri-wire-e2e-H7OJY8/work/responses.txt\\\",\\\"content\\\":\\\"RESPONSES_TOOL_EFFECT\\\\n\\\"}\",\"status\":\"completed\"},{\"type\":\"function_call_output\",\"call_id\":\"s06-call\",\"output\":[{\"type\":\"input_text\",\"text\":\"Wrote 1 line responses.txt\\n[Execution status: completed]\"}]}],\"stream\":true,\"store\":false,\"include\":[\"reasoning.encrypted_content\"],\"tools\":",
+    "}]},{\"type\":\"message\",\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"S06_RESPONSES_WRITE\"}]},{\"type\":\"message\",\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"id\":\"s06-tool\",\"type\":\"function_call\",\"call_id\":\"s06-call\",\"name\":\"Write\",\"arguments\":\"{\\\"file_path\\\":\\\"/tmp/peri-wire-e2e-H7OJY8/work/responses.txt\\\",\\\"content\\\":\\\"RESPONSES_TOOL_EFFECT\\\\n\\\"}\",\"status\":\"completed\"},{\"type\":\"function_call_output\",\"call_id\":\"s06-call\",\"output\":[{\"type\":\"input_text\",\"text\":\"Wrote 1 line responses.txt\\n[Execution status: completed]\"}]}],\"stream\":true,\"store\":false,\"include\":[\"reasoning.encrypted_content\"],\"tools\":",
     {
       "recipe": "tools.responses.main",
       "as": "raw"
     },
     ",\"tool_choice\":\"auto\",\"reasoning\":{\"effort\":\"medium\",\"summary\":\"auto\"},\"max_output_tokens\":32000}"
   ],
-  "canonicalSha256": "06699e4955c07c59e9aab7d8ae1edd7904d1995baf5ce79bcd33934aa5c97495"
+  "canonicalSha256": "262cff685a2d51de458b0809427a8dcbba6524bfe7e4c1ffae43242b95f5ee2a"
 }

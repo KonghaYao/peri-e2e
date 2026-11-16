@@ -1,9 +1,9 @@
 {
   "v": 2,
-  "rawBytes": 99421,
-  "rawSha256": "f3a5cff97e40530047f9e9b9bf1f155a472816f6f91108dbd3561c37b2ab6dde",
+  "rawBytes": 98767,
+  "rawSha256": "5fe732708adf5f7a55dc56e76d6ab6e370090c3fadb7b36835fde2da34bc2834",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"S02_STREAMED_WRITE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"s02-write\",\"name\":\"Write\",\"input\":{\"content\":\"STREAMED_ARGUMENTS_OK\\n中文🚀\\n\",\"file_path\":\"/tmp/peri-wire-e2e-i2N72K/work/split-参数.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"s02-write\",\"tool_use_id\":\"s02-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 2 lines split-参数.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"S02_STREAMED_WRITE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"s02-write\",\"name\":\"Write\",\"input\":{\"content\":\"STREAMED_ARGUMENTS_OK\\n中文🚀\\n\",\"file_path\":\"/tmp/peri-wire-e2e-i2N72K/work/split-参数.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"s02-write\",\"tool_use_id\":\"s02-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 2 lines split-参数.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "9cc266b1e45df4eb3937d93eade5d7b83876d8d1aa3c310e087ba717e678a023"
+  "canonicalSha256": "9a26aea1165860564edcff71b2ebedf3d0e45a9502194c6756797f9b4b246331"
 }

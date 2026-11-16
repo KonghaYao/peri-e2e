@@ -171,7 +171,8 @@ describe("S01-S06 真实 TUI 流式业务录制与独立离线重放", () => {
         await beginTurn(ctx, tui, "turn-1", "S02_STREAMED_WRITE");
         const screen = await finalScreen(ctx, tui, "S02_WRITE_DONE");
         expect(screen).toMatch(/✓\s+Write/);
-        expect(screen).toContain("split-参数.txt");
+        // 单出口连接摘要占用一行后，卡片路径按 TUI 宽度截断；匹配可见前缀。
+        expect(screen).toMatch(/split-参数/u);
         expect(await readFile(path.join(ctx.world.work, "split-参数.txt"), "utf8")).toBe("STREAMED_ARGUMENTS_OK\n中文🚀\n");
         await tui.save("split-arguments-tool-completed");
         await finishTurn(ctx, 2);
@@ -354,7 +355,8 @@ describe("S01-S06 真实 TUI 流式业务录制与独立离线重放", () => {
         await beginTurn(ctx, tui, "turn-1", "S06_RESPONSES_WRITE");
         const screen = await finalScreen(ctx, tui, "S06_RESPONSES_DONE");
         expect(screen).toMatch(/✓\s+Write/);
-        expect(screen).toContain("responses.txt");
+        // 单出口连接摘要占用一行后，卡片路径按 TUI 宽度截断；匹配可见前缀。
+        expect(screen).toMatch(/responses\.t/u);
         expect(screen.split("S06_RESPONSES_DONE")).toHaveLength(2);
         expect(await readFile(path.join(ctx.world.work, "responses.txt"), "utf8")).toBe("RESPONSES_TOOL_EFFECT\n");
         await tui.save("responses-tool-completed");

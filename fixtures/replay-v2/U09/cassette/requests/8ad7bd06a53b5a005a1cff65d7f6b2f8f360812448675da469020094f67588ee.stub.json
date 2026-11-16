@@ -1,9 +1,9 @@
 {
   "v": 2,
-  "rawBytes": 99364,
-  "rawSha256": "a0cb010cae3faff0e77980351944bd25ef674598e1e2252348bf8d42ecd2c4a7",
+  "rawBytes": 98710,
+  "rawSha256": "882bb867b7828a0229fe190d6291a12e92697bb27ba26acf1a428474644a8e31",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"RUN_DENY_TOOL\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"denied-shell\",\"name\":\"Bash\",\"input\":{\"command\":\"printf 'DENY\\\\n' >> approval.txt\",\"description\":\"Append isolated approval evidence\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"denied-shell\",\"tool_use_id\":\"denied-shell\",\"content\":[{\"type\":\"text\",\"text\":\"Cancelled by user\"}],\"is_error\":true,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"RUN_DENY_TOOL\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"denied-shell\",\"name\":\"Bash\",\"input\":{\"command\":\"printf 'DENY\\\\n' >> approval.txt\",\"description\":\"Append isolated approval evidence\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"denied-shell\",\"tool_use_id\":\"denied-shell\",\"content\":[{\"type\":\"text\",\"text\":\"Cancelled by user\"}],\"is_error\":true,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "13c71a7b015b68712ece266593b90a2c1f95559bf018fe721d8f43613a7cc7ba"
+  "canonicalSha256": "024fd238db9f2c392e24b5b8915c672b73b4db0fff220bb1f1183e78c2f8b4b1"
 }

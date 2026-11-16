@@ -26,7 +26,7 @@ describe("real monitor capture and retained buffers", () => {
       upstream: async () => agentProvider((call, body): Reply => {
         if (call.execution === "start" && call.call === "reason:1") return tools(discoverMonitor(entry.id));
         if (call.execution === "start" && call.call === "reason:2") {
-          expectResult(body, `${entry.id}-discover`, "mcp__monitor__monitor_start");
+          expectResult(body, `${entry.id}-discover`, "mcp__peri__monitor_start");
           return tools(monitorTool(spec.id, "monitor_start", { command: spec.command, label: `${entry.id} buffer`, ...(entry.mode === "overflow" ? { max_events: 3 } : {}) }));
         }
         if (call.execution === "start" && call.call === "reason:3") {

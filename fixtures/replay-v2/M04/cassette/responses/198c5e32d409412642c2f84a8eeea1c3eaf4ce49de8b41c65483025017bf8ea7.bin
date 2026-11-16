@@ -5,7 +5,7 @@ event: content_block_start
 data: {"type":"content_block_start","index":0,"content_block":{"type":"tool_use","id":"M04-discover","name":"SearchExtraTools","input":{}}}
 
 event: content_block_delta
-data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"query\":\"select:mcp__monitor__monitor_start,mcp__monitor__monitor_read,mcp__monitor__monitor_stop,mcp__monitor__monitor_list\"}"}}
+data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"query\":\"select:mcp__peri__monitor_start,mcp__peri__monitor_read,mcp__peri__monitor_stop,mcp__peri__monitor_list\"}"}}
 
 event: content_block_stop
 data: {"type":"content_block_stop","index":0}
