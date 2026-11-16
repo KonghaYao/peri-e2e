@@ -13,6 +13,9 @@
     "directories": [
       "home",
       "home/.peri",
+      "home/runtime",
+      "home/state",
+      "home/tmp",
       "work",
       "work/.claude",
       "work/.claude/agents"
@@ -33,12 +36,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/tmp/peri-wire-e2e-7sEwbc",
-    "home": "/tmp/peri-wire-e2e-7sEwbc/home",
-    "work": "/tmp/peri-wire-e2e-7sEwbc/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-nrx6Hg",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-nrx6Hg/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-nrx6Hg/work"
   },
   "recordedSessionIds": {
-    "root": "01a1b607-9230-7df2-adf2-4bb5d5541f13"
+    "root": "01a1e2bc-d098-7cf3-8695-53f622a1ea48"
   },
   "configurationFingerprint": "ab41bb646cbc7b72569c6ba7fe98afa0aacdd648dcf393a6f03e93c29b8c2fe5",
   "bindings": [
@@ -46,57 +49,64 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/tmp/peri-wire-e2e-7sEwbc",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-nrx6Hg",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/tmp/peri-wire-e2e-7sEwbc/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-nrx6Hg/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/tmp/peri-wire-e2e-7sEwbc/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-nrx6Hg/work",
       "anchor": "isolated scenario work"
     },
     {
       "owner": "world",
       "kind": "date",
       "alias": "today",
-      "recorded": "2026-11-07",
+      "recorded": "2026-11-16",
       "anchor": "ambient UTC date in system environment"
     },
     {
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "linux",
+      "recorded": "macos",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "Ubuntu 24.04.3 LTS",
+      "recorded": "macOS 26.5.1",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1b607-9230-7df2-adf2-4bb5d5541f13",
+      "recorded": "01a1e2bc-d098-7cf3-8695-53f622a1ea48",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "thread",
       "alias": "child-worker",
-      "recorded": "01a1b607-9475-7c50-8a0d-326b1db9de2e",
+      "recorded": "01a1e2bc-d1f1-7ea3-9d87-6c7bf8419e56",
       "anchor": "created child worker"
+    },
+    {
+      "owner": "world",
+      "kind": "task",
+      "alias": "task-A01-spawn",
+      "recorded": "bg-01a1e2bc-d1f1-7ea3-9d87-6c8788b407d0",
+      "anchor": "Agent background receipt A01-spawn"
     }
   ],
   "portableResponses": []
