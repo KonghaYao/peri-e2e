@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 99641,
-  "rawSha256": "4417d9c13bdd9a7da89ebc8f4a230dc37e54a290d0979bf3b054e311b35de517",
+  "rawBytes": 99692,
+  "rawSha256": "1efe50d349aaf27b888164776486aae845364d73a44274a5ca65d73165e4eb3f",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute A04 first phase.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"A04-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"A04_FIRST_CHILD_TASK\",\"run_in_background\":false,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"A04-spawn\",\"tool_use_id\":\"A04-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"child_thread_id: 01a1b607-9e72-7e70-ba12-7b34285db22c\\nA04_CHILD_FIRST_REPORT\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"A04_FIRST_TURN_COMPLETE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute A04 second phase.\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "5991303f845f261f06bcafd75679b22100212146bdbfcc4e05ac7b31c008d42c"
+  "canonicalSha256": "0093b3c1d3af6a639c67ea9719bb2330164e380e05b258d392ccc0280d9e0043"
 }

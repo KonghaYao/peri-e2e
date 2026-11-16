@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 99480,
-  "rawSha256": "d1cc8ea0257ba56452a1450ecbd5ee73afef4229891d2f9ce3dded6d34e6e83e",
+  "rawBytes": 99531,
+  "rawSha256": "5765cf776d419c8dee3d777c6d18c9d41e9f1cc8369e39a984f7cc272d49d8f2",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute A04 first phase.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"A04-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"A04_FIRST_CHILD_TASK\",\"run_in_background\":false,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"A04-spawn\",\"tool_use_id\":\"A04-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"child_thread_id: 01a1b607-9e72-7e70-ba12-7b34285db22c\\nA04_CHILD_FIRST_REPORT\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "c5b64585966c8c8357fbc4267d0701506b60eb7677af5f48171bffa942c0fcaf"
+  "canonicalSha256": "810193a727489068de781575658c8595c4dedadd5ce3d94c358c1eebe769242e"
 }

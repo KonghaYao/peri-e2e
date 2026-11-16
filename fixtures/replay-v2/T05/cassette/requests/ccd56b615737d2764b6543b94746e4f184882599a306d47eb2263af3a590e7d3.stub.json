@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 100467,
-  "rawSha256": "1c2550593a38cfb152f9fa4f2752c53a0ea48ab2db768afc1ace391c5cfe0dde",
+  "rawBytes": 100518,
+  "rawSha256": "86ea89765184c01ce14e2d3f6798870f3e187b348076dd2e1885ba68031a1f15",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T05_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t05-discover\",\"name\":\"SearchExtraTools\",\"input\":{\"query\":\"select:mcp_read_resource\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t05-discover\",\"tool_use_id\":\"t05-discover\",\"content\":[{\"type\":\"text\",\"text\":\"{\\\"results\\\":[{\\\"name\\\":\\\"mcp_read_resource\\\",\\\"description\\\":\\\"Read a resource from an MCP server. Available resources:\\\\n- server \\\\\\\"cron\\\\\\\": cron://jobs, cron://triggers (2 resources)\\\\n- server \\\\\\\"web\\\\\\\": agent://builtin/web-researcher/agent.md (1 resources)\\\\n- server \\\\\\\"workflow\\\\\\\": workflow://background-tasks, workflow://runs, workflow://runs/{runId}, workflow://runs/{runId}/events, workflow://runs/{runId}/tasks, workflow://tasks (6 resources)\\\\n- server \\\\\\\"workspace\\\\\\\": workspace://git/ref, skill://builtin/use-artifacts/SKILL.md, skill://builtin/goal/SKILL.md, skill://builtin/multitask/SKILL.md, skill://builtin/ultra-adlc/SKILL.md, skill://builtin/ultracode/SKILL.md, skill://builtin/cron/SKILL.md, skill://builtin/monitor/SKILL.md, agent://builtin/coder/agent.md, agent://builtin/explorer/agent.md, agent://builtin/general-purpose/agent.md, agent://builtin/plan/agent.md, agent://builtin/verification/agent.md, peri-instruction://workspace/index (14 resources)\\\",\\\"parameters\\\":{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"server_name\\\":{\\\"type\\\":\\\"string\\\",\\\"description\\\":\\\"MCP 服务器名称（配置中的 key）\\\"},\\\"uri\\\":{\\\"type\\\":\\\"string\\\",\\\"description\\\":\\\"要读取的资源 URI\\\"}},\\\"required\\\":[\\\"server_name\\\",\\\"uri\\\"]},\\\"score\\\":1.0}],\\\"total_available\\\":14}\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "214483cd40b35d798cf276fa292b93015d12f1275dffd183c5e72814ae8be87b"
+  "canonicalSha256": "65bf9794b34343caab4427721096601eea2aa8ad1723154832ee278f28fbcdff"
 }

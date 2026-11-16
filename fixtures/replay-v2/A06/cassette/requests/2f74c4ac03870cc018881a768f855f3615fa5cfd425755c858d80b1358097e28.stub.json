@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 100492,
-  "rawSha256": "59dfe51c35edf146f34cf45da4adb3f824fc53701746bca597ba4c86491cdd43",
+  "rawBytes": 100543,
+  "rawSha256": "4de64237a291a77b1a3081d29c9c728924ba06c2fabfbc3380545b7297d0c2e1",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute A06.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"A06-initial-write\",\"name\":\"Write\",\"input\":{\"content\":\"A06_PARENT_INITIAL\\n\",\"file_path\":\"a06-shared.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"A06-initial-write\",\"tool_use_id\":\"A06-initial-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line a06-shared.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"A06-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"A06_SHARED_FILE_CHILD\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}},{\"type\":\"tool_use\",\"id\":\"A06-parent-write\",\"name\":\"Write\",\"input\":{\"content\":\"A06_PARENT_BEFORE_CHILD\\n\",\"file_path\":\"a06-shared.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"A06-spawn\",\"tool_use_id\":\"A06-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1b607-a65e-7a22-98ef-e14630864bfe started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1b607-a65e-7a22-98ef-e13605c39faa (resume with Agent(resume_thread_id: 01a1b607-a65e-7a22-98ef-e13605c39faa))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false},{\"type\":\"tool_result\",\"id\":\"A06-parent-write\",\"tool_use_id\":\"A06-parent-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line a06-shared.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "8ad00c137f158277affe852248a9c6ca1560767190644a4f5ba7b9192a1030d1"
+  "canonicalSha256": "e00b903208ebfd332a52dfdb7caaa54f5e7c3e75ad2b24dc1785cd7ea9e50759"
 }

@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 99274,
-  "rawSha256": "089e98753e25ab85bea451b47389d53785fa719b313fb3a0749656f3f23fd308",
+  "rawBytes": 99325,
+  "rawSha256": "6a0b625e3dc809cc7e67a112de42e455ae5fb50b4effe206ad77420f1e2b4ec6",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"I02_IDENTICAL_RETRY_WRITE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"I02-write\",\"name\":\"Write\",\"input\":{\"content\":\"I02_FILE_CONTENT\\n\",\"file_path\":\"/tmp/peri-wire-e2e-e4D5LY/work/isolation.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"I02-write\",\"tool_use_id\":\"I02-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line isolation.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "85a4423a071ccc0ae96503081f4419ab3e99a6caf1df6d191696ef6d88e7699b"
+  "canonicalSha256": "eda3036ed67fc5be8a815d80746006916cef054fbe66486d98524bf119315761"
 }

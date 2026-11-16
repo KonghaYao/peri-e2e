@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 99774,
-  "rawSha256": "3f5b627447a60ad94db2283dac608b89e1d53208e63d793387da302e600ae179",
+  "rawBytes": 99825,
+  "rawSha256": "3e11f28458d4f8fd91d7db91a521d6665462747918e59b111b9b1ca06ba84280",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute A03.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"A03-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"A03_BACKGROUND_CHILD\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"A03-spawn\",\"tool_use_id\":\"A03-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1b607-9b2b-7ed2-b616-7383eee9121a started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1b607-9b2b-7ed2-b616-7373f5b7105f (resume with Agent(resume_thread_id: 01a1b607-9b2b-7ed2-b616-7373f5b7105f))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "0291f6e62301845acac35005120e960e666c284524dd39c5734fc230a55f63f7"
+  "canonicalSha256": "6631375082c028b1fb991434f5b1b0bbb17b2f56cc18c2ca68a9d486599c73a1"
 }
