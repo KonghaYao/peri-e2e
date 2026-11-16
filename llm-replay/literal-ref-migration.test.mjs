@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { canonicalRecordedBody, createWorldBuilder, loadWorld, requestCoreSha256 } from './world-store.mjs';
@@ -27,7 +27,7 @@ function body() {
 }
 
 /** 构造一个 v2 literal cassette：stub 只有字面量 parts，seal 记录空 worldRefs。 */
-async function fixture(t) {
+async function fixture(t, { bodyBytes } = {}) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'peri-migrate-refs-'));
   t.after(() => rm(root, { recursive: true, force: true }));
   const worldDir = path.join(root, 'world');
@@ -47,7 +47,7 @@ async function fixture(t) {
   await mkdir(path.join(cassette, 'responses'), { recursive: true });
   const key = identityKey(identity);
   const id = sha256(key);
-  const raw = body();
+  const raw = bodyBytes ?? body();
   const stubFile = `requests/${id}.stub.json`;
   const responseFile = `responses/${id}.bin`;
   const stub = {
@@ -142,4 +142,91 @@ test('prompt-only 变更只改 block0 leaf 与 world seal，stub 保持 ref', as
   const drifted = await loadCassette(cassette, { worldDir });
   assert.deepEqual(drifted.report.worldDrift.map((item) => item.leaves), [['sys.block0.main']]);
   assert.equal((await loadWorld(worldDir)).leafBytes('sys.block0.main').toString('utf8'), nextBlock0);
+});
+
+test('迁移成功后不残留 staging 或备份目录', async (t) => {
+  const { root } = await fixture(t);
+  await migrateReplayLiterals({ fixtures: root });
+  assert.deepEqual((await readdir(root)).filter((name) => name.startsWith('.migrate-refs-')), []);
+});
+
+test('迁移拒绝不含 world ref 的 literal stub，且不改写 fixture', async (t) => {
+  const rawOnlyMessages = Buffer.from(JSON.stringify({
+    model: 'fixture-model', max_tokens: 32000, stream: true,
+    messages: [{ role: 'user', content: 'no world material' }],
+  }));
+  const { root } = await fixture(t, { bodyBytes: rawOnlyMessages });
+  const before = await hashes(root);
+  await assert.rejects(migrateReplayLiterals({ fixtures: root }), /不含任何 world ref/u);
+  assert.deepEqual(await hashes(root), before);
+});
+
+test('迁移拒绝非预期形状的新增 leaf', async (t) => {
+  const parsed = JSON.parse(body().toString('utf8'));
+  parsed.system.push({ type: 'text', text: 'UNMATCHED SYSTEM BLOCK' });
+  const { root, worldDir } = await fixture(t, { bodyBytes: Buffer.from(JSON.stringify(parsed)) });
+  const before = await hashes(worldDir);
+  await assert.rejects(migrateReplayLiterals({ fixtures: root }), /非预期形状/u);
+  assert.deepEqual(await hashes(worldDir), before);
+});
+
+test('swap 与回滚双失败时保留旧 world 并在错误中给出准确路径', async (t) => {
+  const { root, worldDir } = await fixture(t);
+  const worldBefore = await hashes(worldDir);
+  const failingRename = async (from, to) => {
+    const source = String(from);
+    const backup = source.includes('.migrate-refs-backup-');
+    if (!backup && String(to) === worldDir && /\.migrate-refs-[^/]+\/world$/u.test(source)) {
+      throw new Error('injected swap failure');
+    }
+    if (backup && source.endsWith('/world') && String(to) === worldDir) {
+      throw new Error('injected rollback failure');
+    }
+    return rename(from, to);
+  };
+
+  let failure;
+  await assert.rejects(migrateReplayLiterals({ fixtures: root, ops: { rename: failingRename } }), (error) => {
+    failure = error;
+    return true;
+  });
+  assert.ok(failure instanceof AggregateError);
+  assert.match(failure.message, /已保留/u);
+  const keptWorld = /旧 world: (.+?)（对应备份已保留/u.exec(failure.message)?.[1];
+  assert.ok(keptWorld, failure.message);
+  assert.match(keptWorld, /\.migrate-refs-backup-[^/]+\/world$/u);
+  assert.deepEqual(await hashes(keptWorld), worldBefore);
+
+  const leftovers = (await readdir(root)).filter((name) => name.startsWith('.migrate-refs-'));
+  assert.deepEqual(leftovers.map((name) => name.startsWith('.migrate-refs-backup-')), [true]);
+});
+
+test('world 回滚成功但 cassette 回滚失败时，错误只报告实际保留的备份路径', async (t) => {
+  const { root, worldDir, cassette } = await fixture(t);
+  const worldBefore = await hashes(worldDir);
+  const cassetteBefore = await hashes(cassette);
+  const target = path.join(root, 'X01/cassette');
+  const failingRename = async (from, to) => {
+    const source = String(from);
+    const backup = source.includes('.migrate-refs-backup-');
+    if (!backup && String(to) === target && /\.migrate-refs-[^/]+\/cassettes\/X01\/cassette$/u.test(source)) {
+      throw new Error('injected cassette swap failure');
+    }
+    if (backup && String(to) === target && source.endsWith('/X01/cassette')) {
+      throw new Error('injected cassette rollback failure');
+    }
+    return rename(from, to);
+  };
+
+  let failure;
+  await assert.rejects(migrateReplayLiterals({ fixtures: root, ops: { rename: failingRename } }), (error) => {
+    failure = error;
+    return true;
+  });
+  assert.ok(failure instanceof AggregateError);
+  assert.deepEqual(await hashes(worldDir), worldBefore);
+  assert.ok(failure.message.includes(`旧 world 已回滚到 ${worldDir}；`), failure.message);
+  const keptCassette = /cassette 备份: (.+?)（/u.exec(failure.message)?.[1];
+  assert.ok(keptCassette, failure.message);
+  assert.deepEqual(await hashes(keptCassette), cassetteBefore);
 });

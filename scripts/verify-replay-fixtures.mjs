@@ -74,26 +74,33 @@ for (const id of ids) {
 let approvedDrift = [];
 if (policy === 'source-anchored' && drift.length) {
   const periRoot = await assertPeriRoot(resolvePeriRoot(values['peri-root']));
-  const expected = await loadSourceLeaves(world, periRoot);
-  for (const item of drift) {
-    const seal = JSON.parse(await readFile(path.join(fixturesRoot, item.cassette, 'cassette', 'seal.json'), 'utf8'));
-    const meta = seal.requestMeta?.[`requests/${item.entry}.stub.json`];
-    for (const leaf of item.leaves) {
-      const current = world.leafBytes(leaf);
-      const source = expected.get(leaf);
-      const recorded = meta?.worldRefs?.find((ref) => ref.id === leaf)?.sha256;
-      if (!isSyncedWorldLeaf(leaf)) {
-        errors.push({ cassette: item.cassette, entry: item.entry, leaf, code: 'world_drift_unmapped_leaf' });
-      } else if (!source || !current?.equals(source)) {
-        errors.push({
-          cassette: item.cassette, entry: item.entry, leaf, code: 'world_drift_source_mismatch',
-          recordedSha: recorded ?? null, currentSha: current ? sha256(current) : null, sourceSha: source ? sha256(source) : null,
-        });
-      } else {
-        approvedDrift.push({
-          cassette: item.cassette, entry: item.entry, leaf,
-          recordedSha: recorded ?? null, currentSha: sha256(current), sourceSha: sha256(source),
-        });
+  let expected = null;
+  try { expected = await loadSourceLeaves(world, periRoot); }
+  catch (error) {
+    // 源定义不可用（如 BASE_SECTIONS 变化）或非管理字段被改写时，任何 drift 都不能被判定为已锚定。
+    errors.push({ cassette: null, entry: null, leaf: null, code: 'world_source_unanchored', message: error.message });
+  }
+  if (expected) {
+    for (const item of drift) {
+      const seal = JSON.parse(await readFile(path.join(fixturesRoot, item.cassette, 'cassette', 'seal.json'), 'utf8'));
+      const meta = seal.requestMeta?.[`requests/${item.entry}.stub.json`];
+      for (const leaf of item.leaves) {
+        const current = world.leafBytes(leaf);
+        const source = expected.get(leaf);
+        const recorded = meta?.worldRefs?.find((ref) => ref.id === leaf)?.sha256;
+        if (!isSyncedWorldLeaf(leaf)) {
+          errors.push({ cassette: item.cassette, entry: item.entry, leaf, code: 'world_drift_unmapped_leaf' });
+        } else if (!source || !current?.equals(source)) {
+          errors.push({
+            cassette: item.cassette, entry: item.entry, leaf, code: 'world_drift_source_mismatch',
+            recordedSha: recorded ?? null, currentSha: current ? sha256(current) : null, sourceSha: source ? sha256(source) : null,
+          });
+        } else {
+          approvedDrift.push({
+            cassette: item.cassette, entry: item.entry, leaf,
+            recordedSha: recorded ?? null, currentSha: sha256(current), sourceSha: sha256(source),
+          });
+        }
       }
     }
   }

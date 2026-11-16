@@ -26,6 +26,15 @@ const text = (bytes) => bytes.toString('utf8');
 const sortedObject = (entries) => Object.fromEntries(entries.sort(([left], [right]) => left.localeCompare(right)));
 const isLiteral = (stub) => Array.isArray(stub.parts) && stub.parts.length > 0 && stub.parts.every((part) => typeof part === 'string');
 
+/** 迁移只允许新增 block1 tail 与内容寻址 tools leaf；其他 id 形态必须人工审核而非静默写入。 */
+const NEW_LEAF_PATTERNS = Object.freeze([
+  /^sys\.block1\.(?:main|replay-worker|subagent)\.t\d+\.tail$/u,
+  /^tools\.sha256\.[0-9a-f]{64}$/u,
+]);
+const NEW_RECIPE_PATTERNS = Object.freeze([
+  /^sys\.block1\.(?:main|replay-worker|subagent)\.t\d+$/u,
+]);
+
 async function cassetteIds(fixtures) {
   const ids = [];
   for (const entry of await readdir(fixtures, { withFileTypes: true })) {
@@ -96,6 +105,9 @@ async function migrateCassette({ id, source, output, builder, slots, dryRun, rep
         report.rawMismatches.push({ cassette: id, stub: stubFile, expected: stub.rawSha256, actual: encoded.rawSha256 });
         fail(`${id}/${stubFile}: 迁移改变 raw 哈希/长度`);
       }
+      if (!collectWorldRefs(encoded.parts, builder).length) {
+        fail(`${id}/${stubFile}: 迁移后不含任何 world ref，拒绝计为 migrated`);
+      }
       const rebuilt = builder.renderParts(encoded.parts);
       if (!rebuilt.equals(raw)) {
         report.rebuildMismatches.push({ cassette: id, stub: stubFile });
@@ -150,50 +162,74 @@ async function migrateCassette({ id, source, output, builder, slots, dryRun, rep
   return { changed, expectedCanonical };
 }
 
-/** 先换 world 再换 cassette；任一步失败按逆序恢复，world 也回到旧版本。 */
-async function commit({ fixtures, worldDir, stagedWorldDir, stagedById, stagingBase }) {
-  const previousWorld = path.join(stagingBase, 'world-previous');
+/**
+ * 先换 world 再换 cassette；任一步失败按逆序恢复。
+ * 备份目录位于 stagingBase 之外，回滚失败时不会被 finally 清理；错误中给出可人工恢复的准确路径。
+ */
+async function commit({ fixtures, worldDir, stagedWorldDir, stagedById, backupBase, renameOp, rmOp, mkdirOp, log = () => {} }) {
+  const previousWorld = path.join(backupBase, 'world');
+  const cassetteBackupRoot = path.join(backupBase, 'cassettes');
   const backups = [];
   let worldBackedUp = false;
   let worldSwapped = false;
   try {
-    await rename(worldDir, previousWorld);
+    await renameOp(worldDir, previousWorld);
     worldBackedUp = true;
-    await rename(stagedWorldDir, worldDir);
+    await renameOp(stagedWorldDir, worldDir);
     worldSwapped = true;
     for (const [id, output] of stagedById) {
       const target = path.join(fixtures, id, 'cassette');
-      const backup = path.join(stagingBase, 'backup', id, 'cassette');
-      await mkdir(path.dirname(backup), { recursive: true });
-      await rename(target, backup);
+      const backup = path.join(cassetteBackupRoot, id, 'cassette');
+      await mkdirOp(path.dirname(backup), { recursive: true });
+      await renameOp(target, backup);
       backups.push({ target, backup });
-      await rename(output, target);
+      await renameOp(output, target);
     }
   } catch (error) {
     const rollbackErrors = [];
+    const unrestoredBackups = [];
     for (const { target, backup } of [...backups].reverse()) {
-      try { await rm(target, { recursive: true, force: true }); } catch (rollbackError) { rollbackErrors.push(rollbackError); }
-      try { await rename(backup, target); } catch (rollbackError) { rollbackErrors.push(rollbackError); }
+      try { await rmOp(target, { recursive: true, force: true }); } catch (rollbackError) { rollbackErrors.push(rollbackError); }
+      try { await renameOp(backup, target); }
+      catch (rollbackError) {
+        rollbackErrors.push(rollbackError);
+        unrestoredBackups.push(backup);
+      }
     }
+    let worldRestored = false;
     if (worldBackedUp) {
       try {
-        if (worldSwapped) await rm(worldDir, { recursive: true, force: true });
-        await rename(previousWorld, worldDir);
+        if (worldSwapped) await rmOp(worldDir, { recursive: true, force: true });
+        await renameOp(previousWorld, worldDir);
+        worldRestored = true;
       } catch (rollbackError) { rollbackErrors.push(rollbackError); }
     }
     if (rollbackErrors.length) {
-      throw new AggregateError([error, ...rollbackErrors], `迁移替换失败且回滚失败；旧 world 可能在 ${previousWorld}`);
+      const kept = [];
+      if (worldBackedUp) {
+        kept.push(worldRestored ? `旧 world 已回滚到 ${worldDir}` : `旧 world: ${previousWorld}`);
+      }
+      if (unrestoredBackups.length) kept.push(`cassette 备份: ${[...new Set(unrestoredBackups)].join(', ')}`);
+      throw new AggregateError(
+        [error, ...rollbackErrors],
+        `迁移替换失败且回滚失败；${kept.join('；') || `备份目录: ${backupBase}`}（对应备份已保留，请人工核对）`,
+      );
     }
+    await rmOp(backupBase, { recursive: true, force: true })
+      .catch((cleanupError) => log(`回滚成功但备份清理失败：${backupBase}（${cleanupError.message}）`));
     throw error;
   }
-  await rm(previousWorld, { recursive: true, force: true }).catch(() => {});
-  await rm(path.join(stagingBase, 'backup'), { recursive: true, force: true }).catch(() => {});
+  await rmOp(backupBase, { recursive: true, force: true })
+    .catch((cleanupError) => log(`迁移完成但备份清理失败：${backupBase}（${cleanupError.message}）`));
 }
 
 /**
  * @returns {Promise<object>} 迁移报告；dryRun 时不写磁盘。
  */
-export async function migrateReplayLiterals({ fixtures, dryRun = false, log = () => {} } = {}) {
+export async function migrateReplayLiterals({ fixtures, dryRun = false, log = () => {}, ops = {} } = {}) {
+  const renameOp = ops.rename ?? rename;
+  const rmOp = ops.rm ?? rm;
+  const mkdirOp = ops.mkdir ?? mkdir;
   const root = path.resolve(fixtures);
   const worldDir = path.join(root, 'world');
   const world = await loadWorld(worldDir);
@@ -257,6 +293,11 @@ export async function migrateReplayLiterals({ fixtures, dryRun = false, log = ()
     }
     report.newLeaves = builder.leafIds().filter((id) => !previousLeaves.has(id));
     report.newRecipes = builder.recipeIds().filter((id) => !previousRecipes.has(id));
+    const unexpected = [
+      ...report.newLeaves.filter((id) => !NEW_LEAF_PATTERNS.some((pattern) => pattern.test(id))).map((id) => `leaf:${id}`),
+      ...report.newRecipes.filter((id) => !NEW_RECIPE_PATTERNS.some((pattern) => pattern.test(id))).map((id) => `recipe:${id}`),
+    ];
+    if (unexpected.length) fail(`迁移新增了非预期形状的 world 条目：${unexpected.join(', ')}`);
     report.world = {
       before: { leaves: previousLeaves.size, recipes: previousRecipes.size },
       after: { leaves: builder.leafIds().length, recipes: builder.recipeIds().length },
@@ -276,7 +317,11 @@ export async function migrateReplayLiterals({ fixtures, dryRun = false, log = ()
       }
       log(`verified ${id}: ${staged.entries.size} entries`);
     }
-    await commit({ fixtures: root, worldDir, stagedWorldDir, stagedById, stagingBase });
+    const backupBase = await mkdtemp(path.join(root, '.migrate-refs-backup-'));
+    await commit({
+      fixtures: root, worldDir, stagedWorldDir, stagedById, backupBase,
+      renameOp, rmOp, mkdirOp, log,
+    });
     report.written = {
       world: {
         generation: sealed.generation, manifestSha256: sealed.manifestSha256,

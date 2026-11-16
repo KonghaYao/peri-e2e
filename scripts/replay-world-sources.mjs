@@ -4,6 +4,7 @@
  */
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { canonicalJson } from '../llm-replay/matcher.mjs';
 import { AGENT_LEAF_PREFIX, STABLE_LEAVES } from '../llm-replay/world-mapping.mjs';
 
 export { AGENT_LEAF_PREFIX, STABLE_LEAVES };
@@ -20,7 +21,18 @@ export const BLOCK0_SECTIONS = Object.freeze([
   '01_intro', '02_system', '03_doing_tasks', '04_actions', '05_using_tools', '06_tone_style',
 ]);
 
+/**
+ * BASE_SECTIONS 的完整固定集合（01–06 Cached、07_runtime Uncached、env Environment）。
+ * 新增/缺失/zone/顺序/include_str 路径变化都会改变请求结构，必须显式失败而不是只校验 block0 前缀。
+ */
+export const BASE_SECTION_LAYOUT = Object.freeze([
+  ...BLOCK0_SECTIONS.map((id, index) => Object.freeze({ id, zone: 'Cached', order: index + 1 })),
+  Object.freeze({ id: '07_runtime', zone: 'Uncached', order: 1 }),
+  Object.freeze({ id: 'env', zone: 'Environment', order: 0 }),
+]);
+
 const sectionFile = (root, id) => path.join(root, 'peri-acp/prompts/sections', `${id}.md`);
+const sectionRelativePath = (id) => `peri-acp/prompts/sections/${id}.md`;
 
 /**
  * 组合 block0。trim 对齐 wire 侧 split_system_blocks：单 block 的 system 文本会被 trim，
@@ -35,21 +47,67 @@ export async function composeBlock0(periRoot) {
   return texts.join('\n\n').trim();
 }
 
-/** BASE_SECTIONS 的顺序/zone 变化会让 block0 组合失效，必须在同步前显式失败。 */
+/** BASE_SECTIONS 的顺序/zone/路径变化会让 block0 组合或请求结构失效，必须在同步前显式失败。 */
 export async function assertBlock0SectionOrder(periRoot) {
   const source = await readFile(path.join(periRoot, 'peri-middlewares/src/default_system_prompt/mod.rs'), 'utf8');
   const table = /const BASE_SECTIONS[^=]*=\s*\[([\s\S]*?)\n\];/u.exec(source)?.[1];
   if (!table) throw new Error('无法解析 peri-middlewares BASE_SECTIONS，拒绝同步 block0');
-  const entries = [...table.matchAll(/\(\s*"([a-z0-9_]+)"[\s\S]*?PromptSectionZone::(\w+),\s*(\d+),/gu)]
-    .map((match) => ({ id: match[1], zone: match[2], order: Number(match[3]) }));
-  const first = entries.slice(0, BLOCK0_SECTIONS.length);
-  if (first.length !== BLOCK0_SECTIONS.length) throw new Error('BASE_SECTIONS 条目不足，拒绝同步 block0');
-  for (const [index, entry] of first.entries()) {
-    if (entry.id !== BLOCK0_SECTIONS[index] || entry.zone !== 'Cached' || entry.order !== index + 1) {
-      throw new Error(`BASE_SECTIONS 顺序/zone 与 block0 组合不一致：期望 ${BLOCK0_SECTIONS[index]} Cached #${index + 1}，实际 ${entry.id} ${entry.zone} #${entry.order}`);
+  const entries = [...table.matchAll(/\(\s*"([a-z0-9_]+)",\s*include_str!\(([\s\S]*?)\),\s*PromptSectionZone::(\w+),\s*(\d+),\s*\)/gu)]
+    .map((match) => ({ id: match[1], includeSource: match[2], zone: match[3], order: Number(match[4]) }));
+  const zoneMentions = table.match(/PromptSectionZone::/gu)?.length ?? 0;
+  if (entries.length !== BASE_SECTION_LAYOUT.length || zoneMentions !== entries.length) {
+    throw new Error(`BASE_SECTIONS 条目集合与预期不一致：期望 ${BASE_SECTION_LAYOUT.length} 项，解析到 ${entries.length} 项 / ${zoneMentions} 个 zone 声明`);
+  }
+  for (const [index, expected] of BASE_SECTION_LAYOUT.entries()) {
+    const entry = entries[index];
+    const includePath = [...entry.includeSource.matchAll(/"([^"]+)"/gu)]
+      .map((match) => match[1].replaceAll('\\', '/'))
+      .filter((value) => value.endsWith('.md'))
+      .at(-1);
+    if (entry.id !== expected.id || entry.zone !== expected.zone || entry.order !== expected.order
+        || !includePath?.endsWith(sectionRelativePath(expected.id))) {
+      throw new Error(`BASE_SECTIONS 顺序/zone/include_str 与 block0 组合不一致：期望 ${expected.id} ${expected.zone} #${expected.order} ${sectionRelativePath(expected.id)}，实际 ${entry.id} ${entry.zone} #${entry.order} ${includePath ?? '(缺失)'}`);
     }
   }
-  return entries;
+  return entries.map(({ id, zone, order }) => ({ id, zone, order }));
+}
+
+/**
+ * Agent tool 的非管理字段（name、其余 schema）只能来自这份全量模板，不能从当前 world 反推。
+ * 当前 world 被篡改并重封后，模板仍是未受污染的完整定义，因此 drift 会被判为未锚定。
+ * 模板由录制时的 wire 定义快照而来；非管理字段变化必须重录并显式更新模板，不能由 world:sync 静默改写。
+ */
+export const AGENT_TOOL_TEMPLATES = Object.freeze({
+  [`${AGENT_LEAF_PREFIX}anthropic`]: 'Agent.anthropic.json',
+  [`${AGENT_LEAF_PREFIX}responses`]: 'Agent.responses.json',
+});
+
+const AGENT_TOOL_TEMPLATE_DIR = new URL('../llm-replay/world-source-templates/', import.meta.url);
+
+async function loadAgentToolTemplates() {
+  const templates = new Map();
+  for (const [id, file] of Object.entries(AGENT_TOOL_TEMPLATES)) {
+    const source = await readFile(new URL(file, AGENT_TOOL_TEMPLATE_DIR), 'utf8');
+    let tool;
+    try { tool = JSON.parse(source); }
+    catch { throw new Error(`Agent 全量模板 ${file} 不是合法 JSON`); }
+    agentSchemaOf(tool);
+    templates.set(id, tool);
+  }
+  return templates;
+}
+
+/** 只允许说明与 send_only 由源码同步；其余字段必须与全量模板逐字段一致。 */
+function assertAgentToolAnchored(id, current, template) {
+  const nonManaged = (tool) => {
+    const copy = structuredClone(tool);
+    delete copy.description;
+    delete agentSchemaOf(copy).properties.send_only;
+    return copy;
+  };
+  if (canonicalJson(nonManaged(current)) !== canonicalJson(nonManaged(template))) {
+    throw new Error(`${id}: name/schema 等非管理字段与全量模板不一致；非管理字段变化必须重录并显式更新模板，不能由 world:sync 放行`);
+  }
 }
 
 /** 所有源派生 leaf 的唯一期望字节；world:sync 与 source-anchored verify 共用。 */
@@ -71,15 +129,23 @@ export async function loadSourceLeaves(world, periRoot) {
     [STABLE_LEAVES.compactSummary, Buffer.from(compactSummary, 'utf8')],
   ]);
   const sendOnly = expectedSendOnly(agentSchema);
-  for (const id of agentDescriptionLeafIds(world)) {
-    const current = world.leafBytes(id).toString('utf8');
-    let tool;
-    try { tool = JSON.parse(current); }
+  const templates = await loadAgentToolTemplates();
+  const leafIds = agentDescriptionLeafIds(world).sort();
+  const templateIds = Object.keys(AGENT_TOOL_TEMPLATES).sort();
+  if (JSON.stringify(leafIds) !== JSON.stringify(templateIds)) {
+    throw new Error(`world 的 Agent tool leaf 集合与全量模板不一致：期望 ${templateIds.join(', ')}，实际 ${leafIds.join(', ')}`);
+  }
+  for (const id of templateIds) {
+    const currentText = world.leafBytes(id).toString('utf8');
+    let current;
+    try { current = JSON.parse(currentText); }
     catch { throw new Error(`${id}: leaf 不是合法 JSON，拒绝改写`); }
-    if (JSON.stringify(tool) !== current) throw new Error(`${id}: leaf JSON 无法无损往返，拒绝改写`);
-    tool.description = agentDescription;
-    agentSchemaOf(tool).properties.send_only = structuredClone(sendOnly);
-    expected.set(id, Buffer.from(JSON.stringify(tool), 'utf8'));
+    if (JSON.stringify(current) !== currentText) throw new Error(`${id}: leaf JSON 无法无损往返，拒绝改写`);
+    assertAgentToolAnchored(id, current, templates.get(id));
+    const next = structuredClone(templates.get(id));
+    next.description = agentDescription;
+    agentSchemaOf(next).properties.send_only = structuredClone(sendOnly);
+    expected.set(id, Buffer.from(JSON.stringify(next), 'utf8'));
   }
   return expected;
 }

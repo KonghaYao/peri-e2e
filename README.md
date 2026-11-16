@@ -86,8 +86,10 @@ node scripts/refresh-cassettes.mjs --peri-root /path/to/peri [--check]
 ```
 
 映射 leaf 包括 `sys.block0.main`（`01_intro`–`06_tone_style` 组合）、`sys.skills`、
-`sys.compact.summary` 与 `tools.Agent.*`。只改这些源文件时，e2e 侧只产生对应
-leaf 与 `world/seal.json`；`01_intro`–`06_tone_style` 任一变化固定为 2 个文件。
+`sys.compact.summary` 与 `tools.Agent.*`。`tools.Agent.*` 的 `name` 与其余 schema
+字段锚定在 `llm-replay/world-source-templates/` 的全量模板上，只有 description 与
+`send_only` 从源同步；非管理字段变化会判为未锚定并拒绝。只改这些源文件时，e2e 侧
+只产生对应 leaf 与 `world/seal.json`；`01_intro`–`06_tone_style` 任一变化固定为 2 个文件。
 `world-check` 把与源等值的 mapped drift 列为 `sourceAnchoredDrift`
 （`requiresRerecord: false`），其余列为 `unanchoredDrift`。
 
