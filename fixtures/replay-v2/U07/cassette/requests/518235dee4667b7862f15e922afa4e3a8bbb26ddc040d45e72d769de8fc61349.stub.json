@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 99559,
-  "rawSha256": "05e458f81c4c8ca1b60e36eddfce211c4bf414226148cfee23cae687c607be60",
+  "rawBytes": 106084,
+  "rawSha256": "837c778ec3606ea67ca3c8e5043ec7450e46ba2bf677a4a165d254ae91821cc4",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"RUN_SINGLE_CHOICE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"single-question\",\"name\":\"AskUserQuestion\",\"input\":{\"questions\":[{\"header\":\"SINGLE_TARGET\",\"question\":\"Choose SINGLE_TARGET\",\"multiSelect\":false,\"options\":[{\"label\":\"Alpha\",\"description\":\"First option\"},{\"label\":\"Beta\",\"description\":\"Second option\"},{\"label\":\"Gamma\",\"description\":\"Third option\"}]}]}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"single-question\",\"tool_use_id\":\"single-question\",\"content\":[{\"type\":\"text\",\"text\":\"[问: SINGLE_TARGET]\\n回答: Beta\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "aa28511ab5556c46c6c95fcf3810dd99dc8ca9137967c6595b2f55579b8ee945"
+  "canonicalSha256": "23803fc0ca88cd3ce99ceaa0caab0afa0942b4453fa0ab795be348e4d591731a"
 }

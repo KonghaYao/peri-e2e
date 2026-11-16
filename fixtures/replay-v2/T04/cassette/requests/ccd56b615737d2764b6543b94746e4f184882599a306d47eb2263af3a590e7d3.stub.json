@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 99568,
-  "rawSha256": "f1136f528eb00f119d6b2b3b983afc10caebd0df8db18136f633f2f47d012524",
+  "rawBytes": 106093,
+  "rawSha256": "1c9d5586127fc4da9e80c2f41d44bc2dbb8919b640315094a6600e450253c1d3",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T04_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t04-missing\",\"name\":\"Read\",\"input\":{\"file_path\":\"/tmp/peri-wire-e2e-OHlVuH/work/missing.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t04-missing\",\"tool_use_id\":\"t04-missing\",\"content\":[{\"type\":\"text\",\"text\":\"MCP 服务器 \\\"workspace\\\" 工具 \\\"Read\\\" 调用失败: tool `Read` failed to execute; Error: File not found at /tmp/peri-wire-e2e-OHlVuH/work/missing.txt\\nRecovery: File not found. Verify file_path or locate the file with Glob.\\n[Execution status: failed]\"}],\"is_error\":true,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "8196da9572f52a54da6848f3b3629410a65df58c3655f7ce6ad04902b60268c1"
+  "canonicalSha256": "27ac0d476833470986c1b9a14639426bacafc530028294f687c985d9bbaa1fc3"
 }

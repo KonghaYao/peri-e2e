@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 99618,
-  "rawSha256": "75f82e1dbb72c149c188b1950bbef3b9acea6babcfc1e42ab7d112b52509a9f8",
+  "rawBytes": 106143,
+  "rawSha256": "d4c5670c3997e0a3ab6fc14a1a59ea0bae7e8f3bb9bc2f8820bd240383c823ef",
   "parts": [
     "{\"model\":\"fixture-model\",\"input\":[{\"type\":\"message\",\"role\":\"developer\",\"content\":[{\"type\":\"input_text\",\"text\":",
     {
@@ -15,5 +15,5 @@
     },
     ",\"tool_choice\":\"auto\",\"reasoning\":{\"effort\":\"medium\",\"summary\":\"auto\"},\"max_output_tokens\":32000}"
   ],
-  "canonicalSha256": "57e238144277b3613dc2495f09faf058e767d251844d4ca228cd5c904b19fefa"
+  "canonicalSha256": "cfd779d8c35d0a98efce96342539214a7eeb2172004bcabd013e0ddb84be59cd"
 }

@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 99753,
-  "rawSha256": "05f75914f2d36dab61ea639bd6ad9dc9a0255b4ef5725327f7272ae830c04c23",
+  "rawBytes": 106278,
+  "rawSha256": "36c49a9689e5416babfc943e42dd1ebe4451e7edcbcd19471b7f66232d6a0e7a",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T01_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t01-write\",\"name\":\"Write\",\"input\":{\"content\":\"T01_WRITTEN_AND_READ\\n\",\"file_path\":\"/tmp/peri-wire-e2e-GjR7ql/work/note.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t01-write\",\"tool_use_id\":\"t01-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line note.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t01-read\",\"name\":\"Read\",\"input\":{\"file_path\":\"/tmp/peri-wire-e2e-GjR7ql/work/note.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t01-read\",\"tool_use_id\":\"t01-read\",\"content\":[{\"type\":\"text\",\"text\":\"     1\\tT01_WRITTEN_AND_READ\\n     2\\t\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "e411b4d2769cd3b481bff56fbb792596410569459681567dc8401d84d3152ac0"
+  "canonicalSha256": "22a52030691962acb4af25c52d75827b3f663b76f025c351be47154947383ddb"
 }
