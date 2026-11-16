@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 99434,
-  "rawSha256": "9e77bc042ead5ac0797e7ef69fd4450c64d42547fd3d9989d4d865e47c1332f5",
+  "rawBytes": 99513,
+  "rawSha256": "904c3708771f813661d653135a71b35f8c51272dabc6e6de7d41d0026c354f6a",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"RUN_DENY_TOOL\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"denied-shell\",\"name\":\"Bash\",\"input\":{\"command\":\"printf 'DENY\\\\n' >> approval.txt\",\"description\":\"Append isolated approval evidence\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"denied-shell\",\"tool_use_id\":\"denied-shell\",\"content\":[{\"type\":\"text\",\"text\":\"Cancelled by user\"}],\"is_error\":true,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"DENIED_ACTION_COMPLETE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"RUN_ALLOW_TOOL\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "1d08163ba0726fbb34507a279e03ac1b47e8b9d561e378f4f0cf6184e32a7d92"
+  "canonicalSha256": "6fa0e093a6b6e3b017b8757809495da489f1d73fa041fdb176b516f68299f8ee"
 }

@@ -12,6 +12,7 @@ Always respond in en. Use en for all explanations, comments, and communications 
 
 - **mcp__workspace__cron** [builtin]
 - **mcp__workspace__goal** [builtin]
+- **mcp__workspace__interview** [builtin]
 - **mcp__workspace__monitor** [builtin]
 - **mcp__workspace__multitask** [builtin]
 - **mcp__workspace__ultra-adlc** [builtin]
@@ -49,7 +50,7 @@ The following tools are not in your direct tool list. Use `SearchExtraTools` to 
 - server "cron": cron://jobs, cron://triggers (2 resources)
 - server "web": agent://builtin/web-researcher/agent.md (1 resources)
 - server "workflow": workflow://background-tasks, workflow://runs, workflow://runs/{runId}, workflow://runs/{runId}/events, workflow://runs/{runId}/tasks, workflow://tasks (6 resources)
-- server "workspace": workspace://git/ref, skill://builtin/use-artifacts/SKILL.md, skill://builtin/goal/SKILL.md, skill://builtin/multitask/SKILL.md, skill://builtin/ultra-adlc/SKILL.md, skill://builtin/ultracode/SKILL.md, skill://builtin/cron/SKILL.md, skill://builtin/monitor/SKILL.md, agent://project/replay-worker/agent.md, agent://builtin/coder/agent.md, agent://builtin/explorer/agent.md, agent://builtin/general-purpose/agent.md, agent://builtin/plan/agent.md, agent://builtin/verification/agent.md, peri-instruction://workspace/index (15 resources)
+- server "workspace": workspace://git/ref, skill://builtin/use-artifacts/SKILL.md, skill://builtin/goal/SKILL.md, skill://builtin/multitask/SKILL.md, skill://builtin/ultra-adlc/SKILL.md, skill://builtin/ultracode/SKILL.md, skill://builtin/cron/SKILL.md, skill://builtin/monitor/SKILL.md, skill://builtin/interview/SKILL.md, agent://project/replay-worker/agent.md, agent://builtin/coder/agent.md, agent://builtin/explorer/agent.md, agent://builtin/general-purpose/agent.md, agent://builtin/plan/agent.md, agent://builtin/verification/agent.md, peri-instruction://workspace/index (16 resources)
   Parameters:
     - `server_name` (string): MCP 服务器名称（配置中的 key）
     - `uri` (string): 要读取的资源 URI
