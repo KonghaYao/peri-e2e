@@ -95,6 +95,10 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
         actors.arm("turn-1"); await tui.prompt("Execute A02.");
         await context.run.waitReached(heldLeft, { timeout: 30_000 });
         await waitCompletedCall(context, identity("right", "reason:2"));
+        // 只有 right 的终态提醒已进入 root 的下一轮请求后才放行 left；否则两个通知会被
+        // 合并进同一次请求，或 left 先到，导致与录制不同的交错（A02 曾因此在 CI 抖动）。
+        await context.waitForCalls((state) => state.calls.some((call: any) =>
+          call.identity.owner === "root" && call.identity.execution === "turn-1" && call.identity.call === "reason:3"), 30_000);
         const blocked = await tui.waitFor(healthy(context, (screen) => /✓\s+Agent/u.test(screen)),
           "right child completed while left response is gated");
         expect(blocked).not.toContain("A02_BOTH_RESULTS_CORRECTLY_OWNED");
