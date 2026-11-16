@@ -41,7 +41,9 @@ npm ci
 ```bash
 npm run e2e:replay:check       # tsc 类型检查
 PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:unit  # llm-replay 模块单测（world-check 用例读 Peri 源码）
-npm run e2e:replay:verify      # fixture/world 完整性
+npm run e2e:replay:verify      # fixture/world 完整性（strict，任何 drift 都失败）
+PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:verify -- --drift-policy=source-anchored
+npm run e2e:replay:migrate-refs -- --dry-run  # literal stub → world ref 等价迁移预演
 PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:world-check
 PERI_BINARY=/path/to/peri npm run e2e:replay
 EXPECTED_REPLAY_SCENARIOS=66 node scripts/check-replay-catalog.mjs
@@ -83,8 +85,17 @@ PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:world-check
 node scripts/refresh-cassettes.mjs --peri-root /path/to/peri [--check]
 ```
 
+映射 leaf 包括 `sys.block0.main`（`01_intro`–`06_tone_style` 组合）、`sys.skills`、
+`sys.compact.summary` 与 `tools.Agent.*`。只改这些源文件时，e2e 侧只产生对应
+leaf 与 `world/seal.json`；`01_intro`–`06_tone_style` 任一变化固定为 2 个文件。
+`world-check` 把与源等值的 mapped drift 列为 `sourceAnchoredDrift`
+（`requiresRerecord: false`），其余列为 `unanchoredDrift`。
+
 未映射 leaf 变化不能由 `world:sync` 解释，必须重录或走受控迁移；不要在未审核的
-情况下手工重封。
+情况下手工重封。录制必须基于已封存的共享 world（`.lock-world` 串行化），新 stub
+必须是 world ref 且 block0 落在 `sys.block0.main`；否则录制失败。历史 literal
+stub 用 `e2e:replay:migrate-refs` 一次性迁移，脚本要求 raw/canonical/response
+三类字节等价且只允许 world 新增 leaf/recipe。
 
 ### 本仓 CI
 

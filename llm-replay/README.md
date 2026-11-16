@@ -12,6 +12,8 @@ npm run e2e:replay:unit
 npm run e2e:replay:check
 npx tsc --noEmit --project tsconfig.replay-v2.json
 npm run e2e:replay:verify
+npm run e2e:replay:verify -- --drift-policy=source-anchored --peri-root /path/to/peri
+npm run e2e:replay:migrate-refs -- --dry-run
 PERI_BINARY=/path/to/peri npm run e2e:replay
 ```
 
@@ -29,11 +31,13 @@ v2 业务目录包含 30 个固定场景：S01–S06 流式与协议，T01–T06
 | `run-state.mjs` | 每个 run 独立的身份映射、消费状态、门控及完成核验 |
 | `cassette.mjs` | 原始请求/响应字节、观察分块、时间、终结原因与完整性校验；v2 从 stub 与 world 重建 canonical body |
 | `world-store.mjs` | world leaf/recipe 内容寻址、seal、request stub 字节 splice、typed-template pattern 压缩与展开 |
+| `world-slots.mjs` | block0/block1/tools 的语义 slot 解析；录制与迁移共用，未知内容退回内容寻址 leaf |
 | `template-text.mjs` | typed-template 的绑定边界扫描；录制与加载共用同一套规则 |
 | `bindings.mjs` | 按 owner/type/alias/创建因果锚声明与绑定动态值 |
 | `request-bindings.mjs` | 生成并冻结精确字段模板、工作区/会话绑定和工具参数 portable 计划 |
 | `portable-sse.mjs` | 从原始录制派生工具参数可移植版本，保留来源哈希 |
 | `../helpers/llm-replay-suite.ts` | record/replay-only 生命周期、seed、fixture 发布和逐场景报告 |
+| `../helpers/llm-replay-world.ts` | record 的共享 world 锁、staging 校验/替换，以及新 stub 的 ref/block0 门禁 |
 | `../helpers/llm-replay-*.ts` | 场景身份与真实终端驱动 |
 | `../tests/replay-v2/` | 30 个业务场景；检查真实屏幕、ACP 事件、历史与文件效果 |
 
@@ -55,11 +59,13 @@ I01 验证相同输入的双会话反转请求与响应顺序后，各自恢复�
 
 cassette `formatVersion` 为 2 时，system prompt 与 tool schema 从请求正文抽到共享 `fixtures/replay-v2/world/`，请求只保留 stub（其余字节原样）。加载顺序为 cassette seal → manifest → stub hash → world seal → 每条请求 raw/canonical hash → response hash。
 
-高频段有稳定 leaf：`sys.skills`、`sys.compact.summary`、`tools.Agent.*`（description + `send_only`）。`npm run e2e:replay:world-sync` 只在源文件变化时改写这些 leaf 与 `world/seal.json`；`npm run e2e:replay:world-check` 用于确认是否需要显式同步。block1 拆成 prefix + skills + tail，tools 按工具对象拆 leaf，因此 skills 变化不会改写 99 个请求或 30 个 cassette seal。未映射段（如 T06 hook prompt）保留内容寻址 leaf 并在同步报告中列出。
+高频段有稳定 leaf：`sys.block0.main`、`sys.skills`、`sys.compact.summary`、`tools.Agent.*`（description + `send_only`）。`sys.block0.main` 由 `01_intro`–`06_tone_style` 按 `BASE_SECTIONS` 顺序组合并整体 trim（对齐 `split_system_blocks` 的 wire 行为）；顺序或 zone 变化时 `world:sync` 直接失败。`npm run e2e:replay:world-sync` 只在源文件变化时改写这些 leaf 与 `world/seal.json`；`npm run e2e:replay:world-check` 用于确认是否需要显式同步。block1 拆成 prefix + skills + tail，tools 按工具对象拆 leaf，因此 skills/block0 变化不会改写 290 个 stub 或 61 个 cassette seal。未映射段（如 T06 hook prompt）保留内容寻址 leaf 并在同步报告中列出。
 
-`world:check` 还会用各 cassette seal 的 `requestMeta[*].worldRefs` 与当前 world leaf 交叉校验，避免手工重封 world seal 掩盖变化：未映射或缺失 leaf 不一致时 `stale=true` 并退出 1；映射 leaf 的差异列为 `recorded.mappedDrift` 并标记 `requiresRerecord`，不判为损坏，仍由 verify 要求重录。
+历史 cassette 的完全字面量 stub 用 `npm run e2e:replay:migrate-refs -- --dry-run` 一次性迁移；脚本要求 raw/canonical/response 三类字节等价、旧 leaf/recipe 不变，迁移后 `legacy=0`。record 路径必须传入 world + slots：`.lock-world` 串行化、先校验 staging world 与 cassette、再原子替换 world、最后发布 cassette。新 stub 出现 literal 或 block0 落到 `sys.sha256.*` 会失败；同内容重复录制不 rewrite world。
 
-world leaf 变更后，stub 里的 `rawSha256`/`canonicalSha256` 仍是录制值。cassette seal 的 `requestMeta` 保存每个 stub 的语义摘要（`requestCoreSha256`）与录制时的 leaf 哈希序列（`worldRefs`）。仅当 stub 字面量、哈希字段与引用结构未变，且所有变化的 leaf 都属于 `world:sync` 映射（`sys.skills`、`sys.compact.summary`、`tools.Agent.*`）时，`loadCassette` 才报告 `report.worldDrift` 并用当前 world 重建 canonical；未映射 leaf 变化、引用结构变化或 stub 内容变化直接失败。`e2e:replay:verify` 在 legacy 或 worldDrift 非空时非零退出，`cli.mjs verify` 同样；CI 与 lefthook 都执行 verify + world-check。
+`world:check` 还会用各 cassette seal 的 `requestMeta[*].worldRefs` 与当前 world leaf 交叉校验，避免手工重封 world seal 掩盖变化：未映射或缺失 leaf 不一致时 `stale=true` 并退出 1；映射 leaf 的差异列为 `recorded.mappedDrift`，其中与当前源等值的 `sourceAnchoredDrift` 不要求重录（`requiresRerecord: false`），其余列入 `unanchoredDrift` 并要求重录。
+
+world leaf 变更后，stub 里的 `rawSha256`/`canonicalSha256` 仍是录制值。cassette seal 的 `requestMeta` 保存每个 stub 的语义摘要（`requestCoreSha256`）与录制时的 leaf 哈希序列（`worldRefs`）。仅当 stub 字面量、哈希字段与引用结构未变，且所有变化的 leaf 都属于 `world:sync` 映射（`sys.block0.main`、`sys.skills`、`sys.compact.summary`、`tools.Agent.*`）时，`loadCassette` 才报告 `report.worldDrift` 并用当前 world 重建 canonical；未映射 leaf 变化、引用结构变化或 stub 内容变化直接失败。`e2e:replay:verify` 默认 strict（任何 worldDrift 都失败）；`--drift-policy=source-anchored --peri-root <peri>` 只放行映射且 world 字节与源派生字节完全相等的 drift，并输出 `approvedDrift`。CI 与 lefthook 都执行 verify + world-check。
 
 ## 流式与取消
 

@@ -98,8 +98,8 @@ export function createRequestBindingAdapter({ mode, runId, declarations = [], ow
     snapshotDeclarations() {
       return registry.snapshot().map(({ live, ...declaration }) => declaration);
     },
-    async responsePlans(cassetteDir, { tools = DEFAULT_TOOL_FIELDS, rulesVersion = 'world-bindings-v1' } = {}) {
-      const cassette = await loadCassette(cassetteDir);
+    async responsePlans(cassetteDir, { tools = DEFAULT_TOOL_FIELDS, rulesVersion = 'world-bindings-v1', worldDir } = {}) {
+      const cassette = await loadCassette(cassetteDir, { worldDir });
       const plans = [];
       for (const entry of cassette.entries.values()) {
         const response = entry.response;

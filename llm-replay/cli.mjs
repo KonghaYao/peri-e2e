@@ -40,6 +40,8 @@ try {
       console.log(JSON.stringify({
         passed, entries: cassette.entries.size, directory: cassette.directory,
         formatVersion: cassette.manifest.formatVersion, legacy, worldDrift,
+        driftPolicy: 'strict',
+        hint: 'fixture 级 drift 策略由 scripts/verify-replay-fixtures.mjs --drift-policy 执行',
       }));
       if (!passed) process.exitCode = 1;
     } else {

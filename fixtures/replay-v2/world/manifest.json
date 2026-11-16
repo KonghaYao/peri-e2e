@@ -1,7 +1,7 @@
 {
   "formatVersion": 2,
   "kind": "world",
-  "generation": "world-12c4186a13a664ec",
+  "generation": "world-d102d506f8ba59b7",
   "leaves": {
     "sys.block0.main": {
       "file": "system/block0.main.txt"
@@ -93,6 +93,69 @@
     "sys.block1.main.t28.tail": {
       "file": "system/block1.main.t28.tail.txt"
     },
+    "sys.block1.main.t29.tail": {
+      "file": "system/block1.main.t29.tail.txt"
+    },
+    "sys.block1.main.t30.tail": {
+      "file": "system/block1.main.t30.tail.txt"
+    },
+    "sys.block1.main.t31.tail": {
+      "file": "system/block1.main.t31.tail.txt"
+    },
+    "sys.block1.main.t32.tail": {
+      "file": "system/block1.main.t32.tail.txt"
+    },
+    "sys.block1.main.t33.tail": {
+      "file": "system/block1.main.t33.tail.txt"
+    },
+    "sys.block1.main.t34.tail": {
+      "file": "system/block1.main.t34.tail.txt"
+    },
+    "sys.block1.main.t35.tail": {
+      "file": "system/block1.main.t35.tail.txt"
+    },
+    "sys.block1.main.t36.tail": {
+      "file": "system/block1.main.t36.tail.txt"
+    },
+    "sys.block1.main.t37.tail": {
+      "file": "system/block1.main.t37.tail.txt"
+    },
+    "sys.block1.main.t38.tail": {
+      "file": "system/block1.main.t38.tail.txt"
+    },
+    "sys.block1.main.t39.tail": {
+      "file": "system/block1.main.t39.tail.txt"
+    },
+    "sys.block1.main.t40.tail": {
+      "file": "system/block1.main.t40.tail.txt"
+    },
+    "sys.block1.main.t41.tail": {
+      "file": "system/block1.main.t41.tail.txt"
+    },
+    "sys.block1.main.t42.tail": {
+      "file": "system/block1.main.t42.tail.txt"
+    },
+    "sys.block1.main.t43.tail": {
+      "file": "system/block1.main.t43.tail.txt"
+    },
+    "sys.block1.main.t44.tail": {
+      "file": "system/block1.main.t44.tail.txt"
+    },
+    "sys.block1.main.t45.tail": {
+      "file": "system/block1.main.t45.tail.txt"
+    },
+    "sys.block1.main.t46.tail": {
+      "file": "system/block1.main.t46.tail.txt"
+    },
+    "sys.block1.main.t47.tail": {
+      "file": "system/block1.main.t47.tail.txt"
+    },
+    "sys.block1.main.t48.tail": {
+      "file": "system/block1.main.t48.tail.txt"
+    },
+    "sys.block1.main.t49.tail": {
+      "file": "system/block1.main.t49.tail.txt"
+    },
     "sys.block1.replay-worker.prefix": {
       "file": "system/block1.replay-worker.prefix.txt"
     },
@@ -113,6 +176,39 @@
     },
     "sys.block1.replay-worker.t06.tail": {
       "file": "system/block1.replay-worker.t06.tail.txt"
+    },
+    "sys.block1.replay-worker.t07.tail": {
+      "file": "system/block1.replay-worker.t07.tail.txt"
+    },
+    "sys.block1.replay-worker.t08.tail": {
+      "file": "system/block1.replay-worker.t08.tail.txt"
+    },
+    "sys.block1.replay-worker.t09.tail": {
+      "file": "system/block1.replay-worker.t09.tail.txt"
+    },
+    "sys.block1.replay-worker.t10.tail": {
+      "file": "system/block1.replay-worker.t10.tail.txt"
+    },
+    "sys.block1.replay-worker.t11.tail": {
+      "file": "system/block1.replay-worker.t11.tail.txt"
+    },
+    "sys.block1.replay-worker.t12.tail": {
+      "file": "system/block1.replay-worker.t12.tail.txt"
+    },
+    "sys.block1.replay-worker.t13.tail": {
+      "file": "system/block1.replay-worker.t13.tail.txt"
+    },
+    "sys.block1.replay-worker.t14.tail": {
+      "file": "system/block1.replay-worker.t14.tail.txt"
+    },
+    "sys.block1.replay-worker.t15.tail": {
+      "file": "system/block1.replay-worker.t15.tail.txt"
+    },
+    "sys.block1.replay-worker.t16.tail": {
+      "file": "system/block1.replay-worker.t16.tail.txt"
+    },
+    "sys.block1.replay-worker.t17.tail": {
+      "file": "system/block1.replay-worker.t17.tail.txt"
     },
     "sys.block1.subagent.prefix": {
       "file": "system/block1.subagent.prefix.txt"
@@ -137,6 +233,42 @@
     },
     "sys.block1.subagent.t07.tail": {
       "file": "system/block1.subagent.t07.tail.txt"
+    },
+    "sys.block1.subagent.t08.tail": {
+      "file": "system/block1.subagent.t08.tail.txt"
+    },
+    "sys.block1.subagent.t09.tail": {
+      "file": "system/block1.subagent.t09.tail.txt"
+    },
+    "sys.block1.subagent.t10.tail": {
+      "file": "system/block1.subagent.t10.tail.txt"
+    },
+    "sys.block1.subagent.t11.tail": {
+      "file": "system/block1.subagent.t11.tail.txt"
+    },
+    "sys.block1.subagent.t12.tail": {
+      "file": "system/block1.subagent.t12.tail.txt"
+    },
+    "sys.block1.subagent.t13.tail": {
+      "file": "system/block1.subagent.t13.tail.txt"
+    },
+    "sys.block1.subagent.t14.tail": {
+      "file": "system/block1.subagent.t14.tail.txt"
+    },
+    "sys.block1.subagent.t15.tail": {
+      "file": "system/block1.subagent.t15.tail.txt"
+    },
+    "sys.block1.subagent.t16.tail": {
+      "file": "system/block1.subagent.t16.tail.txt"
+    },
+    "sys.block1.subagent.t17.tail": {
+      "file": "system/block1.subagent.t17.tail.txt"
+    },
+    "sys.block1.subagent.t18.tail": {
+      "file": "system/block1.subagent.t18.tail.txt"
+    },
+    "sys.block1.subagent.t19.tail": {
+      "file": "system/block1.subagent.t19.tail.txt"
     },
     "sys.compact.summary": {
       "file": "system/compact.summary.txt"
@@ -230,6 +362,15 @@
     },
     "tools.SearchExtraTools.responses": {
       "file": "tools/SearchExtraTools.responses.json"
+    },
+    "tools.sha256.68f205a40eaca44e3f76d80f27730d769a7b709ee6a83d1a96778bcaab4d7f13": {
+      "file": "tools/sha256.68f205a40eaca44e3f76d80f27730d769a7b709ee6a83d1a96778bcaab4d7f13.json"
+    },
+    "tools.sha256.6af051d30d7adb964db389ba8ffa25f6991afa2ca7501298cdc3739c527f3541": {
+      "file": "tools/sha256.6af051d30d7adb964db389ba8ffa25f6991afa2ca7501298cdc3739c527f3541.json"
+    },
+    "tools.sha256.b80c9e68f3f283b028ecbf881dfbe01ee20edcef1ec0c5e2533d03d44cf007c7": {
+      "file": "tools/sha256.b80c9e68f3f283b028ecbf881dfbe01ee20edcef1ec0c5e2533d03d44cf007c7.json"
     },
     "tools.SkillTool.anthropic": {
       "file": "tools/SkillTool.anthropic.json"
@@ -571,6 +712,237 @@
         "leaf": "sys.block1.main.t28.tail"
       }
     ],
+    "sys.block1.main.t29": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t29.tail"
+      }
+    ],
+    "sys.block1.main.t30": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t30.tail"
+      }
+    ],
+    "sys.block1.main.t31": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t31.tail"
+      }
+    ],
+    "sys.block1.main.t32": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t32.tail"
+      }
+    ],
+    "sys.block1.main.t33": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t33.tail"
+      }
+    ],
+    "sys.block1.main.t34": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t34.tail"
+      }
+    ],
+    "sys.block1.main.t35": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t35.tail"
+      }
+    ],
+    "sys.block1.main.t36": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t36.tail"
+      }
+    ],
+    "sys.block1.main.t37": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t37.tail"
+      }
+    ],
+    "sys.block1.main.t38": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t38.tail"
+      }
+    ],
+    "sys.block1.main.t39": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t39.tail"
+      }
+    ],
+    "sys.block1.main.t40": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t40.tail"
+      }
+    ],
+    "sys.block1.main.t41": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t41.tail"
+      }
+    ],
+    "sys.block1.main.t42": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t42.tail"
+      }
+    ],
+    "sys.block1.main.t43": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t43.tail"
+      }
+    ],
+    "sys.block1.main.t44": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t44.tail"
+      }
+    ],
+    "sys.block1.main.t45": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t45.tail"
+      }
+    ],
+    "sys.block1.main.t46": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t46.tail"
+      }
+    ],
+    "sys.block1.main.t47": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t47.tail"
+      }
+    ],
+    "sys.block1.main.t48": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t48.tail"
+      }
+    ],
+    "sys.block1.main.t49": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t49.tail"
+      }
+    ],
     "sys.block1.replay-worker.t01": [
       {
         "leaf": "sys.block1.replay-worker.prefix"
@@ -635,6 +1007,127 @@
       },
       {
         "leaf": "sys.block1.replay-worker.t06.tail"
+      }
+    ],
+    "sys.block1.replay-worker.t07": [
+      {
+        "leaf": "sys.block1.replay-worker.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.replay-worker.t07.tail"
+      }
+    ],
+    "sys.block1.replay-worker.t08": [
+      {
+        "leaf": "sys.block1.replay-worker.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.replay-worker.t08.tail"
+      }
+    ],
+    "sys.block1.replay-worker.t09": [
+      {
+        "leaf": "sys.block1.replay-worker.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.replay-worker.t09.tail"
+      }
+    ],
+    "sys.block1.replay-worker.t10": [
+      {
+        "leaf": "sys.block1.replay-worker.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.replay-worker.t10.tail"
+      }
+    ],
+    "sys.block1.replay-worker.t11": [
+      {
+        "leaf": "sys.block1.replay-worker.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.replay-worker.t11.tail"
+      }
+    ],
+    "sys.block1.replay-worker.t12": [
+      {
+        "leaf": "sys.block1.replay-worker.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.replay-worker.t12.tail"
+      }
+    ],
+    "sys.block1.replay-worker.t13": [
+      {
+        "leaf": "sys.block1.replay-worker.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.replay-worker.t13.tail"
+      }
+    ],
+    "sys.block1.replay-worker.t14": [
+      {
+        "leaf": "sys.block1.replay-worker.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.replay-worker.t14.tail"
+      }
+    ],
+    "sys.block1.replay-worker.t15": [
+      {
+        "leaf": "sys.block1.replay-worker.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.replay-worker.t15.tail"
+      }
+    ],
+    "sys.block1.replay-worker.t16": [
+      {
+        "leaf": "sys.block1.replay-worker.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.replay-worker.t16.tail"
+      }
+    ],
+    "sys.block1.replay-worker.t17": [
+      {
+        "leaf": "sys.block1.replay-worker.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.replay-worker.t17.tail"
       }
     ],
     "sys.block1.subagent.t01": [
@@ -712,6 +1205,138 @@
       },
       {
         "leaf": "sys.block1.subagent.t07.tail"
+      }
+    ],
+    "sys.block1.subagent.t08": [
+      {
+        "leaf": "sys.block1.subagent.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.subagent.t08.tail"
+      }
+    ],
+    "sys.block1.subagent.t09": [
+      {
+        "leaf": "sys.block1.subagent.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.subagent.t09.tail"
+      }
+    ],
+    "sys.block1.subagent.t10": [
+      {
+        "leaf": "sys.block1.subagent.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.subagent.t10.tail"
+      }
+    ],
+    "sys.block1.subagent.t11": [
+      {
+        "leaf": "sys.block1.subagent.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.subagent.t11.tail"
+      }
+    ],
+    "sys.block1.subagent.t12": [
+      {
+        "leaf": "sys.block1.subagent.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.subagent.t12.tail"
+      }
+    ],
+    "sys.block1.subagent.t13": [
+      {
+        "leaf": "sys.block1.subagent.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.subagent.t13.tail"
+      }
+    ],
+    "sys.block1.subagent.t14": [
+      {
+        "leaf": "sys.block1.subagent.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.subagent.t14.tail"
+      }
+    ],
+    "sys.block1.subagent.t15": [
+      {
+        "leaf": "sys.block1.subagent.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.subagent.t15.tail"
+      }
+    ],
+    "sys.block1.subagent.t16": [
+      {
+        "leaf": "sys.block1.subagent.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.subagent.t16.tail"
+      }
+    ],
+    "sys.block1.subagent.t17": [
+      {
+        "leaf": "sys.block1.subagent.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.subagent.t17.tail"
+      }
+    ],
+    "sys.block1.subagent.t18": [
+      {
+        "leaf": "sys.block1.subagent.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.subagent.t18.tail"
+      }
+    ],
+    "sys.block1.subagent.t19": [
+      {
+        "leaf": "sys.block1.subagent.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.subagent.t19.tail"
       }
     ],
     "sys.responses.main.t11": [

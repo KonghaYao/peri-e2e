@@ -174,7 +174,9 @@ export function createWorldBuilder({ generation } = {}) {
     },
     hasLeaf: (id) => leaves.has(id),
     leafBytes: (id) => leaves.get(id)?.bytes,
+    leafIds: () => [...leaves.keys()],
     recipeParts: (id) => recipes.get(id),
+    recipeIds: () => [...recipes.keys()],
     render: renderer.render,
     renderParts: renderer.renderParts,
     async seal(directory) {
@@ -228,6 +230,19 @@ export function createWorldBuilder({ generation } = {}) {
       return { directory: requested, generation: manifest.generation, manifestSha256: seal.manifestSha256, leaves: leaves.size, recipes: recipes.size };
     },
   };
+}
+
+/** 迁移与录制需要“在既有 world 上追加”：复制全部 leaf 与 recipe，保持 id 与内容不变。 */
+export function createWorldBuilderFromWorld(world, { generation } = {}) {
+  if (!world || typeof world.leafIds !== 'function' || typeof world.recipeIds !== 'function'
+      || typeof world.leafBytes !== 'function' || typeof world.recipeParts !== 'function') {
+    fail('invalid_world_writer', 'createWorldBuilderFromWorld 需要可读取的 world');
+  }
+  // generation 跟随结构；新增 leaf/recipe 后由 seal 重新计算，leaf 内容变化不影响它。
+  const builder = createWorldBuilder({ generation });
+  for (const id of world.leafIds()) builder.addLeaf(id, world.leafBytes(id));
+  for (const id of world.recipeIds()) builder.addRecipe(id, world.recipeParts(id));
+  return builder;
 }
 
 /** 读取并校验 world seal；每个 leaf 按 manifest 声明与 seal 哈希逐字节核对。 */
@@ -289,7 +304,9 @@ export async function loadWorld(directory) {
     recipes: [...recipes.keys()],
     hasLeaf: (id) => leaves.has(id),
     leafBytes: (id) => leaves.get(id)?.bytes,
+    leafIds: () => [...leaves.keys()],
     recipeParts: (id) => recipes.get(id),
+    recipeIds: () => [...recipes.keys()],
     render: renderer.render,
     renderParts: renderer.renderParts,
   });
@@ -493,7 +510,7 @@ export function encodeRequestStub(rawBytes, { world, slots } = {}) {
   for (const field of fields) {
     if (field.start < cursor) return { ...base, legacy: true, reason: 'unstable_split' };
     if (field.start > cursor) parts.push(text.slice(cursor, field.start));
-    let part = slots ? slots(field) : null;
+    let part = slots ? slots(field, text) : null;
     if (part === undefined) part = null;
     if (part === null) {
       if (!world || typeof world.addContentLeaf !== 'function') fail('invalid_world_writer', '缺少可写入的 world，无法生成内容寻址快照');
