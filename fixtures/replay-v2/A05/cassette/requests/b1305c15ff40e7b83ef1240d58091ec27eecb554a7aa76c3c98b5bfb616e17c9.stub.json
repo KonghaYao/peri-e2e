@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 64302,
-  "rawSha256": "9003efd778e37db54be3369c2a2fccabfafcfb8a51e2d360ef38634b82eea8b9",
+  "rawBytes": 64156,
+  "rawSha256": "14d1b493eb9eb6d63d3d956d58c7ad3f0fa8fc3d39f018d12fd4393fbb0af2a1",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"A05_RECOVER_CHILD_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "d6120e055c51ed98724c5d5e965899cc02c56a4991c311332c783c1850a07eb4"
+  "canonicalSha256": "c3c0317c18566cea47ffc99807bc09dd3d2867a05f1596d3786c71a55a03a245"
 }

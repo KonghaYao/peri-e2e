@@ -41,8 +41,8 @@ npm ci
 ```bash
 npm run e2e:replay:check       # tsc 类型检查
 PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:unit  # llm-replay 模块单测（world-check 用例读 Peri 源码）
-npm run e2e:replay:verify      # fixture/world 完整性（strict，任何 drift 都失败）
-PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:verify -- --drift-policy=source-anchored
+PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:verify  # fixture/world 完整性（source-anchored，Peri CI 入口）
+npm run e2e:replay:verify:strict  # strict：任何 drift 都失败
 npm run e2e:replay:migrate-refs -- --dry-run  # literal stub → world ref 等价迁移预演
 PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:world-check
 PERI_BINARY=/path/to/peri npm run e2e:replay
@@ -53,6 +53,11 @@ EXPECTED_REPLAY_SCENARIOS=66 node scripts/check-replay-catalog.mjs
 缺失/多余 fixture 和新增 skip 都会失败。回放后加 `--results <invocation 目录>`
 可再核对每个场景都有 `passed` 的 `report.json`，避免 Vitest 对 skip 仍以 0 退出。
 66 是当前 catalog 场景数（既有 30 + 第一批 B/H/M 36）；其中 B02、H05、H12、M10、M11 为固定 Peri pin 上的产品阻塞，原断言保留在 `*.blocked.ts`，不进入默认回放。D/J/L 接回后必须再显式改为 94。
+
+`e2e:replay:verify` 是 Peri CI 调用的入口，默认使用 source-anchored：只放行
+与当前 `PERI_SOURCE_ROOT` 源等值的 mapped leaf drift（`SYNCED` 或 Agent schema），
+未映射或源不等值的 drift 仍失败。需要“任何 drift 都失败”时使用
+`e2e:replay:verify:strict`（或显式传 `--drift-policy=strict`）；strict 语义没有放宽。
 
 默认只读取封存 fixture。缺录制、配置签名变化、请求漂移、额外/遗漏调用或错误
 终态都会失败。回放不会启动 fixture 上游，也不会调用线上模型；实际 Agent、工具、

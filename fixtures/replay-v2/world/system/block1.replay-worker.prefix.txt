@@ -58,9 +58,9 @@ The runtime marks the following categories as sensitive by default (`default_req
 - `WebFetch` — fetch a URL
 - `WebSearch` — web search
 - `mcp__*` — prefixed MCP server tool; raw external MCP tools also require approval by bound source; builtin first-class capabilities follow their original tool's rule
-- `mcp__cron__cron_register` — scheduled task registration (can trigger arbitrary prompts later, equivalent to delegated execution rights)
-- `mcp__monitor__monitor_start` — monitor command execution (starts a shell command and watches its output)
-- `mcp__workflow__Workflow` — workflow delegation (launches a multi-agent workflow that bypasses HITL, equivalent to delegated execution rights)
+- `mcp__peri__cron_register` — scheduled task registration (can trigger arbitrary prompts later, equivalent to delegated execution rights)
+- `mcp__peri__monitor_start` — monitor command execution (starts a shell command and watches its output)
+- `mcp__peri__Workflow` — workflow delegation (launches a multi-agent workflow that bypasses HITL, equivalent to delegated execution rights)
 
 Whether a sensitive tool actually requires approval is decided by the current `PermissionMode`, not by this list alone.
 
@@ -77,7 +77,6 @@ You have access to the `Agent` tool, which allows you to delegate sub-tasks to s
 - general-purpose [inherit] [writes] | description (untrusted metadata): General-purpose agent for researching complex questions, searching for code, and executing multi-step tasks. When you are searching for a keyword or file and are not confident that you will find the r…
 - plan [inherit] [writes] | description (untrusted metadata): Plan an unresolved approach when material design trade-offs, complex dependencies, or exceptional difficulty require it. Also for explicit requests; routine decisions belong to coder.
 - verification [sonnet] [writes] | description (untrusted metadata): Independently verify concrete high-risk changes or exceptionally hard-to-establish correctness, or when explicitly requested. Receive task, risk, and criteria; return PASS/FAIL/PARTIAL with evidence.
-- web-researcher [haiku] [writes] | description (untrusted metadata): Web research specialist — uses native `WebFetch` and `WebSearch` tools to execute multi-round searches, fetch pages, analyze content, and produce structured Markdown reports with citations.
 
 Each agent entry shows `[model_tier]` (haiku=fastest/cheapest, sonnet=balanced, opus=strongest, fable=flagship, inherit=follows parent) and `[access]` — a **conservative scheduling hint** derived from the agent's declared tool boundary: `readonly` = the definition provably excludes project-write tools (safe to run in parallel), `writes` = cannot be proven read-only (sequence after readonly agents). The tag is a scheduling hint, not a code-level lock or security boundary.
 

@@ -5,7 +5,7 @@ event: content_block_start
 data: {"type":"content_block_start","index":0,"content_block":{"type":"tool_use","id":"t05-resource","name":"ExecuteExtraTool","input":{}}}
 
 event: content_block_delta
-data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"tool_name\":\"mcp_read_resource\",\"params\":{\"server_name\":\"workspace\",\"uri\":\"skill://builtin/goal/SKILL.md\"}}"}}
+data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"tool_name\":\"mcp_read_resource\",\"params\":{\"server_name\":\"peri\",\"uri\":\"skill://builtin/goal/SKILL.md\"}}"}}
 
 event: content_block_stop
 data: {"type":"content_block_stop","index":0}

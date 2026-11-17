@@ -65,12 +65,13 @@ async function fixture(t) {
   return { directory, world };
 }
 
-async function syntheticPeriRoot(t, worldDir, { block0 } = {}) {
+async function syntheticPeriRoot(t, worldDir, { block0, legacySchema = false } = {}) {
   const root = await temporary(t, 'peri-verify-source-');
   await mkdir(path.join(root, 'peri-acp/prompts/sections'), { recursive: true });
   await mkdir(path.join(root, 'peri-middlewares/src/subagent/tool/descriptions'), { recursive: true });
   await mkdir(path.join(root, 'peri-agent/src/agent/compact_v2/descriptions'), { recursive: true });
   await mkdir(path.join(root, 'peri-middlewares/src/default_system_prompt'), { recursive: true });
+  await mkdir(path.join(root, 'peri-middlewares/src/subagent/tool/define'), { recursive: true });
   const world = await loadWorld(worldDir);
   const block = block0 ?? world.leafBytes('sys.block0.main').toString('utf8');
   await writeFile(path.join(root, 'Cargo.toml'), '');
@@ -83,7 +84,10 @@ async function syntheticPeriRoot(t, worldDir, { block0 } = {}) {
   const agentId = world.leaves.find((id) => id.startsWith('tools.Agent.'));
   const agent = JSON.parse(world.leafBytes(agentId).toString('utf8'));
   await writeFile(path.join(root, 'peri-middlewares/src/subagent/tool/descriptions/agent.md'), agent.description);
-  await writeFile(path.join(root, 'peri-middlewares/src/subagent/tool/define.rs'), SEND_ONLY);
+  const definition = legacySchema
+    ? 'peri-middlewares/src/subagent/tool/define.rs'
+    : 'peri-middlewares/src/subagent/tool/define/sub_agent_tool.rs';
+  await writeFile(path.join(root, definition), SEND_ONLY);
   await writeFile(path.join(root, 'peri-middlewares/src/default_system_prompt/mod.rs'), MOD_RS);
   return root;
 }
@@ -131,8 +135,25 @@ test('source-anchored 放行与源等值的 mapped drift，strict 仍失败', as
   assert.equal(anchored.report.passed, true);
   assert.equal(anchored.report.approvedDrift.length, anchored.report.driftLeaves);
   assert.ok(anchored.report.approvedDrift.length > 0);
-  assert.ok(anchored.report.approvedDrift.every((item) => item.leaf === 'sys.block0.main'));
+  assert.ok(anchored.report.approvedDrift.some((item) => item.leaf === 'sys.block0.main'));
+  // 基线中也可能存在 pin 更新后的 Agent 源等值 drift；只允许 SYNCED/Agent leaf。
+  assert.ok(anchored.report.approvedDrift.every((item) =>
+    item.leaf === 'sys.block0.main' || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
   for (const item of anchored.report.approvedDrift) assert.equal(item.sourceSha, item.currentSha);
+});
+
+test('旧布局只有 define.rs 时仍能解析 Agent schema', async (t) => {
+  const { directory, world } = await fixture(t);
+  const changed = 'CHANGED BLOCK0 LEGACY SCHEMA';
+  await rewriteLeaf(world, 'sys.block0.main', changed);
+  const periRoot = await syntheticPeriRoot(t, world, { block0: changed, legacySchema: true });
+
+  const anchored = await run(directory, '--drift-policy=source-anchored', `--peri-root=${periRoot}`);
+  assert.equal(anchored.code, 0);
+  assert.equal(anchored.report.passed, true);
+  assert.ok(anchored.report.approvedDrift.some((item) => item.leaf === 'sys.block0.main'));
+  assert.ok(anchored.report.approvedDrift.every((item) =>
+    item.leaf === 'sys.block0.main' || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
 });
 
 test('source-anchored 拒绝 world 与源不等值，未映射 leaf 两种策略都失败', async (t) => {

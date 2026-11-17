@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 64494,
-  "rawSha256": "2f4c2b3a73662a3d8b799f420a39faa56857e388f005ce395aaa0b15c7522a88",
+  "rawBytes": 64202,
+  "rawSha256": "41b6ebec4c80c750662e09270d0075fb3c881fef4d72d8cdea906644a390d544",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B09_OMITTED_BACKGROUND\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,10 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.6af051d30d7adb964db389ba8ffa25f6991afa2ca7501298cdc3739c527f3541",
+      "leaf": "tools.sha256.3d3c59702664da7edca09c7337bd568810c4f0ca7d213b5f387e08bec13d43c1",
       "as": "raw"
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "a4606a6f4f89fd2f15ff9693081097b2384d269cd3e2bee9e7f63bc66ef3c5c5"
+  "canonicalSha256": "2907ffffb472d9aa554ae02251f7ef03f1264550a1d5ee1f77f5de42c5fabe3d"
 }

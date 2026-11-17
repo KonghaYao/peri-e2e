@@ -1,9 +1,9 @@
 {
   "v": 2,
-  "rawBytes": 99802,
-  "rawSha256": "987ae3407c62ed8f6b1ee6db09a2bbc79fab43b4e5d8779b68f54bc7528f0399",
+  "rawBytes": 99229,
+  "rawSha256": "b41e4ec993035506d6b5bf0c4bf7c40e327ce6252634bca9d6b27df4ca9e8115",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H03 background shell.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H03-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h03.pid; printf 'started\\\\n' >> h03.starts; for i in {1..6000}; do [ -f h03.release ] && break; sleep 0.01; done; [ -f h03.release ] || exit 70; cat payload.txt; printf 'H03_ACTUAL_STDERR\\\\n' >&2; printf 'H03_SIDE_EFFECT\\\\n' > h03.result; exit 0\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H03-bash\",\"tool_use_id\":\"H03-bash\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1c85b-b711-7b72-9a5f-313642c5b67b. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1c85b-b711-7b72-9a5f-313642c5b67b]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H03 background shell.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H03-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h03.pid; printf 'started\\\\n' >> h03.starts; for i in {1..6000}; do [ -f h03.release ] && break; sleep 0.01; done; [ -f h03.release ] || exit 70; cat payload.txt; printf 'H03_ACTUAL_STDERR\\\\n' >&2; printf 'H03_SIDE_EFFECT\\\\n' > h03.result; exit 0\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H03-bash\",\"tool_use_id\":\"H03-bash\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1c85b-b711-7b72-9a5f-313642c5b67b. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1c85b-b711-7b72-9a5f-313642c5b67b]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
@@ -15,10 +15,10 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.68f205a40eaca44e3f76d80f27730d769a7b709ee6a83d1a96778bcaab4d7f13",
+      "leaf": "tools.sha256.fa0732b9d1ef2f4971464991f9714bdfb89446aa6189d9cb551c47bf6eb839dc",
       "as": "raw"
     },
     "}"
   ],
-  "canonicalSha256": "55aafbd15f726a8176ea3ba8b473b79719dcdd22f99d8b96d63af4d1643f64cf"
+  "canonicalSha256": "997cfc8fe174aefe62f8d27a077270071c618ba0ea67bd73adf72ea95264bf44"
 }

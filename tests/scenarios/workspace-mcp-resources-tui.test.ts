@@ -8,7 +8,7 @@ import { buildPeriForE2e } from "../../helpers/build.js";
  *   `/probe-skill`（core 投影）与 `/workspace:probe-skill`（server 面投影）；
  * - 显式 token 触发：提交 `/probe-skill` 后首轮模型请求出现 SkillTool 注入
  *   与技能正文（端到端，非快照）；
- * - 关闭：workspace 关闭（`meta_harness.WorkspaceMiddleware=false`）时
+ * - 关闭：workspace 关闭（`meta_harness.workspace=false`）时
  *   `/probe-skill` 不可激活（不注入正文）；
  * - 拒绝：远端 Agent 审批弹窗（`MCP Agent activation wants to run`）Esc 拒绝
  *   后不启动子代理，拒绝理由以 error tool_result 回传父会话。
@@ -129,7 +129,7 @@ describe("workspace MCP resources：TUI 可观察行为", () => {
   });
 
   it("关闭：workspace 关闭时技能命令不可激活（不注入全文）", async () => {
-    const w = await world({ metaHarness: { WorkspaceMiddleware: false } });
+    const w = await world({ metaHarness: { workspace: false } });
     const tester = await launch(w);
 
     await typeText(tester, `/${SKILL_NAME}`);

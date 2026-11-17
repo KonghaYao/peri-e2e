@@ -1,7 +1,7 @@
 {
   "formatVersion": 2,
   "kind": "world",
-  "generation": "world-d102d506f8ba59b7",
+  "generation": "world-1694f0659ef487b5",
   "leaves": {
     "sys.block0.main": {
       "file": "system/block0.main.txt"
@@ -363,14 +363,11 @@
     "tools.SearchExtraTools.responses": {
       "file": "tools/SearchExtraTools.responses.json"
     },
-    "tools.sha256.68f205a40eaca44e3f76d80f27730d769a7b709ee6a83d1a96778bcaab4d7f13": {
-      "file": "tools/sha256.68f205a40eaca44e3f76d80f27730d769a7b709ee6a83d1a96778bcaab4d7f13.json"
+    "tools.sha256.3d3c59702664da7edca09c7337bd568810c4f0ca7d213b5f387e08bec13d43c1": {
+      "file": "tools/sha256.3d3c59702664da7edca09c7337bd568810c4f0ca7d213b5f387e08bec13d43c1.json"
     },
-    "tools.sha256.6af051d30d7adb964db389ba8ffa25f6991afa2ca7501298cdc3739c527f3541": {
-      "file": "tools/sha256.6af051d30d7adb964db389ba8ffa25f6991afa2ca7501298cdc3739c527f3541.json"
-    },
-    "tools.sha256.b80c9e68f3f283b028ecbf881dfbe01ee20edcef1ec0c5e2533d03d44cf007c7": {
-      "file": "tools/sha256.b80c9e68f3f283b028ecbf881dfbe01ee20edcef1ec0c5e2533d03d44cf007c7.json"
+    "tools.sha256.fa0732b9d1ef2f4971464991f9714bdfb89446aa6189d9cb551c47bf6eb839dc": {
+      "file": "tools/sha256.fa0732b9d1ef2f4971464991f9714bdfb89446aa6189d9cb551c47bf6eb839dc.json"
     },
     "tools.SkillTool.anthropic": {
       "file": "tools/SkillTool.anthropic.json"

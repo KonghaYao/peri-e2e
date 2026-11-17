@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 65247,
-  "rawSha256": "ffe803aa22f1165b135dfaca07b241ef71c939eba7fb7feb1559c8b847d3dd05",
+  "rawBytes": 65101,
+  "rawSha256": "99793fd9e8043cf21ba84ee08d8d15b7094fbefbc2547d1e6109d434959631dd",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B06_INITIAL_WORK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B06-first-write\",\"name\":\"Write\",\"input\":{\"content\":\"B06_INITIAL_FILE\\n\",\"file_path\":\"b06-first.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B06-first-write\",\"tool_use_id\":\"B06-first-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b06-first.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"task\\\" source=\\\"subagent\\\" kind=\\\"parent_message\\\" severity=\\\"info\\\" delivery=\\\"required\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;]\\\" summary=\\\"&quot;Parent agent message&quot;\\\" metadata=\\\"{&quot;child_thread_id&quot;:&quot;01a1c858-d90b-7171-ab34-feecc9dff3da&quot;,&quot;task_id&quot;:&quot;bg-01a1c858-d90b-7171-ab34-fefb9ec2b915&quot;}\\\">Supplemental message from the parent agent:\\nB06_SUPPLEMENT_WRITE_SECOND_FILE</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "d26fca4ea8b771c747d618491de832a4ba50ed33eba75e47cd0a0d5072e2c02a"
+  "canonicalSha256": "ec140f9434b175205484f9cd34498e055093d6b495a0e0b71b8c52890fa16bcb"
 }

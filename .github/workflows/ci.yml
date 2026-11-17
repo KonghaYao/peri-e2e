@@ -85,11 +85,11 @@ jobs:
         run: npm run e2e:replay:unit
 
       # prompt-only 变更只产生 world leaf + seal；source-anchored 只放行与当前 pin 源等值
-      # 的 mapped drift，其余 drift（含未映射 leaf）仍失败。strict 是本地默认。
+      # 的 mapped drift，其余 drift（含未映射 leaf）仍失败。这里走 Peri CI 同一个默认入口。
       - name: Verify replay fixtures (source-anchored)
         env:
           PERI_SOURCE_ROOT: ${{ github.workspace }}/peri-src
-        run: npm run e2e:replay:verify -- --drift-policy=source-anchored
+        run: npm run e2e:replay:verify
 
       # world seal 对应本次固定的 Peri checkout：未映射 leaf 变动但未 bump pin
       # 时在这里失败。
