@@ -96,6 +96,91 @@ export function replayEnvironment(world: ReplayWorld, route?: { proxy: string; r
   };
 }
 
+type ReplayStdioPeer = Awaited<ReturnType<typeof startStdioAcpFixture>>;
+type SessionPeerEntry = { alias: string; sessionId: string; peer: ReplayStdioPeer; open: boolean };
+
+/** 每个 live session 独占一个 stdio ACP connection；路由只信请求中的 sessionId。 */
+export async function startReplaySessionPeers(options: {
+  world: ReplayWorld;
+  sessionIds: Record<string, string | undefined>;
+  env: Record<string, string>;
+  clientMeta: Record<string, unknown>;
+  notifications: any[];
+  serverRequestLabel: string;
+}) {
+  const declared = Object.entries(options.sessionIds).filter((entry): entry is [string, string] => typeof entry[1] === "string");
+  if (!declared.length) throw new Error("session peer group requires at least one session");
+  const entries: SessionPeerEntry[] = [];
+  const closeEntries = async (strict: boolean): Promise<Array<number | null>> => {
+    const errors: string[] = [];
+    for (const entry of entries) {
+      if (!entry.open) continue;
+      try {
+        const reply = await entry.peer.call("session/close", { sessionId: entry.sessionId });
+        if (reply.error) errors.push(`${entry.alias} session/close: ${JSON.stringify(reply)}`);
+        else entry.open = false;
+      } catch (error) { errors.push(`${entry.alias} session/close: ${String(error)}`); }
+    }
+    const exits = await Promise.all(entries.map(async (entry) => {
+      try { return await entry.peer.close(); }
+      catch (error) { errors.push(`${entry.alias} peer close: ${String(error)}`); return null; }
+    }));
+    if (strict) {
+      exits.forEach((code, index) => { if (code !== 0) errors.push(`${entries[index]!.alias} exit ${String(code)}`); });
+      if (errors.length) throw new Error(errors.join("\n"));
+    }
+    return exits;
+  };
+  try {
+    for (const [alias, sessionId] of declared) {
+      const peer = await startStdioAcpFixture({
+        binary: REPLAY_BINARY, cwd: options.world.work, home: options.world.home, env: options.env,
+        onNotification: (message) => options.notifications.push(message), onServerRequest() {},
+        handleServerRequest(request) {
+          return { error: { code: -32601, message: `${options.serverRequestLabel} ${request.method}` } };
+        },
+      });
+      const entry: SessionPeerEntry = { alias, sessionId, peer, open: false };
+      entries.push(entry);
+      const initialized = await peer.call("initialize", {
+        protocolVersion: 1, clientCapabilities: { _meta: options.clientMeta },
+      });
+      if (initialized.error) throw new Error(`${alias} initialize: ${JSON.stringify(initialized)}`);
+      const loaded = await peer.call("session/load", { sessionId, cwd: options.world.work, mcpServers: [] });
+      if (loaded.error) throw new Error(`${alias} session/load: ${JSON.stringify(loaded)}`);
+      entry.open = true;
+    }
+  } catch (error) {
+    await closeEntries(false);
+    throw error;
+  }
+  const bySession = new Map(entries.map((entry) => [entry.sessionId, entry]));
+  const route = (params: any): SessionPeerEntry => {
+    const sessionId = params?.sessionId;
+    if (typeof sessionId !== "string") throw new Error("session-routed ACP operation requires sessionId");
+    const entry = bySession.get(sessionId);
+    if (!entry) throw new Error(`no ACP peer owns session ${sessionId}`);
+    return entry;
+  };
+  const peer = {
+    async call(method: string, params: any, timeoutMs?: number) {
+      const entry = route(params);
+      const reply = await entry.peer.call(method, params, timeoutMs);
+      if (method === "session/close" && !reply.error) entry.open = false;
+      return reply;
+    },
+    notify(method: string, params: any) { route(params).peer.notify(method, params); },
+  };
+  return {
+    peer,
+    async close() { await closeEntries(true); },
+    async closeBestEffort() { return closeEntries(false); },
+    async diagnostics() {
+      return Object.fromEntries(await Promise.all(entries.map(async (entry) => [entry.alias, JSON.parse(await entry.peer.diagnostics())])));
+    },
+  };
+}
+
 export async function prepareReplaySessions(world: ReplayWorld, count = 1): Promise<string[]> {
   const peer = await startStdioAcpFixture({
     binary: assertReplayBinary(), cwd: world.work, home: world.home, env: replayEnvironment(world),
@@ -109,9 +194,8 @@ export async function prepareReplaySessions(world: ReplayWorld, count = 1): Prom
     for (let index = 0; index < count; index++) {
       const created = await peer.call("session/new", { cwd: world.work });
       if (created.error || typeof created.result?.sessionId !== "string") throw new Error(`session/new: ${JSON.stringify(created)}`);
-      ids.push(created.result.sessionId);
-    }
-    for (const sessionId of ids) {
+      const sessionId = created.result.sessionId;
+      ids.push(sessionId);
       const closed = await peer.call("session/close", { sessionId });
       if (closed.error) throw new Error(`session/close: ${JSON.stringify(closed)}`);
     }

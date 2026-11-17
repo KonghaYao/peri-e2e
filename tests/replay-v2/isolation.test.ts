@@ -6,10 +6,9 @@ import { runReplayScenario, type ReplayScenarioContext } from "../../helpers/llm
 import { ScenarioIdentity } from "../../helpers/llm-replay-identity.js";
 import { declareReplayAmbientBindings } from "../../helpers/llm-replay-runtime.js";
 import {
-  createReplayWorld, prepareReplaySessions, REPLAY_BINARY, replayEnvironment, ReplayTui,
-  syntheticRequestEvidence, type ReplayWorld,
+  createReplayWorld, prepareReplaySessions, replayEnvironment, ReplayTui,
+  startReplaySessionPeers, syntheticRequestEvidence, type ReplayWorld,
 } from "../../helpers/llm-replay-tui.js";
-import { startStdioAcpFixture } from "../../helpers/stdio-acp-fixture.js";
 
 const bindingModule = new URL("../../llm-replay/request-bindings.mjs", import.meta.url).href;
 const identity = (owner = "root", call = "reason:1", attempt = 1) => ({ owner, execution: "turn-1", call, attempt, purpose: "reason" });
@@ -48,20 +47,16 @@ async function fixture(handler: (body: any, response: ServerResponse, index: num
 
 async function startSessions(ctx: ReplayScenarioContext) {
   const notifications: any[] = [];
-  const peer = await startStdioAcpFixture({ binary: REPLAY_BINARY, cwd: ctx.world.work, home: ctx.world.home,
+  const group = await startReplaySessionPeers({
+    world: ctx.world,
+    sessionIds: ctx.sessionIds,
     env: replayEnvironment(ctx.world, { proxy: ctx.proxy.url, run: ctx.runId }),
-    onNotification: (message) => notifications.push(message), onServerRequest() {},
-    handleServerRequest(request) { return { error: { code: -32601, message: `undeclared server request ${request.method}` } }; },
+    clientMeta: { "peri.userInputQueue": true },
+    notifications,
+    serverRequestLabel: "undeclared server request",
   });
+  const peer = group.peer;
   const healthy = () => expect(ctx.proxy.snapshot(ctx.runId).errors).toEqual([]);
-  try {
-    const initialized = await peer.call("initialize", { protocolVersion: 1, clientCapabilities: { _meta: { "peri.userInputQueue": true } } });
-    expect(initialized.error).toBeUndefined();
-    for (const sessionId of Object.values(ctx.sessionIds)) {
-      const loaded = await peer.call("session/load", { sessionId, cwd: ctx.world.work, mcpServers: [] });
-      expect(loaded.error, JSON.stringify(loaded)).toBeUndefined();
-    }
-  } catch (error) { await peer.close(); throw error; }
   const attempts = new Map<string, { generation: string; inputId: string; offset: number }>();
   return {
     peer, notifications,
@@ -100,10 +95,8 @@ async function startSessions(ctx: ReplayScenarioContext) {
       }, { timeout: 30_000 }).toMatchObject({ active: null, items: [], terminal: [{ inputId: attempt.inputId, state: "delivered" }] });
       ctx.identity.finish(sessionId);
     },
-    async close() {
-      for (const sessionId of Object.values(ctx.sessionIds)) expect((await peer.call("session/close", { sessionId })).error).toBeUndefined();
-      expect(await peer.close()).toBe(0);
-    },
+    async close() { await group.close(); },
+    async closeBestEffort() { await group.closeBestEffort(); },
   };
 }
 
@@ -149,7 +142,7 @@ describe("I01-I02 real session and replay-run isolation", () => {
           expect(observed).toEqual(requestOrder);
         } finally {
           await writeFile(path.join(ctx.world.evidence, "I01-notifications.json"), JSON.stringify(sessions.notifications, null, 2));
-          if (!closed) await sessions.peer.close();
+          if (!closed) await sessions.closeBestEffort();
         }
       },
     });

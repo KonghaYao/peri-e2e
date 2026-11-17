@@ -2,35 +2,28 @@ import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { expect } from "vitest";
 import type { ReplayScenarioContext } from "../../helpers/llm-replay-suite.js";
-import { REPLAY_BINARY, replayEnvironment } from "../../helpers/llm-replay-tui.js";
-import { startStdioAcpFixture } from "../../helpers/stdio-acp-fixture.js";
+import { replayEnvironment, startReplaySessionPeers } from "../../helpers/llm-replay-tui.js";
 
 /** Queue-backed ACP sessions; every turn is correlated with its actual input and completion. */
 export async function shellAcp(ctx: ReplayScenarioContext) {
   const notifications: any[] = [];
-  const peer = await startStdioAcpFixture({ binary: REPLAY_BINARY, cwd: ctx.world.work, home: ctx.world.home,
+  const group = await startReplaySessionPeers({
+    world: ctx.world,
+    sessionIds: ctx.sessionIds,
     env: replayEnvironment(ctx.world, { proxy: ctx.proxy.url, run: ctx.runId }),
-    onNotification(message) { notifications.push(message); }, onServerRequest() {},
-    handleServerRequest(request) { return { error: { code: -32601, message: `undeclared shell fixture server request ${request.method}` } }; },
+    clientMeta: {
+      "peri.userInputQueue": true, "peri.agentEvent": true, "peri.agentEventDone": true, "peri.systemReminder": true,
+    },
+    notifications,
+    serverRequestLabel: "undeclared shell fixture server request",
   });
+  const peer = group.peer;
   let nextInput = 1;
   const attempts = new Map<string, { generation: string; inputId: string; offset: number }>();
   const healthy = () => expect(ctx.proxy.snapshot(ctx.runId).errors).toEqual([]);
   const text = (alias: string) => JSON.stringify(notifications.filter(message => message.params?.sessionId === ctx.sessionIds[alias]));
   const events = (alias: string) => notifications.filter(message => message.method === "peri/agent_event" && message.params?.sessionId === ctx.sessionIds[alias])
     .map(message => JSON.parse(message.params.event_json));
-  try {
-    expect((await peer.call("initialize", { protocolVersion: 1, clientCapabilities: { _meta: {
-      "peri.userInputQueue": true, "peri.agentEvent": true, "peri.agentEventDone": true, "peri.systemReminder": true,
-    } } })).error).toBeUndefined();
-    for (const sessionId of Object.values(ctx.sessionIds)) {
-      expect((await peer.call("session/load", { sessionId, cwd: ctx.world.work, mcpServers: [] })).error).toBeUndefined();
-    }
-  } catch (error) {
-    const exitCode = await peer.close();
-    ctx.observe("shell-acp-process-exit", { exitCode, graceful: exitCode === 0 });
-    throw error;
-  }
   return {
     peer, notifications, text, events,
     async enqueue(alias: string, execution: string, content: string, continued = false) {
@@ -86,15 +79,20 @@ export async function shellAcp(ctx: ReplayScenarioContext) {
       expect(response.result.source).toBe("live");
       return response.result;
     },
-    async save(name: string) { await writeFile(path.join(ctx.world.evidence, `${name}-acp.json`), JSON.stringify({ notifications, diagnostics: await peer.diagnostics() }, null, 2)); },
+    async save(name: string) {
+      await writeFile(path.join(ctx.world.evidence, `${name}-acp.json`), JSON.stringify({
+        notifications, diagnostics: await group.diagnostics(),
+      }, null, 2));
+    },
     async closeTransport() {
-      const exitCode = await peer.close();
-      ctx.observe("shell-acp-process-exit", { exitCode, graceful: exitCode === 0 });
+      const exitCodes = await group.closeBestEffort();
+      const exitCode = exitCodes.every((code) => code === 0) ? 0 : (exitCodes.find((code) => code !== 0) ?? null);
+      ctx.observe("shell-acp-process-exit", { exitCode, exitCodes, graceful: exitCode === 0 });
       return exitCode;
     },
     async close() {
-      for (const sessionId of Object.values(ctx.sessionIds)) expect((await peer.call("session/close", { sessionId })).error).toBeUndefined();
-      expect(await this.closeTransport()).toBe(0);
+      await group.close();
+      ctx.observe("shell-acp-process-exit", { exitCode: 0, graceful: true });
     },
   };
 }
