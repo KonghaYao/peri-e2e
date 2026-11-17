@@ -8,6 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sha256 } from './matcher.mjs';
 import { loadWorld } from './world-store.mjs';
+import { COMPACT_USER_PLACEHOLDER, COMPACT_USER_TARGET_TOKENS } from '../scripts/replay-world-sources.mjs';
 
 const execute = promisify(execFile);
 const e2eRoot = fileURLToPath(new URL('..', import.meta.url));
@@ -112,6 +113,9 @@ async function syntheticPeriSource(t, worldDir, { block0 } = {}) {
   }
   await writeFile(path.join(root, 'peri-acp/prompts/sections/13_skills.md'), world.leafBytes('sys.skills'));
   await writeFile(path.join(root, 'peri-agent/src/agent/compact_v2/descriptions/summary_system_prompt.md'), world.leafBytes('sys.compact.summary'));
+  const compactUser = world.leafBytes('sys.compact.user').toString('utf8')
+    .replaceAll(String(COMPACT_USER_TARGET_TOKENS), COMPACT_USER_PLACEHOLDER);
+  await writeFile(path.join(root, 'peri-agent/src/agent/compact_v2/descriptions/summary_user_prompt.md'), compactUser);
   const agentId = world.leaves.find((id) => id.startsWith('tools.Agent.'));
   const agent = JSON.parse(world.leafBytes(agentId).toString('utf8'));
   await writeFile(path.join(root, 'peri-middlewares/src/subagent/tool/descriptions/agent.md'), agent.description);

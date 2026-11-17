@@ -1,14 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
-import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { promisify } from 'node:util';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadWorld } from '../llm-replay/world-store.mjs';
 import { sha256 } from '../llm-replay/matcher.mjs';
-import { assertBlock0SectionOrder } from './replay-world-sources.mjs';
+import { assertBlock0SectionOrder, COMPACT_USER_PLACEHOLDER, COMPACT_USER_TARGET_TOKENS } from './replay-world-sources.mjs';
 
 const execute = promisify(execFile);
 const e2eRoot = fileURLToPath(new URL('..', import.meta.url));
@@ -65,6 +65,34 @@ async function fixture(t) {
   return { directory, world };
 }
 
+/** U06 包含 compact system/user prompt；用于验证 user leaf 的同步与篡改门禁。 */
+async function u06Fixture(t) {
+  const directory = await temporary(t);
+  const world = path.join(directory, 'world');
+  await cp(path.join(fixtures, 'world'), world, { recursive: true });
+  await mkdir(path.join(directory, 'U06'), { recursive: true });
+  await cp(path.join(fixtures, 'U06/cassette'), path.join(directory, 'U06/cassette'), { recursive: true });
+  return { directory, world };
+}
+
+async function worldHashes(root) {
+  const hashes = new Map();
+  const walk = async (directory, relative = '') => {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      const next = relative ? `${relative}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) await walk(path.join(directory, entry.name), next);
+      else hashes.set(next, sha256(await readFile(path.join(directory, entry.name))));
+    }
+  };
+  await walk(root);
+  return hashes;
+}
+
+async function changedWorldFiles(before, after) {
+  return [...new Set([...before.keys(), ...after.keys()])]
+    .filter((file) => before.get(file) !== after.get(file)).sort();
+}
+
 async function syntheticPeriRoot(t, worldDir, { block0, legacySchema = false } = {}) {
   const root = await temporary(t, 'peri-verify-source-');
   await mkdir(path.join(root, 'peri-acp/prompts/sections'), { recursive: true });
@@ -81,6 +109,9 @@ async function syntheticPeriRoot(t, worldDir, { block0, legacySchema = false } =
   }
   await writeFile(path.join(root, 'peri-acp/prompts/sections/13_skills.md'), world.leafBytes('sys.skills'));
   await writeFile(path.join(root, 'peri-agent/src/agent/compact_v2/descriptions/summary_system_prompt.md'), world.leafBytes('sys.compact.summary'));
+  const compactUser = world.leafBytes('sys.compact.user').toString('utf8')
+    .replaceAll(String(COMPACT_USER_TARGET_TOKENS), COMPACT_USER_PLACEHOLDER);
+  await writeFile(path.join(root, 'peri-agent/src/agent/compact_v2/descriptions/summary_user_prompt.md'), compactUser);
   const agentId = world.leaves.find((id) => id.startsWith('tools.Agent.'));
   const agent = JSON.parse(world.leafBytes(agentId).toString('utf8'));
   await writeFile(path.join(root, 'peri-middlewares/src/subagent/tool/descriptions/agent.md'), agent.description);
@@ -140,6 +171,90 @@ test('source-anchored 放行与源等值的 mapped drift，strict 仍失败', as
   assert.ok(anchored.report.approvedDrift.every((item) =>
     item.leaf === 'sys.block0.main' || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
   for (const item of anchored.report.approvedDrift) assert.equal(item.sourceSha, item.currentSha);
+});
+
+test('compact user prompt 源变化只改 sys.compact.user 与 seal，source-anchored 放行', async (t) => {
+  const { directory, world } = await u06Fixture(t);
+  const periRoot = await syntheticPeriRoot(t, world);
+  const sourceFile = path.join(periRoot, 'peri-agent/src/agent/compact_v2/descriptions/summary_user_prompt.md');
+  const source = await readFile(sourceFile, 'utf8');
+  await writeFile(sourceFile, source.replace('Keep a small contract/recovery core', 'Keep a compact contract/recovery core'));
+  const before = await worldHashes(world);
+
+  const synced = await runSync(world, periRoot);
+  assert.equal(synced.code, 0);
+  assert.deepEqual(synced.report.updated, ['sys.compact.user']);
+  assert.equal(synced.report.written, 1);
+
+  const after = await worldHashes(world);
+  assert.deepEqual(await changedWorldFiles(before, after), ['seal.json', 'system/compact.user.txt']);
+  const leaf = await readFile(path.join(world, 'system/compact.user.txt'), 'utf8');
+  assert.ok(leaf.includes('Keep a compact contract/recovery core'));
+  assert.ok(leaf.includes('Target at most 8000 output tokens'));
+  assert.ok(!leaf.includes('{summary_target_tokens}'));
+
+  const anchored = await run(directory, '--drift-policy=source-anchored', `--peri-root=${periRoot}`);
+  assert.equal(anchored.code, 0);
+  assert.equal(anchored.report.passed, true);
+  assert.ok(anchored.report.approvedDrift.some((item) => item.leaf === 'sys.compact.user' && item.sourceSha === item.currentSha));
+  assert.ok(anchored.report.approvedDrift.every((item) => item.leaf === 'sys.compact.user'
+    || item.leaf === 'sys.block0.main' || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
+});
+
+test('compact system prompt 源变化仍只改 sys.compact.summary 与 seal', async (t) => {
+  const { directory, world } = await u06Fixture(t);
+  const periRoot = await syntheticPeriRoot(t, world);
+  const sourceFile = path.join(periRoot, 'peri-agent/src/agent/compact_v2/descriptions/summary_system_prompt.md');
+  await writeFile(sourceFile, `${await readFile(sourceFile, 'utf8')}\nSYSTEM CHANGE`);
+  const before = await worldHashes(world);
+
+  const synced = await runSync(world, periRoot);
+  assert.equal(synced.code, 0);
+  assert.deepEqual(synced.report.updated, ['sys.compact.summary']);
+
+  const after = await worldHashes(world);
+  assert.deepEqual(await changedWorldFiles(before, after), ['seal.json', 'system/compact.summary.txt']);
+
+  const anchored = await run(directory, '--drift-policy=source-anchored', `--peri-root=${periRoot}`);
+  assert.equal(anchored.code, 0);
+  assert.equal(anchored.report.passed, true);
+  assert.ok(anchored.report.approvedDrift.some((item) => item.leaf === 'sys.compact.summary'));
+});
+
+test('篡改 sys.compact.user leaf 后 source-anchored 拒绝', async (t) => {
+  const { directory, world } = await u06Fixture(t);
+  const periRoot = await syntheticPeriRoot(t, world);
+  const original = await readFile(path.join(world, 'system/compact.user.txt'), 'utf8');
+  await rewriteLeaf(world, 'sys.compact.user', `${original}\nTAMPERED`);
+
+  const result = await run(directory, '--drift-policy=source-anchored', `--peri-root=${periRoot}`);
+  assert.equal(result.code, 1);
+  assert.equal(result.report.passed, false);
+  assert.ok(result.report.errors.some((item) => item.code === 'world_drift_source_mismatch' && item.leaf === 'sys.compact.user'));
+});
+
+test('篡改 U06 compact stub 并重封文件哈希仍被 requestCoreSha256 拒绝', async (t) => {
+  const { directory } = await u06Fixture(t);
+  const cassette = path.join(directory, 'U06/cassette');
+  const manifest = JSON.parse(await readFile(path.join(cassette, 'manifest.json'), 'utf8'));
+  const compact = manifest.entries.find((entry) => entry.identity?.purpose === 'compact');
+  assert.ok(compact, 'U06 必须包含 compact 请求');
+  const stubRelative = compact.request.stub;
+  const stubFile = path.join(cassette, stubRelative);
+  const stub = JSON.parse(await readFile(stubFile, 'utf8'));
+  stub.parts[0] = stub.parts[0].replace('COMPACT_SEED_INPUT_731', 'COMPACT_SEED_INPUT_TAMPERED');
+  const tampered = Buffer.from(`${JSON.stringify(stub, null, 2)}\n`);
+  await writeFile(stubFile, tampered);
+
+  const sealFile = path.join(cassette, 'seal.json');
+  const seal = JSON.parse(await readFile(sealFile, 'utf8'));
+  seal.files[stubRelative] = sha256(tampered);
+  await writeFile(sealFile, `${JSON.stringify(seal)}\n`);
+
+  const result = await run(directory);
+  assert.equal(result.code, 1);
+  assert.equal(result.report.passed, false);
+  assert.ok(result.report.errors.some((item) => item.code === 'corrupt_cassette' && item.message.includes('core 校验失败')));
 });
 
 test('旧布局只有 define.rs 时仍能解析 Agent schema', async (t) => {

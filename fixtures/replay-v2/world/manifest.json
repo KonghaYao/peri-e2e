@@ -1,7 +1,7 @@
 {
   "formatVersion": 2,
   "kind": "world",
-  "generation": "world-df5fba2640429934",
+  "generation": "world-99baae6d74f73d79",
   "leaves": {
     "sys.block0.main": {
       "file": "system/block0.main.txt"
@@ -311,6 +311,9 @@
     },
     "sys.compact.summary": {
       "file": "system/compact.summary.txt"
+    },
+    "sys.compact.user": {
+      "file": "system/compact.user.txt"
     },
     "sys.sha256.277264df9fa1a3b56e23fe62a69188ce9ffecd70e91c0345c6481155ca3d348c": {
       "file": "system/sha256.277264df9fa1a3b56e23fe62a69188ce9ffecd70e91c0345c6481155ca3d348c.txt"

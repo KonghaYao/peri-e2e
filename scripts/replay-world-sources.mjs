@@ -16,7 +16,21 @@ export const SOURCE_FILES = Object.freeze({
   // v5 把 define.rs 拆成 mod 声明与具体定义；旧 pin 仍只有单文件布局。
   agentSchemaLegacy: 'peri-middlewares/src/subagent/tool/define.rs',
   compactSummary: 'peri-agent/src/agent/compact_v2/descriptions/summary_system_prompt.md',
+  compactUser: 'peri-agent/src/agent/compact_v2/descriptions/summary_user_prompt.md',
 });
+
+/**
+ * Full Compact 首轮提示词的长度目标。U06 录制时 fixture 模型 output limit=32000，
+ * summary_max_tokens 默认 16000；`full_compact.rs` 取 min(16000, 32000) / 2 = 8000。
+ * world 只保存渲染后的冻结快照，因此同步时按运行时同名替换写入具体数值。
+ */
+export const COMPACT_USER_TARGET_TOKENS = 8000;
+export const COMPACT_USER_PLACEHOLDER = '{summary_target_tokens}';
+
+/** 与 `full_compact.rs::summary_instruction` 一致：替换全部占位符后冻结进 world。 */
+export function renderCompactUserPrompt(source) {
+  return source.replaceAll(COMPACT_USER_PLACEHOLDER, String(COMPACT_USER_TARGET_TOKENS));
+}
 
 /** block0 是 01–06 段的组合体；顺序必须与 BASE_SECTIONS 的 Cached zone 一致。 */
 export const BLOCK0_SECTIONS = Object.freeze([
@@ -125,20 +139,23 @@ async function readAgentSchema(periRoot) {
 /** 所有源派生 leaf 的唯一期望字节；world:sync 与 source-anchored verify 共用。 */
 export async function loadSourceLeaves(world, periRoot) {
   await assertBlock0SectionOrder(periRoot);
-  const [block0, skills, compactSummary, agentDescription, agentSchema] = await Promise.all([
+  const [block0, skills, compactSummary, compactUserSource, agentDescription, agentSchema] = await Promise.all([
     composeBlock0(periRoot),
     readFile(path.join(periRoot, SOURCE_FILES.skills), 'utf8'),
     readFile(path.join(periRoot, SOURCE_FILES.compactSummary), 'utf8'),
+    readFile(path.join(periRoot, SOURCE_FILES.compactUser), 'utf8'),
     readFile(path.join(periRoot, SOURCE_FILES.agentDescription), 'utf8'),
     readAgentSchema(periRoot),
   ]);
-  for (const id of [STABLE_LEAVES.block0, STABLE_LEAVES.skills, STABLE_LEAVES.compactSummary]) {
+  const compactUser = renderCompactUserPrompt(compactUserSource);
+  for (const id of [STABLE_LEAVES.block0, STABLE_LEAVES.skills, STABLE_LEAVES.compactSummary, STABLE_LEAVES.compactUser]) {
     if (!world.hasLeaf(id)) throw new Error(`world 缺少稳定 leaf ${id}，无法映射对应源文件`);
   }
   const expected = new Map([
     [STABLE_LEAVES.block0, Buffer.from(block0, 'utf8')],
     [STABLE_LEAVES.skills, Buffer.from(skills, 'utf8')],
     [STABLE_LEAVES.compactSummary, Buffer.from(compactSummary, 'utf8')],
+    [STABLE_LEAVES.compactUser, Buffer.from(compactUser, 'utf8')],
   ]);
   const sendOnly = expectedSendOnly(agentSchema);
   const templates = await loadAgentToolTemplates();

@@ -6,12 +6,18 @@ export const STABLE_LEAVES = Object.freeze({
   block0: 'sys.block0.main',
   skills: 'sys.skills',
   compactSummary: 'sys.compact.summary',
+  compactUser: 'sys.compact.user',
 });
 
 export const AGENT_LEAF_PREFIX = 'tools.Agent.';
 
-/** block0 由 01–06 源文件组合，和 skills / compact summary 一样属于源派生 leaf。 */
-const SYNCED = new Set([STABLE_LEAVES.block0, STABLE_LEAVES.skills, STABLE_LEAVES.compactSummary]);
+/** block0 由 01–06 源文件组合，和 skills / compact summary/user 一样属于源派生 leaf。 */
+const SYNCED = new Set([
+  STABLE_LEAVES.block0,
+  STABLE_LEAVES.skills,
+  STABLE_LEAVES.compactSummary,
+  STABLE_LEAVES.compactUser,
+]);
 
 /** 只有 world:sync 能更新这些 leaf；其余 leaf 必须与录制快照逐字节一致。 */
 export function isSyncedWorldLeaf(id) {
