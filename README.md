@@ -58,6 +58,7 @@ EXPECTED_REPLAY_SCENARIOS=66 node scripts/check-replay-catalog.mjs
 与当前 `PERI_SOURCE_ROOT` 源等值的 mapped leaf drift（`SYNCED` 或 Agent schema），
 未映射或源不等值的 drift 仍失败。需要“任何 drift 都失败”时使用
 `e2e:replay:verify:strict`（或显式传 `--drift-policy=strict`）；strict 语义没有放宽。
+本地 pre-commit 同样要求 `PERI_SOURCE_ROOT`；未设置时跳过该门禁并告警。
 
 默认只读取封存 fixture。缺录制、配置签名变化、请求漂移、额外/遗漏调用或错误
 终态都会失败。回放不会启动 fixture 上游，也不会调用线上模型；实际 Agent、工具、
