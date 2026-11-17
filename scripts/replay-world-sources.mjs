@@ -12,7 +12,9 @@ export { AGENT_LEAF_PREFIX, STABLE_LEAVES };
 export const SOURCE_FILES = Object.freeze({
   skills: 'peri-acp/prompts/sections/13_skills.md',
   agentDescription: 'peri-middlewares/src/subagent/tool/descriptions/agent.md',
-  agentSchema: 'peri-middlewares/src/subagent/tool/define.rs',
+  agentSchema: 'peri-middlewares/src/subagent/tool/define/sub_agent_tool.rs',
+  // v5 把 define.rs 拆成 mod 声明与具体定义；旧 pin 仍只有单文件布局。
+  agentSchemaLegacy: 'peri-middlewares/src/subagent/tool/define.rs',
   compactSummary: 'peri-agent/src/agent/compact_v2/descriptions/summary_system_prompt.md',
 });
 
@@ -110,6 +112,16 @@ function assertAgentToolAnchored(id, current, template) {
   }
 }
 
+/** 当前布局优先；旧 pin 只有 define.rs 时回退，路径都不存在则显式失败。 */
+async function readAgentSchema(periRoot) {
+  const candidates = [SOURCE_FILES.agentSchema, SOURCE_FILES.agentSchemaLegacy];
+  for (const relative of candidates) {
+    try { return await readFile(path.join(periRoot, relative), 'utf8'); }
+    catch (error) { if (error.code !== 'ENOENT') throw error; }
+  }
+  throw new Error(`Peri 源码缺少 Agent schema，已尝试：${candidates.join(', ')}`);
+}
+
 /** 所有源派生 leaf 的唯一期望字节；world:sync 与 source-anchored verify 共用。 */
 export async function loadSourceLeaves(world, periRoot) {
   await assertBlock0SectionOrder(periRoot);
@@ -118,7 +130,7 @@ export async function loadSourceLeaves(world, periRoot) {
     readFile(path.join(periRoot, SOURCE_FILES.skills), 'utf8'),
     readFile(path.join(periRoot, SOURCE_FILES.compactSummary), 'utf8'),
     readFile(path.join(periRoot, SOURCE_FILES.agentDescription), 'utf8'),
-    readFile(path.join(periRoot, SOURCE_FILES.agentSchema), 'utf8'),
+    readAgentSchema(periRoot),
   ]);
   for (const id of [STABLE_LEAVES.block0, STABLE_LEAVES.skills, STABLE_LEAVES.compactSummary]) {
     if (!world.hasLeaf(id)) throw new Error(`world 缺少稳定 leaf ${id}，无法映射对应源文件`);
@@ -169,12 +181,12 @@ const SEND_ONLY = Object.freeze({
   description: 'When true, only queue a non-empty prompt to the live background sub-agent identified by resume_thread_id. If it has no live receiver, fail without loading or resuming a persisted thread.',
 });
 
-/** 复用旧生成器的契约检查：define.rs 的 send_only 定义变化时必须显式失败。 */
+/** 复用旧生成器的契约检查：Agent schema 的 send_only 定义变化时必须显式失败。 */
 export function expectedSendOnly(defineSource) {
   const field = defineSource.match(/"send_only": \{([\s\S]*?)\n\s*\},/u)?.[1] ?? '';
   if (!field.includes('"type": "boolean"') || !field.includes('"default": false')
       || !field.includes(JSON.stringify(SEND_ONLY.description))) {
-    throw new Error('send_only fixture schema does not match current define.rs contract');
+    throw new Error('send_only fixture schema does not match current Agent schema contract');
   }
   return structuredClone(SEND_ONLY);
 }

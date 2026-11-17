@@ -1,24 +1,24 @@
 {
   "v": 2,
-  "rawBytes": 100567,
-  "rawSha256": "1320119110d72da74175b684d61953719f2b29e234c1029e8920d03aa29b7550",
+  "rawBytes": 99611,
+  "rawSha256": "b20e8c640ac2f2e9f897d1b44b3355c3ebb39ab98f7e8497fbb5a86a8b84c0ae",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H11 Bash defaults.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H11-default\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h11.pid; printf 'started\\\\n' >> h11.starts; for i in {1..6000}; do [ -f h11.release ] && break; sleep 0.01; done; [ -f h11.release ] || exit 70; printf 'H11_BACKGROUND_FILE\\\\n' > h11.background; printf 'H11_BG_STDOUT\\\\n'\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H11-default\",\"tool_use_id\":\"H11-default\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1c85b-caf7-7aa3-96d2-de49e1068943. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1c85b-caf7-7aa3-96d2-de49e1068943]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H11-foreground\",\"name\":\"Bash\",\"input\":{\"command\":\"printf 'H11_EXPLICIT_FOREGROUND\\\\n'; printf 'H11_FG_FILE\\\\n' > h11.foreground\",\"run_in_background\":false}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H11-foreground\",\"tool_use_id\":\"H11-foreground\",\"content\":[{\"type\":\"text\",\"text\":\"H11_EXPLICIT_FOREGROUND\\n\\n[Execution status: completed, exit_code: 0]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H11 Bash defaults.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H11-omitted\",\"name\":\"Bash\",\"input\":{\"command\":\"printf 'H11_OMITTED_STDOUT\\\\n'; printf 'H11_OMITTED_FILE\\\\n' > h11.omitted\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H11-omitted\",\"tool_use_id\":\"H11-omitted\",\"content\":[{\"type\":\"text\",\"text\":\"H11_OMITTED_STDOUT\\n\\n[Execution status: completed, exit_code: 0]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H11-default\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h11.pid; printf 'started\\\\n' >> h11.starts; for i in {1..6000}; do [ -f h11.release ] && break; sleep 0.01; done; [ -f h11.release ] || exit 70; printf 'H11_BACKGROUND_FILE\\\\n' > h11.background; printf 'H11_BG_STDOUT\\\\n'\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H11-default\",\"tool_use_id\":\"H11-default\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1e73e-f358-72f0-a021-5a81ce54106d. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1e73e-f358-72f0-a021-5a81ce54106d]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.main.t39",
+      "recipe": "sys.block1.main.t50",
       "as": "json-string"
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.b80c9e68f3f283b028ecbf881dfbe01ee20edcef1ec0c5e2533d03d44cf007c7",
+      "recipe": "tools.anthropic.main",
       "as": "raw"
     },
     "}"
   ],
-  "canonicalSha256": "e06265f92e0f82b2d86ad35e63f35ce27c8f7f81f02efe00d3aafbf911947585"
+  "canonicalSha256": "2e94f58f8bbfb7298d8e8153224e75e62741f812e96c5f72437c080b198068ca"
 }

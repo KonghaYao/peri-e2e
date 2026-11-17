@@ -154,14 +154,14 @@
         "chunks": [
           {
             "offset": 0,
-            "length": 925,
+            "length": 920,
             "atMs": 6.6655790000004345,
-            "sha256": "de1b9df0e0c3daf8774576fb3b94f938c9980edd275bc97829620452930b3eac"
+            "sha256": "2af9eb514b1761d5c44cb8766109a1ee546bbf16d9868ca45958d630e9ff34cd"
           }
         ],
-        "size": 925,
-        "submittedBytes": 925,
-        "sha256": "de1b9df0e0c3daf8774576fb3b94f938c9980edd275bc97829620452930b3eac",
+        "size": 920,
+        "submittedBytes": 920,
+        "sha256": "2af9eb514b1761d5c44cb8766109a1ee546bbf16d9868ca45958d630e9ff34cd",
         "terminal": {
           "kind": "complete",
           "atMs": 6.924698000000717

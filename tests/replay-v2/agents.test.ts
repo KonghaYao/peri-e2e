@@ -29,13 +29,17 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
     await runReplayScenario({
       id: "A01", title: "同步 child 创建、真实 Write 与完成工具卡", configure: configureAgent,
       upstream: async () => agentProvider((call, body): Reply => {
-        if (call.owner === "root" && call.call === "reason:1") return tools(delegate("A01-spawn", "A01_CHILD_TASK"));
+        if (call.owner === "root" && call.call === "reason:1") return tools(delegate("A01-spawn", "A01_CHILD_TASK", true));
         if (call.owner === "worker" && call.call === "reason:1") return tools(write("A01-write", "a01-child.txt", "A01_CHILD_SIDE_EFFECT\n"));
         if (call.owner === "worker" && call.call === "reason:2") {
           expectResult(body, "A01-write", "a01-child.txt"); return text("A01_CHILD_REPORT_READY");
         }
         if (call.owner === "root" && call.call === "reason:2") {
-          expectResult(body, "A01-spawn", "A01_CHILD_REPORT_READY"); return text("A01_PARENT_ACCEPTED_CHILD_RESULT");
+          expectResult(body, "A01-spawn", "Background task"); return text("A01_PARENT_CONTINUED");
+        }
+        if (call.owner === "root" && call.call === "reason:3") {
+          expect(JSON.stringify(body.messages)).toContain("A01_CHILD_REPORT_READY");
+          return text("A01_PARENT_ACCEPTED_CHILD_RESULT");
         }
         return unexpected(call);
       }),
@@ -45,7 +49,6 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
         actors.arm("turn-1"); await tui.prompt("Execute A01.");
         const screen = await completed(context, tui, "A01_PARENT_ACCEPTED_CHILD_RESULT");
         expect(screen).toMatch(/✓\s+Agent/u);
-        expect(screen).toMatch(/✓\s+Write\s+.*a01-child\.txt/u);
         await assertFile(context, "a01-child.txt", "A01_CHILD_SIDE_EFFECT\n");
         const trace = assertChildTrace(context, actors, "worker", "A01-spawn", "a01-child.txt", "A01_CHILD_REPORT_READY");
         rootResult(context, "A01_PARENT_ACCEPTED_CHILD_RESULT");
@@ -58,11 +61,13 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
   it("A02 identical-name and identical-prompt children complete in reverse order without crossing results", { timeout: 120_000 }, async () => {
     let actors: AgentIdentities;
     const heldLeft = identity("left", "reason:2");
+    // 右 child 完成后 root 的第一次唤醒必须先于 left 通知，否则 reason:3 的正文会随调度漂移。
+    const heldRoot = identity("root", "reason:3", "turn-1");
     await runReplayScenario({
       id: "A02", title: "同名同 prompt 双 child 并行，逆序完成且不串结果", configure: configureAgent,
       upstream: async () => agentProvider((call, body): Reply => {
         if (call.owner === "root" && call.call === "reason:1") return tools(
-          delegate("A02-left", "A02_IDENTICAL_CHILD_TASK"), delegate("A02-right", "A02_IDENTICAL_CHILD_TASK"));
+          delegate("A02-left", "A02_IDENTICAL_CHILD_TASK", true), delegate("A02-right", "A02_IDENTICAL_CHILD_TASK", true));
         if (["left", "right"].includes(call.owner) && call.call === "reason:1") {
           return tools(write(`A02-write-${call.owner}`, `a02-${call.owner}.txt`, `A02_${call.owner.toUpperCase()}_SIDE_EFFECT\n`));
         }
@@ -71,15 +76,20 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
           return text(`A02_${call.owner.toUpperCase()}_REPORT`);
         }
         if (call.owner === "root" && call.call === "reason:2") {
-          expectResult(body, "A02-left", "A02_LEFT_REPORT"); expectResult(body, "A02-right", "A02_RIGHT_REPORT");
-          expect(resultText(body, "A02-left")).not.toContain("A02_RIGHT_REPORT");
-          expect(resultText(body, "A02-right")).not.toContain("A02_LEFT_REPORT");
-          return text("A02_BOTH_RESULTS_CORRECTLY_OWNED");
+          expectResult(body, "A02-left", "Background task"); expectResult(body, "A02-right", "Background task");
+          return text("A02_PARENT_CONTINUES");
+        }
+        if (call.owner === "root" && Number(call.call.split(":")[1]) >= 3) {
+          const messages = JSON.stringify(body.messages);
+          const hasLeft = messages.includes("A02_LEFT_REPORT");
+          const hasRight = messages.includes("A02_RIGHT_REPORT");
+          if (hasLeft && hasRight) return text("A02_BOTH_RESULTS_CORRECTLY_OWNED");
+          return text("A02_PARTIAL_REPORT");
         }
         return unexpected(call);
       }),
       runOptions(context) {
-        const built = options(context, [{ tool: "A02-left", alias: "left" }, { tool: "A02-right", alias: "right" }], [heldLeft]);
+        const built = options(context, [{ tool: "A02-left", alias: "left" }, { tool: "A02-right", alias: "right" }], [heldLeft, heldRoot]);
         actors = built.actors; return built.proxy;
       },
       async run(context) {
@@ -87,12 +97,16 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
         actors.arm("turn-1"); await tui.prompt("Execute A02.");
         await context.run.waitReached(heldLeft, { timeout: 30_000 });
         await waitCompletedCall(context, identity("right", "reason:2"));
-        const blocked = await tui.waitFor(healthy(context, (screen) => /✓\s+Agent/u.test(screen)
-          && screen.includes("a02-right.txt") && screen.includes("a02-left.txt")), "right child completed while left response is gated");
+        const blocked = await tui.waitFor(healthy(context, (screen) => /✓\s+Agent/u.test(screen)),
+          "right child completed while left response is gated");
         expect(blocked).not.toContain("A02_BOTH_RESULTS_CORRECTLY_OWNED");
         expect(context.proxy.snapshot(context.runId).calls.find((call: any) => call.identity.owner === "left" && call.identity.call === "reason:2")?.terminal).toBeNull();
         await tui.save("right-finished-left-held");
+        // 等到 root reason:3 已带着右 child 通知到达，再放行 left，避免正文随通知竞态变化。
+        await context.run.waitReached(heldRoot, { timeout: 30_000 });
         context.run.release(heldLeft);
+        await waitCompletedCall(context, heldLeft);
+        context.run.release(heldRoot);
         const done = await completed(context, tui, "A02_BOTH_RESULTS_CORRECTLY_OWNED");
         expect((done.match(/✓\s+Agent/gu) ?? []).length).toBe(2);
         for (const alias of ["left", "right"]) {
@@ -156,10 +170,16 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
     await runReplayScenario({
       id: "A04", title: "第二轮 resume 同一 child，portable 重绑定真实 UUID", configure: configureAgent,
       upstream: async () => agentProvider((call, body): Reply => {
-        if (call.owner === "root" && call.execution === "turn-1" && call.call === "reason:1") return tools(delegate("A04-spawn", "A04_FIRST_CHILD_TASK"));
+        if (call.owner === "root" && call.execution === "turn-1" && call.call === "reason:1") return tools(delegate("A04-spawn", "A04_FIRST_CHILD_TASK", true));
         if (call.owner === "worker" && call.execution === "created" && call.call === "reason:1") return tools(write("A04-write-first", "a04-first.txt", "A04_FIRST_EXECUTION\n"));
         if (call.owner === "worker" && call.execution === "created" && call.call === "reason:2") { expectResult(body, "A04-write-first", "a04-first.txt"); return text("A04_CHILD_FIRST_REPORT"); }
-        if (call.owner === "root" && call.execution === "turn-1" && call.call === "reason:2") { expectResult(body, "A04-spawn", "A04_CHILD_FIRST_REPORT"); return text("A04_FIRST_TURN_COMPLETE"); }
+        if (call.owner === "root" && call.execution === "turn-1" && call.call === "reason:2") {
+          expectResult(body, "A04-spawn", "Background task"); return text("A04_FIRST_TURN_CONTINUES");
+        }
+        if (call.owner === "root" && call.execution === "turn-1" && call.call === "reason:3") {
+          expect(JSON.stringify(body.messages)).toContain("A04_CHILD_FIRST_REPORT");
+          return text("A04_FIRST_TURN_COMPLETE");
+        }
         if (call.owner === "root" && call.execution === "turn-2" && call.call === "reason:1") return tools(tool("A04-resume", "Agent", { resume_thread_id: childIdFromResult(body, "A04-spawn"), prompt: "A04_RESUMED_CHILD_TASK", run_in_background: false }));
         if (call.owner === "worker" && call.execution === "resumed" && call.call === "reason:1") {
           expect(JSON.stringify(body.messages)).toContain("A04_CHILD_FIRST_REPORT");
@@ -167,7 +187,10 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
         }
         if (call.owner === "worker" && call.execution === "resumed" && call.call === "reason:2") { expectResult(body, "A04-write-second", "a04-second.txt"); return text("A04_CHILD_RESUME_REPORT"); }
         if (call.owner === "root" && call.execution === "turn-2" && call.call === "reason:2") {
-          expectResult(body, "A04-resume", "action: resume"); expectResult(body, "A04-resume", "A04_CHILD_RESUME_REPORT");
+          expectResult(body, "A04-resume", "Background task"); return text("A04_RESUME_CONTINUES");
+        }
+        if (call.owner === "root" && call.execution === "turn-2" && call.call === "reason:3") {
+          expect(JSON.stringify(body.messages)).toContain("A04_CHILD_RESUME_REPORT");
           expect(childIdFromResult(body, "A04-resume")).toBe(childIdFromResult(body, "A04-spawn"));
           return text("A04_RESUMED_EXISTING_CHILD_CONFIRMED");
         }
@@ -184,7 +207,7 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
         const originalChild = actors.children.get("worker");
         actors.arm("turn-2"); await tui.prompt("Execute A04 second phase.");
         const done = await completed(context, tui, "A04_RESUMED_EXISTING_CHILD_CONFIRMED");
-        expect(done).toContain("a04-second.txt");
+        expect(done).toMatch(/✓\s+Agent/u);
         expect(actors.children.get("worker")).toBe(originalChild);
         expect(persistedTrace(context).children).toHaveLength(1);
         await assertFile(context, "a04-first.txt", "A04_FIRST_EXECUTION\n");
@@ -200,9 +223,9 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
   it("A05 a child observes a real failed Read and recovers with a successful Write", { timeout: 120_000 }, async () => {
     let actors: AgentIdentities;
     await runReplayScenario({
-      id: "A05", title: "child 工具失败后真实恢复，错误与成功卡片并存", configure: configureAgent,
+      id: "A05", title: "后台 child 工具失败后真实恢复，子链保留错误与成功记录", configure: configureAgent,
       upstream: async () => agentProvider((call, body): Reply => {
-        if (call.owner === "root" && call.call === "reason:1") return tools(delegate("A05-spawn", "A05_RECOVER_CHILD_TASK"));
+        if (call.owner === "root" && call.call === "reason:1") return tools(delegate("A05-spawn", "A05_RECOVER_CHILD_TASK", true));
         if (call.owner === "worker" && call.call === "reason:1") return tools(read("A05-failed-read", "a05-does-not-exist.txt"));
         if (call.owner === "worker" && call.call === "reason:2") {
           expectResult(body, "A05-failed-read", "a05-does-not-exist.txt", true);
@@ -210,17 +233,20 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
           return tools(write("A05-recover-write", "a05-recovered.txt", "A05_RECOVERY_SIDE_EFFECT\n"));
         }
         if (call.owner === "worker" && call.call === "reason:3") { expectResult(body, "A05-recover-write", "a05-recovered.txt"); return text("A05_CHILD_RECOVERED_REPORT"); }
-        if (call.owner === "root" && call.call === "reason:2") { expectResult(body, "A05-spawn", "A05_CHILD_RECOVERED_REPORT"); return text("A05_RECOVERED_CHILD_RESULT_ACCEPTED"); }
+        if (call.owner === "root" && call.call === "reason:2") { expectResult(body, "A05-spawn", "Background task"); return text("A05_PARENT_CONTINUED"); }
+        if (call.owner === "root" && call.call === "reason:3") {
+          expect(JSON.stringify(body.messages)).toContain("A05_CHILD_RECOVERED_REPORT");
+          return text("A05_RECOVERED_CHILD_RESULT_ACCEPTED");
+        }
         return unexpected(call);
       }),
-      runOptions(context) { const built = options(context, [{ tool: "A05-spawn", alias: "worker" }]); actors = built.actors; return built.proxy; },
+      runOptions(context) { const built = options(context, [{ tool: "A05-spawn", alias: "worker", background: true }]); actors = built.actors; return built.proxy; },
       async run(context) {
         await assertMissingFile(context, "a05-does-not-exist.txt");
         const tui = await context.startTui("root", { rows: 55 });
         actors.arm("turn-1"); await tui.prompt("Execute A05.");
         const done = await completed(context, tui, "A05_RECOVERED_CHILD_RESULT_ACCEPTED");
-        expect(done).toMatch(/[✗✕×]\s+Read\s+.*a05-does-not-exist\.txt/u);
-        expect(done).toMatch(/✓\s+Write\s+.*a05-recovered\.txt/u);
+        expect(done).toMatch(/✓\s+Agent/u);
         await assertFile(context, "a05-recovered.txt", "A05_RECOVERY_SIDE_EFFECT\n");
         assertChildTrace(context, actors, "worker", "A05-spawn", "a05-recovered.txt", "A05_CHILD_RECOVERED_REPORT");
         const child = actors.children.get("worker");

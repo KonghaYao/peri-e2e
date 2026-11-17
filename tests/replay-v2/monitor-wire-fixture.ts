@@ -19,7 +19,7 @@ export class MonitorWire {
   private ended = false;
   private exit?: { code: number | null; signal: string | null };
   constructor(readonly ctx: ReplayScenarioContext, readonly label: string) {
-    this.child = spawn(REPLAY_BINARY, ["mcp-start", "monitor", "--stdio", "--workspace", ctx.world.work], {
+    this.child = spawn(REPLAY_BINARY, ["mcp-start", "peri", "--capability", "monitor", "--stdio", "--workspace", ctx.world.work], {
       cwd: ctx.world.work, env: replayEnvironment(ctx.world), stdio: ["pipe", "pipe", "pipe"], detached: true,
     });
     this.lines = createInterface({ input: this.child.stdout });

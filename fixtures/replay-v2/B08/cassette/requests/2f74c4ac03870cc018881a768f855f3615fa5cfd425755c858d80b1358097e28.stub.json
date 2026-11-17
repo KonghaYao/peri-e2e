@@ -1,9 +1,9 @@
 {
   "v": 2,
-  "rawBytes": 99999,
-  "rawSha256": "a1f5d20a5011bc765c8f7e1ead89037521f1af410aae69afb5dea1f752dcc791",
+  "rawBytes": 99426,
+  "rawSha256": "f5cb09be2a8fdc8dd5f6eef399350c6a3bae3fea54bf455218ed8893b3e6e616",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B08.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 6 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 6 connected, 0 failed, 0 disabled\\n- artifact (connected, 1 tools)\\n- cron (connected, 5 tools)\\n- monitor (connected, 4 tools)\\n- web (connected, 2 tools)\\n- workflow (connected, 9 tools)\\n- workspace (connected, 7 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B08-invalid\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B08_NO_CHILD\",\"run_in_background\":true,\"subagent_type\":\"B08-undefined-agent\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B08-invalid\",\"tool_use_id\":\"B08-invalid\",\"content\":[{\"type\":\"text\",\"text\":\"Error: cannot find agent definition 'B08-undefined-agent': cannot find agent definition 'B08-undefined-agent'. Check .claude/agents/ directory or configured plugin agents\"}],\"is_error\":true,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B08-recover\",\"name\":\"Write\",\"input\":{\"content\":\"B08_NO_PHANTOM\\n\",\"file_path\":\"b08-recovered.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B08-recover\",\"tool_use_id\":\"B08-recover\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b08-recovered.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B08.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B08-invalid\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B08_NO_CHILD\",\"run_in_background\":true,\"subagent_type\":\"B08-undefined-agent\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B08-invalid\",\"tool_use_id\":\"B08-invalid\",\"content\":[{\"type\":\"text\",\"text\":\"Error: cannot find agent definition 'B08-undefined-agent': cannot find agent definition 'B08-undefined-agent'. Check .claude/agents/ directory or configured plugin agents\"}],\"is_error\":true,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B08-recover\",\"name\":\"Write\",\"input\":{\"content\":\"B08_NO_PHANTOM\\n\",\"file_path\":\"b08-recovered.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B08-recover\",\"tool_use_id\":\"B08-recover\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b08-recovered.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
@@ -15,10 +15,10 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.68f205a40eaca44e3f76d80f27730d769a7b709ee6a83d1a96778bcaab4d7f13",
+      "leaf": "tools.sha256.fa0732b9d1ef2f4971464991f9714bdfb89446aa6189d9cb551c47bf6eb839dc",
       "as": "raw"
     },
     "}"
   ],
-  "canonicalSha256": "aecd9d73ef88b2f906c8094f48b283c0d3fbabbe15996ab86100cfbcce2b47e1"
+  "canonicalSha256": "805f549a01f92796295fa5af6890134ab268e216534ec8ab3e77c2197c3c2c61"
 }

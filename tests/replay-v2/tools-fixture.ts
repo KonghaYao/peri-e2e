@@ -45,7 +45,7 @@ export function toolsPlan(id: ToolCaseId, world: ReplayWorld): Step[] {
     ];
     case "T05": return [
       { id: "t05-discover", name: "SearchExtraTools", input: { query: "select:mcp_read_resource" }, result: { includes: "mcp_read_resource" } },
-      { id: "t05-resource", name: "ExecuteExtraTool", input: { tool_name: "mcp_read_resource", params: { server_name: "workspace", uri: "skill://builtin/goal/SKILL.md" } }, result: { includes: "# Goal Mode" } },
+      { id: "t05-resource", name: "ExecuteExtraTool", input: { tool_name: "mcp_read_resource", params: { server_name: "peri", uri: "skill://builtin/goal/SKILL.md" } }, result: { includes: "# Goal Mode" } },
     ];
     case "T06": return [
       { id: "t06-hooked-bash", name: "Bash", input: { command: "printf 'T06_UNCHECKED\\n' > hook-result.txt" }, result: { includes: "T06_HOOK_APPROVED_STDOUT" } },

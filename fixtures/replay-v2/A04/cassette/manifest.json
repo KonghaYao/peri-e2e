@@ -19,6 +19,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -43,11 +44,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-Zk3Ec8/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b607-9c1c-7ae2-88a2-99ef257fee91"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "session:root": "01a1e73e-bd79-7070-bd54-d3875e4fd69a"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "session:root": "01a1e73e-bd79-7070-bd54-d3875e4fd69a"
           }
         }
       ],
@@ -70,19 +78,19 @@
         "chunks": [
           {
             "offset": 0,
-            "length": 898,
-            "atMs": 12.16461900000013,
-            "sha256": "bcdcf4cb722dabb75f981004b15f94a35c408736f4b5d06b1eddae029e197dca"
+            "length": 897,
+            "atMs": 18.67441699999995,
+            "sha256": "6a979fc63c028062c9c5a9f8e2196f1180425e84c803062d7832f6965b6fb850"
           }
         ],
-        "size": 898,
-        "submittedBytes": 898,
-        "sha256": "bcdcf4cb722dabb75f981004b15f94a35c408736f4b5d06b1eddae029e197dca",
+        "size": 897,
+        "submittedBytes": 897,
+        "sha256": "6a979fc63c028062c9c5a9f8e2196f1180425e84c803062d7832f6965b6fb850",
         "terminal": {
           "kind": "complete",
-          "atMs": 12.514734999999746
+          "atMs": 19.604667000000063
         },
-        "headersAtMs": 10.4423969999998,
+        "headersAtMs": 18.452749999999924,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -103,20 +111,35 @@
         {
           "path": "/messages/3/content/0/content/0/text",
           "mode": "typed-template",
+          "systemText": false,
           "pattern": [
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
             {
               "kind": "thread",
               "alias": "child-worker"
             }
           ],
-          "patternSha256": "1daaaba31be05e5246c26b9300b2e1ee7190a2e9255e84bbe2945780d3dedbc9",
+          "patternSha256": "604972d41f7d90f437bbf25c69c533e753c13171f1e58e2bc9038ea20d31dc1d",
           "recorded": {
-            "thread:child-worker": "01a1b607-9e72-7e70-ba12-7b34285db22c"
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
           }
         },
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -141,11 +164,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-Zk3Ec8/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b607-9c1c-7ae2-88a2-99ef257fee91"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "session:root": "01a1e73e-bd79-7070-bd54-d3875e4fd69a"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "session:root": "01a1e73e-bd79-7070-bd54-d3875e4fd69a"
           }
         }
       ],
@@ -168,19 +198,19 @@
         "chunks": [
           {
             "offset": 0,
-            "length": 769,
-            "atMs": 7.988951999999699,
-            "sha256": "afb8a83f9a1d9ebb138aed8fb74c899463e4854d8d4b7c7f04cc2be70b3e29f2"
+            "length": 770,
+            "atMs": 17.97808299999997,
+            "sha256": "599592d29e3821683ae8c6388ac936fd367dc2155d3b359423e7eb0bcedd90f5"
           }
         ],
-        "size": 769,
-        "submittedBytes": 769,
-        "sha256": "afb8a83f9a1d9ebb138aed8fb74c899463e4854d8d4b7c7f04cc2be70b3e29f2",
+        "size": 770,
+        "submittedBytes": 770,
+        "sha256": "599592d29e3821683ae8c6388ac936fd367dc2155d3b359423e7eb0bcedd90f5",
         "terminal": {
           "kind": "complete",
-          "atMs": 8.201461000000108
+          "atMs": 19.386166000000003
         },
-        "headersAtMs": 7.895011000000068,
+        "headersAtMs": 17.9045000000001,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -192,8 +222,8 @@
     {
       "identity": {
         "owner": "root",
-        "execution": "turn-2",
-        "call": "reason:1",
+        "execution": "turn-1",
+        "call": "reason:3",
         "attempt": 1,
         "purpose": "reason"
       },
@@ -201,20 +231,71 @@
         {
           "path": "/messages/3/content/0/content/0/text",
           "mode": "typed-template",
+          "systemText": false,
           "pattern": [
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
             {
               "kind": "thread",
               "alias": "child-worker"
             }
           ],
-          "patternSha256": "1daaaba31be05e5246c26b9300b2e1ee7190a2e9255e84bbe2945780d3dedbc9",
+          "patternSha256": "604972d41f7d90f437bbf25c69c533e753c13171f1e58e2bc9038ea20d31dc1d",
           "recorded": {
-            "thread:child-worker": "01a1b607-9e72-7e70-ba12-7b34285db22c"
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          }
+        },
+        {
+          "path": "/messages/5/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            }
+          ],
+          "patternSha256": "82d9bf42fecfb6b427f40fef87ff7ae4851fa1835e631fb373c68ab58b09b8a8",
+          "recorded": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
           }
         },
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -239,11 +320,174 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-Zk3Ec8/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b607-9c1c-7ae2-88a2-99ef257fee91"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "session:root": "01a1e73e-bd79-7070-bd54-d3875e4fd69a"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "session:root": "01a1e73e-bd79-7070-bd54-d3875e4fd69a"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/2f74c4ac03870cc018881a768f855f3615fa5cfd425755c858d80b1358097e28.stub.json"
+      },
+      "response": {
+        "file": "responses/2f74c4ac03870cc018881a768f855f3615fa5cfd425755c858d80b1358097e28.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 769,
+            "atMs": 19.537833999999975,
+            "sha256": "3b47230a5a3f949f05e6b2444b02574a96db07e259970e472ea9c9743e3fcc6b"
+          }
+        ],
+        "size": 769,
+        "submittedBytes": 769,
+        "sha256": "3b47230a5a3f949f05e6b2444b02574a96db07e259970e472ea9c9743e3fcc6b",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 19.899416999999858
+        },
+        "headersAtMs": 19.47783400000003,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "turn-2",
+        "call": "reason:1",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/messages/3/content/0/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            }
+          ],
+          "patternSha256": "604972d41f7d90f437bbf25c69c533e753c13171f1e58e2bc9038ea20d31dc1d",
+          "recorded": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          }
+        },
+        {
+          "path": "/messages/5/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            }
+          ],
+          "patternSha256": "82d9bf42fecfb6b427f40fef87ff7ae4851fa1835e631fb373c68ab58b09b8a8",
+          "recorded": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          }
+        },
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "session:root": "01a1e73e-bd79-7070-bd54-d3875e4fd69a"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "session:root": "01a1e73e-bd79-7070-bd54-d3875e4fd69a"
           }
         }
       ],
@@ -267,18 +511,18 @@
           {
             "offset": 0,
             "length": 927,
-            "atMs": 8.05937700000004,
-            "sha256": "f104fa425a8bdbb8097e67f2beba5729e0ad32f0a22944eca5a48470f9572664"
+            "atMs": 14.100832999999966,
+            "sha256": "183bcbc8e204ae01dbf8b8b3912b7d9d588f22d382ad91840e7a52948b9a6527"
           }
         ],
         "size": 927,
         "submittedBytes": 927,
-        "sha256": "f104fa425a8bdbb8097e67f2beba5729e0ad32f0a22944eca5a48470f9572664",
+        "sha256": "183bcbc8e204ae01dbf8b8b3912b7d9d588f22d382ad91840e7a52948b9a6527",
         "terminal": {
           "kind": "complete",
-          "atMs": 8.265076000000136
+          "atMs": 14.23112500000002
         },
-        "headersAtMs": 7.900979000000007,
+        "headersAtMs": 14.043875000000071,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -299,34 +543,71 @@
         {
           "path": "/messages/3/content/0/content/0/text",
           "mode": "typed-template",
+          "systemText": false,
           "pattern": [
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
             {
               "kind": "thread",
               "alias": "child-worker"
             }
           ],
-          "patternSha256": "1daaaba31be05e5246c26b9300b2e1ee7190a2e9255e84bbe2945780d3dedbc9",
+          "patternSha256": "604972d41f7d90f437bbf25c69c533e753c13171f1e58e2bc9038ea20d31dc1d",
           "recorded": {
-            "thread:child-worker": "01a1b607-9e72-7e70-ba12-7b34285db22c"
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
           }
         },
         {
-          "path": "/messages/6/content/0/input/resume_thread_id",
+          "path": "/messages/5/content/0/text",
           "mode": "typed-template",
+          "systemText": false,
           "pattern": [
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
             {
               "kind": "thread",
               "alias": "child-worker"
             }
           ],
-          "patternSha256": "1daaaba31be05e5246c26b9300b2e1ee7190a2e9255e84bbe2945780d3dedbc9",
+          "patternSha256": "82d9bf42fecfb6b427f40fef87ff7ae4851fa1835e631fb373c68ab58b09b8a8",
           "recorded": {
-            "thread:child-worker": "01a1b607-9e72-7e70-ba12-7b34285db22c"
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
           }
         },
         {
-          "path": "/messages/7/content/0/content/0/text",
+          "path": "/messages/8/content/0/input/resume_thread_id",
           "mode": "typed-template",
+          "systemText": false,
           "pattern": [
             {
               "kind": "thread",
@@ -335,12 +616,44 @@
           ],
           "patternSha256": "1daaaba31be05e5246c26b9300b2e1ee7190a2e9255e84bbe2945780d3dedbc9",
           "recorded": {
-            "thread:child-worker": "01a1b607-9e72-7e70-ba12-7b34285db22c"
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          }
+        },
+        {
+          "path": "/messages/9/content/0/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "task-A04-resume"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            }
+          ],
+          "patternSha256": "1b01b5856231783caeeb4aa972a267e3e7d5be488dbfe0876aa65ba90e20fd37",
+          "recorded": {
+            "task:task-A04-resume": "bg-01a1e73e-c3eb-7843-9482-e5919fea3ca7",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "task:task-A04-resume": "bg-01a1e73e-c3eb-7843-9482-e5919fea3ca7",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
           }
         },
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -365,11 +678,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-Zk3Ec8/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b607-9c1c-7ae2-88a2-99ef257fee91"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "session:root": "01a1e73e-bd79-7070-bd54-d3875e4fd69a"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "session:root": "01a1e73e-bd79-7070-bd54-d3875e4fd69a"
           }
         }
       ],
@@ -392,19 +712,257 @@
         "chunks": [
           {
             "offset": 0,
+            "length": 766,
+            "atMs": 15.93212500000027,
+            "sha256": "42daa43c81013e3d49e97a3e4778a4570b7e8244fc0b63216fbe026f178312b6"
+          }
+        ],
+        "size": 766,
+        "submittedBytes": 766,
+        "sha256": "42daa43c81013e3d49e97a3e4778a4570b7e8244fc0b63216fbe026f178312b6",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 18.856458000000202
+        },
+        "headersAtMs": 15.880999999999858,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "turn-2",
+        "call": "reason:3",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/messages/3/content/0/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            }
+          ],
+          "patternSha256": "604972d41f7d90f437bbf25c69c533e753c13171f1e58e2bc9038ea20d31dc1d",
+          "recorded": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          }
+        },
+        {
+          "path": "/messages/5/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "task",
+              "alias": "task-A04-spawn"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            }
+          ],
+          "patternSha256": "82d9bf42fecfb6b427f40fef87ff7ae4851fa1835e631fb373c68ab58b09b8a8",
+          "recorded": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "task:task-A04-spawn": "bg-01a1e73e-c2e6-7e41-b5b8-c28f473c8c5a",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          }
+        },
+        {
+          "path": "/messages/8/content/0/input/resume_thread_id",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            }
+          ],
+          "patternSha256": "1daaaba31be05e5246c26b9300b2e1ee7190a2e9255e84bbe2945780d3dedbc9",
+          "recorded": {
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          }
+        },
+        {
+          "path": "/messages/9/content/0/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "task-A04-resume"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            }
+          ],
+          "patternSha256": "1b01b5856231783caeeb4aa972a267e3e7d5be488dbfe0876aa65ba90e20fd37",
+          "recorded": {
+            "task:task-A04-resume": "bg-01a1e73e-c3eb-7843-9482-e5919fea3ca7",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "task:task-A04-resume": "bg-01a1e73e-c3eb-7843-9482-e5919fea3ca7",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          }
+        },
+        {
+          "path": "/messages/11/content/0/text",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "task",
+              "alias": "task-A04-resume"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "task",
+              "alias": "task-A04-resume"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            },
+            {
+              "kind": "thread",
+              "alias": "child-worker"
+            }
+          ],
+          "patternSha256": "c26fa714fd117789f6fb64ecb1dc36924efa231a3e81c60dc27ff316bbffb87a",
+          "recorded": {
+            "task:task-A04-resume": "bg-01a1e73e-c3eb-7843-9482-e5919fea3ca7",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "task:task-A04-resume": "bg-01a1e73e-c3eb-7843-9482-e5919fea3ca7",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          }
+        },
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "session:root": "01a1e73e-bd79-7070-bd54-d3875e4fd69a"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "session:root": "01a1e73e-bd79-7070-bd54-d3875e4fd69a"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/a54a06597cb1b1e06982b93275016b3361baf643eeceaaf424780fe69b05817f.stub.json"
+      },
+      "response": {
+        "file": "responses/a54a06597cb1b1e06982b93275016b3361baf643eeceaaf424780fe69b05817f.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
             "length": 782,
-            "atMs": 8.314900999999736,
-            "sha256": "f8696d8baf3cc9dda6bbbe7bf82274f5470d0037ab588498368dc716dd120915"
+            "atMs": 10.221999999999753,
+            "sha256": "8f39100f55531715f9d69756f0d074a7afe13a653c5bae1a6a53122f5fa660da"
           }
         ],
         "size": 782,
         "submittedBytes": 782,
-        "sha256": "f8696d8baf3cc9dda6bbbe7bf82274f5470d0037ab588498368dc716dd120915",
+        "sha256": "8f39100f55531715f9d69756f0d074a7afe13a653c5bae1a6a53122f5fa660da",
         "terminal": {
           "kind": "complete",
-          "atMs": 8.580660999999964
+          "atMs": 10.55199999999968
         },
-        "headersAtMs": 8.137344999999641,
+        "headersAtMs": 10.163499999999658,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -431,6 +989,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -455,11 +1014,18 @@
           ],
           "patternSha256": "a16880bf66807dc237ad9ad928b45cc7588f62f8525814b2fd956105e047c023",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-Zk3Ec8/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "thread:child-worker": "01a1b607-9e72-7e70-ba12-7b34285db22c"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
           }
         }
       ],
@@ -483,7 +1049,7 @@
           {
             "offset": 0,
             "length": 878,
-            "atMs": 6.1346010000002025,
+            "atMs": 19.203874999999925,
             "sha256": "523dbee21d605fd4f75793418a44693ac84d2310caef2de0396ecf38f59627a8"
           }
         ],
@@ -492,9 +1058,9 @@
         "sha256": "523dbee21d605fd4f75793418a44693ac84d2310caef2de0396ecf38f59627a8",
         "terminal": {
           "kind": "complete",
-          "atMs": 6.327360000000226
+          "atMs": 21.387291000000005
         },
-        "headersAtMs": 6.013148000000001,
+        "headersAtMs": 19.114915999999994,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -521,6 +1087,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -545,11 +1112,18 @@
           ],
           "patternSha256": "a16880bf66807dc237ad9ad928b45cc7588f62f8525814b2fd956105e047c023",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-Zk3Ec8/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "thread:child-worker": "01a1b607-9e72-7e70-ba12-7b34285db22c"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
           }
         }
       ],
@@ -573,7 +1147,7 @@
           {
             "offset": 0,
             "length": 771,
-            "atMs": 9.686682999999903,
+            "atMs": 8.500917000000072,
             "sha256": "4c66f6eaa66f8f824ba3f3a0b362e397aa1dc29d401bc3b8f4ff0a5ef86630f7"
           }
         ],
@@ -582,9 +1156,9 @@
         "sha256": "4c66f6eaa66f8f824ba3f3a0b362e397aa1dc29d401bc3b8f4ff0a5ef86630f7",
         "terminal": {
           "kind": "complete",
-          "atMs": 9.884540000000015
+          "atMs": 8.694375000000036
         },
-        "headersAtMs": 9.58009200000015,
+        "headersAtMs": 8.443166999999903,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -611,6 +1185,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -635,11 +1210,18 @@
           ],
           "patternSha256": "a16880bf66807dc237ad9ad928b45cc7588f62f8525814b2fd956105e047c023",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-Zk3Ec8/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "thread:child-worker": "01a1b607-9e72-7e70-ba12-7b34285db22c"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
           }
         }
       ],
@@ -663,7 +1245,7 @@
           {
             "offset": 0,
             "length": 883,
-            "atMs": 6.754907000000003,
+            "atMs": 12.744458000000122,
             "sha256": "6b3fdad6cda3385f75f41636d08e29aa68123296bd50fd797e37062e4f367aa8"
           }
         ],
@@ -672,9 +1254,9 @@
         "sha256": "6b3fdad6cda3385f75f41636d08e29aa68123296bd50fd797e37062e4f367aa8",
         "terminal": {
           "kind": "complete",
-          "atMs": 6.935778999999911
+          "atMs": 15.853000000000065
         },
-        "headersAtMs": 6.651752000000215,
+        "headersAtMs": 12.683999999999742,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -701,6 +1283,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -725,11 +1308,18 @@
           ],
           "patternSha256": "a16880bf66807dc237ad9ad928b45cc7588f62f8525814b2fd956105e047c023",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-Zk3Ec8/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "thread:child-worker": "01a1b607-9e72-7e70-ba12-7b34285db22c"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-aYztZ0/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-17",
+            "thread:child-worker": "01a1e73e-c2e5-74b2-b92d-14264ec201a2"
           }
         }
       ],
@@ -753,7 +1343,7 @@
           {
             "offset": 0,
             "length": 772,
-            "atMs": 4.596133999999893,
+            "atMs": 12.803166000000147,
             "sha256": "70e93ebc234cad461afdc4b9b37307760c720fd56e751a4f39cf77a4fc67c3b3"
           }
         ],
@@ -762,9 +1352,9 @@
         "sha256": "70e93ebc234cad461afdc4b9b37307760c720fd56e751a4f39cf77a4fc67c3b3",
         "terminal": {
           "kind": "complete",
-          "atMs": 4.796034999999847
+          "atMs": 14.255333000000064
         },
-        "headersAtMs": 4.493920999999773,
+        "headersAtMs": 12.753999999999905,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",

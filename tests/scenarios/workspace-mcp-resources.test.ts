@@ -14,7 +14,7 @@ import { buildPeriForE2e } from "../../helpers/build.js";
  *   首轮全文注入；外部形态经 `resources/read`（fixture 端计数 ≥1）；
  * - ③ 批准/拒绝：fixture 远端 Agent 的 HITL 批准面（stdio ACP 的
  *   `session/request_permission`）——批准后子代理启动、拒绝后不启动且不注入；
- * - ④ 关闭矩阵：workspace 关闭（`meta_harness.WorkspaceMiddleware=false`）时
+ * - ④ 关闭矩阵：workspace 关闭（`meta_harness.workspace=false`）时
  *   七工具/摘要/指令全部不可得、磁盘技能正文不回落；
  * - ⑤ 回归：七工具表与 resources 面（`workspace://git/ref`）不回归；
  * - ⑥ 子代理 preload 缺口（W6）：项目本地 agent 声明未命中技能 ⇒ 子代理首轮
@@ -313,7 +313,7 @@ describe("workspace MCP resources：真实二进制验收（print / stdio）", (
   });
 
   it("④ 关闭矩阵：workspace 关闭时不注册工具、技能与指令不可得、磁盘技能不回落", async () => {
-    const w = await world({ metaHarness: { WorkspaceMiddleware: false } });
+    const w = await world({ metaHarness: { workspace: false } });
     const run = await runPrint(w, `/${SKILL_NAME} should not load`);
     expect(run.exitCode).toBe(0);
 
@@ -352,7 +352,7 @@ describe("workspace MCP resources：真实二进制验收（print / stdio）", (
   });
 
   it("④ 关闭矩阵（stdio 命令面）：技能命令不可激活（不注入全文）", async () => {
-    const w = await world({ metaHarness: { WorkspaceMiddleware: false } });
+    const w = await world({ metaHarness: { workspace: false } });
     const run = await runStdio(w, `/${SKILL_NAME} should not load`, "none");
     const messages = messagesJson(w);
     const sentinelRequests = w.requests.flatMap((entry) => {

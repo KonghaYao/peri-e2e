@@ -5,7 +5,7 @@ event: content_block_start
 data: {"type":"content_block_start","index":0,"content_block":{"type":"tool_use","id":"M07-start","name":"ExecuteExtraTool","input":{}}}
 
 event: content_block_delta
-data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"tool_name\":\"mcp__monitor__monitor_start\",\"params\":{\"command\":\"python3 monitor-source.py m07 deadline\",\"deadline_ms\":5000,\"label\":\"M07 deadline\"}}"}}
+data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"tool_name\":\"mcp__peri__monitor_start\",\"params\":{\"command\":\"python3 monitor-source.py m07 deadline\",\"deadline_ms\":5000,\"label\":\"M07 deadline\"}}"}}
 
 event: content_block_stop
 data: {"type":"content_block_stop","index":0}
