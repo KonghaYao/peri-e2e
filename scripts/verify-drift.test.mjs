@@ -210,7 +210,7 @@ test('篡改 tools.Agent.* 非管理字段时 source-anchored 失败，正常 Ag
   assert.equal(anchored.report.passed, true);
   assert.ok(anchored.report.approvedDrift.length > 0);
   // S01 只录制了 Anthropic 请求；responses leaf 虽同步但不在本 cassette 的录制引用中。
-  assert.deepEqual([...new Set(anchored.report.approvedDrift.map((item) => item.leaf))], ['tools.Agent.anthropic']);
+  assert.deepEqual([...new Set(anchored.report.approvedDrift.map((item) => item.leaf))], ['sys.block0.main', 'tools.Agent.anthropic']);
 });
 
 test('BASE_SECTIONS 完整集合、zone 或 include_str 路径变化时拒绝组合 block0', async (t) => {

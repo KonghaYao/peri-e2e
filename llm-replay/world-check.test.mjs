@@ -130,7 +130,7 @@ test('手工改写未映射 leaf 并重封 world seal 时 world:check 非零且 
   assert.equal(report.stale, true);
   assert.deepEqual(report.staleReasons, ['cassette_unmapped_drift']);
   assert.deepEqual(report.recorded.unmappedDrift, ['sys.block1.main.prefix']);
-  assert.deepEqual(report.recorded.mappedDrift, ['tools.Agent.anthropic']);
+  assert.deepEqual(report.recorded.mappedDrift, ['sys.block0.main', 'tools.Agent.anthropic']);
   assert.deepEqual(report.updated, []);
 });
 
@@ -228,8 +228,8 @@ test('mapped sys.skills 经 world:sync 后只报告待重录，不判为未映�
   assert.equal(after.code, 0);
   assert.equal(after.report.stale, false);
   assert.deepEqual(after.report.staleReasons, []);
-  assert.deepEqual(after.report.recorded.mappedDrift, ['sys.skills', 'tools.Agent.anthropic']);
-  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['sys.skills', 'tools.Agent.anthropic']);
+  assert.deepEqual(after.report.recorded.mappedDrift, ['sys.block0.main', 'sys.skills', 'tools.Agent.anthropic']);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['sys.block0.main', 'sys.skills', 'tools.Agent.anthropic']);
   assert.deepEqual(after.report.recorded.unmappedDrift, []);
   assert.equal(after.report.recorded.requiresRerecord, false);
 });
@@ -269,7 +269,7 @@ test('Agent description 正常源同步后 world:check 通过且不要求重录'
   assert.equal(after.code, 0);
   assert.equal(after.report.stale, false);
   // 当前 cassette 只录制了 Anthropic 请求，因此只有 anthropic leaf 出现在录制引用中。
-  assert.deepEqual(after.report.recorded.mappedDrift, ['tools.Agent.anthropic']);
-  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['tools.Agent.anthropic']);
+  assert.deepEqual(after.report.recorded.mappedDrift, ['sys.block0.main', 'tools.Agent.anthropic']);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['sys.block0.main', 'tools.Agent.anthropic']);
   assert.equal(after.report.recorded.requiresRerecord, false);
 });
