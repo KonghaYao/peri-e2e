@@ -106,30 +106,33 @@ describe("H01–H04 async shell output and ownership lifecycle", () => {
   }
 });
 
-it("H11 full-async-tools changes Bash's default while explicit false remains foreground", { timeout: 120_000 }, async () => {
+it("H11 v5 Bash default is foreground while explicit true remains background", { timeout: 120_000 }, async () => {
   const command = gatedCommand("h11", "printf 'H11_BACKGROUND_FILE\\n' > h11.background; printf 'H11_BG_STDOUT\\n'");
   const spec = { id: "H11-default", alias: "h11", command };
   let binding: ShellBindings;
-  await runReplayScenario({ id: "H11", title: "full-async-tools 下 Bash 省略参数走后台，显式 false 保持前台", configVersion: "bash-beta-1",
+  await runReplayScenario({ id: "H11", title: "v5 Bootstrap：Bash 省略参数走前台，显式 true 才后台", 
     async configure(world) {
       await configureShell(world);
-      const file = path.join(world.home, ".peri/settings.json");
-      const config = JSON.parse(await readFile(file, "utf8"));
-      config.config.betas = { "full-async-tools": true };
-      await writeFile(file, JSON.stringify(config));
     },
     upstream: async () => agentProvider((call, body): Reply => {
-      if (call.execution === "start" && call.call === "reason:1") return tools(tool(spec.id, "Bash", { command }));
+      if (call.execution === "start" && call.call === "reason:1") {
+        return tools(tool("H11-omitted", "Bash", { command: "printf 'H11_OMITTED_STDOUT\\n'; printf 'H11_OMITTED_FILE\\n' > h11.omitted" }));
+      }
       if (call.execution === "start" && call.call === "reason:2") {
+        expectResult(body, "H11-omitted", "H11_OMITTED_STDOUT");
+        expect(resultText(body, "H11-omitted")).not.toContain("Background task started:");
+        return tools(tool(spec.id, "Bash", { command, run_in_background: true }));
+      }
+      if (call.execution === "start" && call.call === "reason:3") {
         expectResult(body, spec.id, "Background task started: mcp-");
         return tools(tool("H11-foreground", "Bash", { command: "printf 'H11_EXPLICIT_FOREGROUND\\n'; printf 'H11_FG_FILE\\n' > h11.foreground", run_in_background: false }));
       }
-      if (call.execution === "start" && call.call === "reason:3") {
+      if (call.execution === "start" && call.call === "reason:4") {
         expectResult(body, "H11-foreground", "H11_EXPLICIT_FOREGROUND");
         expect(resultText(body, "H11-foreground")).not.toContain("Background task started:");
         return text("H11_DEFAULTS_VERIFIED");
       }
-      if (call.execution === "start" && call.call === "reason:4") {
+      if (call.execution === "start" && call.call === "reason:5") {
         expect(resultFromBody(body, binding.task("h11"))!.state).toBe("succeeded");
         return text("H11_BACKGROUND_SETTLED");
       }
@@ -140,16 +143,17 @@ it("H11 full-async-tools changes Bash's default while explicit false remains for
       const tui = await startShellTui(ctx);
       ctx.identity.arm(ctx.sessionIds.root!, "start"); await tui.prompt("Run H11 Bash defaults.");
       await finished(ctx, tui, "H11_DEFAULTS_VERIFIED");
+      expect(await readFile(path.join(ctx.world.work, "h11.omitted"), "utf8")).toBe("H11_OMITTED_FILE\n");
       expect(await readFile(path.join(ctx.world.work, "h11.foreground"), "utf8")).toBe("H11_FG_FILE\n");
       const body = JSON.parse(ctx.requests[0]!.request.body.toString());
-      expect(body.tools.find((entry: any) => entry.name === "Bash").input_schema.properties.run_in_background.default).toBe(true);
-      const statuses = await programStatuses(tui, "default-background-explicit-foreground");
+      expect(body.tools.find((entry: any) => entry.name === "Bash").input_schema.properties.run_in_background.default).toBe(false);
+      const statuses = await programStatuses(tui, "default-foreground-explicit-background");
       expect(statuses.at(-1)).toBe("idle");
       await releaseShell(ctx, "h11");
       await finished(ctx, tui, "H11_BACKGROUND_SETTLED"); ctx.identity.finish(ctx.sessionIds.root!);
       expect(await readFile(path.join(ctx.world.work, "h11.background"), "utf8")).toBe("H11_BACKGROUND_FILE\n");
       await assertStartedOnce(ctx, "h11");
-      ctx.observe("beta-default", { schemaDefault: true, omitted: "background", explicitFalse: "foreground", tasks: binding.tasks.size });
+      ctx.observe("v5-default", { schemaDefault: false, omitted: "foreground", explicitTrue: "background", explicitFalse: "foreground", tasks: binding.tasks.size });
     },
   });
 });

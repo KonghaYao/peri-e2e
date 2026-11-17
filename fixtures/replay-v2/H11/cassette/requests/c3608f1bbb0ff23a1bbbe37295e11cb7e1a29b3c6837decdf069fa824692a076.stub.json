@@ -1,24 +1,24 @@
 {
   "v": 2,
-  "rawBytes": 99185,
-  "rawSha256": "c02b897a2724c05adfb66da3c303c51be4489842a95b22f8bc12b906597ba475",
+  "rawBytes": 98803,
+  "rawSha256": "054b7f79e2e814c00a5f65dbc27a13f5fa2a8ee35c4884e613c69891858f66dd",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H11 Bash defaults.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H11-default\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h11.pid; printf 'started\\\\n' >> h11.starts; for i in {1..6000}; do [ -f h11.release ] && break; sleep 0.01; done; [ -f h11.release ] || exit 70; printf 'H11_BACKGROUND_FILE\\\\n' > h11.background; printf 'H11_BG_STDOUT\\\\n'\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H11-default\",\"tool_use_id\":\"H11-default\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1c85b-caf7-7aa3-96d2-de49e1068943. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1c85b-caf7-7aa3-96d2-de49e1068943]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H11 Bash defaults.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H11-omitted\",\"name\":\"Bash\",\"input\":{\"command\":\"printf 'H11_OMITTED_STDOUT\\\\n'; printf 'H11_OMITTED_FILE\\\\n' > h11.omitted\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H11-omitted\",\"tool_use_id\":\"H11-omitted\",\"content\":[{\"type\":\"text\",\"text\":\"H11_OMITTED_STDOUT\\n\\n[Execution status: completed, exit_code: 0]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.main.t39",
+      "recipe": "sys.block1.main.t50",
       "as": "json-string"
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.fa0732b9d1ef2f4971464991f9714bdfb89446aa6189d9cb551c47bf6eb839dc",
+      "recipe": "tools.anthropic.main",
       "as": "raw"
     },
     "}"
   ],
-  "canonicalSha256": "8fe8068ccc791346f6a2d036b455dab31baa7428944c9ac9e03447bdc5f98d54"
+  "canonicalSha256": "d529800b4d5a4414a65249e768ff8dfb3369eab4858fb889e37409c7b01df9e9"
 }

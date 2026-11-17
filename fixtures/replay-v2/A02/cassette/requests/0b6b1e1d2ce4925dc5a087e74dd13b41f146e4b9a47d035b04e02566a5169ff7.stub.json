@@ -1,16 +1,16 @@
 {
   "v": 2,
-  "rawBytes": 99315,
-  "rawSha256": "5e3aec9cf8140999a9a0f579adc3e51f64a737d45064b2984428198540b0dfd8",
+  "rawBytes": 99988,
+  "rawSha256": "9ec887cf42977a05c9db7f43261e8e5a29c472288c5d259f103d9f9e1f971924",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute A02.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"A02-left\",\"name\":\"Agent\",\"input\":{\"prompt\":\"A02_IDENTICAL_CHILD_TASK\",\"run_in_background\":false,\"subagent_type\":\"replay-worker\"}},{\"type\":\"tool_use\",\"id\":\"A02-right\",\"name\":\"Agent\",\"input\":{\"prompt\":\"A02_IDENTICAL_CHILD_TASK\",\"run_in_background\":false,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"A02-left\",\"tool_use_id\":\"A02-left\",\"content\":[{\"type\":\"text\",\"text\":\"child_thread_id: 01a1b607-980c-7153-a46f-e2df7b20a4f7\\nA02_LEFT_REPORT\\n[Execution status: completed]\"}],\"is_error\":false},{\"type\":\"tool_result\",\"id\":\"A02-right\",\"tool_use_id\":\"A02-right\",\"content\":[{\"type\":\"text\",\"text\":\"child_thread_id: 01a1b607-980d-7d61-9c8b-54a6511c1d31\\nA02_RIGHT_REPORT\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute A02.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"A02-left\",\"name\":\"Agent\",\"input\":{\"prompt\":\"A02_IDENTICAL_CHILD_TASK\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}},{\"type\":\"tool_use\",\"id\":\"A02-right\",\"name\":\"Agent\",\"input\":{\"prompt\":\"A02_IDENTICAL_CHILD_TASK\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"A02-left\",\"tool_use_id\":\"A02-left\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1e741-ee8c-7e10-9758-7f475a80227a started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1e741-ee8c-7e10-9758-7f30306350d3 (resume with Agent(resume_thread_id: 01a1e741-ee8c-7e10-9758-7f30306350d3))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false},{\"type\":\"tool_result\",\"id\":\"A02-right\",\"tool_use_id\":\"A02-right\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1e741-ee8c-7e10-9758-7f6dab6854ec started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1e741-ee8c-7e10-9758-7f5bf6ab24a2 (resume with Agent(resume_thread_id: 01a1e741-ee8c-7e10-9758-7f5bf6ab24a2))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.replay-worker.t02",
+      "recipe": "sys.block1.replay-worker.t22",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "1ecb241381d48294c2591c3896c92e6e3f6e64d483ae1c00e9cec463db2d1914"
+  "canonicalSha256": "2d21033ff01a7c55ec4dd1cbbce4b5999efafbb5fc8469c8bdc1c113372a9356"
 }
