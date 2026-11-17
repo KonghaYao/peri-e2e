@@ -2,7 +2,7 @@
 /**
  * world:sync —— 把高频 prompt 源文件同步进 replay world 快照。
  *
- * 只更新受源码映射的 leaf（block0、skills、compact summary、Agent description/send_only）和 seal；
+ * 只更新受源码映射的 leaf（block0、skills、compact system/user prompt、Agent description/send_only）和 seal；
  * 其余 leaf 与 manifest 原样保留。源未变化时不写任何文件（幂等）。
  * 未映射（内容寻址）leaf 会在报告中列出，提醒审核而非静默忽略。
  *
