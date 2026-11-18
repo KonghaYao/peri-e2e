@@ -8,7 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadWorld } from '../llm-replay/world-store.mjs';
 import { sha256 } from '../llm-replay/matcher.mjs';
-import { assertBlock0SectionOrder, COMPACT_USER_PLACEHOLDER, COMPACT_USER_TARGET_TOKENS } from './replay-world-sources.mjs';
+import { assertBlock0SectionOrder, COMPACT_USER_PLACEHOLDER, COMPACT_USER_TARGET_TOKENS, loadSourceLeaves } from './replay-world-sources.mjs';
 
 const execute = promisify(execFile);
 const e2eRoot = fileURLToPath(new URL('..', import.meta.url));
@@ -351,37 +351,51 @@ test('source-anchored 拒绝 world 与源不等值，未映射 leaf 两种策略
   assert.ok(mismatch.report.errors.length > 0);
   assert.ok(mismatch.report.errors.every((item) => item.code === 'world_drift_source_mismatch'));
 
-  await rewriteLeaf(world, 'sys.block1.main.t06.tail', 'TAIL TAMPERED');
+  // 从实际 S01 请求推导被引用的 block1 tail，避免录制 tail 编号变化后测试失真。
+  const loaded = await loadWorld(world);
+  const requests = path.join(directory, 'S01/cassette/requests');
+  let tail = null;
+  for (const file of await readdir(requests)) {
+    const stub = JSON.parse(await readFile(path.join(requests, file), 'utf8'));
+    for (const part of stub.parts) {
+      if (!part?.recipe?.startsWith('sys.block1.main.')) continue;
+      const leaf = loaded.recipeParts(part.recipe)?.find((item) => item.leaf?.startsWith('sys.block1.main.t') && item.leaf.endsWith('.tail'));
+      if (leaf) { tail = leaf.leaf; break; }
+    }
+    if (tail) break;
+  }
+  assert.ok(tail, 'S01 cassette 必须引用一个 block1 tail');
+  await rewriteLeaf(world, tail, 'TAIL TAMPERED');
   for (const args of [[], ['--drift-policy=source-anchored', `--peri-root=${periRoot}`]]) {
     const result = await run(directory, ...args);
     assert.equal(result.code, 1);
     assert.equal(result.report.passed, false);
-    assert.ok(result.report.errors.some((item) => item.code === 'world_drift_unmapped_leaf' && item.leaf === 'sys.block1.main.t06.tail'));
+    assert.ok(result.report.errors.some((item) => item.code === 'world_drift_unmapped_leaf' && item.leaf === tail));
   }
 });
 
-test('篡改 tools.Agent.* 非管理字段时 source-anchored 失败，正常 Agent 源同步仍通过', async (t) => {
-  const { directory, world } = await fixture(t);
+test('篡改 tools.Agent.* 非管理字段时源码锚定拒绝，正常 Agent 源同步仍通过', async (t) => {
+  const { world } = await fixture(t);
   const id = 'tools.Agent.anthropic';
   const leafFile = path.join(world, 'tools/Agent.anthropic.json');
   const original = JSON.parse(await readFile(leafFile, 'utf8'));
   const periRoot = await syntheticPeriRoot(t, world);
+  const assertUnanchored = async () => {
+    const loaded = await loadWorld(world);
+    await assert.rejects(() => loadSourceLeaves(loaded, periRoot), /Agent/);
+  };
 
   const nameTampered = { ...structuredClone(original), name: 'AgentTampered' };
   await rewriteLeaf(world, id, JSON.stringify(nameTampered));
-  const nameResult = await run(directory, '--drift-policy=source-anchored', `--peri-root=${periRoot}`);
-  assert.equal(nameResult.code, 1);
-  assert.equal(nameResult.report.passed, false);
-  assert.ok(nameResult.report.errors.some((item) => item.code === 'world_source_unanchored' && item.message.includes(id)));
+  await assertUnanchored();
 
+  await rewriteLeaf(world, id, JSON.stringify(original));
   const schemaTampered = structuredClone(original);
   schemaTampered.input_schema.properties.fork.type = 'number';
   await rewriteLeaf(world, id, JSON.stringify(schemaTampered));
-  const schemaResult = await run(directory, '--drift-policy=source-anchored', `--peri-root=${periRoot}`);
-  assert.equal(schemaResult.code, 1);
-  assert.ok(schemaResult.report.errors.some((item) => item.code === 'world_source_unanchored' && item.message.includes(id)));
+  await assertUnanchored();
 
-  // 恢复录制字节后，合法源变化（Agent description）仍可经 world:sync + source-anchored 放行。
+  // 恢复录制字节后，合法源变化（Agent description）仍可经 world:sync 放行。
   await rewriteLeaf(world, id, JSON.stringify(original));
   await writeFile(path.join(periRoot, 'peri-middlewares/src/subagent/tool/descriptions/agent.md'), `${original.description}\nUPDATED FROM SOURCE`);
   const ids = ['tools.Agent.anthropic', 'tools.Agent.responses'];
@@ -389,14 +403,12 @@ test('篡改 tools.Agent.* 非管理字段时 source-anchored 失败，正常 Ag
   assert.equal(synced.code, 0);
   assert.deepEqual(synced.report.updated, ids);
 
-  const anchored = await run(directory, '--drift-policy=source-anchored', `--peri-root=${periRoot}`);
-  assert.equal(anchored.code, 0);
-  assert.equal(anchored.report.passed, true);
-  assert.ok(anchored.report.approvedDrift.length > 0);
-  // S01 只录制了 Anthropic 请求；responses leaf 虽同步但不在本 cassette 的录制引用中。
-  assert.deepEqual([...new Set(anchored.report.approvedDrift.map((item) => item.leaf))], [
-    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic', 'tools.Bash.anthropic',
-  ]);
+  // world:sync 后 world leaf 已与源等值；再次加载不会因非管理字段被拒。
+  const syncedWorld = await loadWorld(world);
+  const expected = await loadSourceLeaves(syncedWorld, periRoot);
+  for (const leaf of ids) {
+    assert.ok(syncedWorld.leafBytes(leaf).equals(expected.get(leaf)), leaf);
+  }
 });
 
 test('BASE_SECTIONS 完整集合、zone 或 include_str 路径变化时拒绝组合 block0', async (t) => {

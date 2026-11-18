@@ -19,6 +19,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -43,11 +44,18 @@
           ],
           "patternSha256": "4270d24fa3299be46ba3dbc91d7652f118a19a207eb8bf7b1b8275f20998876a",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-vUVCW2/work",
+            "path:work": "/tmp/peri-wire-e2e-heSVaV/work",
             "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:A": "01a1b607-5f54-74a3-ba2f-c365242a93ea"
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:A": "01a1edd9-59ed-7060-a2f4-a45b86588840"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-heSVaV/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:A": "01a1edd9-59ed-7060-a2f4-a45b86588840"
           }
         }
       ],
@@ -71,7 +79,7 @@
           {
             "offset": 0,
             "length": 760,
-            "atMs": 243.76906899999994,
+            "atMs": 204.50221799999963,
             "sha256": "96a669d2e43d9bef98769f36687c446c72e640f6d555194f195133ba44d86b11"
           }
         ],
@@ -80,9 +88,9 @@
         "sha256": "96a669d2e43d9bef98769f36687c446c72e640f6d555194f195133ba44d86b11",
         "terminal": {
           "kind": "complete",
-          "atMs": 244.59704299999976
+          "atMs": 204.95367799999985
         },
-        "headersAtMs": 20.33262399999967,
+        "headersAtMs": 30.24477200000001,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -103,6 +111,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -127,11 +136,18 @@
           ],
           "patternSha256": "c493ee3f7614b8f939a7c12275a78a99fb1a6e3dd5bdfaf79b519da70fb5c0fa",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-vUVCW2/work",
+            "path:work": "/tmp/peri-wire-e2e-heSVaV/work",
             "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:B": "01a1b607-5fcc-76c0-86cd-7f59756cc1ee"
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:B": "01a1edd9-5e27-7241-93e4-2b821e33f124"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-heSVaV/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:B": "01a1edd9-5e27-7241-93e4-2b821e33f124"
           }
         }
       ],
@@ -155,7 +171,7 @@
           {
             "offset": 0,
             "length": 760,
-            "atMs": 12.046031999999741,
+            "atMs": 17.636023999999907,
             "sha256": "cfa964a05cf0fb0beb0f57b0c494637439e5014c816c4512ffc1635eff296a89"
           }
         ],
@@ -164,9 +180,9 @@
         "sha256": "cfa964a05cf0fb0beb0f57b0c494637439e5014c816c4512ffc1635eff296a89",
         "terminal": {
           "kind": "complete",
-          "atMs": 13.47629999999981
+          "atMs": 18.896282999999585
         },
-        "headersAtMs": 9.772997000000032,
+        "headersAtMs": 15.848272999999608,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",

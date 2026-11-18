@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 64681,
-  "rawSha256": "d24df6adad8c3c185cb0633e35870204a6a8adc037c30f21c64949543c4b5e8b",
+  "rawBytes": 71384,
+  "rawSha256": "189a099687f640b17dfa0118b7bd7048f540d14c2be4dcd88e48b276d65aa283",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"A05_RECOVER_CHILD_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"A05-failed-read\",\"name\":\"Read\",\"input\":{\"file_path\":\"a05-does-not-exist.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"A05-failed-read\",\"tool_use_id\":\"A05-failed-read\",\"content\":[{\"type\":\"text\",\"text\":\"MCP 服务器 \\\"peri\\\" 工具 \\\"Read\\\" 调用失败: tool `Read` failed to execute; Error: File not found at a05-does-not-exist.txt\\nRecovery: File not found. Verify file_path or locate the file with Glob.\\n[Execution status: failed]\"}],\"is_error\":true,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,15 +10,15 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.subagent.t24",
+      "recipe": "sys.block1.subagent.t63",
       "as": "json-string"
     },
     "}],\"tools\":",
     {
-      "recipe": "tools.anthropic.sub",
+      "leaf": "tools.sha256.87383f89ea2ca7125f427ae936e09efe86da4ce2fd4e1bc77ae18157525a9331",
       "as": "raw"
     },
     "}"
   ],
-  "canonicalSha256": "db670ce6538946986cd59ccd74cc11cd4bff1e47aef60b52446b1f980c55d033"
+  "canonicalSha256": "27e79df976f124846874e62755edba93c471a6393af9eddc9062fafbe2cc6a74"
 }

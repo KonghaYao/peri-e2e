@@ -96,20 +96,25 @@ export function createSlotResolver({ world, builder = world, allowCreate = true 
     catch { return false; }
   };
 
-  /** 只有首个 system 段可以在空 world 中建立 block0；其余字段必须先匹配已有内容。 */
+  const matchStableText = (leaf, text) => {
+    const existing = world.leafBytes(leaf);
+    return existing && textOf(existing) === text ? { leaf, as: 'json-string' } : null;
+  };
+
+  /** 只有首个 system 段可以在空 world 中建立 block0；compact summary 复用稳定 leaf。 */
   const firstSystemSlot = (text) => {
+    const block0 = matchStableText(STABLE_LEAVES.block0, text);
+    if (block0) return block0;
+    const compact = matchStableText(STABLE_LEAVES.compactSummary, text);
+    if (compact) return compact;
     const existing = world.leafBytes(STABLE_LEAVES.block0);
-    if (existing) return textOf(existing) === text ? { leaf: STABLE_LEAVES.block0, as: 'json-string' } : null;
+    if (existing) return null;
     if (!allowCreate) return null;
     addLeaf(STABLE_LEAVES.block0, text);
     return { leaf: STABLE_LEAVES.block0, as: 'json-string' };
   };
 
-  const matchBlock0 = (text) => {
-    const existing = world.leafBytes(STABLE_LEAVES.block0);
-    if (existing) return textOf(existing) === text ? { leaf: STABLE_LEAVES.block0, as: 'json-string' } : null;
-    return null;
-  };
+  const matchBlock0 = (text) => matchStableText(STABLE_LEAVES.block0, text);
 
   const matchBlock1 = (text) => {
     indexTails();
@@ -180,6 +185,7 @@ export function createSlotResolver({ world, builder = world, allowCreate = true 
    */
   const slots = (field, rawText) => {
     if (field.kind === 'tools') return matchTools(Buffer.from(rawText.slice(field.start, field.end), 'utf8'));
+    if (field.kind === 'compact-user') return matchStableText(STABLE_LEAVES.compactUser, field.text);
     if (field.kind !== 'system') return null;
     if (field.path === '/system' || field.path === '/system/0/text') return firstSystemSlot(field.text);
     return matchBlock0(field.text) ?? matchBlock1(field.text);

@@ -14,6 +14,9 @@
     "directories": [
       "home",
       "home/.peri",
+      "home/runtime",
+      "home/state",
+      "home/tmp",
       "work"
     ],
     "files": [
@@ -26,13 +29,13 @@
     ]
   },
   "recordedWorld": {
-    "root": "/tmp/peri-wire-e2e-kM903A",
-    "home": "/tmp/peri-wire-e2e-kM903A/home",
-    "work": "/tmp/peri-wire-e2e-kM903A/work"
+    "root": "/tmp/peri-wire-e2e-tx2XsJ",
+    "home": "/tmp/peri-wire-e2e-tx2XsJ/home",
+    "work": "/tmp/peri-wire-e2e-tx2XsJ/work"
   },
   "recordedSessionIds": {
-    "A": "01a1b607-a8ad-79e0-ba3d-7ec9c83e277b",
-    "B": "01a1b607-a925-7390-8704-5798d0a6cb1b"
+    "A": "01a1eddb-c6d8-7b42-abb2-c88cfb4cfd1e",
+    "B": "01a1eddb-cb13-7c91-81ed-e25f9924bb7c"
   },
   "configurationFingerprint": "064824d7e12ef51b5ca40a47f4501683b3a277a9366d51e5aa628281dc1f8081",
   "bindings": [
@@ -40,28 +43,28 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/tmp/peri-wire-e2e-kM903A",
+      "recorded": "/tmp/peri-wire-e2e-tx2XsJ",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/tmp/peri-wire-e2e-kM903A/home",
+      "recorded": "/tmp/peri-wire-e2e-tx2XsJ/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/tmp/peri-wire-e2e-kM903A/work",
+      "recorded": "/tmp/peri-wire-e2e-tx2XsJ/work",
       "anchor": "isolated scenario work"
     },
     {
       "owner": "world",
       "kind": "date",
       "alias": "today",
-      "recorded": "2026-11-07",
+      "recorded": "2026-11-18",
       "anchor": "ambient UTC date in system environment"
     },
     {
@@ -75,21 +78,21 @@
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "Ubuntu 24.04.3 LTS",
+      "recorded": "Ubuntu 24.04.5 LTS",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "A",
-      "recorded": "01a1b607-a8ad-79e0-ba3d-7ec9c83e277b",
+      "recorded": "01a1eddb-c6d8-7b42-abb2-c88cfb4cfd1e",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "B",
-      "recorded": "01a1b607-a925-7390-8704-5798d0a6cb1b",
+      "recorded": "01a1eddb-cb13-7c91-81ed-e25f9924bb7c",
       "anchor": "ACP session/new result"
     }
   ],

@@ -34,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-daXxOL",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-daXxOL/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-daXxOL/work"
+    "root": "/tmp/peri-wire-e2e-B3FTcE",
+    "home": "/tmp/peri-wire-e2e-B3FTcE/home",
+    "work": "/tmp/peri-wire-e2e-B3FTcE/work"
   },
   "recordedSessionIds": {
-    "root": "01a1ecc9-cd44-7b32-8381-941f94fddcc3"
+    "root": "01a1edd9-44ed-7b72-ae1e-958ac2c40967"
   },
   "configurationFingerprint": "615e2fdd2579321ed55a1857cbba5299044718736606e40b93409efe5f277891",
   "bindings": [
@@ -47,21 +47,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-daXxOL",
+      "recorded": "/tmp/peri-wire-e2e-B3FTcE",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-daXxOL/home",
+      "recorded": "/tmp/peri-wire-e2e-B3FTcE/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-daXxOL/work",
+      "recorded": "/tmp/peri-wire-e2e-B3FTcE/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -75,98 +75,98 @@
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "macos",
+      "recorded": "linux",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "macOS 26.5.1",
+      "recorded": "Ubuntu 24.04.5 LTS",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1ecc9-cd44-7b32-8381-941f94fddcc3",
+      "recorded": "01a1edd9-44ed-7b72-ae1e-958ac2c40967",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m06-host",
-      "recorded": "mcp-01a1ecc9-d2cd-7880-9444-93984e1b3510",
+      "recorded": "mcp-01a1edd9-4b01-7491-964f-ba0728b8c017",
       "anchor": "monitor_start host receipt M06-start"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m06-raw",
-      "recorded": "monitor-01a1ecc9-d2cb-7fb1-a61f-dfc7eb9284fd",
+      "recorded": "monitor-01a1edd9-4afe-7370-81be-bf8a77925209",
       "anchor": "monitor_start raw receipt M06-start"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m06-M06-stop-1-startedAt",
-      "recorded": "2026-11-18T03:53:32.107123+00:00",
+      "recorded": "2026-11-18T08:50:03.134278888+00:00",
       "anchor": "monitor M06-start tool M06-stop-1 field /startedAt"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m06-M06-stop-1-lastUpdatedAt",
-      "recorded": "2026-11-18T03:53:32.548756+00:00",
+      "recorded": "2026-11-18T08:50:03.645142248+00:00",
       "anchor": "monitor M06-start tool M06-stop-1 field /lastUpdatedAt"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m06-M06-stop-1-deadlineAt",
-      "recorded": "2026-11-18T04:53:32.107128+00:00",
+      "recorded": "2026-11-18T09:50:03.134292017+00:00",
       "anchor": "monitor M06-start tool M06-stop-1 field /deadlineAt"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m06-M06-stop-1-finishedAt",
-      "recorded": "2026-11-18T03:53:32.548756+00:00",
+      "recorded": "2026-11-18T08:50:03.645142248+00:00",
       "anchor": "monitor M06-start tool M06-stop-1 field /finishedAt"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m06-M06-stop-2-startedAt",
-      "recorded": "2026-11-18T03:53:32.107123+00:00",
+      "recorded": "2026-11-18T08:50:03.134278888+00:00",
       "anchor": "monitor M06-start tool M06-stop-2 field /startedAt"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m06-M06-stop-2-lastUpdatedAt",
-      "recorded": "2026-11-18T03:53:32.548756+00:00",
+      "recorded": "2026-11-18T08:50:03.645142248+00:00",
       "anchor": "monitor M06-start tool M06-stop-2 field /lastUpdatedAt"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m06-M06-stop-2-deadlineAt",
-      "recorded": "2026-11-18T04:53:32.107128+00:00",
+      "recorded": "2026-11-18T09:50:03.134292017+00:00",
       "anchor": "monitor M06-start tool M06-stop-2 field /deadlineAt"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m06-M06-stop-2-finishedAt",
-      "recorded": "2026-11-18T03:53:32.548756+00:00",
+      "recorded": "2026-11-18T08:50:03.645142248+00:00",
       "anchor": "monitor M06-start tool M06-stop-2 field /finishedAt"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m06-event-1-ts",
-      "recorded": "2026-11-18T03:53:32.259694+00:00",
+      "recorded": "2026-11-18T08:50:03.185081444+00:00",
       "anchor": "monitor M06-start event seq 1 capture timestamp"
     }
   ],
@@ -204,7 +204,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "d2d20e6bde71931aebfaeca9aec67e0ae141d8afda14349a8d0130afa756d646"
+      "sourceSha256": "2136b5a501049b88e871445f27f43d048133c052bbc5bd289c5976f7cedf12e0"
     },
     {
       "identity": {
@@ -239,7 +239,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "d6353e410c464f287d12122875ded3833028c41360c2e1c027dd764627a7e25b"
+      "sourceSha256": "3dfec271382ba94ebc1569e40e5600a6d1d1aaa2e4044b806e85df32c0b64155"
     },
     {
       "identity": {
@@ -274,7 +274,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "98e9eeba1df73fed332368f43d9dc95e69729328837cf95843f4fad0b11fe676"
+      "sourceSha256": "d9e29efc391d8426833ac68674bcbc47cba0e4ad3c6806e6723ffe7b3af2f68d"
     },
     {
       "identity": {
@@ -309,7 +309,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "bd2e0e8f6b98b61d4ed57c4167a33a0af078c483a16934d1333e746a866d7187"
+      "sourceSha256": "f86c1db91b944e6e51c6aeef8c1c4746f6cd8733fcd1d88f3234c3bdb8e2117e"
     }
   ]
 }

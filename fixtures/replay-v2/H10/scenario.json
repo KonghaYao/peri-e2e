@@ -28,12 +28,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fll8wm",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fll8wm/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fll8wm/work"
+    "root": "/tmp/peri-wire-e2e-l7pMyr",
+    "home": "/tmp/peri-wire-e2e-l7pMyr/home",
+    "work": "/tmp/peri-wire-e2e-l7pMyr/work"
   },
   "recordedSessionIds": {
-    "root": "01a1eccc-6d39-7a12-b413-a5f06e1d3367"
+    "root": "01a1eddc-2bea-7212-b49b-61def6d42b34"
   },
   "configurationFingerprint": "2db5e06102399f3795e3a3e1122e26b818b3656a08223d85c71c7f02fa2baa21",
   "bindings": [
@@ -41,21 +41,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fll8wm",
+      "recorded": "/tmp/peri-wire-e2e-l7pMyr",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fll8wm/home",
+      "recorded": "/tmp/peri-wire-e2e-l7pMyr/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fll8wm/work",
+      "recorded": "/tmp/peri-wire-e2e-l7pMyr/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -69,28 +69,28 @@
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "macos",
+      "recorded": "linux",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "macOS 26.5.1",
+      "recorded": "Ubuntu 24.04.5 LTS",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1eccc-6d39-7a12-b413-a5f06e1d3367",
+      "recorded": "01a1eddc-2bea-7212-b49b-61def6d42b34",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-h10",
-      "recorded": "mcp-01a1eccc-71c8-7291-ad66-c50811d8f721",
+      "recorded": "mcp-01a1eddc-310e-7e82-86fa-43535a715280",
       "anchor": "Bash tool receipt H10-bash"
     }
   ],

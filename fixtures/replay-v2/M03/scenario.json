@@ -34,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MK53HJ",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MK53HJ/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MK53HJ/work"
+    "root": "/tmp/peri-wire-e2e-pIVpui",
+    "home": "/tmp/peri-wire-e2e-pIVpui/home",
+    "work": "/tmp/peri-wire-e2e-pIVpui/work"
   },
   "recordedSessionIds": {
-    "root": "01a1eccd-43ed-7c50-8aa5-5c0bac19efc7"
+    "root": "01a1eddd-1403-7662-9e85-76eea554ce7d"
   },
   "configurationFingerprint": "34423444bf3f901658b5a0116adb5e64ddc320f63750dbb251e747b4e4f50a79",
   "bindings": [
@@ -47,21 +47,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MK53HJ",
+      "recorded": "/tmp/peri-wire-e2e-pIVpui",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MK53HJ/home",
+      "recorded": "/tmp/peri-wire-e2e-pIVpui/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MK53HJ/work",
+      "recorded": "/tmp/peri-wire-e2e-pIVpui/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -75,84 +75,84 @@
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "macos",
+      "recorded": "linux",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "macOS 26.5.1",
+      "recorded": "Ubuntu 24.04.5 LTS",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1eccd-43ed-7c50-8aa5-5c0bac19efc7",
+      "recorded": "01a1eddd-1403-7662-9e85-76eea554ce7d",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m03-host",
-      "recorded": "mcp-01a1eccd-495a-7b22-b74a-0254c4bcb261",
+      "recorded": "mcp-01a1eddd-1a2f-7fe3-b698-1af71850d087",
       "anchor": "monitor_start host receipt M03-start"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m03-raw",
-      "recorded": "monitor-01a1eccd-4958-73c2-9c49-de61d261ab2b",
+      "recorded": "monitor-01a1eddd-1a2b-73f3-9ade-099b61c3e063",
       "anchor": "monitor_start raw receipt M03-start"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-1-ts",
-      "recorded": "2026-11-18T03:57:19.197813+00:00",
+      "recorded": "2026-11-18T08:54:12.856038901+00:00",
       "anchor": "monitor M03-start event seq 1 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-2-ts",
-      "recorded": "2026-11-18T03:57:19.197841+00:00",
+      "recorded": "2026-11-18T08:54:12.856088548+00:00",
       "anchor": "monitor M03-start event seq 2 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-3-ts",
-      "recorded": "2026-11-18T03:57:19.197843+00:00",
+      "recorded": "2026-11-18T08:54:12.856091238+00:00",
       "anchor": "monitor M03-start event seq 3 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-4-ts",
-      "recorded": "2026-11-18T03:57:19.197883+00:00",
+      "recorded": "2026-11-18T08:54:12.856093011+00:00",
       "anchor": "monitor M03-start event seq 4 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-5-ts",
-      "recorded": "2026-11-18T03:57:19.197912+00:00",
+      "recorded": "2026-11-18T08:54:12.856094678+00:00",
       "anchor": "monitor M03-start event seq 5 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-6-ts",
-      "recorded": "2026-11-18T03:57:19.197937+00:00",
+      "recorded": "2026-11-18T08:54:12.856097951+00:00",
       "anchor": "monitor M03-start event seq 6 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-7-ts",
-      "recorded": "2026-11-18T03:57:19.197957+00:00",
+      "recorded": "2026-11-18T08:54:12.856099802+00:00",
       "anchor": "monitor M03-start event seq 7 capture timestamp"
     }
   ],
@@ -190,7 +190,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "8e6ec454301a8eea672117c1ff0dd77eb1c239941aa6d2f728a7f840f178e41b"
+      "sourceSha256": "4061769553bc529af475f0fd4148e375ab74deb85124c2f9d728a2c4a18104c5"
     },
     {
       "identity": {
@@ -225,7 +225,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "0bf1ea6662e289c2a145b421da5ee52be05cbc2daaad03eb6d609b15402fe703"
+      "sourceSha256": "92a95fc95262b478733fd9ec3fb6b4d9ed58e4e8e4dc84f92c3b410f4a08c7d2"
     },
     {
       "identity": {
@@ -260,7 +260,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "c938302dcaaba5c0de50dce02b78fac54c31877fac02e5fa4cfb445a4f59665e"
+      "sourceSha256": "0a6ef5f26b9924818ecce01cb0d54a7789d22a8af316e8e4beacab30fa2abf1e"
     },
     {
       "identity": {
@@ -295,7 +295,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "4dc8ab28c6ed47e46da3ee6cd7be6d2188c328afe2cc669433d8d48606964f16"
+      "sourceSha256": "bfa6f89eac30b74962de9e4be6b62ee538b0ee85fca2548f0fbf872d30822809"
     }
   ]
 }

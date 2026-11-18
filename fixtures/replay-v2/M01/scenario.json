@@ -34,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HkNF9h",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HkNF9h/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HkNF9h/work"
+    "root": "/tmp/peri-wire-e2e-6yEmFy",
+    "home": "/tmp/peri-wire-e2e-6yEmFy/home",
+    "work": "/tmp/peri-wire-e2e-6yEmFy/work"
   },
   "recordedSessionIds": {
-    "root": "01a1ecc8-e476-7602-b585-0b7960920b2c"
+    "root": "01a1edd8-62b1-7d33-9f5f-0c4b54b88329"
   },
   "configurationFingerprint": "4acd360e3de64657fbbeda0ee021a2719cb018506f0721a51a4d4c7dc08a850f",
   "bindings": [
@@ -47,21 +47,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HkNF9h",
+      "recorded": "/tmp/peri-wire-e2e-6yEmFy",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HkNF9h/home",
+      "recorded": "/tmp/peri-wire-e2e-6yEmFy/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HkNF9h/work",
+      "recorded": "/tmp/peri-wire-e2e-6yEmFy/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -75,56 +75,56 @@
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "macos",
+      "recorded": "linux",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "macOS 26.5.1",
+      "recorded": "Ubuntu 24.04.5 LTS",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1ecc8-e476-7602-b585-0b7960920b2c",
+      "recorded": "01a1edd8-62b1-7d33-9f5f-0c4b54b88329",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m01-host",
-      "recorded": "mcp-01a1ecc8-ea95-70d2-9ec3-a9b691c8f16b",
+      "recorded": "mcp-01a1edd8-695b-7863-84bb-41be4e80f490",
       "anchor": "monitor_start host receipt M01-start"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m01-raw",
-      "recorded": "monitor-01a1ecc8-ea92-73d2-b572-15657d6704ea",
+      "recorded": "monitor-01a1edd8-6956-7761-b6cd-1385f759a247",
       "anchor": "monitor_start raw receipt M01-start"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m01-event-1-ts",
-      "recorded": "2026-11-18T03:52:32.912809+00:00",
+      "recorded": "2026-11-18T08:49:05.556961515+00:00",
       "anchor": "monitor M01-start event seq 1 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m01-event-2-ts",
-      "recorded": "2026-11-18T03:52:34.770773+00:00",
+      "recorded": "2026-11-18T08:49:07.468591922+00:00",
       "anchor": "monitor M01-start event seq 2 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m01-event-3-ts",
-      "recorded": "2026-11-18T03:52:34.770812+00:00",
+      "recorded": "2026-11-18T08:49:07.468668812+00:00",
       "anchor": "monitor M01-start event seq 3 capture timestamp"
     }
   ],
@@ -162,7 +162,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "0d360b1fe9a16eeecb23979630ea1145bfb015386ed9e784c2c299db9d5591fe"
+      "sourceSha256": "81d41d14b9483e5216adaa5d03e44a1762832aa59fcd078876838c8de1e9f173"
     },
     {
       "identity": {
@@ -197,7 +197,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "fb032c2d25ec1a4c80f21580abd02e182c9ca85d698e9ddf6100c5e76a96ae3e"
+      "sourceSha256": "40fc056c859065cb4f1c5765608c461b3ffdb6ff791eece233793094295e1e46"
     }
   ]
 }

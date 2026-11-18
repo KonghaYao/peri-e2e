@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 70737,
-  "rawSha256": "eb3bc3941bf60889a5735e1ceeaca0963fe1006d888704390b54d276663cd997",
+  "rawBytes": 70910,
+  "rawSha256": "d2514429a329f4664f0c28dbd0ead971dd2f591fa4522ba8c8bf36b7fa10ad32",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B12_COMPLETED_CHILD_HISTORY\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,15 +10,15 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.subagent.t34",
+      "recipe": "sys.block1.subagent.t72",
       "as": "json-string"
     },
     "}],\"tools\":",
     {
-      "recipe": "tools.anthropic.sub",
+      "leaf": "tools.sha256.87383f89ea2ca7125f427ae936e09efe86da4ce2fd4e1bc77ae18157525a9331",
       "as": "raw"
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "9c479991e3ab3576093f43b4dfb3d6b63d8e34064c419561d4f050e7ecdfd548"
+  "canonicalSha256": "fd690ba11100cec57ba7795efa97a6c4964cfa8bc6fb628b6312f8f2b7028b77"
 }

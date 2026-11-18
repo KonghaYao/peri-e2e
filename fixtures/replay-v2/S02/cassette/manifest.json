@@ -19,6 +19,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -43,11 +44,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-i2N72K/work",
+            "path:work": "/tmp/peri-wire-e2e-nDLnHd/work",
             "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b607-3d2f-7333-a626-698694db1b70"
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edd7-5c6c-7471-88d2-035ce3e30675"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-nDLnHd/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edd7-5c6c-7471-88d2-035ce3e30675"
           }
         }
       ],
@@ -71,336 +79,372 @@
           {
             "offset": 0,
             "length": 62,
-            "atMs": 16.231915000000072,
+            "atMs": 18.88155800000004,
             "sha256": "45ef822deeeead947b67f1b50ac48593bb3fcd710937c031c0afab0cb50026c8"
           },
           {
             "offset": 62,
-            "length": 124,
-            "atMs": 17.195862999999918,
-            "sha256": "2389a6233a91bbb52a3846f4c6a34684f742665cdaa069c48dcb6a8a4398da72"
+            "length": 31,
+            "atMs": 19.10505600000033,
+            "sha256": "bd58b8936cab6e891abb0308272063f21e4701b92e1fc46888a80c325d18a995"
+          },
+          {
+            "offset": 93,
+            "length": 31,
+            "atMs": 19.368545000000267,
+            "sha256": "6b8306bd04058d2291b84e578f92919fac711979f5041a73c828347836a8a8ae"
+          },
+          {
+            "offset": 124,
+            "length": 31,
+            "atMs": 19.580056000000695,
+            "sha256": "c2540a5a455af5b518d8d0c98e8824d035209983ef6a5dc6becf43b8491b23bd"
+          },
+          {
+            "offset": 155,
+            "length": 31,
+            "atMs": 19.768243999999868,
+            "sha256": "a334095eea953b4de67d37a5ce30ddc831e0603e792b31a515af56cf0a0edd2a"
           },
           {
             "offset": 186,
             "length": 31,
-            "atMs": 17.421873000000005,
+            "atMs": 19.904946999999993,
             "sha256": "862fae445e59cddccf8b4116ef98f18687191f0ce6bc6557208ae99219ebd63a"
           },
           {
             "offset": 217,
             "length": 31,
-            "atMs": 17.70025099999998,
+            "atMs": 20.05366800000047,
             "sha256": "e8eb30678baa5b89d6d7cad7f1f3227555c625bc64687f0e36336b893f7eb4f1"
           },
           {
             "offset": 248,
             "length": 31,
-            "atMs": 18.319541000000072,
+            "atMs": 20.19234200000028,
             "sha256": "bc0631fe119d1ff5e2b2b3826c9a9097d1d47d5bd2ef29168c0a7fcdd45c8a65"
           },
           {
             "offset": 279,
-            "length": 279,
-            "atMs": 19.55233300000009,
-            "sha256": "8fcc7e1f7ed0bfaff677aade39434f221c70c4238d082bf0f4255a8a47fd55d4"
+            "length": 31,
+            "atMs": 20.372287000000142,
+            "sha256": "c7b3adf0b39ae5c01adfb2dba77dcc2fe847351231c2d770d4944ce7b53cae69"
+          },
+          {
+            "offset": 310,
+            "length": 31,
+            "atMs": 20.572935000000143,
+            "sha256": "ed51b88021cb82817d25573e6983d359183c7c17a275e7433aa174a3d1755b44"
+          },
+          {
+            "offset": 341,
+            "length": 31,
+            "atMs": 20.760243000000628,
+            "sha256": "33643821ce0c93953c3524fe9c043cd08f06ff475816f0a564ee8adb12225bca"
+          },
+          {
+            "offset": 372,
+            "length": 31,
+            "atMs": 20.881745000000592,
+            "sha256": "150028a1241b90ad4ece34496b361c40483d8aac37c3b41a45978cf76f68bfd2"
+          },
+          {
+            "offset": 403,
+            "length": 31,
+            "atMs": 20.995537000000695,
+            "sha256": "780317508b9cad45483296db5ea6434121d2014247f7e144c09cffcd33e18317"
+          },
+          {
+            "offset": 434,
+            "length": 31,
+            "atMs": 21.10711100000026,
+            "sha256": "05fd16ee2b5fcd09b974ee50dc40fc8df16e9c66befc76d4f353e9b8238c9dfe"
+          },
+          {
+            "offset": 465,
+            "length": 31,
+            "atMs": 21.244246000000203,
+            "sha256": "1e8da365661e95b9a21381181982fdad38490f7ce46d1c4c03299ab49100610c"
+          },
+          {
+            "offset": 496,
+            "length": 31,
+            "atMs": 21.36055900000065,
+            "sha256": "81e5a962aacaefca533dccca03ecc7ed7fcd57bbc74e8a09415e1ef275b02ea5"
+          },
+          {
+            "offset": 527,
+            "length": 31,
+            "atMs": 21.453145000000404,
+            "sha256": "f7dfed2a2e703a31a28ede1bf01bcdc7c23b96e11a5e07b414bbaa0227abdaf8"
           },
           {
             "offset": 558,
             "length": 31,
-            "atMs": 19.8026789999999,
+            "atMs": 21.54731400000037,
             "sha256": "de2a2cd3c5a67ab293d984cb4bbfa87d1a4eabee8ae5d1b01d3ebb2438c391fb"
           },
           {
             "offset": 589,
-            "length": 31,
-            "atMs": 20.057651999999962,
-            "sha256": "68783299e53ffb25c7e748c65130c9c17bf0e91a7d26560254de1c1aca488282"
+            "length": 372,
+            "atMs": 22.157798000000184,
+            "sha256": "3c2bfeab6999da7e4722637086d30f10b317afa68c2795c95871ae929be330c5"
           },
           {
-            "offset": 620,
+            "offset": 961,
             "length": 31,
-            "atMs": 20.622010000000046,
-            "sha256": "bcc6172056ffafe7ce1801568d85befc80e36ba46977e3b66fa649b7e0cc23d6"
+            "atMs": 22.35889800000041,
+            "sha256": "084d057f4b58a43183b4c61b5b8d07996ba161ee90bfda347a47a2efca8d4985"
           },
           {
-            "offset": 651,
+            "offset": 992,
             "length": 31,
-            "atMs": 20.774177999999893,
-            "sha256": "891a5702050d9d4aeb2f8e22e99da2675f934ee8409383fb78d3911de063f2be"
+            "atMs": 22.444013000000268,
+            "sha256": "fe3c0c304c771156fab7eb96d15a7fb22041e38afcb6ae684c345df8cdff6dbc"
           },
           {
-            "offset": 682,
-            "length": 465,
-            "atMs": 23.931049999999914,
-            "sha256": "693c070691b25d6f232a120224a6eff0169d4e637e0f1fdf5493b64870157575"
+            "offset": 1023,
+            "length": 31,
+            "atMs": 22.510831999999937,
+            "sha256": "235118cb5afdd4658d2736be023f739beb3317b3c397d11d976980c0df32d41c"
+          },
+          {
+            "offset": 1054,
+            "length": 31,
+            "atMs": 22.572524000000158,
+            "sha256": "0773d35f625a535679b0e2e657c6b9782d6c30c294093322020482a6d56cbf50"
+          },
+          {
+            "offset": 1085,
+            "length": 31,
+            "atMs": 22.62844099999984,
+            "sha256": "12013ebfe40b9b055881dd2d6687355bee37532f755e74f03ccb914893235f97"
+          },
+          {
+            "offset": 1116,
+            "length": 31,
+            "atMs": 22.682300999999825,
+            "sha256": "bf22c87ca7118ccb4697da8b5582deae83207bb529c3ed4f3f2ba9f808115d00"
           },
           {
             "offset": 1147,
             "length": 31,
-            "atMs": 24.38521300000002,
+            "atMs": 22.7375320000001,
             "sha256": "3fd84898e7af15c7caccdebfcf8106f35bbae29ee7bdea4486380022320a74ac"
           },
           {
             "offset": 1178,
             "length": 31,
-            "atMs": 24.638463,
-            "sha256": "e575b21c2cb7fdc24fd2974bc4a1ab5c3dd671704d208e0e368c0bcd77f37cf5"
+            "atMs": 22.792277000000468,
+            "sha256": "0d22f87cb716872c080538b58f0ed0d0a1b2089ef491b95a7eb6e7d3a756bd50"
           },
           {
             "offset": 1209,
             "length": 31,
-            "atMs": 25.341588999999885,
+            "atMs": 22.84691500000008,
             "sha256": "f7dfed2a2e703a31a28ede1bf01bcdc7c23b96e11a5e07b414bbaa0227abdaf8"
           },
           {
             "offset": 1240,
-            "length": 31,
-            "atMs": 25.582241000000067,
-            "sha256": "de2a2cd3c5a67ab293d984cb4bbfa87d1a4eabee8ae5d1b01d3ebb2438c391fb"
+            "length": 155,
+            "atMs": 23.099097000000256,
+            "sha256": "4e0f275678470c6321ebb08e41b3302eb41e36a82499089c35205719fcc51f14"
           },
           {
-            "offset": 1271,
+            "offset": 1395,
             "length": 31,
-            "atMs": 25.722140999999965,
-            "sha256": "68783299e53ffb25c7e748c65130c9c17bf0e91a7d26560254de1c1aca488282"
+            "atMs": 23.16505899999993,
+            "sha256": "8504ed09da00adbb3c283cc628996eccef34c53b427e2df53b9843e2862728aa"
           },
           {
-            "offset": 1302,
+            "offset": 1426,
             "length": 31,
-            "atMs": 25.866508000000067,
-            "sha256": "2a41284e4df40d9bc7236d476cdf67cb9bf8636917aaa9c2046174f8480bca40"
+            "atMs": 23.663102000000436,
+            "sha256": "175c5f9b90e71d49c76043e1a648823009ce283a81347e72a6244f0a00d3dd79"
           },
           {
-            "offset": 1333,
+            "offset": 1457,
             "length": 31,
-            "atMs": 26.06202099999996,
-            "sha256": "420b8c8cab2c9f6e68cedc92b3df4ebfe143e93df18daa2270877d127d808fab"
+            "atMs": 23.90543500000058,
+            "sha256": "971b6a03f2a5dca4f1e03ca74cc44556df0ca57c8f821d0b69f72979e0bcb597"
           },
           {
-            "offset": 1364,
-            "length": 279,
-            "atMs": 26.580439999999953,
-            "sha256": "e2a3c44395f36aae654d58b02e3f5757a01f94a4ea60eebec886acb1353dbb47"
+            "offset": 1488,
+            "length": 31,
+            "atMs": 24.033328000000438,
+            "sha256": "a98001449be802519bf5bcf5a8e6da2067123c82ed6bf9435ed9bd5db75cd893"
+          },
+          {
+            "offset": 1519,
+            "length": 31,
+            "atMs": 24.101184000000103,
+            "sha256": "b6d4149827a34d2808db9b85135f9f8ded2c92a27ce34f666dedb96b302f7b06"
+          },
+          {
+            "offset": 1550,
+            "length": 31,
+            "atMs": 24.157760000000053,
+            "sha256": "fb770763124b0aed7998d309f69eb426c7cb320b54699a5e6dcf24b788abd960"
+          },
+          {
+            "offset": 1581,
+            "length": 31,
+            "atMs": 24.254942000000483,
+            "sha256": "9d336be0e2d850fe65026fc39c67f999e1589ab44b79e69bd67e94d2d18e78d2"
+          },
+          {
+            "offset": 1612,
+            "length": 31,
+            "atMs": 24.356034000000363,
+            "sha256": "17438d496dce40a1df0342d05b149455ed68f3dbc4598e882e0f27a7f715241e"
           },
           {
             "offset": 1643,
             "length": 31,
-            "atMs": 26.757787000000008,
+            "atMs": 24.453872000000047,
             "sha256": "82bdb4407abbea50c6927183570be1aff6d87c1b5171aa90b8559e37d3518dc3"
           },
           {
             "offset": 1674,
             "length": 31,
-            "atMs": 26.888934000000063,
+            "atMs": 24.56160600000021,
             "sha256": "cb80bf39a298c47b9cc67000d480f978ed5491198157435ecc516131faa780f2"
           },
           {
             "offset": 1705,
-            "length": 31,
-            "atMs": 27.076135000000022,
-            "sha256": "5b342ab8adb02345b018a1a71085802b908f212da3dbe05274ecea704dabacb3"
-          },
-          {
-            "offset": 1736,
-            "length": 31,
-            "atMs": 27.239870999999994,
-            "sha256": "c349df1a19c974a25a01c29694b8f2d103395dbacebe0274fc52cd6c44263db2"
-          },
-          {
-            "offset": 1767,
-            "length": 31,
-            "atMs": 27.745760999999902,
-            "sha256": "7b32e9689fb610b68fa44dc6b3d7c4c7168fd2c3a51d43783379f566d6de8755"
-          },
-          {
-            "offset": 1798,
-            "length": 31,
-            "atMs": 28.022506999999905,
-            "sha256": "b8b68624c3b227358475612f8c20a3d14440ffd3763e974a993a56bfa67f5a5c"
-          },
-          {
-            "offset": 1829,
-            "length": 31,
-            "atMs": 28.160143000000062,
-            "sha256": "544e1fde7efab5fc2defebe6fdb1aaa0641d52695f294acac7a93d016de44ed7"
+            "length": 155,
+            "atMs": 24.800764000000527,
+            "sha256": "da4438482e207df7a606afff9fd83fa4dd2b3293b53e42ccb359389128244c01"
           },
           {
             "offset": 1860,
             "length": 31,
-            "atMs": 28.556509000000005,
+            "atMs": 24.86995300000035,
             "sha256": "0ee42e79a3514d6de395c1ad0994d050862f981b470cb86012fb49d2c0bf7a55"
           },
           {
             "offset": 1891,
             "length": 31,
-            "atMs": 28.786203999999998,
+            "atMs": 24.98226599999998,
             "sha256": "5b6064458529d93d7d674893736d1d950611985b7e1ef82afa7edaa422392503"
           },
           {
             "offset": 1922,
-            "length": 31,
-            "atMs": 29.491543999999976,
-            "sha256": "e3e6e8d75481395ee3be369a3e9901844c46d52967142545ff87b46d925b2815"
-          },
-          {
-            "offset": 1953,
-            "length": 31,
-            "atMs": 29.801439000000073,
-            "sha256": "6fe02de388bd363387cc776f1599de17a51ca73e9b666c0ae0b1a22e53bf5bee"
+            "length": 62,
+            "atMs": 25.145328999999947,
+            "sha256": "cf3e04115023eee4f2830c8ac60108cbec87e7bd5c274575c31ffa70938269b5"
           },
           {
             "offset": 1984,
             "length": 31,
-            "atMs": 30.06970699999988,
+            "atMs": 25.289033000000018,
             "sha256": "5e792c2e3ea20979603dbc7ebabbcfb4e600292886b628460357a6c760b4f43a"
           },
           {
             "offset": 2015,
             "length": 31,
-            "atMs": 30.251700999999912,
+            "atMs": 25.45062400000006,
             "sha256": "d80112f4e596e44f6e05b7aab24cc21a4bb225eef5cf9f6cc3637f9506d8bda0"
           },
           {
             "offset": 2046,
             "length": 31,
-            "atMs": 30.56941800000004,
+            "atMs": 25.562066000000414,
             "sha256": "780317508b9cad45483296db5ea6434121d2014247f7e144c09cffcd33e18317"
           },
           {
             "offset": 2077,
             "length": 31,
-            "atMs": 30.756828999999925,
+            "atMs": 25.74214800000027,
             "sha256": "05fd16ee2b5fcd09b974ee50dc40fc8df16e9c66befc76d4f353e9b8238c9dfe"
           },
           {
             "offset": 2108,
             "length": 31,
-            "atMs": 30.946103999999877,
+            "atMs": 25.8510839999999,
             "sha256": "1e8da365661e95b9a21381181982fdad38490f7ce46d1c4c03299ab49100610c"
           },
           {
             "offset": 2139,
             "length": 31,
-            "atMs": 31.13207299999999,
+            "atMs": 25.94452200000069,
             "sha256": "ae9f7796136445f0f945c982c01639eafac1a9337ecff7f27a3d2058e8c44542"
           },
           {
             "offset": 2170,
             "length": 31,
-            "atMs": 31.454678000000058,
+            "atMs": 26.03526899999997,
             "sha256": "723896c63ec27a123da21048ce72e0eae4d08b8cbaf3346a50721657ed38bc83"
           },
           {
             "offset": 2201,
             "length": 31,
-            "atMs": 31.690843000000086,
+            "atMs": 26.140911999999844,
             "sha256": "5827d744d70e1a1915c98ced62bb807225c023dd178dc458b6fb58557c0f1b0e"
           },
           {
             "offset": 2232,
             "length": 31,
-            "atMs": 31.87581,
+            "atMs": 26.290546000000177,
             "sha256": "caf404740cc375adb91810b1ad943d5c038d5eee29c3a3fdb8521cdefaa05d08"
           },
           {
             "offset": 2263,
             "length": 31,
-            "atMs": 32.29293699999994,
+            "atMs": 26.496039999999994,
             "sha256": "70aae80bc291f50f24560321cb9a7c3650c94f9995739a7a1cb1fa931ead433e"
           },
           {
             "offset": 2294,
             "length": 31,
-            "atMs": 32.573589000000084,
+            "atMs": 26.661686000000373,
             "sha256": "ebb20b1c95151eba299384952e6605bd21ed8acd5c6a5e60545c4ff07ce58ab2"
           },
           {
             "offset": 2325,
-            "length": 31,
-            "atMs": 32.7914659999999,
-            "sha256": "33555bbe405a4ea05e58f1307e10f2e66db28e362e7bf6b5cb8e6b2af9c3f2b8"
-          },
-          {
-            "offset": 2356,
-            "length": 31,
-            "atMs": 33.066278999999895,
-            "sha256": "208ac87315eb62f105bf956ea6fec0b12cbe6497513bfd3cf620de4e2c29816d"
-          },
-          {
-            "offset": 2387,
-            "length": 31,
-            "atMs": 33.33799700000009,
-            "sha256": "969c960f06e49010486dd132ef869afeb2db847069110ca566704dd199f69e48"
-          },
-          {
-            "offset": 2418,
-            "length": 31,
-            "atMs": 33.628453000000036,
-            "sha256": "9fbbd29fb4b65ff6773e8110838ff88af1002c78d0b0fec8e1df0f70f130c28d"
-          },
-          {
-            "offset": 2449,
-            "length": 31,
-            "atMs": 33.862564999999904,
-            "sha256": "1b1e6e37962710d706658998698309c4551de0731eabf2c855910d807068878c"
-          },
-          {
-            "offset": 2480,
-            "length": 31,
-            "atMs": 34.18635199999994,
-            "sha256": "d74e729395d722520b30e92fcdcb487963d8a0c0dac86d3cbd9595427aea42a7"
-          },
-          {
-            "offset": 2511,
-            "length": 31,
-            "atMs": 34.42384799999991,
-            "sha256": "45657762970ecc2fb235738563fc60f1abf31277e1b6823638b46e5615872cf9"
-          },
-          {
-            "offset": 2542,
-            "length": 31,
-            "atMs": 34.73895199999993,
-            "sha256": "cbdb84dc6576fe11636c95a938ec5fc39be4791b92f43ba758efbc25d9aba4a3"
+            "length": 248,
+            "atMs": 27.113777000000482,
+            "sha256": "01e0507ea0907c5edd28347537afdab00b0c57283bc0ed4d032bc374de3cce28"
           },
           {
             "offset": 2573,
             "length": 31,
-            "atMs": 35.03874199999996,
+            "atMs": 27.247417999999925,
             "sha256": "7c59344fe6209f0ce94032d9fed40da2683ea74a5bbff27640ebccec54064a18"
           },
           {
             "offset": 2604,
             "length": 31,
-            "atMs": 35.2278859999999,
+            "atMs": 27.388082999999824,
             "sha256": "4ba9693054ffba3f081214595965d510bb9f7104782860fc2ce88e925364a000"
           },
           {
             "offset": 2635,
             "length": 31,
-            "atMs": 35.39509799999996,
+            "atMs": 27.48485299999993,
             "sha256": "ef684b22ec2777388c539b151645ebd6d5d86408eeb76efd788126d454c8e541"
           },
           {
             "offset": 2666,
             "length": 31,
-            "atMs": 35.60654499999987,
+            "atMs": 27.576396000000386,
             "sha256": "2e449b57a60c126c5ee4ad6a292e5345a9096a21bccc02979499c2ee251f2628"
           },
           {
             "offset": 2697,
             "length": 10,
-            "atMs": 35.85863399999994,
+            "atMs": 27.69137800000044,
             "sha256": "fc018dfd1a5e0aa435d4c29372dafe522b054f09935798dae24124d8309093b7"
           }
         ],
         "size": 2707,
         "submittedBytes": 2707,
-        "sha256": "de044e695e1a6533b768afb1efb31a0d402000140add9b9cd0d314406f037d8f",
+        "sha256": "519a876336cc932fc13b8009b95c8f5b1a097cff24e37550aeba0aaf5f97e33a",
         "terminal": {
           "kind": "complete",
-          "atMs": 36.619195999999874
+          "atMs": 28.050545000000056
         },
-        "headersAtMs": 14.961426999999958,
+        "headersAtMs": 18.75894200000039,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -421,6 +465,7 @@
         {
           "path": "/messages/2/content/0/input/file_path",
           "mode": "typed-template",
+          "systemText": false,
           "pattern": [
             {
               "kind": "path",
@@ -429,12 +474,16 @@
           ],
           "patternSha256": "7b3fe3955cb1f202a6ab2231c96b9dae0c8c597a883070184d240a9e3a44dd30",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-i2N72K/work"
+            "path:work": "/tmp/peri-wire-e2e-nDLnHd/work"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-nDLnHd/work"
           }
         },
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -459,11 +508,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-i2N72K/work",
+            "path:work": "/tmp/peri-wire-e2e-nDLnHd/work",
             "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b607-3d2f-7333-a626-698694db1b70"
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edd7-5c6c-7471-88d2-035ce3e30675"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-nDLnHd/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edd7-5c6c-7471-88d2-035ce3e30675"
           }
         }
       ],
@@ -487,7 +543,7 @@
           {
             "offset": 0,
             "length": 751,
-            "atMs": 11.947638000000097,
+            "atMs": 9.281990999999834,
             "sha256": "9f573a2296ed434c39ba55c0259f6ecf4f0831d2351ef551c173902e88233305"
           }
         ],
@@ -496,9 +552,9 @@
         "sha256": "9f573a2296ed434c39ba55c0259f6ecf4f0831d2351ef551c173902e88233305",
         "terminal": {
           "kind": "complete",
-          "atMs": 12.261139000000185
+          "atMs": 9.590253000000303
         },
-        "headersAtMs": 11.123720000000048,
+        "headersAtMs": 9.123991000000387,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",

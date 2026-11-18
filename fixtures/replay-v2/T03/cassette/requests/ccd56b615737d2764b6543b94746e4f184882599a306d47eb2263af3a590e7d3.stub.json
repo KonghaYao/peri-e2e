@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 98753,
-  "rawSha256": "6370c59bd708764bd70da37ff94c4762752e2ec02c2c7082babf8b87876495d5",
+  "rawBytes": 103065,
+  "rawSha256": "97863d3fa839dda8c5097d41440255ee50bc67392d5b398eb50a742f4f85d58a",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T03_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t03-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf 'T03_FILE_EFFECT\\\\n' > command-result.txt && printf 'T03_STDOUT_CONFIRMED\\\\n'\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t03-bash\",\"tool_use_id\":\"t03-bash\",\"content\":[{\"type\":\"text\",\"text\":\"T03_STDOUT_CONFIRMED\\n\\n[Execution status: completed, exit_code: 0]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,15 +10,15 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.main.t14",
+      "recipe": "sys.block1.main.t165",
       "as": "json-string"
     },
     "}],\"tools\":",
     {
-      "recipe": "tools.anthropic.main",
+      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
       "as": "raw"
     },
     "}"
   ],
-  "canonicalSha256": "ad8510443393d896c1432ecba807dabfbb7cea0a7c04a28a7ebf47dea3e788ad"
+  "canonicalSha256": "4ed42c6ccc104f93b0ed88ca0286da691724979a1b4ace171db53a1bbdf3c01b"
 }

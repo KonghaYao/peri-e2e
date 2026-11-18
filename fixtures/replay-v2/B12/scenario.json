@@ -36,12 +36,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qkRh0Z",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qkRh0Z/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qkRh0Z/work"
+    "root": "/tmp/peri-wire-e2e-X2nDUP",
+    "home": "/tmp/peri-wire-e2e-X2nDUP/home",
+    "work": "/tmp/peri-wire-e2e-X2nDUP/work"
   },
   "recordedSessionIds": {
-    "root": "01a1eccc-1217-7e32-a473-41175f45d25f"
+    "root": "01a1eddb-b303-7451-a0de-48f0ee8eb847"
   },
   "configurationFingerprint": "1199e570291b46eea1f7fdeb8febac877fe6ff8384363528be29d8350f26debc",
   "bindings": [
@@ -49,21 +49,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qkRh0Z",
+      "recorded": "/tmp/peri-wire-e2e-X2nDUP",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qkRh0Z/home",
+      "recorded": "/tmp/peri-wire-e2e-X2nDUP/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qkRh0Z/work",
+      "recorded": "/tmp/peri-wire-e2e-X2nDUP/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -77,35 +77,35 @@
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "macos",
+      "recorded": "linux",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "macOS 26.5.1",
+      "recorded": "Ubuntu 24.04.5 LTS",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1eccc-1217-7e32-a473-41175f45d25f",
+      "recorded": "01a1eddb-b303-7451-a0de-48f0ee8eb847",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "thread",
       "alias": "child-worker",
-      "recorded": "01a1eccc-176a-7972-b829-694e1a2d7fdb",
+      "recorded": "01a1eddb-b8f3-7933-ba0b-355232c55ce0",
       "anchor": "created child worker"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "task-B12-spawn",
-      "recorded": "bg-01a1eccc-176a-7972-b829-695b0f3eae1b",
+      "recorded": "bg-01a1eddb-b8f3-7933-ba0b-35687b1107b4",
       "anchor": "Agent background receipt B12-spawn"
     }
   ],
