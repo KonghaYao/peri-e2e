@@ -1,0 +1,116 @@
+{
+  "version": 2,
+  "id": "P01",
+  "title": "选择插件后按需加载 dynamic HTTP MCP，业务工具返回真实结果并在后续轮次复用连接",
+  "provenance": {
+    "source": "local-fixture-model",
+    "realLlm": false
+  },
+  "sessionNames": [
+    "root"
+  ],
+  "seed": {
+    "directories": [
+      "home",
+      "home/.claude",
+      "home/.claude/plugins",
+      "home/.claude/plugins/cache",
+      "home/.claude/plugins/cache/fixture-marketplace",
+      "home/.claude/plugins/cache/fixture-marketplace/fixture-plugin",
+      "home/.claude/plugins/cache/fixture-marketplace/fixture-plugin/1.0.0",
+      "home/.claude/plugins/cache/fixture-marketplace/fixture-plugin/1.0.0/.claude-plugin",
+      "home/.peri",
+      "home/runtime",
+      "home/state",
+      "home/tmp",
+      "work"
+    ],
+    "files": [
+      {
+        "path": "home/.claude/plugins/cache/fixture-marketplace/fixture-plugin/1.0.0/.claude-plugin/plugin.json",
+        "sha256": "2867a369403b67837972f3d91ececfc31b149b54e6050d254ddf6329077be50f",
+        "size": 168,
+        "mode": 420
+      },
+      {
+        "path": "home/.claude/plugins/installed_plugins.json",
+        "sha256": "030687bccda0dc49d169c56455629b4196dc7c90c3dbc0268033b993317a19bb",
+        "size": 275,
+        "mode": 420
+      },
+      {
+        "path": "home/.claude/settings.json",
+        "sha256": "0d2646ab43e7692819e75fb768a6e8b691e623fccafe0df96c6fde22cff05a58",
+        "size": 57,
+        "mode": 420
+      },
+      {
+        "path": "home/.peri/settings.json",
+        "sha256": "bf0303d1d85e9be8a95ae762af78670b6f8e75a8b649cc60ccae34f043272ff9",
+        "size": 585,
+        "mode": 384
+      }
+    ]
+  },
+  "recordedWorld": {
+    "root": "/tmp/peri-wire-e2e-lDlsJx",
+    "home": "/tmp/peri-wire-e2e-lDlsJx/home",
+    "work": "/tmp/peri-wire-e2e-lDlsJx/work"
+  },
+  "recordedSessionIds": {
+    "root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+  },
+  "configurationFingerprint": "e6c7e94568037f1bbfe1e46aa4e859b39234ed218da106b92c5ca5cba8c79491",
+  "bindings": [
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "root",
+      "recorded": "/tmp/peri-wire-e2e-lDlsJx",
+      "anchor": "isolated scenario root"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "home",
+      "recorded": "/tmp/peri-wire-e2e-lDlsJx/home",
+      "anchor": "isolated scenario home"
+    },
+    {
+      "owner": "world",
+      "kind": "path",
+      "alias": "work",
+      "recorded": "/tmp/peri-wire-e2e-lDlsJx/work",
+      "anchor": "isolated scenario work"
+    },
+    {
+      "owner": "world",
+      "kind": "date",
+      "alias": "today",
+      "recorded": "2026-11-18",
+      "anchor": "ambient UTC date in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "platform",
+      "alias": "platform",
+      "recorded": "linux",
+      "anchor": "ambient OS platform in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "os_version",
+      "alias": "os_version",
+      "recorded": "Ubuntu 24.04.5 LTS",
+      "anchor": "ambient OS version in system environment"
+    },
+    {
+      "owner": "world",
+      "kind": "session",
+      "alias": "root",
+      "recorded": "01a1eea5-5d0f-7e42-aac1-2079fc1de354",
+      "anchor": "ACP session/new result"
+    }
+  ],
+  "portableResponses": []
+}

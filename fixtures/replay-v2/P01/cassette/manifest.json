@@ -1,0 +1,747 @@
+{
+  "formatVersion": 2,
+  "kind": "raw-http",
+  "provenance": {
+    "source": "local-fixture-model",
+    "realLlm": false,
+    "scenario": "P01"
+  },
+  "entries": [
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "business",
+        "call": "reason:1",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/baf35c602f3bd92d205ca5beb2d89156a560b3620b7eae2338eaa8f430451236.stub.json"
+      },
+      "response": {
+        "file": "responses/baf35c602f3bd92d205ca5beb2d89156a560b3620b7eae2338eaa8f430451236.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 885,
+            "atMs": 32.989758999999935,
+            "sha256": "1f523e7e96c4f8bb7eaf55641bf6c9f4c489e557d89bc8cab773cd5fefce0020"
+          }
+        ],
+        "size": 885,
+        "submittedBytes": 885,
+        "sha256": "1f523e7e96c4f8bb7eaf55641bf6c9f4c489e557d89bc8cab773cd5fefce0020",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 34.17571499999997
+        },
+        "headersAtMs": 32.40342599999997,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "business",
+        "call": "reason:2",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/aa781878f5debf2b5a7672d0b0171c92460dea2bd9a23c02f14d2ffe6fb4bf23.stub.json"
+      },
+      "response": {
+        "file": "responses/aa781878f5debf2b5a7672d0b0171c92460dea2bd9a23c02f14d2ffe6fb4bf23.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 894,
+            "atMs": 13.346035000000029,
+            "sha256": "9735c6d36026233f55c0ac522e0dbac882b122730747952e9c520072def149b1"
+          }
+        ],
+        "size": 894,
+        "submittedBytes": 894,
+        "sha256": "9735c6d36026233f55c0ac522e0dbac882b122730747952e9c520072def149b1",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 13.821246999999971
+        },
+        "headersAtMs": 13.141894999999977,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "business",
+        "call": "reason:3",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/4e2c3c2139b4d8f4de95a9ba0278376309366e40ed40489cd96788526cc3fe35.stub.json"
+      },
+      "response": {
+        "file": "responses/4e2c3c2139b4d8f4de95a9ba0278376309366e40ed40489cd96788526cc3fe35.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 874,
+            "atMs": 11.76601699999992,
+            "sha256": "5fb6b7b31284fd334ba618bf33e681838c9225d3240246cd7ba159708134c0f9"
+          }
+        ],
+        "size": 874,
+        "submittedBytes": 874,
+        "sha256": "5fb6b7b31284fd334ba618bf33e681838c9225d3240246cd7ba159708134c0f9",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 12.178906999999981
+        },
+        "headersAtMs": 11.596754999999916,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "business",
+        "call": "reason:4",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/575e1dd1de26363968e2105e90df8294980ef620bf4e53787117040ad8c9d23f.stub.json"
+      },
+      "response": {
+        "file": "responses/575e1dd1de26363968e2105e90df8294980ef620bf4e53787117040ad8c9d23f.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 910,
+            "atMs": 8.067773000000102,
+            "sha256": "8e4cff90584a0036bc25946da431e2618877f0cce2bf43e4a116dc227d5c70bc"
+          }
+        ],
+        "size": 910,
+        "submittedBytes": 910,
+        "sha256": "8e4cff90584a0036bc25946da431e2618877f0cce2bf43e4a116dc227d5c70bc",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 8.387622000000079
+        },
+        "headersAtMs": 7.921913000000018,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "business",
+        "call": "reason:5",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/1a68ee6b2c9ac2d83c1451840ada900adcfb2c3df5b138ce08a89471daeec7db.stub.json"
+      },
+      "response": {
+        "file": "responses/1a68ee6b2c9ac2d83c1451840ada900adcfb2c3df5b138ce08a89471daeec7db.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 760,
+            "atMs": 8.9722569999999,
+            "sha256": "a52991bb5c20c0b06eb6da128ff96dcd7b337b4c19009811f875761bf2239c32"
+          }
+        ],
+        "size": 760,
+        "submittedBytes": 760,
+        "sha256": "a52991bb5c20c0b06eb6da128ff96dcd7b337b4c19009811f875761bf2239c32",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 9.191769000000022
+        },
+        "headersAtMs": 8.87760400000002,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "reuse",
+        "call": "reason:1",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/441260cbbb7d97eaf915aacfb1676b857eec764130f2e479acffd1096d3f7d8a.stub.json"
+      },
+      "response": {
+        "file": "responses/441260cbbb7d97eaf915aacfb1676b857eec764130f2e479acffd1096d3f7d8a.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 886,
+            "atMs": 8.502516000000014,
+            "sha256": "2a08141996dd7861236b419fa21e7050043eaa4eedcd6e9cf9aaa8fa2fa9d895"
+          }
+        ],
+        "size": 886,
+        "submittedBytes": 886,
+        "sha256": "2a08141996dd7861236b419fa21e7050043eaa4eedcd6e9cf9aaa8fa2fa9d895",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 8.733144000000038
+        },
+        "headersAtMs": 8.398521999999957,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "reuse",
+        "call": "reason:2",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/8b75153e29f6e7dc656a17fe68e0a14734ff8801fe7989f81b208b991035f42a.stub.json"
+      },
+      "response": {
+        "file": "responses/8b75153e29f6e7dc656a17fe68e0a14734ff8801fe7989f81b208b991035f42a.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 923,
+            "atMs": 7.661142000000154,
+            "sha256": "f0833fc0785068f6fdb960bbbc5fbfbd6e12d7e1becadd80e53b7cd746aa8e21"
+          }
+        ],
+        "size": 923,
+        "submittedBytes": 923,
+        "sha256": "f0833fc0785068f6fdb960bbbc5fbfbd6e12d7e1becadd80e53b7cd746aa8e21",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 7.918476000000055
+        },
+        "headersAtMs": 7.566041000000041,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "reuse",
+        "call": "reason:3",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "requestRules": [
+        {
+          "path": "/system/1/text",
+          "mode": "typed-template",
+          "systemText": true,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            },
+            {
+              "kind": "platform",
+              "alias": "platform"
+            },
+            {
+              "kind": "os_version",
+              "alias": "os_version"
+            },
+            {
+              "kind": "date",
+              "alias": "today"
+            },
+            {
+              "kind": "session",
+              "alias": "root"
+            }
+          ],
+          "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
+          "recorded": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-lDlsJx/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
+            "date:today": "2026-11-18",
+            "session:root": "01a1eea5-5d0f-7e42-aac1-2079fc1de354"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "target": "http://fixture-model.test/v1/messages",
+        "headers": {
+          "content-type": "application/json",
+          "anthropic-version": "2023-06-01",
+          "anthropic-beta": "prompt-caching-2024-07-31"
+        },
+        "stub": "requests/0559a0a620d662a8d658e916a4b2f541bc19b73950e2e79659a6294d5c64a75f.stub.json"
+      },
+      "response": {
+        "file": "responses/0559a0a620d662a8d658e916a4b2f541bc19b73950e2e79659a6294d5c64a75f.bin",
+        "status": 200,
+        "headers": {
+          "content-type": "text/event-stream"
+        },
+        "chunks": [
+          {
+            "offset": 0,
+            "length": 754,
+            "atMs": 8.796264999999948,
+            "sha256": "23f91be316fa02f2c0c1e642916e1ae52510f52ad0286387890816d3d0cb65a1"
+          }
+        ],
+        "size": 754,
+        "submittedBytes": 754,
+        "sha256": "23f91be316fa02f2c0c1e642916e1ae52510f52ad0286387890816d3d0cb65a1",
+        "terminal": {
+          "kind": "complete",
+          "atMs": 9.026669000000084
+        },
+        "headersAtMs": 8.708237000000054,
+        "protocolFacts": {
+          "protocol": "anthropic",
+          "basis": "captured_body",
+          "terminalMarker": "seen",
+          "marker": "message_stop"
+        }
+      }
+    }
+  ]
+}
