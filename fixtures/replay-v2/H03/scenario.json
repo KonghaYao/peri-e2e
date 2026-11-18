@@ -34,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-mrcsGo",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-mrcsGo/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-mrcsGo/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-miMWHp",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-miMWHp/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-miMWHp/work"
   },
   "recordedSessionIds": {
-    "root": "01a1eccc-edd0-7ec1-8e57-7e403d98ffb7"
+    "root": "01a1edba-cf0b-7ea3-90be-349d7ae2c629"
   },
   "configurationFingerprint": "2c97cabc6bd67b851d822b288ea85df691282092a645425332048efde2bfbdee",
   "bindings": [
@@ -47,21 +47,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-mrcsGo",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-miMWHp",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-mrcsGo/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-miMWHp/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-mrcsGo/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-miMWHp/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -89,35 +89,35 @@
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1eccc-edd0-7ec1-8e57-7e403d98ffb7",
+      "recorded": "01a1edba-cf0b-7ea3-90be-349d7ae2c629",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-h03",
-      "recorded": "mcp-01a1eccc-f318-7071-a439-8498d652a4a9",
+      "recorded": "mcp-01a1edba-d65a-71e0-87b1-b49999a52002",
       "anchor": "Bash tool receipt H03-bash"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-h03-remote",
-      "recorded": "shell-01a1eccc-f315-7370-aa70-82c7e363c399",
+      "recorded": "shell-01a1edba-d655-7080-ad87-89eb848e407a",
       "anchor": "MCP remote task linked to Bash tool H03-bash"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "shell-h03-stdout",
-      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-mrcsGo/home/tmp/peri-bg-shell-01a1eccc-f315-7370-aa70-82c7e363c399-a8f45b50-c597-4285-888d-c7de21e00d28-stdout.log",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-miMWHp/home/tmp/peri-bg-shell-01a1edba-d655-7080-ad87-89eb848e407a-f85fa27e-602a-48b0-a35b-d98ca984585c-stdout.log",
       "anchor": "terminal stdout reference for H03-bash"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "shell-h03-stderr",
-      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-mrcsGo/home/tmp/peri-bg-shell-01a1eccc-f315-7370-aa70-82c7e363c399-e3a03487-21cc-468e-8f37-ca766eed02d9-stderr.log",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-miMWHp/home/tmp/peri-bg-shell-01a1edba-d655-7080-ad87-89eb848e407a-091634c4-7e2e-45f4-86ab-b0b534f3065a-stderr.log",
       "anchor": "terminal stderr reference for H03-bash"
     }
   ],
@@ -150,7 +150,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "008f718eea36b87d6ea3d035f1e839ffa3caccac8bc1f91fbc9e96ce18ee651e"
+      "sourceSha256": "89a8fabe6369ca65b4593164a167ac622f2c97946de0a6f2f8b10980e486d5a3"
     },
     {
       "identity": {
@@ -180,7 +180,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "90b6b4f0b3b2fbf90000c8bd653988fe3e9737b1b4a30b87a96f8b89623a8e81"
+      "sourceSha256": "409db9fc949ab2e07412bfd33f9c58f02ee46f3880cae572a968122131e74ae5"
     }
   ]
 }

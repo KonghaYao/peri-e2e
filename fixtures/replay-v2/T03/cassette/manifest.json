@@ -19,6 +19,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -43,11 +44,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-cy6Kuq/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b607-84cc-7ce1-9d0f-edaaddd7c589"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qRUU5T/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edb9-eac4-7041-ba85-1c35b5ec8873"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qRUU5T/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edb9-eac4-7041-ba85-1c35b5ec8873"
           }
         }
       ],
@@ -71,7 +79,7 @@
           {
             "offset": 0,
             "length": 893,
-            "atMs": 8.810656000000108,
+            "atMs": 14.737875000000713,
             "sha256": "8cf222b90ab23e9a200800562ba1a9451d20f89fb702b900e232180e26c87d9d"
           }
         ],
@@ -80,9 +88,9 @@
         "sha256": "8cf222b90ab23e9a200800562ba1a9451d20f89fb702b900e232180e26c87d9d",
         "terminal": {
           "kind": "complete",
-          "atMs": 9.06397700000025
+          "atMs": 14.909708000001046
         },
-        "headersAtMs": 8.671357000000171,
+        "headersAtMs": 14.649000000001251,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -103,6 +111,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -127,11 +136,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-cy6Kuq/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b607-84cc-7ce1-9d0f-edaaddd7c589"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qRUU5T/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edb9-eac4-7041-ba85-1c35b5ec8873"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qRUU5T/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edb9-eac4-7041-ba85-1c35b5ec8873"
           }
         }
       ],
@@ -155,7 +171,7 @@
           {
             "offset": 0,
             "length": 755,
-            "atMs": 8.739669000000049,
+            "atMs": 8.593249999999898,
             "sha256": "c06ff49e8dd6f7c73739913d9a5e30144fde06857e842787b3b4d2d187a60d40"
           }
         ],
@@ -164,9 +180,9 @@
         "sha256": "c06ff49e8dd6f7c73739913d9a5e30144fde06857e842787b3b4d2d187a60d40",
         "terminal": {
           "kind": "complete",
-          "atMs": 9.155322999999953
+          "atMs": 8.748499999999694
         },
-        "headersAtMs": 8.599138000000039,
+        "headersAtMs": 8.52337500000067,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",

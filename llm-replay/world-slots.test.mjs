@@ -51,6 +51,38 @@ test('slots 把 block0/block1/tools 映射到稳定 leaf 与 recipe，并逐字�
   assert.ok(stats.reusedRecipes.has('tools.anthropic.main'));
 });
 
+test('compact summary 复用 sys.compact.summary 稳定 leaf', () => {
+  const compact = 'CRITICAL: You are a conversation compression tool.';
+  const builder = fixture();
+  builder.addLeaf('sys.compact.summary', compact);
+  const { slots, stats } = createSlotResolver({ world: builder, builder });
+  const raw = Buffer.from(JSON.stringify({
+    model: 'fixture-model', max_tokens: 32000,
+    system: [{ type: 'text', text: compact }],
+    messages: [{ role: 'user', content: 'compact this' }],
+  }));
+  const stub = encodeRequestStub(raw, { world: builder, slots });
+  assert.ok(builder.renderParts(stub.parts).equals(raw));
+  assert.ok(stub.parts.some((part) => part?.leaf === 'sys.compact.summary'));
+  assert.equal(stats.addedLeaves.length, 0, 'compact prompt 不得写成内容寻址 leaf');
+});
+
+test('compact user prompt 复用 sys.compact.user 稳定 leaf', () => {
+  const compactUser = 'COMPACT USER: keep the small contract core.';
+  const builder = fixture();
+  builder.addLeaf('sys.compact.user', compactUser);
+  const { slots, stats } = createSlotResolver({ world: builder, builder });
+  const raw = Buffer.from(JSON.stringify({
+    model: 'fixture-model', max_tokens: 32000,
+    system: [{ type: 'text', text: BLOCK0 }],
+    messages: [{ role: 'user', content: [{ type: 'text', text: compactUser }] }],
+  }));
+  const stub = encodeRequestStub(raw, { world: builder, slots });
+  assert.ok(builder.renderParts(stub.parts).equals(raw));
+  assert.ok(stub.parts.some((part) => part?.leaf === 'sys.compact.user'));
+  assert.equal(stats.addedLeaves.length, 0, 'compact user prompt 不得写成内容寻址 leaf');
+});
+
 test('新 tail 分配确定性 recipe；相同内容再次出现时复用', () => {
   const builder = fixture();
   const { slots, stats } = createSlotResolver({ world: builder, builder });

@@ -4,7 +4,7 @@ import path from 'node:path';
 import { canonicalBody, canonicalJson, ReplayError, sha256 } from './matcher.mjs';
 import { createBindingRegistry } from './bindings.mjs';
 import { tokenBoundary } from './template-text.mjs';
-import { isSyncedWorldLeaf } from './world-mapping.mjs';
+import { isSyncedWorldLeaf, STABLE_LEAVES } from './world-mapping.mjs';
 
 export const WORLD_FORMAT_VERSION = 2;
 export const CASSETTE_FORMAT_VERSION = 2;
@@ -404,7 +404,7 @@ const member = (node, key) => {
   return undefined;
 };
 
-function collectWorldFields(root) {
+function collectWorldFields(root, world) {
   if (root.type !== 'object') return [];
   const fields = [];
   const system = member(root, 'system');
@@ -431,6 +431,27 @@ function collectWorldFields(root) {
           const text = member(block, 'text');
           if (text?.type === 'string') fields.push({ kind: 'responses', path: `/input/${index}/content/${part}/text`, text: text.value, start: text.start, end: text.end, as: 'json-string' });
         }
+      }
+    }
+  }
+  // compact user prompt 位于 messages，内容与 sys.compact.user 稳定 leaf 等值时
+  // 建立引用；其余消息文本保持字面量，避免把全部对话拆成 world leaf。
+  const messages = member(root, 'messages');
+  const compactUser = world?.leafBytes?.(STABLE_LEAVES.compactUser)?.toString('utf8');
+  if (messages?.type === 'array' && compactUser) {
+    for (const [index, message] of messages.items.entries()) {
+      const content = member(message, 'content');
+      const candidates = [];
+      if (content?.type === 'string') candidates.push([`/messages/${index}/content`, content]);
+      if (content?.type === 'array') {
+        for (const [part, block] of content.items.entries()) {
+          const text = member(block, 'text');
+          if (text?.type === 'string') candidates.push([`/messages/${index}/content/${part}/text`, text]);
+        }
+      }
+      for (const [path, text] of candidates) {
+        if (text.value !== compactUser) continue;
+        fields.push({ kind: 'compact-user', path, text: text.value, start: text.start, end: text.end, as: 'json-string' });
       }
     }
   }
@@ -503,7 +524,7 @@ export function encodeRequestStub(rawBytes, { world, slots } = {}) {
   if (root.unsafeNumber) return { ...base, legacy: true, reason: 'unsafe_number' };
   if (!world && !slots) return { ...base, parts: [text] };
   if (slots && (!world || typeof world.renderParts !== 'function')) fail('invalid_world_writer', 'slots 必须搭配可渲染的 world 以校验字节重建');
-  const fields = collectWorldFields(root);
+  const fields = collectWorldFields(root, world);
   if (!fields.length) return { ...base, parts: [text] };
   const parts = [];
   let cursor = 0;

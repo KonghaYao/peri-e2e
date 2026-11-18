@@ -28,12 +28,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-WHfuDe",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-WHfuDe/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-WHfuDe/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-82epWX",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-82epWX/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-82epWX/work"
   },
   "recordedSessionIds": {
-    "root": "01a1e73e-ede9-71b2-b890-3b2ba3358308"
+    "root": "01a1edbb-02db-7bf0-b9fc-cb3f38af3461"
   },
   "configurationFingerprint": "3fac21875b0f80ba67f980bc4b27389632f29bc255f4f76189147b1c86e3950a",
   "bindings": [
@@ -41,28 +41,28 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-WHfuDe",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-82epWX",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-WHfuDe/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-82epWX/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-WHfuDe/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-82epWX/work",
       "anchor": "isolated scenario work"
     },
     {
       "owner": "world",
       "kind": "date",
       "alias": "today",
-      "recorded": "2026-11-17",
+      "recorded": "2026-11-18",
       "anchor": "ambient UTC date in system environment"
     },
     {
@@ -83,35 +83,35 @@
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1e73e-ede9-71b2-b890-3b2ba3358308",
+      "recorded": "01a1edbb-02db-7bf0-b9fc-cb3f38af3461",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-h11",
-      "recorded": "mcp-01a1e73e-f358-72f0-a021-5a81ce54106d",
+      "recorded": "mcp-01a1edbb-08ba-7f43-840a-1b14c3a5d38d",
       "anchor": "Bash tool receipt H11-default"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-h11-remote",
-      "recorded": "shell-01a1e73e-f354-7303-b944-cbba9cf688a1",
+      "recorded": "shell-01a1edbb-08b6-7712-aba2-30d507eba682",
       "anchor": "MCP remote task linked to Bash tool H11-default"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "shell-h11-stdout",
-      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-WHfuDe/home/tmp/peri-bg-shell-01a1e73e-f354-7303-b944-cbba9cf688a1-c7962c24-eb73-46d7-b346-d372d40666fd-stdout.log",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-82epWX/home/tmp/peri-bg-shell-01a1edbb-08b6-7712-aba2-30d507eba682-5844e4a2-5f79-4646-9883-6d34606a96fc-stdout.log",
       "anchor": "terminal stdout reference for H11-default"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "shell-h11-stderr",
-      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-WHfuDe/home/tmp/peri-bg-shell-01a1e73e-f354-7303-b944-cbba9cf688a1-72debf44-0859-4fb3-852b-73d2410675f5-stderr.log",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-82epWX/home/tmp/peri-bg-shell-01a1edbb-08b6-7712-aba2-30d507eba682-19cfcda1-f7e9-4e60-95a6-1efe614fd9c7-stderr.log",
       "anchor": "terminal stderr reference for H11-default"
     }
   ],

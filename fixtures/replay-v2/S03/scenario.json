@@ -13,6 +13,9 @@
     "directories": [
       "home",
       "home/.peri",
+      "home/runtime",
+      "home/state",
+      "home/tmp",
       "work"
     ],
     "files": [
@@ -25,12 +28,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/tmp/peri-wire-e2e-8wQmOU",
-    "home": "/tmp/peri-wire-e2e-8wQmOU/home",
-    "work": "/tmp/peri-wire-e2e-8wQmOU/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-whoWXn",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-whoWXn/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-whoWXn/work"
   },
   "recordedSessionIds": {
-    "root": "01a1b607-4016-7e62-b26b-b77aca170b2d"
+    "root": "01a1edbb-a268-7311-a328-0a6f7d687eb2"
   },
   "configurationFingerprint": "064824d7e12ef51b5ca40a47f4501683b3a277a9366d51e5aa628281dc1f8081",
   "bindings": [
@@ -38,49 +41,49 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/tmp/peri-wire-e2e-8wQmOU",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-whoWXn",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/tmp/peri-wire-e2e-8wQmOU/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-whoWXn/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/tmp/peri-wire-e2e-8wQmOU/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-whoWXn/work",
       "anchor": "isolated scenario work"
     },
     {
       "owner": "world",
       "kind": "date",
       "alias": "today",
-      "recorded": "2026-11-07",
+      "recorded": "2026-11-18",
       "anchor": "ambient UTC date in system environment"
     },
     {
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "linux",
+      "recorded": "macos",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "Ubuntu 24.04.3 LTS",
+      "recorded": "macOS 26.5.1",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1b607-4016-7e62-b26b-b77aca170b2d",
+      "recorded": "01a1edbb-a268-7311-a328-0a6f7d687eb2",
       "anchor": "ACP session/new result"
     }
   ],

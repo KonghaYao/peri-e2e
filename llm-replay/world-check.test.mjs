@@ -8,7 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sha256 } from './matcher.mjs';
 import { loadWorld } from './world-store.mjs';
-import { COMPACT_USER_PLACEHOLDER, COMPACT_USER_TARGET_TOKENS, BASH_DESCRIPTION_PREFIX } from '../scripts/replay-world-sources.mjs';
+import { COMPACT_USER_PLACEHOLDER, COMPACT_USER_TARGET_TOKENS, BASH_DESCRIPTION_PREFIX, loadSourceLeaves } from '../scripts/replay-world-sources.mjs';
 
 const execute = promisify(execFile);
 const e2eRoot = fileURLToPath(new URL('..', import.meta.url));
@@ -169,9 +169,14 @@ async function syntheticPeriSource(t, worldDir, { block0 } = {}) {
 }
 
 test('手工改写未映射 leaf 并重封 world seal 时 world:check 非零且 stale', async (t) => {
-  const { world } = await fixture(t);
-  const id = 'sys.block1.main.t06.tail';
-  const original = await readFile(path.join(world, 'system/block1.main.t06.tail.txt'));
+  const { world, sealFile } = await fixture(t);
+  const seal = JSON.parse(await readFile(sealFile, 'utf8'));
+  const tail = Object.values(seal.requestMeta)
+    .flatMap((meta) => meta.worldRefs)
+    .find((ref) => /^sys\.block1\.main\.t\d+\.tail$/u.test(ref.id));
+  assert.ok(tail, 'S01 seal 必须引用一个 block1 tail');
+  const id = tail.id;
+  const original = await readFile(path.join(world, `system/${id.slice('sys.'.length)}.txt`));
   await rewriteLeaf(world, id, Buffer.concat([original, Buffer.from('\nTAMPERED\n')]));
 
   const { code, report } = await run(['--check', '--world', world]);
@@ -179,9 +184,7 @@ test('手工改写未映射 leaf 并重封 world seal 时 world:check 非零且 
   assert.equal(report.stale, true);
   assert.deepEqual(report.staleReasons, ['cassette_unmapped_drift']);
   assert.deepEqual(report.recorded.unmappedDrift, [id]);
-  assert.deepEqual(report.recorded.mappedDrift, [
-    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic', 'tools.Bash.anthropic',
-  ]);
+  assert.deepEqual(report.recorded.mappedDrift, []);
   assert.deepEqual(report.updated, []);
 });
 
@@ -196,9 +199,7 @@ test('block0 与源不等值时 world:check 判 stale，同步后只报告源等
   assert.equal(before.code, 1);
   assert.deepEqual(before.report.updated, ['sys.block0.main']);
   assert.deepEqual(before.report.staleReasons, ['source_not_synced']);
-  assert.deepEqual(before.report.recorded.mappedDrift, [
-    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic', 'tools.Bash.anthropic',
-  ]);
+  assert.deepEqual(before.report.recorded.mappedDrift, ['sys.block0.main']);
   assert.deepEqual(before.report.recorded.unanchoredDrift, ['sys.block0.main']);
   assert.equal(before.report.recorded.requiresRerecord, true);
 
@@ -209,12 +210,8 @@ test('block0 与源不等值时 world:check 判 stale，同步后只报告源等
   const after = await run(['--check', '--world', world, '--peri-root', source]);
   assert.equal(after.code, 0);
   assert.equal(after.report.stale, false);
-  assert.deepEqual(after.report.recorded.mappedDrift, [
-    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic', 'tools.Bash.anthropic',
-  ]);
-  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, [
-    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic', 'tools.Bash.anthropic',
-  ]);
+  assert.deepEqual(after.report.recorded.mappedDrift, ['sys.block0.main']);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['sys.block0.main']);
   assert.deepEqual(after.report.recorded.unanchoredDrift, []);
   assert.equal(after.report.recorded.requiresRerecord, false);
 });
@@ -256,8 +253,8 @@ test('block1 prefix 源变化同步三个分类 leaf 与 seal，catalog 保持�
     'sys.block1.main.prefix', 'sys.block1.replay-worker.prefix', 'sys.block1.subagent.prefix',
   ]);
   assert.deepEqual(before.report.staleReasons, ['source_not_synced']);
-  assert.deepEqual(before.report.recorded.unanchoredDrift, ['sys.block1.main.prefix']);
-  assert.equal(before.report.recorded.requiresRerecord, true);
+  assert.deepEqual(before.report.recorded.unanchoredDrift, []);
+  assert.equal(before.report.recorded.requiresRerecord, false);
 
   const synced = await run(['--world', world, '--peri-root', source]);
   assert.equal(synced.code, 0);
@@ -290,9 +287,7 @@ test('block1 prefix 源变化同步三个分类 leaf 与 seal，catalog 保持�
   const check = await run(['--check', '--world', world, '--peri-root', source]);
   assert.equal(check.code, 0);
   assert.equal(check.report.stale, false);
-  assert.deepEqual(check.report.recorded.sourceAnchoredDrift, [
-    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic', 'tools.Bash.anthropic',
-  ]);
+  assert.deepEqual(check.report.recorded.sourceAnchoredDrift, ['sys.block1.main.prefix']);
   assert.deepEqual(check.report.recorded.unanchoredDrift, []);
   assert.equal(check.report.recorded.requiresRerecord, false);
 });
@@ -376,12 +371,8 @@ test('mapped sys.skills 经 world:sync 后只报告待重录，不判为未映�
   assert.equal(after.code, 0);
   assert.equal(after.report.stale, false);
   assert.deepEqual(after.report.staleReasons, []);
-  assert.deepEqual(after.report.recorded.mappedDrift, [
-    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic', 'tools.Bash.anthropic',
-  ]);
-  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, [
-    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic', 'tools.Bash.anthropic',
-  ]);
+  assert.deepEqual(after.report.recorded.mappedDrift, ['sys.skills']);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['sys.skills']);
   assert.deepEqual(after.report.recorded.unmappedDrift, []);
   assert.equal(after.report.recorded.requiresRerecord, false);
 });
@@ -420,17 +411,14 @@ test('Agent description 正常源同步后 world:check 通过且不要求重录'
   const after = await run(['--check', '--world', world, '--peri-root', periRoot]);
   assert.equal(after.code, 0);
   assert.equal(after.report.stale, false);
-  // 当前 cassette 只录制了 Anthropic 请求，因此只有 anthropic leaf 出现在录制引用中。
-  assert.deepEqual(after.report.recorded.mappedDrift, [
-    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic', 'tools.Bash.anthropic',
-  ]);
-  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, [
-    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic', 'tools.Bash.anthropic',
-  ]);
+  // 当前 cassette 的工具声明使用内容寻址 leaf，不再引用 tools.Agent.*；
+  // 源同步本身仍必须更新 leaf 且不要求重录。
+  assert.deepEqual(after.report.recorded.mappedDrift, []);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, []);
   assert.equal(after.report.recorded.requiresRerecord, false);
 });
 
-test('篡改 tools.Bash.* 非管理字段时 world:check 失败，description 源同步后通过', async (t) => {
+test('篡改 tools.Bash.* 非管理字段时源码锚定拒绝，description 源同步后通过', async (t) => {
   const { world } = await fixture(t);
   const periRoot = await syntheticPeriSource(t, world);
   const id = 'tools.Bash.anthropic';
@@ -438,10 +426,8 @@ test('篡改 tools.Bash.* 非管理字段时 world:check 失败，description �
   const original = JSON.parse(await readFile(leafFile, 'utf8'));
 
   await rewriteLeaf(world, id, JSON.stringify({ ...original, name: 'BashTampered' }));
-  const tampered = await run(['--check', '--world', world, '--peri-root', periRoot]);
-  assert.equal(tampered.code, 1);
-  assert.equal(tampered.report, null);
-  assert.match(tampered.stderr, new RegExp(`${id}: name/schema 等非管理字段与录制模板不一致`, 'u'));
+  const loaded = await loadWorld(world);
+  await assert.rejects(() => loadSourceLeaves(loaded, periRoot), /Bash/);
 
   await rewriteLeaf(world, id, JSON.stringify(original));
   const bashSource = path.join(periRoot, 'mcp-packages/workspace/src/descriptions/bash.md');
@@ -462,6 +448,6 @@ test('篡改 tools.Bash.* 非管理字段时 world:check 失败，description �
   const after = await run(['--check', '--world', world, '--peri-root', periRoot]);
   assert.equal(after.code, 0);
   assert.equal(after.report.stale, false);
-  assert.ok(after.report.recorded.sourceAnchoredDrift.includes('tools.Bash.anthropic'));
+  assert.deepEqual(after.report.recorded.mappedDrift, []);
   assert.equal(after.report.recorded.requiresRerecord, false);
 });

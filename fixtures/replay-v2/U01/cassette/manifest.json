@@ -19,6 +19,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -43,11 +44,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-tJGqJB/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b606-ee73-7a32-8a7a-b961dffe4046"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-34VQbU/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edbd-6281-7d02-851d-4834caa79e96"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-34VQbU/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edbd-6281-7d02-851d-4834caa79e96"
           }
         }
       ],
@@ -71,7 +79,7 @@
           {
             "offset": 0,
             "length": 725,
-            "atMs": 12.688321000000087,
+            "atMs": 11.931333999999879,
             "sha256": "10bf17c2a0051fcb592f88b8af7778c855ca7610532ff9e906f0db9205ae769e"
           }
         ],
@@ -80,9 +88,9 @@
         "sha256": "10bf17c2a0051fcb592f88b8af7778c855ca7610532ff9e906f0db9205ae769e",
         "terminal": {
           "kind": "complete",
-          "atMs": 13.578839000000016
+          "atMs": 12.172499999999673
         },
-        "headersAtMs": 12.490043000000014,
+        "headersAtMs": 11.80291699999998,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -103,6 +111,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -127,11 +136,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-tJGqJB/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b606-ee73-7a32-8a7a-b961dffe4046"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-34VQbU/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edbd-6281-7d02-851d-4834caa79e96"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-34VQbU/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edbd-6281-7d02-851d-4834caa79e96"
           }
         }
       ],
@@ -155,7 +171,7 @@
           {
             "offset": 0,
             "length": 721,
-            "atMs": 30.009080999999924,
+            "atMs": 18.648290999999972,
             "sha256": "442855222bfdc0a48ffd714a37f8bc8742eb76a0facd85ff1e5092e81d21732c"
           }
         ],
@@ -164,9 +180,9 @@
         "sha256": "442855222bfdc0a48ffd714a37f8bc8742eb76a0facd85ff1e5092e81d21732c",
         "terminal": {
           "kind": "complete",
-          "atMs": 31.57989099999986
+          "atMs": 19.16170800000009
         },
-        "headersAtMs": 29.290121,
+        "headersAtMs": 18.41408300000012,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",

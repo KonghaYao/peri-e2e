@@ -19,6 +19,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -43,11 +44,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-b0hOst/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b607-54bd-7fc1-ab1b-dbf1ab60f97f"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-XpX0Al/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edbb-be90-77c2-87b8-c4a38d4c77ec"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-XpX0Al/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edbb-be90-77c2-87b8-c4a38d4c77ec"
           }
         }
       ],
@@ -71,7 +79,7 @@
           {
             "offset": 0,
             "length": 67,
-            "atMs": 8.017334999999548,
+            "atMs": 11.967749999999796,
             "sha256": "39b82a06b258f08d5cc74112144114ac8f24c687589e37b11f14169ceeb20b31"
           }
         ],
@@ -80,9 +88,9 @@
         "sha256": "39b82a06b258f08d5cc74112144114ac8f24c687589e37b11f14169ceeb20b31",
         "terminal": {
           "kind": "complete",
-          "atMs": 8.22791099999995
+          "atMs": 12.144667000000481
         },
-        "headersAtMs": 7.9091520000001765,
+        "headersAtMs": 11.927209000001312,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -102,6 +110,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -126,11 +135,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-b0hOst/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b607-54bd-7fc1-ab1b-dbf1ab60f97f"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-XpX0Al/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edbb-be90-77c2-87b8-c4a38d4c77ec"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-XpX0Al/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edbb-be90-77c2-87b8-c4a38d4c77ec"
           }
         }
       ],
@@ -154,7 +170,7 @@
           {
             "offset": 0,
             "length": 753,
-            "atMs": 6.868699000000561,
+            "atMs": 8.609667000000627,
             "sha256": "fda9ba0548253ca53b40ad0297efbc16c955c2d95348d2fb52c98f359d52ac8f"
           }
         ],
@@ -163,9 +179,9 @@
         "sha256": "fda9ba0548253ca53b40ad0297efbc16c955c2d95348d2fb52c98f359d52ac8f",
         "terminal": {
           "kind": "complete",
-          "atMs": 7.176742000000559
+          "atMs": 8.749500000001717
         },
-        "headersAtMs": 6.464120999999977,
+        "headersAtMs": 8.360749999999825,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",

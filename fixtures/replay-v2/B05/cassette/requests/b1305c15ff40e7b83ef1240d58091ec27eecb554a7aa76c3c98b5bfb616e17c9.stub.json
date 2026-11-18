@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 70734,
-  "rawSha256": "d1d5768e0357519babb38ff1965997098a5ee55e2ebd4a6e4203258e1020d456",
+  "rawBytes": 70953,
+  "rawSha256": "922da7409e90990e557067dadfeccddc0afe76bdb8386e9130beac9dba591cc9",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B05_EXPECT_MODEL_FAILURE\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,15 +10,15 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.subagent.t38",
+      "recipe": "sys.block1.subagent.t57",
       "as": "json-string"
     },
     "}],\"tools\":",
     {
-      "recipe": "tools.anthropic.sub",
+      "leaf": "tools.sha256.87383f89ea2ca7125f427ae936e09efe86da4ce2fd4e1bc77ae18157525a9331",
       "as": "raw"
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "0c86705674577e5145e3b4fb75acfb9ea0289b3e60c64b756a6cf661e614d4e8"
+  "canonicalSha256": "9dc5420e51c2672f629194f515bd90ffade82155b55a65a2a97b2f29ed05ef8a"
 }

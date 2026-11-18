@@ -19,6 +19,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -43,11 +44,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-KISVPS/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b607-c3f4-7201-b6e5-644977230632"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DshbRa/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edbd-fdf7-7c40-adbe-50764d8d52ca"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DshbRa/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edbd-fdf7-7c40-adbe-50764d8d52ca"
           }
         }
       ],
@@ -71,7 +79,7 @@
           {
             "offset": 0,
             "length": 1330,
-            "atMs": 10.375726999999642,
+            "atMs": 17.991500000000087,
             "sha256": "5eb5ff8180090ec8c7c652d26407724812a3d2b235a3b533a4880b9f728c063c"
           }
         ],
@@ -80,9 +88,9 @@
         "sha256": "5eb5ff8180090ec8c7c652d26407724812a3d2b235a3b533a4880b9f728c063c",
         "terminal": {
           "kind": "complete",
-          "atMs": 10.85124199999973
+          "atMs": 18.66899999999987
         },
-        "headersAtMs": 10.118281000000025,
+        "headersAtMs": 17.86408300000039,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -103,6 +111,7 @@
         {
           "path": "/system/1/text",
           "mode": "typed-template",
+          "systemText": true,
           "pattern": [
             {
               "kind": "path",
@@ -127,11 +136,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/tmp/peri-wire-e2e-KISVPS/work",
-            "platform:platform": "linux",
-            "os_version:os_version": "Ubuntu 24.04.3 LTS",
-            "date:today": "2026-11-07",
-            "session:root": "01a1b607-c3f4-7201-b6e5-644977230632"
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DshbRa/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edbd-fdf7-7c40-adbe-50764d8d52ca"
+          },
+          "live": {
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DshbRa/work",
+            "platform:platform": "macos",
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-18",
+            "session:root": "01a1edbd-fdf7-7c40-adbe-50764d8d52ca"
           }
         }
       ],
@@ -155,7 +171,7 @@
           {
             "offset": 0,
             "length": 725,
-            "atMs": 10.137749999999869,
+            "atMs": 10.860167000000729,
             "sha256": "b586fdf006735ae18c723af14c2fa3125f8c0cad797ef4545c4271d491f53194"
           }
         ],
@@ -164,9 +180,9 @@
         "sha256": "b586fdf006735ae18c723af14c2fa3125f8c0cad797ef4545c4271d491f53194",
         "terminal": {
           "kind": "complete",
-          "atMs": 10.881276999999955
+          "atMs": 11.137000000000626
         },
-        "headersAtMs": 9.979953000000023,
+        "headersAtMs": 10.747292000000016,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",

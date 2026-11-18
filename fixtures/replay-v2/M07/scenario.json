@@ -34,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-JhBUPB",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-JhBUPB/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-JhBUPB/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-APWJ1Y",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-APWJ1Y/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-APWJ1Y/work"
   },
   "recordedSessionIds": {
-    "root": "01a1ecc9-93bd-79f3-bfcf-1772511ec297"
+    "root": "01a1edb9-79cf-73c1-bf58-d17e5db6530d"
   },
   "configurationFingerprint": "05823e66fc62355f655c2b5bc44c944d208faa003acf3e492a1ed99b4fff7d84",
   "bindings": [
@@ -47,21 +47,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-JhBUPB",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-APWJ1Y",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-JhBUPB/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-APWJ1Y/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-JhBUPB/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-APWJ1Y/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -89,56 +89,56 @@
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1ecc9-93bd-79f3-bfcf-1772511ec297",
+      "recorded": "01a1edb9-79cf-73c1-bf58-d17e5db6530d",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m07-host",
-      "recorded": "mcp-01a1ecc9-9927-7e10-8725-b4d421528866",
+      "recorded": "mcp-01a1edb9-7f68-78a0-8dbb-044175ffb24e",
       "anchor": "monitor_start host receipt M07-start"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m07-raw",
-      "recorded": "monitor-01a1ecc9-9924-7f01-bca7-bada933c40e6",
+      "recorded": "monitor-01a1edb9-7f65-7040-a937-db3a8bcbde96",
       "anchor": "monitor_start raw receipt M07-start"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m07-event-1-ts",
-      "recorded": "2026-11-18T03:53:17.459816+00:00",
+      "recorded": "2026-11-18T08:15:19.542785+00:00",
       "anchor": "monitor M07-start event seq 1 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m07-M07-list-startedAt",
-      "recorded": "2026-11-18T03:53:17.348492+00:00",
+      "recorded": "2026-11-18T08:15:19.397282+00:00",
       "anchor": "monitor M07-start tool M07-list field /tasks/0/startedAt"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m07-M07-list-lastUpdatedAt",
-      "recorded": "2026-11-18T03:53:22.353916+00:00",
+      "recorded": "2026-11-18T08:15:24.404433+00:00",
       "anchor": "monitor M07-start tool M07-list field /tasks/0/lastUpdatedAt"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m07-M07-list-deadlineAt",
-      "recorded": "2026-11-18T03:53:22.348497+00:00",
+      "recorded": "2026-11-18T08:15:24.397288+00:00",
       "anchor": "monitor M07-start tool M07-list field /tasks/0/deadlineAt"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m07-M07-list-finishedAt",
-      "recorded": "2026-11-18T03:53:22.353916+00:00",
+      "recorded": "2026-11-18T08:15:24.404433+00:00",
       "anchor": "monitor M07-start tool M07-list field /tasks/0/finishedAt"
     }
   ],
@@ -176,7 +176,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "fa2c2b4b3035cbcd7a8065b0012ddd7656d0e4c35562a0c067028ec912f5313b"
+      "sourceSha256": "2751170610b351e04c4afbadefbcd9cb59ae10f3516c80b0a53a126f4a978e10"
     }
   ]
 }

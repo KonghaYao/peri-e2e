@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 98903,
-  "rawSha256": "43949e1d03829b98c3c97a825cab9883b91806c465e9930a88887afe68221d96",
+  "rawBytes": 103261,
+  "rawSha256": "74a140ad9bd308459903a46b7c65296b747802a93e37a3f3ba78da0642870e72",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"RUN_SINGLE_CHOICE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"single-question\",\"name\":\"AskUserQuestion\",\"input\":{\"questions\":[{\"header\":\"SINGLE_TARGET\",\"question\":\"Choose SINGLE_TARGET\",\"multiSelect\":false,\"options\":[{\"label\":\"Alpha\",\"description\":\"First option\"},{\"label\":\"Beta\",\"description\":\"Second option\"},{\"label\":\"Gamma\",\"description\":\"Third option\"}]}]}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"single-question\",\"tool_use_id\":\"single-question\",\"content\":[{\"type\":\"text\",\"text\":\"[问: SINGLE_TARGET]\\n回答: Beta\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,15 +10,15 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.main.t26",
+      "recipe": "sys.block1.main.t117",
       "as": "json-string"
     },
     "}],\"tools\":",
     {
-      "recipe": "tools.anthropic.main",
+      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
       "as": "raw"
     },
     "}"
   ],
-  "canonicalSha256": "15e995f63ceb6c09ac28f56c85a33c4633ca5774800eb547f4a6acf6282b020b"
+  "canonicalSha256": "3c21f228a6373401e7ef2bd1f56fc0ab80231f324e162a996b90996a1167a2d4"
 }

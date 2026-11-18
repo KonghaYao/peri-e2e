@@ -34,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HkNF9h",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HkNF9h/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HkNF9h/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YmhzjI",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YmhzjI/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YmhzjI/work"
   },
   "recordedSessionIds": {
-    "root": "01a1ecc8-e476-7602-b585-0b7960920b2c"
+    "root": "01a1edb8-c653-7400-bee9-9fa455cbd8e9"
   },
   "configurationFingerprint": "4acd360e3de64657fbbeda0ee021a2719cb018506f0721a51a4d4c7dc08a850f",
   "bindings": [
@@ -47,21 +47,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HkNF9h",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YmhzjI",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HkNF9h/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YmhzjI/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-HkNF9h/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YmhzjI/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -89,42 +89,42 @@
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1ecc8-e476-7602-b585-0b7960920b2c",
+      "recorded": "01a1edb8-c653-7400-bee9-9fa455cbd8e9",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m01-host",
-      "recorded": "mcp-01a1ecc8-ea95-70d2-9ec3-a9b691c8f16b",
+      "recorded": "mcp-01a1edb8-cc30-7550-9a4f-236e14d62934",
       "anchor": "monitor_start host receipt M01-start"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m01-raw",
-      "recorded": "monitor-01a1ecc8-ea92-73d2-b572-15657d6704ea",
+      "recorded": "monitor-01a1edb8-cc2d-7591-9863-dfcc31852d66",
       "anchor": "monitor_start raw receipt M01-start"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m01-event-1-ts",
-      "recorded": "2026-11-18T03:52:32.912809+00:00",
+      "recorded": "2026-11-18T08:14:33.767784+00:00",
       "anchor": "monitor M01-start event seq 1 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m01-event-2-ts",
-      "recorded": "2026-11-18T03:52:34.770773+00:00",
+      "recorded": "2026-11-18T08:14:35.598810+00:00",
       "anchor": "monitor M01-start event seq 2 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m01-event-3-ts",
-      "recorded": "2026-11-18T03:52:34.770812+00:00",
+      "recorded": "2026-11-18T08:14:35.598841+00:00",
       "anchor": "monitor M01-start event seq 3 capture timestamp"
     }
   ],
@@ -162,7 +162,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "0d360b1fe9a16eeecb23979630ea1145bfb015386ed9e784c2c299db9d5591fe"
+      "sourceSha256": "753472ef2bf5e2d99c7e46b0826a07015349cc45c2af2e06aaa7232fc8db3433"
     },
     {
       "identity": {
@@ -197,7 +197,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "fb032c2d25ec1a4c80f21580abd02e182c9ca85d698e9ddf6100c5e76a96ae3e"
+      "sourceSha256": "f4b9d9f095c6f29d3ec07bfb07f67656fc3e87d1062d74493a33d2fbd9abd121"
     }
   ]
 }

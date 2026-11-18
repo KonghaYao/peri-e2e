@@ -1,19 +1,19 @@
 {
   "v": 2,
-  "rawBytes": 98962,
-  "rawSha256": "7143439896d215fe25068d08c78c0ce7aa689c92eea282cf33e808b59c622911",
+  "rawBytes": 103320,
+  "rawSha256": "9c3f051ac107805a7642f71fc1284d682cef12cfe109ca258c90f7d72cc331cf",
   "parts": [
     "{\"model\":\"fixture-model\",\"input\":[{\"type\":\"message\",\"role\":\"developer\",\"content\":[{\"type\":\"input_text\",\"text\":",
     {
-      "recipe": "sys.responses.main.t11",
+      "leaf": "sys.sha256.47346c8d8ff6d2c7c2cd4453354bb8cd7725576d4d32e4341fc0a5fc992f5571",
       "as": "json-string"
     },
     "}]},{\"type\":\"message\",\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"S06_RESPONSES_WRITE\"}]},{\"type\":\"message\",\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]}],\"stream\":true,\"store\":false,\"include\":[\"reasoning.encrypted_content\"],\"tools\":",
     {
-      "recipe": "tools.responses.main",
+      "leaf": "tools.sha256.6ed14ff697dea1fd9f94190b7f8f9272de488bdc4de74cede9d8df1b842c9daa",
       "as": "raw"
     },
     ",\"tool_choice\":\"auto\",\"reasoning\":{\"effort\":\"medium\",\"summary\":\"auto\"},\"max_output_tokens\":32000}"
   ],
-  "canonicalSha256": "4f28c36fb537a8cbf5ca3c818c455172ecab81c83cf39c57f04b2c4857a4e327"
+  "canonicalSha256": "f6684759d16802fb46fb2cf62750bae7302aa26d2e33ce0698c77cbd87032a5a"
 }

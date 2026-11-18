@@ -34,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MK53HJ",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MK53HJ/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MK53HJ/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-iLFKI8",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-iLFKI8/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-iLFKI8/work"
   },
   "recordedSessionIds": {
-    "root": "01a1eccd-43ed-7c50-8aa5-5c0bac19efc7"
+    "root": "01a1edba-3cd9-7353-ad4f-7aac1b11d437"
   },
   "configurationFingerprint": "34423444bf3f901658b5a0116adb5e64ddc320f63750dbb251e747b4e4f50a79",
   "bindings": [
@@ -47,21 +47,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MK53HJ",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-iLFKI8",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MK53HJ/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-iLFKI8/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MK53HJ/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-iLFKI8/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -89,70 +89,70 @@
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1eccd-43ed-7c50-8aa5-5c0bac19efc7",
+      "recorded": "01a1edba-3cd9-7353-ad4f-7aac1b11d437",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m03-host",
-      "recorded": "mcp-01a1eccd-495a-7b22-b74a-0254c4bcb261",
+      "recorded": "mcp-01a1edba-430e-7f41-bf61-8be29bae5e0c",
       "anchor": "monitor_start host receipt M03-start"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m03-raw",
-      "recorded": "monitor-01a1eccd-4958-73c2-9c49-de61d261ab2b",
+      "recorded": "monitor-01a1edba-4309-7fd0-8e98-6e5feb292692",
       "anchor": "monitor_start raw receipt M03-start"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-1-ts",
-      "recorded": "2026-11-18T03:57:19.197813+00:00",
+      "recorded": "2026-11-18T08:16:09.753755+00:00",
       "anchor": "monitor M03-start event seq 1 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-2-ts",
-      "recorded": "2026-11-18T03:57:19.197841+00:00",
+      "recorded": "2026-11-18T08:16:09.753798+00:00",
       "anchor": "monitor M03-start event seq 2 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-3-ts",
-      "recorded": "2026-11-18T03:57:19.197843+00:00",
+      "recorded": "2026-11-18T08:16:09.753923+00:00",
       "anchor": "monitor M03-start event seq 3 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-4-ts",
-      "recorded": "2026-11-18T03:57:19.197883+00:00",
+      "recorded": "2026-11-18T08:16:09.753934+00:00",
       "anchor": "monitor M03-start event seq 4 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-5-ts",
-      "recorded": "2026-11-18T03:57:19.197912+00:00",
+      "recorded": "2026-11-18T08:16:09.753935+00:00",
       "anchor": "monitor M03-start event seq 5 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-6-ts",
-      "recorded": "2026-11-18T03:57:19.197937+00:00",
+      "recorded": "2026-11-18T08:16:09.753950+00:00",
       "anchor": "monitor M03-start event seq 6 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m03-event-7-ts",
-      "recorded": "2026-11-18T03:57:19.197957+00:00",
+      "recorded": "2026-11-18T08:16:09.754046+00:00",
       "anchor": "monitor M03-start event seq 7 capture timestamp"
     }
   ],
@@ -190,7 +190,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "8e6ec454301a8eea672117c1ff0dd77eb1c239941aa6d2f728a7f840f178e41b"
+      "sourceSha256": "3e30c18103c13de172be9f4b43f973e655859c46cd2271cda9194b02dfd18925"
     },
     {
       "identity": {
@@ -225,7 +225,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "0bf1ea6662e289c2a145b421da5ee52be05cbc2daaad03eb6d609b15402fe703"
+      "sourceSha256": "8d8950b266868e172d480865e47f25b85a520135f3d623dcfc0d0beb57bd6209"
     },
     {
       "identity": {
@@ -260,7 +260,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "c938302dcaaba5c0de50dce02b78fac54c31877fac02e5fa4cfb445a4f59665e"
+      "sourceSha256": "8cfb24e1f3035893cf9a57b4bfe4f5a2c8f78bae15392da28b7c633e595e2f7e"
     },
     {
       "identity": {
@@ -295,7 +295,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "4dc8ab28c6ed47e46da3ee6cd7be6d2188c328afe2cc669433d8d48606964f16"
+      "sourceSha256": "7c65cde4a837c69483b1374abfe03aa260cdf5d962046d184905d8a4fa1186ea"
     }
   ]
 }

@@ -36,12 +36,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-7siIwD",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-7siIwD/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-7siIwD/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-gRGWjq",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-gRGWjq/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-gRGWjq/work"
   },
   "recordedSessionIds": {
-    "root": "01a1ecc9-f096-7ca1-9673-68eb58916ea1"
+    "root": "01a1edbc-cf28-7300-9aae-9d121daa2a01"
   },
   "configurationFingerprint": "1199e570291b46eea1f7fdeb8febac877fe6ff8384363528be29d8350f26debc",
   "bindings": [
@@ -49,21 +49,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-7siIwD",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-gRGWjq",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-7siIwD/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-gRGWjq/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-7siIwD/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-gRGWjq/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -91,28 +91,28 @@
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1ecc9-f096-7ca1-9673-68eb58916ea1",
+      "recorded": "01a1edbc-cf28-7300-9aae-9d121daa2a01",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "thread",
       "alias": "child-worker",
-      "recorded": "01a1ecc9-f60b-7611-8b3a-184b88217461",
+      "recorded": "01a1edbc-d4ab-7691-befb-2dde2a26b983",
       "anchor": "created child worker"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "task-B07-spawn",
-      "recorded": "bg-01a1ecc9-f60b-7611-8b3a-185bab43030c",
+      "recorded": "bg-01a1edbc-d4ab-7691-befb-2dee927707ba",
       "anchor": "Agent background receipt B07-spawn"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "task-B07-resume",
-      "recorded": "bg-01a1ecc9-f6f3-7b02-b176-6301d5d6fe1e",
+      "recorded": "bg-01a1edbc-d597-75b2-b977-678b82d08a56",
       "anchor": "Agent background receipt B07-resume"
     }
   ],
@@ -150,7 +150,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "d769452bcbd12c20f5f9414fa5125fbece60f35c6384c172f96c4e7367eb1261"
+      "sourceSha256": "c8f5c435e5d1d7df23170562a1287150c62701130b71061f66948be581ac0711"
     }
   ]
 }

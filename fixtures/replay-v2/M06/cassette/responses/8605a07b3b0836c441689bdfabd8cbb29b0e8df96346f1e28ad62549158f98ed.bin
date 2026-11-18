@@ -5,7 +5,7 @@ event: content_block_start
 data: {"type":"content_block_start","index":0,"content_block":{"type":"tool_use","id":"M06-read-empty","name":"ExecuteExtraTool","input":{}}}
 
 event: content_block_delta
-data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"tool_name\":\"mcp__peri__monitor_read\",\"params\":{\"task_id\":\"monitor-01a1ecc9-d2cb-7fb1-a61f-dfc7eb9284fd\",\"after_seq\":1}}"}}
+data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"tool_name\":\"mcp__peri__monitor_read\",\"params\":{\"task_id\":\"monitor-01a1edb9-bc48-79e2-b629-2c130e973579\",\"after_seq\":1}}"}}
 
 event: content_block_stop
 data: {"type":"content_block_stop","index":0}

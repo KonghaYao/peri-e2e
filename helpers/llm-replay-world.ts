@@ -141,10 +141,18 @@ export async function assertRecordedRefs(cassetteDir: string, world: any): Promi
     if (!refs.length) throw new Error(`${file}: recorded prompt stub has no world ref`);
     const first = Array.isArray(body.system) ? body.system[0]?.text : body.system;
     if (typeof first === "string") {
+      // system[0] 必须由某个被引用的 world leaf 逐字节支撑，不能是 stub 里的
+      // 字面量（否则 prompt 变更会扩散到全部请求文件）。主 Agent 引用 block0，
+      // compact 请求引用 compact summary，hook 等辅助请求允许内容寻址 leaf。
+      const anchored = refs.some((leaf) => {
+        const bytes = world.leafBytes(leaf);
+        return bytes && bytes.toString("utf8") === first;
+      });
+      if (!anchored) throw new Error(`${file}: system[0] is not anchored to a referenced world leaf`);
       const block0 = world.leafBytes("sys.block0.main");
-      if (!block0) throw new Error(`${file}: world has no sys.block0.main`);
-      if (first !== block0.toString("utf8")) throw new Error(`${file}: system[0] is not anchored to sys.block0.main`);
-      if (!refs.includes("sys.block0.main")) throw new Error(`${file}: system[0] must reference sys.block0.main, not a content-addressed leaf`);
+      if (refs.includes("sys.block0.main") && first !== block0?.toString("utf8")) {
+        throw new Error(`${file}: system[0] must be sys.block0.main when the request references it`);
+      }
     }
     refStubs += 1;
   }
