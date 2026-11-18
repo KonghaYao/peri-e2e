@@ -13,6 +13,8 @@
     "directories": [
       "home",
       "home/.peri",
+      "home/runtime",
+      "home/state",
       "home/tmp",
       "work"
     ],
@@ -32,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-NGjqso",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-NGjqso/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-NGjqso/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qqcbB0",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qqcbB0/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qqcbB0/work"
   },
   "recordedSessionIds": {
-    "root": "01a1c861-0da1-7d92-8e34-ff9566caf43d"
+    "root": "01a1ecc9-b818-7683-b1bd-a83a193cd174"
   },
   "configurationFingerprint": "22a7742efae3e3599cbd97045b615537969f83cede70802a03c0039a4c7b0944",
   "bindings": [
@@ -45,28 +47,28 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-NGjqso",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qqcbB0",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-NGjqso/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qqcbB0/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-NGjqso/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-qqcbB0/work",
       "anchor": "isolated scenario work"
     },
     {
       "owner": "world",
       "kind": "date",
       "alias": "today",
-      "recorded": "2026-11-11",
+      "recorded": "2026-11-18",
       "anchor": "ambient UTC date in system environment"
     },
     {
@@ -87,28 +89,28 @@
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1c861-0da1-7d92-8e34-ff9566caf43d",
+      "recorded": "01a1ecc9-b818-7683-b1bd-a83a193cd174",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m08-host",
-      "recorded": "mcp-01a1c861-0f55-7cd1-9333-9df02d80d6bd",
+      "recorded": "mcp-01a1ecc9-bde9-7bb1-b7cd-9e7e382309a2",
       "anchor": "monitor_start host receipt M08-start"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m08-raw",
-      "recorded": "monitor-01a1c861-0f52-7863-bb70-43c0c90fac14",
+      "recorded": "monitor-01a1ecc9-bde6-7df3-bfbb-0030d08c1128",
       "anchor": "monitor_start raw receipt M08-start"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m08-event-1-ts",
-      "recorded": "2026-11-11T02:12:46.663212+00:00",
+      "recorded": "2026-11-18T03:53:26.886170+00:00",
       "anchor": "monitor M08-start event seq 1 capture timestamp"
     }
   ],
@@ -146,7 +148,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "dfccc32dba8fcc24ea66f51cf6acdda85bd2a00de1b0431b9b7b2e05b74033d2"
+      "sourceSha256": "4ded152edc5145f3886a9bb892ae8d127bd17a6e2401b51e82e64fb9729e9e5f"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 65054,
-  "rawSha256": "6d1df964f823c2c1f811e120d341db172c7adf7a6594d511888ddfc7fd92c5b6",
+  "rawBytes": 71584,
+  "rawSha256": "1b331bce6b4a54006a15a594ea07489b955ee356a7e04942880e811c0ddbf25f",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B07_FIRST_RUN\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B07-first-write\",\"name\":\"Write\",\"input\":{\"content\":\"B07_FIRST_FILE\\n\",\"file_path\":\"b07-first.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B07-first-write\",\"tool_use_id\":\"B07-first-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b07-first.txt\\n[Execution status: completed]\"}],\"is_error\":false}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"B07_FIRST_CHILD_REPORT\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B07_RESUMED_RUN\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B07-child-read\",\"name\":\"Read\",\"input\":{\"file_path\":\"b07-first.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B07-child-read\",\"tool_use_id\":\"B07-child-read\",\"content\":[{\"type\":\"text\",\"text\":\"     1\\tB07_FIRST_FILE\\n     2\\t\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,7 +10,7 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.subagent.t13",
+      "recipe": "sys.block1.subagent.t28",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "e3895d05faf065533fe4ea910bdb3d0098f3132a671e94fc2752a92b36524d8b"
+  "canonicalSha256": "43c15bf448ab20460e875c88f95e4da613ebef78c865fa592beac8d186609da5"
 }
