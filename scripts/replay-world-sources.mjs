@@ -5,9 +5,9 @@
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { canonicalJson } from '../llm-replay/matcher.mjs';
-import { AGENT_LEAF_PREFIX, STABLE_LEAVES } from '../llm-replay/world-mapping.mjs';
+import { AGENT_LEAF_PREFIX, BLOCK1_PREFIX_LEAVES, STABLE_LEAVES } from '../llm-replay/world-mapping.mjs';
 
-export { AGENT_LEAF_PREFIX, STABLE_LEAVES };
+export { AGENT_LEAF_PREFIX, BLOCK1_PREFIX_LEAVES, STABLE_LEAVES };
 
 export const SOURCE_FILES = Object.freeze({
   skills: 'peri-acp/prompts/sections/13_skills.md',
@@ -65,6 +65,71 @@ export async function resolveSectionsDir(periRoot) {
     }
   }
   throw new Error(`Peri 源码缺少 prompt sections 目录，已尝试：${SECTION_DIR_CANDIDATES.join(', ')}`);
+}
+
+/**
+ * block1 prefix 的源码段与结构锚点。prefix = 07_runtime / 10_hitl /
+ * 11_subagent(catalog) / 12_ask_user，join 规则与 PromptTemplate::render 一致。
+ * 首句或标题变化会直接失败，避免把“段被替换/重排”误判成合法源漂移。
+ */
+export const BLOCK1_SECTIONS = Object.freeze([
+  Object.freeze({ id: '07_runtime', anchor: 'The environment values in the final environment block were captured at the start of the session;' }),
+  Object.freeze({ id: '10_hitl', anchor: '# Human-in-the-Loop (HITL) Approval Mode' }),
+  Object.freeze({ id: '11_subagent', anchor: '# SubAgent Delegation' }),
+  Object.freeze({ id: '12_ask_user', anchor: '# Asking the User (AskUserQuestion)' }),
+]);
+
+export const AVAILABLE_AGENTS_PLACEHOLDER = '{{available_agents}}';
+
+/**
+ * 动态段的固定模板：catalog 与 subagent persona 取自录制时的 wire 快照，
+ * 不属于 Peri 源码。模板必须逐字节固定，模板外的变化仍按录制内容校验。
+ */
+export const BLOCK1_PREFIX_TEMPLATES = Object.freeze({
+  [BLOCK1_PREFIX_LEAVES.main]: 'block1.main.catalog.txt',
+  [BLOCK1_PREFIX_LEAVES['replay-worker']]: 'block1.replay-worker.catalog.txt',
+  [BLOCK1_PREFIX_LEAVES.subagent]: 'block1.subagent.persona.txt',
+});
+
+const BLOCK1_PREFIX_TEMPLATE_DIR = new URL('../llm-replay/world-source-templates/', import.meta.url);
+
+async function loadBlock1PrefixTemplates() {
+  const templates = new Map();
+  for (const [id, file] of Object.entries(BLOCK1_PREFIX_TEMPLATES)) {
+    const source = await readFile(new URL(file, BLOCK1_PREFIX_TEMPLATE_DIR), 'utf8');
+    if (!source || source !== source.trim()) {
+      throw new Error(`${id}: 模板 ${file} 为空或首尾含空白，拒绝同步 block1 prefix`);
+    }
+    templates.set(id, source);
+  }
+  return templates;
+}
+
+/**
+ * 组合 block1 prefix。main / replay-worker 使用源码四个段落；subagent 只有
+ * persona（Agent 定义正文）与 07_runtime。分隔符固定为 `\n\n`，尾部保留到
+ * skills 的 join 分隔符，与 wire 上 `prefix + skills + tail` 的拆分边界一致。
+ */
+export function renderBlock1Prefix(cls, sections, templates) {
+  if (!Object.hasOwn(BLOCK1_PREFIX_LEAVES, cls)) throw new Error(`未知 block1 prefix 分类：${cls}`);
+  const runtime = sections.get('07_runtime');
+  if (cls === 'subagent') {
+    const persona = templates.get(BLOCK1_PREFIX_LEAVES.subagent);
+    if (!persona || persona.includes('\n')) throw new Error('subagent persona 模板必须是单行正文');
+    return `${persona}\n\n\n\n${runtime}\n\n`;
+  }
+  const subagentSection = sections.get('11_subagent');
+  const occurrences = subagentSection.split(AVAILABLE_AGENTS_PLACEHOLDER).length - 1;
+  if (occurrences !== 1) {
+    throw new Error(`11_subagent.md 必须恰好包含一个 ${AVAILABLE_AGENTS_PLACEHOLDER}，实际 ${occurrences} 个`);
+  }
+  const renderedSubagent = subagentSection.replace(
+    AVAILABLE_AGENTS_PLACEHOLDER,
+    templates.get(BLOCK1_PREFIX_LEAVES[cls]),
+  );
+  return [
+    runtime, sections.get('10_hitl'), renderedSubagent, sections.get('12_ask_user'),
+  ].join('\n\n') + '\n\n';
 }
 
 const sectionRelativePath = (id) => `peri-acp/prompts/sections/${id}.md`;
@@ -216,6 +281,15 @@ export async function loadSourceLeaves(world, periRoot) {
     readAgentSchema(periRoot),
   ]);
   const compactUser = renderCompactUserPrompt(compactUserSource);
+  const block1Sections = new Map(await Promise.all(
+    BLOCK1_SECTIONS.map(async ({ id, anchor }) => {
+      const text = await readFile(path.join(periRoot, sectionsDir, `${id}.md`), 'utf8');
+      if (!text.startsWith(anchor)) {
+        throw new Error(`block1 源段 ${id}.md 的首句/标题与固定布局不符，拒绝同步 prefix`);
+      }
+      return [id, text];
+    }),
+  ));
   for (const id of [STABLE_LEAVES.block0, STABLE_LEAVES.skills, STABLE_LEAVES.compactSummary, STABLE_LEAVES.compactUser]) {
     if (!world.hasLeaf(id)) throw new Error(`world 缺少稳定 leaf ${id}，无法映射对应源文件`);
   }
@@ -225,6 +299,13 @@ export async function loadSourceLeaves(world, periRoot) {
     [STABLE_LEAVES.compactSummary, Buffer.from(compactSummary, 'utf8')],
     [STABLE_LEAVES.compactUser, Buffer.from(compactUser, 'utf8')],
   ]);
+  for (const id of Object.values(BLOCK1_PREFIX_LEAVES)) {
+    if (!world.hasLeaf(id)) throw new Error(`world 缺少稳定 leaf ${id}，无法映射 block1 prefix`);
+  }
+  const block1Templates = await loadBlock1PrefixTemplates();
+  for (const cls of Object.keys(BLOCK1_PREFIX_LEAVES)) {
+    expected.set(BLOCK1_PREFIX_LEAVES[cls], Buffer.from(renderBlock1Prefix(cls, block1Sections, block1Templates), 'utf8'));
+  }
   const sendOnly = expectedSendOnly(agentSchema);
   const templates = await loadAgentToolTemplates();
   const leafIds = agentDescriptionLeafIds(world).sort();

@@ -74,7 +74,7 @@ function mappedBody() {
     system: [
       { type: 'text', text: 'STABLE SKILLS' },
       { type: 'text', text: 'STATIC BLOCK' },
-      { type: 'text', text: 'UNMAPPED PREFIX' },
+      { type: 'text', text: 'UNMAPPED TAIL' },
     ],
     messages: [{ role: 'user', content: 'same question' }],
   }));
@@ -84,7 +84,7 @@ const mappedSlots = (field) => (field.path === '/system/0/text'
   ? { leaf: 'sys.skills' }
   : field.path === '/system/1/text'
     ? { leaf: 'sys.block0.main' }
-    : field.path === '/system/2/text' ? { leaf: 'sys.block1.main.prefix' } : null);
+    : field.path === '/system/2/text' ? { leaf: 'sys.block1.main.t01.tail' } : null);
 
 async function recordMapped(t) {
   const directory = await temporary(t);
@@ -92,7 +92,7 @@ async function recordMapped(t) {
   const builder = createWorldBuilder({ generation: 'mapped' });
   builder.addLeaf('sys.skills', 'STABLE SKILLS');
   builder.addLeaf('sys.block0.main', 'STATIC BLOCK');
-  builder.addLeaf('sys.block1.main.prefix', 'UNMAPPED PREFIX');
+  builder.addLeaf('sys.block1.main.t01.tail', 'UNMAPPED TAIL');
   const body = mappedBody();
   const writer = await createCassetteWriter(cassetteDir, { world: builder, slots: mappedSlots, provenance: { source: 'test' } });
   const capture = await writer.begin(identity(), {
@@ -315,7 +315,7 @@ test('mapped leaf 更新报告 worldDrift，未映射 leaf 变化与 legacy 都�
   const seal = JSON.parse(await readFile(path.join(fixture.cassetteDir, 'seal.json'), 'utf8'));
   const [entry] = clean.entries.values();
   assert.deepEqual(seal.requestMeta[entry.request.stub].worldRefs.map((ref) => ref.id),
-    ['sys.skills', 'sys.block0.main', 'sys.block1.main.prefix']);
+    ['sys.skills', 'sys.block0.main', 'sys.block1.main.t01.tail']);
 
   await rewriteWorldLeaf(fixture.worldDir, 'sys.skills', 'STABLE SKILLS updated');
   const drifted = await loadCassette(fixture.cassetteDir);
@@ -337,9 +337,9 @@ test('mapped leaf 更新报告 worldDrift，未映射 leaf 变化与 legacy 都�
   assert.equal(JSON.parse(verify.stdout).passed, false);
 
   // 未映射 leaf 的变化不能被 drift 解释。
-  await rewriteWorldLeaf(fixture.worldDir, 'sys.block1.main.prefix', 'UNMAPPED PREFIX tampered');
+  await rewriteWorldLeaf(fixture.worldDir, 'sys.block1.main.t01.tail', 'UNMAPPED TAIL tampered');
   await assert.rejects(loadCassette(fixture.cassetteDir),
-    (error) => error.code === 'world_drift_unmapped_leaf' && error.details.leaf === 'sys.block1.main.prefix');
+    (error) => error.code === 'world_drift_unmapped_leaf' && error.details.leaf === 'sys.block1.main.t01.tail');
 });
 
 test('legacy v2 cassette 让 CLI verify 非零退出', async (t) => {

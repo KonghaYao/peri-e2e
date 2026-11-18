@@ -66,6 +66,11 @@ async function worldHashes(root) {
   return hashes;
 }
 
+async function changedWorldFiles(before, after) {
+  return [...new Set([...before.keys(), ...after.keys()])]
+    .filter((file) => before.get(file) !== after.get(file)).sort();
+}
+
 const SEND_ONLY = `"send_only": {
     "type": "boolean",
     "default": false,
@@ -95,6 +100,34 @@ ${SECTIONS.map(([id, file, zone, order]) => `    (
     ),`).join('\n')}
 ];`;
 
+/**
+ * 从 main prefix 反推四个源段；分隔符与 render 的 join 一致。
+ * 只用于测试合成源树，不参与生产同步。
+ */
+function splitBlock1Prefix(prefix) {
+  const hitlAt = prefix.indexOf('\n\n# Human-in-the-Loop (HITL) Approval Mode');
+  const subagentAt = prefix.indexOf('\n\n# SubAgent Delegation');
+  const askUserAt = prefix.indexOf('\n\n# Asking the User (AskUserQuestion)');
+  if (hitlAt < 0 || subagentAt < 0 || askUserAt < 0 || !(hitlAt < subagentAt && subagentAt < askUserAt)) {
+    throw new Error('无法从 main prefix 定位 block1 源段');
+  }
+  const runtime = prefix.slice(0, hitlAt);
+  const hitl = prefix.slice(hitlAt + 2, subagentAt);
+  const renderedSubagent = prefix.slice(subagentAt + 2, askUserAt);
+  const askUser = prefix.slice(askUserAt + 2, -2);
+  const marker = '## Available agent types\n\n';
+  const end = '\n\nEach agent entry shows';
+  const catalogAt = renderedSubagent.indexOf(marker);
+  const catalogEnd = renderedSubagent.indexOf(end);
+  if (catalogAt < 0 || catalogEnd < 0 || renderedSubagent.indexOf(marker, catalogAt + 1) >= 0) {
+    throw new Error('无法从 main prefix 定位 agent catalog');
+  }
+  const subagent = `${renderedSubagent.slice(0, catalogAt + marker.length)}{{available_agents}}${renderedSubagent.slice(catalogEnd)}`;
+  return {
+    '07_runtime': runtime, '10_hitl': hitl, '11_subagent': subagent, '12_ask_user': askUser,
+  };
+}
+
 /** 由 world 现有 leaf 反推一个合成 Peri 源树，用于制造“源已变化”的场景。 */
 async function syntheticPeriSource(t, worldDir, { block0 } = {}) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'peri-world-check-source-'));
@@ -111,6 +144,10 @@ async function syntheticPeriSource(t, worldDir, { block0 } = {}) {
   for (const [index, id] of sections.entries()) {
     await writeFile(path.join(root, `peri-acp/prompts/sections/${id}.md`), index === 0 ? block : '');
   }
+  const block1 = splitBlock1Prefix(world.leafBytes('sys.block1.main.prefix').toString('utf8'));
+  for (const [id, text] of Object.entries(block1)) {
+    await writeFile(path.join(root, `peri-acp/prompts/sections/${id}.md`), text);
+  }
   await writeFile(path.join(root, 'peri-acp/prompts/sections/13_skills.md'), world.leafBytes('sys.skills'));
   await writeFile(path.join(root, 'peri-agent/src/agent/compact_v2/descriptions/summary_system_prompt.md'), world.leafBytes('sys.compact.summary'));
   const compactUser = world.leafBytes('sys.compact.user').toString('utf8')
@@ -126,15 +163,18 @@ async function syntheticPeriSource(t, worldDir, { block0 } = {}) {
 
 test('手工改写未映射 leaf 并重封 world seal 时 world:check 非零且 stale', async (t) => {
   const { world } = await fixture(t);
-  const original = await readFile(path.join(world, 'system/block1.main.prefix.txt'));
-  await rewriteLeaf(world, 'sys.block1.main.prefix', Buffer.concat([original, Buffer.from('\nTAMPERED\n')]));
+  const id = 'sys.block1.main.t06.tail';
+  const original = await readFile(path.join(world, 'system/block1.main.t06.tail.txt'));
+  await rewriteLeaf(world, id, Buffer.concat([original, Buffer.from('\nTAMPERED\n')]));
 
   const { code, report } = await run(['--check', '--world', world]);
   assert.equal(code, 1);
   assert.equal(report.stale, true);
   assert.deepEqual(report.staleReasons, ['cassette_unmapped_drift']);
-  assert.deepEqual(report.recorded.unmappedDrift, ['sys.block1.main.prefix']);
-  assert.deepEqual(report.recorded.mappedDrift, ['sys.block0.main', 'sys.skills', 'tools.Agent.anthropic']);
+  assert.deepEqual(report.recorded.unmappedDrift, [id]);
+  assert.deepEqual(report.recorded.mappedDrift, [
+    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic',
+  ]);
   assert.deepEqual(report.updated, []);
 });
 
@@ -149,7 +189,9 @@ test('block0 与源不等值时 world:check 判 stale，同步后只报告源等
   assert.equal(before.code, 1);
   assert.deepEqual(before.report.updated, ['sys.block0.main']);
   assert.deepEqual(before.report.staleReasons, ['source_not_synced']);
-  assert.deepEqual(before.report.recorded.mappedDrift, ['sys.block0.main', 'sys.skills', 'tools.Agent.anthropic']);
+  assert.deepEqual(before.report.recorded.mappedDrift, [
+    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic',
+  ]);
   assert.deepEqual(before.report.recorded.unanchoredDrift, ['sys.block0.main']);
   assert.equal(before.report.recorded.requiresRerecord, true);
 
@@ -160,8 +202,12 @@ test('block0 与源不等值时 world:check 判 stale，同步后只报告源等
   const after = await run(['--check', '--world', world, '--peri-root', source]);
   assert.equal(after.code, 0);
   assert.equal(after.report.stale, false);
-  assert.deepEqual(after.report.recorded.mappedDrift, ['sys.block0.main', 'sys.skills', 'tools.Agent.anthropic']);
-  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['sys.block0.main', 'sys.skills', 'tools.Agent.anthropic']);
+  assert.deepEqual(after.report.recorded.mappedDrift, [
+    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic',
+  ]);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, [
+    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic',
+  ]);
   assert.deepEqual(after.report.recorded.unanchoredDrift, []);
   assert.equal(after.report.recorded.requiresRerecord, false);
 });
@@ -187,6 +233,97 @@ test('block0 源等价变化经 world:sync 只改 leaf 与 seal 两个文件', a
   assert.equal(check.report.stale, false);
   assert.ok(check.report.recorded.sourceAnchoredDrift.includes('sys.block0.main'));
   assert.deepEqual(check.report.recorded.unanchoredDrift, []);
+});
+
+test('block1 prefix 源变化同步三个分类 leaf 与 seal，catalog 保持录制快照', async (t) => {
+  const { world } = await fixture(t);
+  const source = await syntheticPeriSource(t, world);
+  const runtimeFile = path.join(source, 'peri-acp/prompts/sections/07_runtime.md');
+  await writeFile(runtimeFile, `${await readFile(runtimeFile, 'utf8')}\nRUNTIME CHANGE`);
+  const beforeHashes = await worldHashes(world);
+  const beforeMain = await readFile(path.join(world, 'system/block1.main.prefix.txt'), 'utf8');
+
+  const before = await run(['--check', '--world', world, '--peri-root', source]);
+  assert.equal(before.code, 1);
+  assert.deepEqual(before.report.updated, [
+    'sys.block1.main.prefix', 'sys.block1.replay-worker.prefix', 'sys.block1.subagent.prefix',
+  ]);
+  assert.deepEqual(before.report.staleReasons, ['source_not_synced']);
+  assert.deepEqual(before.report.recorded.unanchoredDrift, ['sys.block1.main.prefix']);
+  assert.equal(before.report.recorded.requiresRerecord, true);
+
+  const synced = await run(['--world', world, '--peri-root', source]);
+  assert.equal(synced.code, 0);
+  assert.deepEqual(synced.report.updated, [
+    'sys.block1.main.prefix', 'sys.block1.replay-worker.prefix', 'sys.block1.subagent.prefix',
+  ]);
+  assert.equal(synced.report.written, 3);
+
+  const changedFiles = (await changedWorldFiles(beforeHashes, await worldHashes(world)));
+  assert.deepEqual(changedFiles, [
+    'seal.json',
+    'system/block1.main.prefix.txt',
+    'system/block1.replay-worker.prefix.txt',
+    'system/block1.subagent.prefix.txt',
+  ]);
+  const afterMain = await readFile(path.join(world, 'system/block1.main.prefix.txt'), 'utf8');
+  const runtime = afterMain.slice(0, afterMain.indexOf('\n\n# Human-in-the-Loop'));
+  assert.ok(runtime.endsWith('\nRUNTIME CHANGE'));
+  // 动态 catalog 仍与录制快照逐字节一致，未因源同步被改写。
+  const catalog = afterMain.slice(
+    afterMain.indexOf('## Available agent types\n\n') + '## Available agent types\n\n'.length,
+    afterMain.indexOf('\n\nEach agent entry shows'),
+  );
+  const beforeCatalog = beforeMain.slice(
+    beforeMain.indexOf('## Available agent types\n\n') + '## Available agent types\n\n'.length,
+    beforeMain.indexOf('\n\nEach agent entry shows'),
+  );
+  assert.equal(catalog, beforeCatalog);
+
+  const check = await run(['--check', '--world', world, '--peri-root', source]);
+  assert.equal(check.code, 0);
+  assert.equal(check.report.stale, false);
+  assert.deepEqual(check.report.recorded.sourceAnchoredDrift, [
+    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic',
+  ]);
+  assert.deepEqual(check.report.recorded.unanchoredDrift, []);
+  assert.equal(check.report.recorded.requiresRerecord, false);
+});
+
+test('篡改固定 catalog 时 world:check 判 stale，world:sync 恢复模板快照', async (t) => {
+  const { world } = await fixture(t);
+  const source = await syntheticPeriSource(t, world);
+  const prefixFile = path.join(world, 'system/block1.main.prefix.txt');
+  const original = await readFile(prefixFile, 'utf8');
+  await rewriteLeaf(
+    world,
+    'sys.block1.main.prefix',
+    original.replace('Default owner for implementation', 'Tampered owner for implementation'),
+  );
+
+  const before = await run(['--check', '--world', world, '--peri-root', source]);
+  assert.equal(before.code, 1);
+  assert.deepEqual(before.report.updated, ['sys.block1.main.prefix']);
+  assert.deepEqual(before.report.staleReasons, ['source_not_synced']);
+  assert.deepEqual(before.report.recorded.unanchoredDrift, ['sys.block1.main.prefix']);
+  assert.equal(before.report.recorded.requiresRerecord, true);
+
+  const synced = await run(['--world', world, '--peri-root', source]);
+  assert.equal(synced.code, 0);
+  assert.deepEqual(synced.report.updated, ['sys.block1.main.prefix']);
+  assert.equal(await readFile(prefixFile, 'utf8'), original);
+});
+
+test('block1 源段标题或占位符不符时拒绝同步', async (t) => {
+  const { world } = await fixture(t);
+  const source = await syntheticPeriSource(t, world);
+  const subagentFile = path.join(source, 'peri-acp/prompts/sections/11_subagent.md');
+  await writeFile(subagentFile, (await readFile(subagentFile, 'utf8')).replace('{{available_agents}}', 'NO CATALOG'));
+
+  const { code, report, stderr } = await run(['--check', '--world', world, '--peri-root', source]);
+  assert.equal(code, 1);
+  assert.equal(report, null);
+  assert.match(stderr, /11_subagent\.md 必须恰好包含一个 \{\{available_agents\}\}/u);
 });
 
 test('干净基线 world:check 为 0 且录制引用全部一致', async (t) => {
@@ -232,8 +369,12 @@ test('mapped sys.skills 经 world:sync 后只报告待重录，不判为未映�
   assert.equal(after.code, 0);
   assert.equal(after.report.stale, false);
   assert.deepEqual(after.report.staleReasons, []);
-  assert.deepEqual(after.report.recorded.mappedDrift, ['sys.block0.main', 'sys.skills', 'tools.Agent.anthropic']);
-  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['sys.block0.main', 'sys.skills', 'tools.Agent.anthropic']);
+  assert.deepEqual(after.report.recorded.mappedDrift, [
+    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic',
+  ]);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, [
+    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic',
+  ]);
   assert.deepEqual(after.report.recorded.unmappedDrift, []);
   assert.equal(after.report.recorded.requiresRerecord, false);
 });
@@ -273,7 +414,11 @@ test('Agent description 正常源同步后 world:check 通过且不要求重录'
   assert.equal(after.code, 0);
   assert.equal(after.report.stale, false);
   // 当前 cassette 只录制了 Anthropic 请求，因此只有 anthropic leaf 出现在录制引用中。
-  assert.deepEqual(after.report.recorded.mappedDrift, ['sys.block0.main', 'sys.skills', 'tools.Agent.anthropic']);
-  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['sys.block0.main', 'sys.skills', 'tools.Agent.anthropic']);
+  assert.deepEqual(after.report.recorded.mappedDrift, [
+    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic',
+  ]);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, [
+    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic',
+  ]);
   assert.equal(after.report.recorded.requiresRerecord, false);
 });
