@@ -44,18 +44,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Lco16x/work",
-            "platform:platform": "macos",
-            "os_version:os_version": "macOS 26.5.1",
+            "path:work": "/tmp/peri-wire-e2e-Fve9LR/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
             "date:today": "2026-11-18",
-            "session:root": "01a1edbb-dc49-7611-9abf-a9d7f8adde22"
+            "session:root": "01a1edd7-989d-7b42-bfe6-cd30e9e51749"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Lco16x/work",
-            "platform:platform": "macos",
-            "os_version:os_version": "macOS 26.5.1",
+            "path:work": "/tmp/peri-wire-e2e-Fve9LR/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
             "date:today": "2026-11-18",
-            "session:root": "01a1edbb-dc49-7611-9abf-a9d7f8adde22"
+            "session:root": "01a1edd7-989d-7b42-bfe6-cd30e9e51749"
           }
         }
       ],
@@ -76,19 +76,19 @@
         "chunks": [
           {
             "offset": 0,
-            "length": 1716,
-            "atMs": 9.503791999999521,
-            "sha256": "fe71b8c5d164d9d40801554d4cbfd89afd4009d498f82bc4a66b37b55075ee4f"
+            "length": 1540,
+            "atMs": 13.67837000000145,
+            "sha256": "db964c638f69ab2451db7c80c248d887879eb1c74299508c74837829c0e01b3d"
           }
         ],
-        "size": 1716,
-        "submittedBytes": 1716,
-        "sha256": "fe71b8c5d164d9d40801554d4cbfd89afd4009d498f82bc4a66b37b55075ee4f",
+        "size": 1540,
+        "submittedBytes": 1540,
+        "sha256": "db964c638f69ab2451db7c80c248d887879eb1c74299508c74837829c0e01b3d",
         "terminal": {
           "kind": "complete",
-          "atMs": 9.666832999999315
+          "atMs": 14.056875000002037
         },
-        "headersAtMs": 9.417166999999608,
+        "headersAtMs": 13.44225500000175,
         "protocolFacts": {
           "protocol": "openai-responses",
           "basis": "captured_body",
@@ -134,18 +134,36 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Lco16x/work",
-            "platform:platform": "macos",
-            "os_version:os_version": "macOS 26.5.1",
+            "path:work": "/tmp/peri-wire-e2e-Fve9LR/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
             "date:today": "2026-11-18",
-            "session:root": "01a1edbb-dc49-7611-9abf-a9d7f8adde22"
+            "session:root": "01a1edd7-989d-7b42-bfe6-cd30e9e51749"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Lco16x/work",
-            "platform:platform": "macos",
-            "os_version:os_version": "macOS 26.5.1",
+            "path:work": "/tmp/peri-wire-e2e-Fve9LR/work",
+            "platform:platform": "linux",
+            "os_version:os_version": "Ubuntu 24.04.5 LTS",
             "date:today": "2026-11-18",
-            "session:root": "01a1edbb-dc49-7611-9abf-a9d7f8adde22"
+            "session:root": "01a1edd7-989d-7b42-bfe6-cd30e9e51749"
+          }
+        },
+        {
+          "path": "/input/3/arguments",
+          "mode": "typed-template",
+          "systemText": false,
+          "pattern": [
+            {
+              "kind": "path",
+              "alias": "work"
+            }
+          ],
+          "patternSha256": "7b3fe3955cb1f202a6ab2231c96b9dae0c8c597a883070184d240a9e3a44dd30",
+          "recorded": {
+            "path:work": "/tmp/peri-wire-e2e-Fve9LR/work"
+          },
+          "live": {
+            "path:work": "/tmp/peri-wire-e2e-Fve9LR/work"
           }
         }
       ],
@@ -167,7 +185,7 @@
           {
             "offset": 0,
             "length": 1179,
-            "atMs": 9.564915999999357,
+            "atMs": 10.533703000000969,
             "sha256": "189870092f0747ead100f85cff34b780a739748d075ccc59ed963e1c4baa1353"
           }
         ],
@@ -176,9 +194,9 @@
         "sha256": "189870092f0747ead100f85cff34b780a739748d075ccc59ed963e1c4baa1353",
         "terminal": {
           "kind": "complete",
-          "atMs": 10.157250000000204
+          "atMs": 10.751980000000913
         },
-        "headersAtMs": 9.407875000000786,
+        "headersAtMs": 10.390235999999277,
         "protocolFacts": {
           "protocol": "openai-responses",
           "basis": "captured_body",

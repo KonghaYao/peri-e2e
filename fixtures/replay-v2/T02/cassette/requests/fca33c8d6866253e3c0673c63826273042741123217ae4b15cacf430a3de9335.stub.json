@@ -1,16 +1,16 @@
 {
   "v": 2,
-  "rawBytes": 104030,
-  "rawSha256": "da0b0f9d1afdfa1066afd9c308bda6e3c91b5abb74eb955934ff8aed2fe602f0",
+  "rawBytes": 103852,
+  "rawSha256": "0795ad678f5c9fbf23b345c4c4498a7ab3d1ced9c00063a33404ae70495de334",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T02_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t02-read-before\",\"name\":\"Read\",\"input\":{\"file_path\":\"/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Xe5AQb/work/config.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t02-read-before\",\"tool_use_id\":\"t02-read-before\",\"content\":[{\"type\":\"text\",\"text\":\"     1\\tmode=old\\n     2\\tkeep=stable\\n     3\\t\\n[Execution status: completed]\"}],\"is_error\":false}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t02-edit\",\"name\":\"Edit\",\"input\":{\"file_path\":\"/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Xe5AQb/work/config.txt\",\"new_string\":\"mode=new\",\"old_string\":\"mode=old\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t02-edit\",\"tool_use_id\":\"t02-edit\",\"content\":[{\"type\":\"text\",\"text\":\"Replaced 1 line to config.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t02-read-after\",\"name\":\"Read\",\"input\":{\"file_path\":\"/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Xe5AQb/work/config.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t02-read-after\",\"tool_use_id\":\"t02-read-after\",\"content\":[{\"type\":\"text\",\"text\":\"     1\\tmode=new\\n     2\\tkeep=stable\\n     3\\t\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T02_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t02-read-before\",\"name\":\"Read\",\"input\":{\"file_path\":\"/tmp/peri-wire-e2e-B44Wg2/work/config.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t02-read-before\",\"tool_use_id\":\"t02-read-before\",\"content\":[{\"type\":\"text\",\"text\":\"     1\\tmode=old\\n     2\\tkeep=stable\\n     3\\t\\n[Execution status: completed]\"}],\"is_error\":false}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t02-edit\",\"name\":\"Edit\",\"input\":{\"file_path\":\"/tmp/peri-wire-e2e-B44Wg2/work/config.txt\",\"new_string\":\"mode=new\",\"old_string\":\"mode=old\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t02-edit\",\"tool_use_id\":\"t02-edit\",\"content\":[{\"type\":\"text\",\"text\":\"Replaced 1 line to config.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t02-read-after\",\"name\":\"Read\",\"input\":{\"file_path\":\"/tmp/peri-wire-e2e-B44Wg2/work/config.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t02-read-after\",\"tool_use_id\":\"t02-read-after\",\"content\":[{\"type\":\"text\",\"text\":\"     1\\tmode=new\\n     2\\tkeep=stable\\n     3\\t\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.main.t78",
+      "recipe": "sys.block1.main.t164",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "5ea29970211ba587c41984dbfffc75c1df5d7a19540df502dcf1417c3d51c531"
+  "canonicalSha256": "6df157da4723e4a6d52203ebfec5561a4999bf5bd4829563534be45a79c9800d"
 }

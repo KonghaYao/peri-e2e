@@ -34,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-w5y5ow",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-w5y5ow/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-w5y5ow/work"
+    "root": "/tmp/peri-wire-e2e-BzYzZR",
+    "home": "/tmp/peri-wire-e2e-BzYzZR/home",
+    "work": "/tmp/peri-wire-e2e-BzYzZR/work"
   },
   "recordedSessionIds": {
-    "root": "01a1edba-5467-76c2-9413-cbe6958eb97d"
+    "root": "01a1eddd-28c1-7262-874b-462badb43db7"
   },
   "configurationFingerprint": "b28d88e77b29846f1b12f8d10687a802f831acfec9721c9983e5ba1b08bd00da",
   "bindings": [
@@ -47,21 +47,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-w5y5ow",
+      "recorded": "/tmp/peri-wire-e2e-BzYzZR",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-w5y5ow/home",
+      "recorded": "/tmp/peri-wire-e2e-BzYzZR/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-w5y5ow/work",
+      "recorded": "/tmp/peri-wire-e2e-BzYzZR/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -75,56 +75,56 @@
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "macos",
+      "recorded": "linux",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "macOS 26.5.1",
+      "recorded": "Ubuntu 24.04.5 LTS",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1edba-5467-76c2-9413-cbe6958eb97d",
+      "recorded": "01a1eddd-28c1-7262-874b-462badb43db7",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m04-host",
-      "recorded": "mcp-01a1edba-5a4a-7bd3-9e9f-7b3a0247c3d2",
+      "recorded": "mcp-01a1eddd-2ed1-7b40-aee1-33e0982129a6",
       "anchor": "monitor_start host receipt M04-start"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m04-raw",
-      "recorded": "monitor-01a1edba-5a42-70c1-8a76-db83087b4408",
+      "recorded": "monitor-01a1eddd-2ecd-78d1-a700-484e9f8916d7",
       "anchor": "monitor_start raw receipt M04-start"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m04-event-8-ts",
-      "recorded": "2026-11-18T08:16:15.650513+00:00",
+      "recorded": "2026-11-18T08:54:18.117726224+00:00",
       "anchor": "monitor M04-start event seq 8 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m04-event-9-ts",
-      "recorded": "2026-11-18T08:16:15.650542+00:00",
+      "recorded": "2026-11-18T08:54:18.117728177+00:00",
       "anchor": "monitor M04-start event seq 9 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m04-event-10-ts",
-      "recorded": "2026-11-18T08:16:15.650571+00:00",
+      "recorded": "2026-11-18T08:54:18.117730268+00:00",
       "anchor": "monitor M04-start event seq 10 capture timestamp"
     }
   ],
@@ -162,7 +162,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "4a275bf62871c620e1fa1925bced7350dcdbb5b78000f2d752f635b937138042"
+      "sourceSha256": "105693a108b638ca9a934455ec10c60bcaec1269df5c420ec9b787b6e1c9476c"
     },
     {
       "identity": {
@@ -197,7 +197,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "0f3fea328040a202cbbf70e4deb1a6fdccf8c328268137d11aeb7f61ed096c85"
+      "sourceSha256": "f12cb4abe2e0e33480a975b5b3bb9bf3500d6e66690a977e528b9696cc67c1be"
     },
     {
       "identity": {
@@ -232,7 +232,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "f9238f11a952fe7b88f053dd8571b13821b9bf7e260312726afb841864424280"
+      "sourceSha256": "00587c7d2af8acbf403045c7cf2611bc4d3d96f6a65f05d81614dd6a7ce2a7d5"
     }
   ]
 }

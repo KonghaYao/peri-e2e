@@ -1,16 +1,16 @@
 {
   "v": 2,
-  "rawBytes": 103663,
-  "rawSha256": "af12265f0c9c930fd32470cd8055fb2db613206813c5545e94b250c5e0922129",
+  "rawBytes": 103617,
+  "rawSha256": "4ae3291b25d2531439402a86f4fe511a1219af7c485709b35ea33eaf52dc5768",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Start H08 background process.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H08-background\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h08.pid; printf 'started\\\\n' >> h08.starts; for i in {1..6000}; do [ -f h08.release ] && break; sleep 0.01; done; [ -f h08.release ] || exit 70; printf 'H08_BG_ACTUAL\\\\n' > h08.result\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H08-background\",\"tool_use_id\":\"H08-background\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1edbb-4eb3-7cf2-9e27-3576524c66cb. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1edbb-4eb3-7cf2-9e27-3576524c66cb]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"H08_PARENT_IDLE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Read H08 result during my next turn.\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Start H08 background process.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H08-background\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h08.pid; printf 'started\\\\n' >> h08.starts; for i in {1..6000}; do [ -f h08.release ] && break; sleep 0.01; done; [ -f h08.release ] || exit 70; printf 'H08_BG_ACTUAL\\\\n' > h08.result\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H08-background\",\"tool_use_id\":\"H08-background\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1eddc-190b-7003-b01f-77ae4c93dac5. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1eddc-190b-7003-b01f-77ae4c93dac5]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"H08_PARENT_IDLE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Read H08 result during my next turn.\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.main.t95",
+      "recipe": "sys.block1.main.t146",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "9ab886f3e672f4172fd821339de5eb6994c2605a61b5245d73d69bb69f228400"
+  "canonicalSha256": "8d700e5279c87b49ab996b4eeaf3c701dc6738eef09b27303facd7bbba481941"
 }

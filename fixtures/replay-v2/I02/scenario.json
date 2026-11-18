@@ -28,12 +28,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-BrYGFn",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-BrYGFn/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-BrYGFn/work"
+    "root": "/tmp/peri-wire-e2e-8hjoLb",
+    "home": "/tmp/peri-wire-e2e-8hjoLb/home",
+    "work": "/tmp/peri-wire-e2e-8hjoLb/work"
   },
   "recordedSessionIds": {
-    "root": "01a1edbc-4a08-7c60-a75b-7db8870b123a"
+    "root": "01a1edd9-77d8-7180-b0b7-3e1f70397386"
   },
   "configurationFingerprint": "064824d7e12ef51b5ca40a47f4501683b3a277a9366d51e5aa628281dc1f8081",
   "bindings": [
@@ -41,21 +41,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-BrYGFn",
+      "recorded": "/tmp/peri-wire-e2e-8hjoLb",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-BrYGFn/home",
+      "recorded": "/tmp/peri-wire-e2e-8hjoLb/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-BrYGFn/work",
+      "recorded": "/tmp/peri-wire-e2e-8hjoLb/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -69,23 +69,54 @@
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "macos",
+      "recorded": "linux",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "macOS 26.5.1",
+      "recorded": "Ubuntu 24.04.5 LTS",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1edbc-4a08-7c60-a75b-7db8870b123a",
+      "recorded": "01a1edd9-77d8-7180-b0b7-3e1f70397386",
       "anchor": "ACP session/new result"
     }
   ],
-  "portableResponses": []
+  "portableResponses": [
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "turn-1",
+        "call": "reason:1",
+        "attempt": 2,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "I02-write",
+          "rules": [
+            {
+              "path": "/file_path",
+              "kind": "path",
+              "alias": "work",
+              "mode": "path-prefix"
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "b6fdfa7588e5b6fe8a00565e11d129c7321f8849a86174db90419e58f7809b97"
+    }
+  ]
 }

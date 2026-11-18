@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 104172,
-  "rawSha256": "c8ec1f7c84a20f2fcbf1b055ca2377cf22a271ca7b3cc9324c68258e93df9ffe",
+  "rawBytes": 104126,
+  "rawSha256": "961092623df3d1f0afb697d543c3fd373823036a1bf5edc9317765d999424d43",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T05_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t05-discover\",\"name\":\"SearchExtraTools\",\"input\":{\"query\":\"select:mcp_read_resource\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t05-discover\",\"tool_use_id\":\"t05-discover\",\"content\":[{\"type\":\"text\",\"text\":\"{\\\"results\\\":[{\\\"name\\\":\\\"mcp_read_resource\\\",\\\"description\\\":\\\"Read a resource from an MCP server. Available resources:\\\\n- server \\\\\\\"peri\\\\\\\": workspace://git/ref, skill://builtin/use-artifacts/SKILL.md, skill://builtin/goal/SKILL.md, skill://builtin/multitask/SKILL.md, skill://builtin/ultra-adlc/SKILL.md, skill://builtin/ultracode/SKILL.md, skill://builtin/cron/SKILL.md, skill://builtin/monitor/SKILL.md, skill://builtin/interview/SKILL.md, agent://builtin/coder/agent.md, agent://builtin/explorer/agent.md, agent://builtin/general-purpose/agent.md, agent://builtin/plan/agent.md, agent://builtin/verification/agent.md, peri-instruction://workspace/index, cron://jobs, cron://triggers, workflow://background-tasks, workflow://runs, workflow://runs/{runId}, workflow://runs/{runId}/events, workflow://runs/{runId}/tasks, workflow://tasks (23 resources)\\\",\\\"parameters\\\":{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"server_name\\\":{\\\"type\\\":\\\"string\\\",\\\"description\\\":\\\"MCP 服务器名称（配置中的 key）\\\"},\\\"uri\\\":{\\\"type\\\":\\\"string\\\",\\\"description\\\":\\\"要读取的资源 URI\\\"}},\\\"required\\\":[\\\"server_name\\\",\\\"uri\\\"]},\\\"score\\\":1.0}],\\\"total_available\\\":14}\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,7 +10,7 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.main.t81",
+      "recipe": "sys.block1.main.t167",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "48e2251000cb761375b4fd9e351b5a6acb7a60471f0bc0b2c054b331f0e68d8e"
+  "canonicalSha256": "f4356a76dab58ca56bbf47202802b2a6323bc84a4b6736f7479320006820a576"
 }

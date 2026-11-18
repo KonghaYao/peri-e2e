@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 70943,
-  "rawSha256": "407cecc5e78d04a4116581566547573793b3bd0ccd9ced3eb4f0e0684db1a565",
+  "rawBytes": 70897,
+  "rawSha256": "df2f39faae09b1f2d81d9ab4cf591888425dc178330d7ea876946f73feb49c25",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B11_FIRST_WORK\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,7 +10,7 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.subagent.t40",
+      "recipe": "sys.block1.subagent.t71",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "2458fe70f2ab6d945f1542b4e007d6dff1fb97aa026c91b8f91b3c9796f5c0a9"
+  "canonicalSha256": "8d0b6e3fcc0e49c953a248aa3220578e071ebfefaa827b5b5f1fe82d3e4e1692"
 }

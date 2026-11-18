@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 71454,
-  "rawSha256": "0ebb3c49d823ee2f354b672c7ff6f488a22faf8b4a615992acc483e265532726",
+  "rawBytes": 71408,
+  "rawSha256": "34e9cfcf9731d0d6dd77f196778001b64315300934657afc87c08ec5a08177c9",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B07_FIRST_RUN\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B07-first-write\",\"name\":\"Write\",\"input\":{\"content\":\"B07_FIRST_FILE\\n\",\"file_path\":\"b07-first.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B07-first-write\",\"tool_use_id\":\"B07-first-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b07-first.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"B07_FIRST_CHILD_REPORT\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B07_RESUMED_RUN\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,7 +10,7 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.subagent.t51",
+      "recipe": "sys.block1.subagent.t66",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "855c21035c26dda2868f24af07259362fc9bc6f9a21b2006925f448918c22078"
+  "canonicalSha256": "84bfa643661d699431d2aa2b51079359f776299b89b63a42ee138b154981b49f"
 }

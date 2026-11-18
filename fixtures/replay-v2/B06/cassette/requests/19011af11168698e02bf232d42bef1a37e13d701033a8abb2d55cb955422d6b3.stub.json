@@ -1,16 +1,16 @@
 {
   "v": 2,
-  "rawBytes": 72239,
-  "rawSha256": "9c916f7c3b92c5c96019aefae2e05afd0261d71628c5ab575cb32a2bdd0820d7",
+  "rawBytes": 72193,
+  "rawSha256": "c48ee028e6394fdd7d3b4c9f2616e7714b08bdd55cd1b014c3362b836925edda",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B06_INITIAL_WORK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B06-first-write\",\"name\":\"Write\",\"input\":{\"content\":\"B06_INITIAL_FILE\\n\",\"file_path\":\"b06-first.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B06-first-write\",\"tool_use_id\":\"B06-first-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b06-first.txt\\n[Execution status: completed]\"}],\"is_error\":false}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"task\\\" source=\\\"subagent\\\" kind=\\\"parent_message\\\" severity=\\\"info\\\" delivery=\\\"required\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;]\\\" summary=\\\"&quot;Parent agent message&quot;\\\" metadata=\\\"{&quot;child_thread_id&quot;:&quot;01a1edbc-c1fb-7a53-92df-484fe95ee21a&quot;,&quot;task_id&quot;:&quot;bg-01a1edbc-c1fb-7a53-92df-485b5111908a&quot;}\\\">Supplemental message from the parent agent:\\nB06_SUPPLEMENT_WRITE_SECOND_FILE</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B06-second-write\",\"name\":\"Write\",\"input\":{\"content\":\"B06_SUPPLEMENT_APPLIED\\n\",\"file_path\":\"b06-second.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B06-second-write\",\"tool_use_id\":\"B06-second-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b06-second.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B06_INITIAL_WORK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B06-first-write\",\"name\":\"Write\",\"input\":{\"content\":\"B06_INITIAL_FILE\\n\",\"file_path\":\"b06-first.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B06-first-write\",\"tool_use_id\":\"B06-first-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b06-first.txt\\n[Execution status: completed]\"}],\"is_error\":false}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"task\\\" source=\\\"subagent\\\" kind=\\\"parent_message\\\" severity=\\\"info\\\" delivery=\\\"required\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;]\\\" summary=\\\"&quot;Parent agent message&quot;\\\" metadata=\\\"{&quot;child_thread_id&quot;:&quot;01a1edd9-8ec8-7f53-bb43-a556a28e7ff6&quot;,&quot;task_id&quot;:&quot;bg-01a1edd9-8ec8-7f53-bb43-a564dffbe989&quot;}\\\">Supplemental message from the parent agent:\\nB06_SUPPLEMENT_WRITE_SECOND_FILE</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B06-second-write\",\"name\":\"Write\",\"input\":{\"content\":\"B06_SUPPLEMENT_APPLIED\\n\",\"file_path\":\"b06-second.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B06-second-write\",\"tool_use_id\":\"B06-second-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b06-second.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.subagent.t50",
+      "recipe": "sys.block1.subagent.t65",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "0dc182a17dae490ce206d54b460139c32836bd6f35a956337ed9c4273064cefa"
+  "canonicalSha256": "b294fb8c6db757d3bc8c92ee47b2ef615f98143ea90734ed6ff8928c10e521ff"
 }

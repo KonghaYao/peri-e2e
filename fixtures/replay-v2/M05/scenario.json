@@ -34,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-hXokIS",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-hXokIS/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-hXokIS/work"
+    "root": "/tmp/peri-wire-e2e-Ximt08",
+    "home": "/tmp/peri-wire-e2e-Ximt08/home",
+    "work": "/tmp/peri-wire-e2e-Ximt08/work"
   },
   "recordedSessionIds": {
-    "root": "01a1edba-6baa-7180-9560-6c4753165e54"
+    "root": "01a1eddd-3cc9-7e31-8022-2b3ecd060fe6"
   },
   "configurationFingerprint": "f58d887cd160eb1fa4ffebbef04f5d17fdc77567abfc2469620f5c9a5fd19e92",
   "bindings": [
@@ -47,21 +47,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-hXokIS",
+      "recorded": "/tmp/peri-wire-e2e-Ximt08",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-hXokIS/home",
+      "recorded": "/tmp/peri-wire-e2e-Ximt08/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-hXokIS/work",
+      "recorded": "/tmp/peri-wire-e2e-Ximt08/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -75,49 +75,49 @@
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "macos",
+      "recorded": "linux",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "macOS 26.5.1",
+      "recorded": "Ubuntu 24.04.5 LTS",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1edba-6baa-7180-9560-6c4753165e54",
+      "recorded": "01a1eddd-3cc9-7e31-8022-2b3ecd060fe6",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m05-host",
-      "recorded": "mcp-01a1edba-719d-79b3-a26a-5b821584eee4",
+      "recorded": "mcp-01a1eddd-42ed-7ff1-94a5-c715f160408f",
       "anchor": "monitor_start host receipt M05-start"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m05-raw",
-      "recorded": "monitor-01a1edba-7198-7413-b30f-06b1f11cd932",
+      "recorded": "monitor-01a1eddd-42e9-74b1-b93f-7b2a48f7a6fb",
       "anchor": "monitor_start raw receipt M05-start"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m05-event-1-ts",
-      "recorded": "2026-11-18T08:16:21.610635+00:00",
+      "recorded": "2026-11-18T08:54:23.266951493+00:00",
       "anchor": "monitor M05-start event seq 1 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m05-event-2-ts",
-      "recorded": "2026-11-18T08:16:21.610663+00:00",
+      "recorded": "2026-11-18T08:54:23.266981052+00:00",
       "anchor": "monitor M05-start event seq 2 capture timestamp"
     }
   ],
@@ -155,7 +155,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "199dcc4088fd490e224c2b953e156a1954025428901b804787afe5a638b87506"
+      "sourceSha256": "d8613abfa0ce41c689f8070489c7803517b503802eef6b380f5cc277fe663a6b"
     },
     {
       "identity": {
@@ -190,7 +190,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "f108a33c26e2d03a41a226db7e9a20830a4b571405e64a2f673376128d0cc47b"
+      "sourceSha256": "647782764d552aff78aced0cad77df3726afd2d172df019627c0fbca630bc214"
     },
     {
       "identity": {
@@ -225,7 +225,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "df1f814743a081c50765544998ab3cb4bfbc66f312e1d2f350f0d91efb0d4b40"
+      "sourceSha256": "6fa9bb479cb4be33258cc79e1d773c073dcac98bbe3b5123efdeadfc8c08cafb"
     }
   ]
 }

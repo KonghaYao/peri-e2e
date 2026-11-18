@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103095,
-  "rawSha256": "db11dc9619ae72dbbb581fcbfa606bbacf0dc6f7c281b2c9c75c3122f836ca13",
+  "rawBytes": 103049,
+  "rawSha256": "e4df952f67b5e1f52618b6b903d1634e84add0ca53aeb4d5c89b215e6b0281a3",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T06_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t06-hooked-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf 'T06_UNCHECKED\\\\n' > hook-result.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t06-hooked-bash\",\"tool_use_id\":\"t06-hooked-bash\",\"content\":[{\"type\":\"text\",\"text\":\"T06_HOOK_APPROVED_STDOUT\\n\\n[Execution status: completed, exit_code: 0]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,7 +10,7 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.main.t82",
+      "recipe": "sys.block1.main.t168",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "9e475c69db114cc72b970bb34a0fb9bfb3326ab86ff4b3f311d63e718ce20020"
+  "canonicalSha256": "3b20e8b5a43945a03b2573bc884045e22d74d473bfaeccaf07858749bb015ad0"
 }

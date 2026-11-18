@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 70956,
-  "rawSha256": "8c9fcf2d91c82c3087343cc9e39829981d7b370c714b6cddb3cea1676590d508",
+  "rawBytes": 70910,
+  "rawSha256": "94d06f259f8d797439336a303fce9687c058b6c9807699ef0173fcde75604705",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B10_WAIT_BEYOND_PARENT_TURN\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,7 +10,7 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.subagent.t39",
+      "recipe": "sys.block1.subagent.t69",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "4a1c120e74bfbaf5fc43b445e85035abac573e450a787394021cbc32621ae0bf"
+  "canonicalSha256": "f548f07acb406d9af05cbdd85bfa1b63eacf783cf22decba41ae83a8d3ba40de"
 }

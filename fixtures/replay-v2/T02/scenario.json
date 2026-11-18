@@ -34,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Xe5AQb",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Xe5AQb/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Xe5AQb/work"
+    "root": "/tmp/peri-wire-e2e-B44Wg2",
+    "home": "/tmp/peri-wire-e2e-B44Wg2/home",
+    "work": "/tmp/peri-wire-e2e-B44Wg2/work"
   },
   "recordedSessionIds": {
-    "root": "01a1edb9-dc58-72e0-95a3-1492cd04b4db"
+    "root": "01a1eddd-aa7b-7d21-b6a0-2608bc8a5361"
   },
   "configurationFingerprint": "6c6363511235a9dc8c72a6a1fffbd0b5e1b09be117f8f94c54a76f3f6ad18645",
   "bindings": [
@@ -47,21 +47,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Xe5AQb",
+      "recorded": "/tmp/peri-wire-e2e-B44Wg2",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Xe5AQb/home",
+      "recorded": "/tmp/peri-wire-e2e-B44Wg2/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Xe5AQb/work",
+      "recorded": "/tmp/peri-wire-e2e-B44Wg2/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -75,23 +75,114 @@
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "macos",
+      "recorded": "linux",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "macOS 26.5.1",
+      "recorded": "Ubuntu 24.04.5 LTS",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1edb9-dc58-72e0-95a3-1492cd04b4db",
+      "recorded": "01a1eddd-aa7b-7d21-b6a0-2608bc8a5361",
       "anchor": "ACP session/new result"
     }
   ],
-  "portableResponses": []
+  "portableResponses": [
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "business-turn",
+        "call": "reason:1",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "t02-read-before",
+          "rules": [
+            {
+              "path": "/file_path",
+              "kind": "path",
+              "alias": "work",
+              "mode": "path-prefix"
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "ab1e0524525b020f296bc1398f4350d28b5268fa870d5581ef05c1eb3352dc78"
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "business-turn",
+        "call": "reason:2",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "t02-edit",
+          "rules": [
+            {
+              "path": "/file_path",
+              "kind": "path",
+              "alias": "work",
+              "mode": "path-prefix"
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "d314e950e07a610e43b0f76571b5b8c37d1df672a596b7617ccff95a7822497d"
+    },
+    {
+      "identity": {
+        "owner": "root",
+        "execution": "business-turn",
+        "call": "reason:3",
+        "attempt": 1,
+        "purpose": "reason"
+      },
+      "protocol": "anthropic",
+      "owner": "world",
+      "tools": [
+        {
+          "toolCallId": "t02-read-after",
+          "rules": [
+            {
+              "path": "/file_path",
+              "kind": "path",
+              "alias": "work",
+              "mode": "path-prefix"
+            }
+          ]
+        }
+      ],
+      "rulesVersion": "world-bindings-v1",
+      "fragmentPlan": {
+        "kind": "utf8",
+        "maxBytes": 128
+      },
+      "sourceSha256": "13d2e5d5d63b5a32d7a0d0ab6f045436182fdcf3dba55e251a01217224d0dd69"
+    }
+  ]
 }

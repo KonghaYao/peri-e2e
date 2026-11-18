@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 70953,
-  "rawSha256": "922da7409e90990e557067dadfeccddc0afe76bdb8386e9130beac9dba591cc9",
+  "rawBytes": 70907,
+  "rawSha256": "81b073bd7b6d01182c0634140d3ac5292716a36358b3190fc5b286cd7df6b302",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B05_EXPECT_MODEL_FAILURE\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,7 +10,7 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.subagent.t57",
+      "recipe": "sys.block1.subagent.t76",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "9dc5420e51c2672f629194f515bd90ffade82155b55a65a2a97b2f29ed05ef8a"
+  "canonicalSha256": "613571c4a709832ee7df47ebf43ceeac517d49c58a2aa10ad14e60a39fd5ca79"
 }

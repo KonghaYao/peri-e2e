@@ -28,12 +28,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-1glHwN",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-1glHwN/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-1glHwN/work"
+    "root": "/tmp/peri-wire-e2e-APpG4o",
+    "home": "/tmp/peri-wire-e2e-APpG4o/home",
+    "work": "/tmp/peri-wire-e2e-APpG4o/work"
   },
   "recordedSessionIds": {
-    "root": "01a1edba-e882-7a42-bdc1-af64bc6484e8"
+    "root": "01a1eddc-b61d-71d0-8429-17a65ecc1157"
   },
   "configurationFingerprint": "32122b31ac41f97dc3b26a1bc15390378d69f92f9b075e2a3e88d4e085ae6acc",
   "bindings": [
@@ -41,21 +41,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-1glHwN",
+      "recorded": "/tmp/peri-wire-e2e-APpG4o",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-1glHwN/home",
+      "recorded": "/tmp/peri-wire-e2e-APpG4o/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-1glHwN/work",
+      "recorded": "/tmp/peri-wire-e2e-APpG4o/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -69,49 +69,49 @@
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "macos",
+      "recorded": "linux",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "macOS 26.5.1",
+      "recorded": "Ubuntu 24.04.5 LTS",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1edba-e882-7a42-bdc1-af64bc6484e8",
+      "recorded": "01a1eddc-b61d-71d0-8429-17a65ecc1157",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-h04",
-      "recorded": "mcp-01a1edba-f0a8-7521-8769-117b3e3e670b",
+      "recorded": "mcp-01a1eddc-bc02-7870-b79a-6c887421aee5",
       "anchor": "Bash tool receipt H04-bash"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-h04-remote",
-      "recorded": "shell-01a1edba-f0a8-7521-8769-116e5555b9a7",
+      "recorded": "shell-01a1eddc-bc02-7870-b79a-6c72d0a43491",
       "anchor": "MCP remote task linked to Bash tool H04-bash"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "shell-h04-stdout",
-      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-1glHwN/home/tmp/peri-foreground-shell-ca59586c-76e2-4b38-b80e-d1d4b71ff5fb-stdout.log",
+      "recorded": "/tmp/peri-wire-e2e-APpG4o/home/tmp/peri-foreground-shell-86cc625c-0f38-4e50-8899-162e0e324778-stdout.log",
       "anchor": "terminal stdout reference for H04-bash"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "shell-h04-stderr",
-      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-1glHwN/home/tmp/peri-foreground-shell-d0d7dfcc-76a0-466d-b856-d78aefe1022c-stderr.log",
+      "recorded": "/tmp/peri-wire-e2e-APpG4o/home/tmp/peri-foreground-shell-13055071-935d-4df7-83ee-7d667b488a31-stderr.log",
       "anchor": "terminal stderr reference for H04-bash"
     }
   ],
@@ -144,7 +144,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "93c3eb353f9f82ce002ada4b782dd47bd119f5908344eef253dba210eb4f51d9"
+      "sourceSha256": "eb4841440b6e410da0da78c8d409b278abe32f647f459384537ae0ad7f57e2d7"
     },
     {
       "identity": {
@@ -174,7 +174,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "cdb6038777cf04c0a8f122e34f9b66bb6e62e78be38f037c9af730af68acef55"
+      "sourceSha256": "1e8a304861bdf6e94c564cc1384ee2622950e4a641f603c79d8c6705fb878a9a"
     }
   ]
 }

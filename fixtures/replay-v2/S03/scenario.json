@@ -28,12 +28,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-whoWXn",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-whoWXn/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-whoWXn/work"
+    "root": "/tmp/peri-wire-e2e-BKKQaj",
+    "home": "/tmp/peri-wire-e2e-BKKQaj/home",
+    "work": "/tmp/peri-wire-e2e-BKKQaj/work"
   },
   "recordedSessionIds": {
-    "root": "01a1edbb-a268-7311-a328-0a6f7d687eb2"
+    "root": "01a1edd7-67cb-7b63-ab29-0717fdc9ede6"
   },
   "configurationFingerprint": "064824d7e12ef51b5ca40a47f4501683b3a277a9366d51e5aa628281dc1f8081",
   "bindings": [
@@ -41,21 +41,21 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-whoWXn",
+      "recorded": "/tmp/peri-wire-e2e-BKKQaj",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-whoWXn/home",
+      "recorded": "/tmp/peri-wire-e2e-BKKQaj/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-whoWXn/work",
+      "recorded": "/tmp/peri-wire-e2e-BKKQaj/work",
       "anchor": "isolated scenario work"
     },
     {
@@ -69,21 +69,21 @@
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "macos",
+      "recorded": "linux",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "macOS 26.5.1",
+      "recorded": "Ubuntu 24.04.5 LTS",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1edbb-a268-7311-a328-0a6f7d687eb2",
+      "recorded": "01a1edd7-67cb-7b63-ab29-0717fdc9ede6",
       "anchor": "ACP session/new result"
     }
   ],
