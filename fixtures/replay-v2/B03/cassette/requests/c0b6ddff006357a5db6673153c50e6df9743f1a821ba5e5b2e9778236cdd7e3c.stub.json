@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 64507,
-  "rawSha256": "2e435aa24a5822ea2905a3ce62c5bdb047556d8ca338a1ffb95c678662aef20f",
+  "rawBytes": 71037,
+  "rawSha256": "53224ceeaccc6ed636fcae9f1c3015ce3b29715f8547b64cb5f4b3adde33d6bf",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B03_INDEPENDENT_WORK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B03-write\",\"name\":\"Write\",\"input\":{\"content\":\"B03_SURVIVED_PARENT_CANCEL\\n\",\"file_path\":\"b03.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B03-write\",\"tool_use_id\":\"B03-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b03.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,7 +10,7 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.subagent.t09",
+      "recipe": "sys.block1.subagent.t36",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "3c6abc063163b2fc0da2069fd89132b4a474e0d4eb2467f7a4d47605ca4096e2"
+  "canonicalSha256": "feeb61bf7e0501c765e4e3e2030172540b5747561578e468de544ec418170b93"
 }

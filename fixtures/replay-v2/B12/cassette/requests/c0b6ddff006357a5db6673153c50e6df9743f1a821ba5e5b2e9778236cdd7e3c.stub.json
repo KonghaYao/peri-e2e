@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 64518,
-  "rawSha256": "ede004ab6e4518388b640ac3be1088f5da0918f6ab65b65cd4449d0b68ae3870",
+  "rawBytes": 71048,
+  "rawSha256": "f94ca801681ed8e8058539792b5cb4db50808f139b1c4b30ebe001a613920717",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B12_COMPLETED_CHILD_HISTORY\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B12-write\",\"name\":\"Write\",\"input\":{\"content\":\"B12_CHILD_WROTE_ONCE\\n\",\"file_path\":\"b12-once.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B12-write\",\"tool_use_id\":\"B12-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b12-once.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,7 +10,7 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.subagent.t19",
+      "recipe": "sys.block1.subagent.t34",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "52268b94c2f856e92c493caac2f1ea6225b0d06631d49d866c164127dfcb3297"
+  "canonicalSha256": "60d06497084043286fdeeec84a6b81fe01778cebe25cc42faf963a2735dab8e3"
 }

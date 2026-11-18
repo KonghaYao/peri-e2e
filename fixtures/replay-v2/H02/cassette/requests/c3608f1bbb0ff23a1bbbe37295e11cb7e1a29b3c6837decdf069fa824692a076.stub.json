@@ -1,24 +1,24 @@
 {
   "v": 2,
-  "rawBytes": 99243,
-  "rawSha256": "ea93e00665407ba917bba812f6c2a3927eee5d33ae3bb4db354d00da1622eb6c",
+  "rawBytes": 105243,
+  "rawSha256": "dadc67a7f0678a5cbcfb42579633b3075393f24855c7209784d67176579c5216",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H02 background shell.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H02-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h02.pid; printf 'started\\\\n' >> h02.starts; for i in {1..6000}; do [ -f h02.release ] && break; sleep 0.01; done; [ -f h02.release ] || exit 70; printf 'H02_ACTUAL_STDOUT\\\\n'; printf 'H02_ACTUAL_STDERR\\\\n' >&2; printf 'H02_SIDE_EFFECT\\\\n' > h02.result; exit 7\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H02-bash\",\"tool_use_id\":\"H02-bash\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1c85b-ad10-74c2-a0c2-eefab81108e5. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1c85b-ad10-74c2-a0c2-eefab81108e5]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H02 background shell.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H02-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h02.pid; printf 'started\\\\n' >> h02.starts; for i in {1..6000}; do [ -f h02.release ] && break; sleep 0.01; done; [ -f h02.release ] || exit 70; printf 'H02_ACTUAL_STDOUT\\\\n'; printf 'H02_ACTUAL_STDERR\\\\n' >&2; printf 'H02_SIDE_EFFECT\\\\n' > h02.result; exit 7\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H02-bash\",\"tool_use_id\":\"H02-bash\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1eccc-dd12-7550-b87d-5dc5f03bfe07. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1eccc-dd12-7550-b87d-5dc5f03bfe07]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.main.t30",
+      "recipe": "sys.block1.main.t61",
       "as": "json-string"
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.fa0732b9d1ef2f4971464991f9714bdfb89446aa6189d9cb551c47bf6eb839dc",
+      "recipe": "tools.anthropic.main",
       "as": "raw"
     },
     "}"
   ],
-  "canonicalSha256": "a357b7f1187843d996168385fcf5a52dfc3342591daa5f97e449ac5b2452a69d"
+  "canonicalSha256": "0fc8367e468924d9532aea6820c7537045c27d051aa406ae8d340122424b07e7"
 }

@@ -5,7 +5,7 @@ event: content_block_start
 data: {"type":"content_block_start","index":0,"content_block":{"type":"tool_use","id":"H06-read-b","name":"Read","input":{}}}
 
 event: content_block_delta
-data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"file_path\":\"/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-423bvb/home/tmp/peri-bg-shell-01a1c85c-2575-7e63-81a8-ad39e2fc7d28-b75bfa4e-8b87-45ab-9029-7b9dc3b04771-stdout.log\"}"}}
+data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"file_path\":\"/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-MwRng5/home/tmp/peri-bg-shell-01a1eccd-a12a-72f3-a538-9f02b49aab3c-55d53b40-4086-4b52-abc9-33e3aee35669-stdout.log\"}"}}
 
 event: content_block_stop
 data: {"type":"content_block_stop","index":0}
