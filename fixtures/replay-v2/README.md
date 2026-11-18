@@ -1,4 +1,4 @@
-# 66 个 Peri 业务场景录放语料
+# 67 个 Peri 业务场景录放语料
 
 这些场景使用真实 Peri 二进制、ACP 与 PTY。初次录制的模型上游是本地可控服务；cassette 保存实际 HTTP 请求与响应，不代表真实商业模型的回答质量。普通重放仅消费已保存的 cassette，不启动模型上游，不允许未匹配时回源。
 
@@ -92,8 +92,9 @@
 | M10 | 跨 owner 控制面 | 阻塞：standalone monitor 在 transport EOF 时以 “Workspace shell task cleanup incomplete” 退出 1 |
 | M11 | monitor 实例重启 | 阻塞：同 M10，正常 EOF 无法优雅退出；旧 task ID 不复活断言未获通过 |
 | M12 | 非零退出 | 失败状态与 stderr 传播，终态仍可读全部事件 |
+| P01 | 选择插件动态加载 MCP | 选择前零连接；Loader 后业务工具 schema 完整；真实 echo 结果与计数；复用轮不重连 |
 
-B02、H05、H12、M10、M11 的原断言保留在 `tests/replay-v2/*.blocked.ts`，不进入默认回放，也不计为通过；阻塞原因见 `config/replay-blocked.json`。默认门禁为 61 个可执行场景，catalog 仍按 66 个 ID 校验。D/J/L 尚未接回。
+B02、H05、H12、M10、M11 的原断言保留在 `tests/replay-v2/*.blocked.ts`，不进入默认回放，也不计为通过；阻塞原因见 `config/replay-blocked.json`。默认门禁为 62 个可执行场景，catalog 仍按 67 个 ID 校验。D/J/L 尚未接回。
 
 ## world 快照与同步
 cassette `formatVersion` 为 2 时，请求正文不再各存一份完整 system prompt。共享快照位于 `world/`：
@@ -130,7 +131,7 @@ cassette `formatVersion` 为 2 时，请求正文不再各存一份完整 system
 - 每个场景有独立 seed、cassette 和场景清单；初始化通过真实 ACP 创建新会话，重放使用新的临时目录。不会修改数据库表结构或直接伪造历史行。
 - 原始录制不可变。环境路径、真实 session/child 身份等动态值只能在已声明的位置按有证据的绑定转换，其余请求内容仍严格匹配。
 - 屏幕断言不能命中用户 prompt 回显来冒充模型输出。涉及工具、排队、取消和持久化时必须有对应的状态、文件或请求证据。
-- 每个重放 run 必须精确消费预期调用；多余、缺失、身份冲突和未结束调用都使场景失败。协议单测不计入此表的 66 个业务场景。
+- 每个重放 run 必须精确消费预期调用；多余、缺失、身份冲突和未结束调用都使场景失败。协议单测不计入此表的 67 个业务场景。
 - 此表定义本录放套件范围。仓库完整 TUI 手工验收目录包含更多场景，本套件不宣称覆盖其中全部条目，也不替代真实模型质量或跨平台验收。
 
 执行结果与耗时以生成的独立 record/replay 报告为准，目录清单本身不代表通过。

@@ -18,11 +18,12 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
-      # 66 = 当前 catalog 场景数（既有 30 + 本批接回的 B/H/M 36）；其中 B02、H05、H12、
-      # M10、M11 为固定 pin 上的产品阻塞，保留在 *.blocked.ts，不进入默认回放。
-      # 默认执行 61 个；catalog 仍按 66 校验并单独报告阻塞项。D/J/L 后续批次接回后
-      # 再显式改为 94；不要从实际 catalog 反向生成期望值，否则迁移遗漏会被误报为通过。
-      EXPECTED_REPLAY_SCENARIOS: "66"
+      # 67 = 当前 catalog 场景数（既有 30 + 本批接回的 B/H/M 36 + 插件动态加载 P01）；
+      # 其中 B02、H05、H12、M10、M11 为固定 pin 上的产品阻塞，保留在 *.blocked.ts，
+      # 不进入默认回放。默认执行 62 个；catalog 仍按 67 校验并单独报告阻塞项。
+      # D/J/L 后续批次接回后再显式改为 95（原 94 预留 + P01）；不要从实际 catalog
+      # 反向生成期望值，否则迁移遗漏会被误报为通过。
+      EXPECTED_REPLAY_SCENARIOS: "67"
     steps:
       - name: Checkout peri-e2e
         uses: actions/checkout@v4

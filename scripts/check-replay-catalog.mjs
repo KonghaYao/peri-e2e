@@ -25,10 +25,10 @@ const { values } = parseArgs({
   },
 });
 
-// 66 = catalog 场景数（既有 30 + E2E-02 第一批 B/H/M 36）；其中 4 个产品阻塞项
-// 暂留归档 cassette。D/J/L 接回后必须再显式改为 94，不要从实际 catalog 反向生成
-// 期望值，否则迁移遗漏会被误报为通过。
-const expected = Number(values.expected ?? process.env.EXPECTED_REPLAY_SCENARIOS ?? 66);
+// 67 = catalog 场景数（既有 30 + E2E-02 第一批 B/H/M 36 + 插件动态加载 P01）；其中
+// 5 个产品阻塞项暂留归档 cassette。D/J/L 接回后必须再显式改为 95（原 94 预留 + P01），
+// 不要从实际 catalog 反向生成期望值，否则迁移遗漏会被误报为通过。
+const expected = Number(values.expected ?? process.env.EXPECTED_REPLAY_SCENARIOS ?? 67);
 const fixturesRoot = path.resolve(values.fixtures ?? path.join(e2eRoot, 'fixtures/replay-v2'));
 const errors = [];
 
