@@ -284,13 +284,13 @@ test('mapped leaf 变化可解释 drift，未映射 leaf 与结构变化必须�
     const builder = createWorldBuilder();
     builder.addLeaf('sys.skills', 'SKILLS-A');
     builder.addLeaf('sys.block0.main', 'BLOCK-STATIC');
-    builder.addLeaf('sys.block1.main.prefix', 'PREFIX-UNMAPPED');
+    builder.addLeaf('sys.block1.main.t01.tail', 'TAIL-UNMAPPED');
     const body = Buffer.from(JSON.stringify({
       model: 'fixture-model', max_tokens: 32000,
       system: [
         { type: 'text', text: 'SKILLS-A' },
         { type: 'text', text: 'BLOCK-STATIC' },
-        { type: 'text', text: 'PREFIX-UNMAPPED' },
+        { type: 'text', text: 'TAIL-UNMAPPED' },
       ],
       messages: [],
     }));
@@ -298,12 +298,12 @@ test('mapped leaf 变化可解释 drift，未映射 leaf 与结构变化必须�
       ? { leaf: 'sys.skills' }
       : field.path === '/system/1/text'
         ? { leaf: 'sys.block0.main' }
-        : field.path === '/system/2/text' ? { leaf: 'sys.block1.main.prefix' } : null);
+        : field.path === '/system/2/text' ? { leaf: 'sys.block1.main.t01.tail' } : null);
     const stub = encodeRequestStub(body, { world: builder, slots });
     await builder.seal(path.join(directory, 'world'));
     const world = await loadWorld(path.join(directory, 'world'));
     const worldRefs = collectWorldRefs(stub.parts, world);
-    assert.deepEqual(worldRefs.map((ref) => ref.id), ['sys.skills', 'sys.block0.main', 'sys.block1.main.prefix']);
+    assert.deepEqual(worldRefs.map((ref) => ref.id), ['sys.skills', 'sys.block0.main', 'sys.block1.main.t01.tail']);
 
     // block0 现在是源派生 mapped leaf，允许报告 drift。
     const blockWorld = await rewriteWorldLeaf(path.join(directory, 'world'), path.join(directory, 'block-world'), 'sys.block0.main', 'BLOCK-TAMPER');
@@ -319,9 +319,9 @@ test('mapped leaf 变化可解释 drift，未映射 leaf 与结构变化必须�
     assert.match(drifted.bytes.toString('utf8'), /SKILLS-B/u);
 
     // 未映射 leaf 变化必须失败。
-    const prefixWorld = await rewriteWorldLeaf(path.join(directory, 'world'), path.join(directory, 'prefix-world'), 'sys.block1.main.prefix', 'PREFIX-TAMPER');
-    await assert.rejects(decodeRequestStub(stub, { world: prefixWorld, worldRefs }),
-      (error) => error.code === 'world_drift_unmapped_leaf' && error.details.leaf === 'sys.block1.main.prefix');
+    const tailWorld = await rewriteWorldLeaf(path.join(directory, 'world'), path.join(directory, 'tail-world'), 'sys.block1.main.t01.tail', 'TAIL-TAMPER');
+    await assert.rejects(decodeRequestStub(stub, { world: tailWorld, worldRefs }),
+      (error) => error.code === 'world_drift_unmapped_leaf' && error.details.leaf === 'sys.block1.main.t01.tail');
 
     // 录制的 leaf 序列与当前 recipe 结构不一致时失败。
     const reordered = { ...stub, parts: [stub.parts[0], stub.parts[3], stub.parts[2], stub.parts[1], stub.parts[4]] };

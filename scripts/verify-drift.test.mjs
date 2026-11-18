@@ -16,6 +16,14 @@ const script = path.join(e2eRoot, 'scripts/verify-replay-fixtures.mjs');
 const syncScript = path.join(e2eRoot, 'scripts/refresh-cassettes.mjs');
 const fixtures = path.join(e2eRoot, 'fixtures/replay-v2');
 
+/** 与 world:sync 映射一致：source-anchored 只可能放行这些 leaf。 */
+const SYNCED_LEAVES = new Set([
+  'sys.block0.main', 'sys.block1.main.prefix', 'sys.block1.replay-worker.prefix',
+  'sys.block1.subagent.prefix', 'sys.skills', 'sys.compact.summary', 'sys.compact.user',
+  'tools.Bash.anthropic', 'tools.Bash.responses',
+]);
+const isSyncedLeaf = (id) => SYNCED_LEAVES.has(id) || id.startsWith('tools.Agent.');
+
 const SEND_ONLY = `"send_only": {
     "type": "boolean",
     "default": false,
@@ -48,6 +56,35 @@ function modRs(sections) {
 }
 
 const MOD_RS = modRs(SECTIONS);
+
+const SECTION_CONSTANTS = Object.freeze({
+  '01_intro': 'INTRO',
+  '02_system': 'SYSTEM',
+  '03_doing_tasks': 'TASKS',
+  '04_actions': 'ACTIONS',
+  '05_using_tools': 'TOOLS',
+  '06_tone_style': 'STYLE',
+  '07_runtime': 'RUNTIME',
+  env: 'ENV',
+});
+
+function sectionConstant(id) {
+  return SECTION_CONSTANTS[id] ?? `EXTRA_${id.replace(/[^a-z0-9]+/giu, '_').toUpperCase()}`;
+}
+
+/** 生成 #443 后的 SectionSpec 声明形状（常量引用 + 相对 include_str）。 */
+function modRsWithSpecs(sections) {
+  const entries = sections.map(([id, file]) => `    (
+        sections::${sectionConstant(id)},
+        include_str!("../../prompts/sections/${file}"),
+    ),`).join('\n');
+  return `const BASE_SECTIONS: &[(SectionSpec, &str)] = &[\n${entries}\n];`;
+}
+
+function ownersRs(sections) {
+  const entries = sections.map(([id, , zone, order]) => `        ${sectionConstant(id)}("${id}", ${zone}, ${order}),`).join('\n');
+  return `declare_owners! {\n    DefaultSystemPrompt("DefaultSystemPromptMiddleware", true, true) [] {\n${entries}\n    },\n}`;
+}
 
 async function temporary(t, prefix = 'peri-verify-drift-') {
   const directory = await mkdtemp(path.join(os.tmpdir(), prefix));
@@ -93,6 +130,31 @@ async function changedWorldFiles(before, after) {
     .filter((file) => before.get(file) !== after.get(file)).sort();
 }
 
+/** 从 main prefix 反推四个源段；分隔符与 render 的 join 一致（仅测试合成源树）。 */
+function splitBlock1Prefix(prefix) {
+  const hitlAt = prefix.indexOf('\n\n# Human-in-the-Loop (HITL) Approval Mode');
+  const subagentAt = prefix.indexOf('\n\n# SubAgent Delegation');
+  const askUserAt = prefix.indexOf('\n\n# Asking the User (AskUserQuestion)');
+  if (hitlAt < 0 || subagentAt < 0 || askUserAt < 0 || !(hitlAt < subagentAt && subagentAt < askUserAt)) {
+    throw new Error('无法从 main prefix 定位 block1 源段');
+  }
+  const runtime = prefix.slice(0, hitlAt);
+  const hitl = prefix.slice(hitlAt + 2, subagentAt);
+  const renderedSubagent = prefix.slice(subagentAt + 2, askUserAt);
+  const askUser = prefix.slice(askUserAt + 2, -2);
+  const marker = '## Available agent types\n\n';
+  const end = '\n\nEach agent entry shows';
+  const catalogAt = renderedSubagent.indexOf(marker);
+  const catalogEnd = renderedSubagent.indexOf(end);
+  if (catalogAt < 0 || catalogEnd < 0 || renderedSubagent.indexOf(marker, catalogAt + 1) >= 0) {
+    throw new Error('无法从 main prefix 定位 agent catalog');
+  }
+  const subagent = `${renderedSubagent.slice(0, catalogAt + marker.length)}{{available_agents}}${renderedSubagent.slice(catalogEnd)}`;
+  return {
+    '07_runtime': runtime, '10_hitl': hitl, '11_subagent': subagent, '12_ask_user': askUser,
+  };
+}
+
 async function syntheticPeriRoot(t, worldDir, { block0, legacySchema = false } = {}) {
   const root = await temporary(t, 'peri-verify-source-');
   await mkdir(path.join(root, 'peri-acp/prompts/sections'), { recursive: true });
@@ -100,12 +162,17 @@ async function syntheticPeriRoot(t, worldDir, { block0, legacySchema = false } =
   await mkdir(path.join(root, 'peri-agent/src/agent/compact_v2/descriptions'), { recursive: true });
   await mkdir(path.join(root, 'peri-middlewares/src/default_system_prompt'), { recursive: true });
   await mkdir(path.join(root, 'peri-middlewares/src/subagent/tool/define'), { recursive: true });
+  await mkdir(path.join(root, 'mcp-packages/workspace/src/descriptions'), { recursive: true });
   const world = await loadWorld(worldDir);
   const block = block0 ?? world.leafBytes('sys.block0.main').toString('utf8');
   await writeFile(path.join(root, 'Cargo.toml'), '');
   const sections = ['01_intro', '02_system', '03_doing_tasks', '04_actions', '05_using_tools', '06_tone_style'];
   for (const [index, id] of sections.entries()) {
     await writeFile(path.join(root, `peri-acp/prompts/sections/${id}.md`), index === 0 ? block : '');
+  }
+  const block1 = splitBlock1Prefix(world.leafBytes('sys.block1.main.prefix').toString('utf8'));
+  for (const [id, text] of Object.entries(block1)) {
+    await writeFile(path.join(root, `peri-acp/prompts/sections/${id}.md`), text);
   }
   await writeFile(path.join(root, 'peri-acp/prompts/sections/13_skills.md'), world.leafBytes('sys.skills'));
   await writeFile(path.join(root, 'peri-agent/src/agent/compact_v2/descriptions/summary_system_prompt.md'), world.leafBytes('sys.compact.summary'));
@@ -115,6 +182,11 @@ async function syntheticPeriRoot(t, worldDir, { block0, legacySchema = false } =
   const agentId = world.leaves.find((id) => id.startsWith('tools.Agent.'));
   const agent = JSON.parse(world.leafBytes(agentId).toString('utf8'));
   await writeFile(path.join(root, 'peri-middlewares/src/subagent/tool/descriptions/agent.md'), agent.description);
+  const bash = JSON.parse(world.leafBytes('tools.Bash.anthropic').toString('utf8'));
+  await writeFile(
+    path.join(root, 'mcp-packages/workspace/src/descriptions/bash.md'),
+    bash.description.replace(/^\[MCP:peri\] /u, ''),
+  );
   const definition = legacySchema
     ? 'peri-middlewares/src/subagent/tool/define.rs'
     : 'peri-middlewares/src/subagent/tool/define/sub_agent_tool.rs';
@@ -168,8 +240,7 @@ test('source-anchored 放行与源等值的 mapped drift，strict 仍失败', as
   assert.ok(anchored.report.approvedDrift.length > 0);
   assert.ok(anchored.report.approvedDrift.some((item) => item.leaf === 'sys.block0.main'));
   // 基线中也可能存在 pin 更新后的 Agent 源等值 drift；只允许 SYNCED/Agent leaf。
-  assert.ok(anchored.report.approvedDrift.every((item) =>
-    item.leaf === 'sys.block0.main' || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
+  assert.ok(anchored.report.approvedDrift.every((item) => isSyncedLeaf(item.leaf)));
   for (const item of anchored.report.approvedDrift) assert.equal(item.sourceSha, item.currentSha);
 });
 
@@ -197,8 +268,7 @@ test('compact user prompt 源变化只改 sys.compact.user 与 seal，source-anc
   assert.equal(anchored.code, 0);
   assert.equal(anchored.report.passed, true);
   assert.ok(anchored.report.approvedDrift.some((item) => item.leaf === 'sys.compact.user' && item.sourceSha === item.currentSha));
-  assert.ok(anchored.report.approvedDrift.every((item) => item.leaf === 'sys.compact.user'
-    || item.leaf === 'sys.block0.main' || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
+  assert.ok(anchored.report.approvedDrift.every((item) => isSyncedLeaf(item.leaf)));
 });
 
 test('compact system prompt 源变化仍只改 sys.compact.summary 与 seal', async (t) => {
@@ -267,8 +337,7 @@ test('旧布局只有 define.rs 时仍能解析 Agent schema', async (t) => {
   assert.equal(anchored.code, 0);
   assert.equal(anchored.report.passed, true);
   assert.ok(anchored.report.approvedDrift.some((item) => item.leaf === 'sys.block0.main'));
-  assert.ok(anchored.report.approvedDrift.every((item) =>
-    item.leaf === 'sys.block0.main' || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
+  assert.ok(anchored.report.approvedDrift.every((item) => isSyncedLeaf(item.leaf)));
 });
 
 test('source-anchored 拒绝 world 与源不等值，未映射 leaf 两种策略都失败', async (t) => {
@@ -282,12 +351,12 @@ test('source-anchored 拒绝 world 与源不等值，未映射 leaf 两种策略
   assert.ok(mismatch.report.errors.length > 0);
   assert.ok(mismatch.report.errors.every((item) => item.code === 'world_drift_source_mismatch'));
 
-  await rewriteLeaf(world, 'sys.block1.main.prefix', 'PREFIX TAMPERED');
+  await rewriteLeaf(world, 'sys.block1.main.t06.tail', 'TAIL TAMPERED');
   for (const args of [[], ['--drift-policy=source-anchored', `--peri-root=${periRoot}`]]) {
     const result = await run(directory, ...args);
     assert.equal(result.code, 1);
     assert.equal(result.report.passed, false);
-    assert.ok(result.report.errors.some((item) => item.code === 'world_drift_unmapped_leaf' && item.leaf === 'sys.block1.main.prefix'));
+    assert.ok(result.report.errors.some((item) => item.code === 'world_drift_unmapped_leaf' && item.leaf === 'sys.block1.main.t06.tail'));
   }
 });
 
@@ -325,7 +394,9 @@ test('篡改 tools.Agent.* 非管理字段时 source-anchored 失败，正常 Ag
   assert.equal(anchored.report.passed, true);
   assert.ok(anchored.report.approvedDrift.length > 0);
   // S01 只录制了 Anthropic 请求；responses leaf 虽同步但不在本 cassette 的录制引用中。
-  assert.deepEqual([...new Set(anchored.report.approvedDrift.map((item) => item.leaf))], ['sys.block0.main', 'tools.Agent.anthropic']);
+  assert.deepEqual([...new Set(anchored.report.approvedDrift.map((item) => item.leaf))], [
+    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic', 'tools.Bash.anthropic',
+  ]);
 });
 
 test('BASE_SECTIONS 完整集合、zone 或 include_str 路径变化时拒绝组合 block0', async (t) => {
@@ -348,4 +419,40 @@ test('BASE_SECTIONS 完整集合、zone 或 include_str 路径变化时拒绝组
     await writeFile(modFile, modRs(sections));
     await assert.rejects(assertBlock0SectionOrder(root), /BASE_SECTIONS/u, name);
   }
+});
+
+test('#443 SectionSpec 形状的 BASE_SECTIONS 仍严格校验声明、zone 与 include_str', async (t) => {
+  const root = await temporary(t, 'peri-section-spec-');
+  const modFile = path.join(root, 'peri-middlewares/src/default_system_prompt/mod.rs');
+  const ownersFile = path.join(root, 'peri-acp-types/src/meta_harness/owners.rs');
+  await mkdir(path.dirname(modFile), { recursive: true });
+  await mkdir(path.dirname(ownersFile), { recursive: true });
+  const write = async (sections, declared = sections) => {
+    await writeFile(modFile, modRsWithSpecs(sections));
+    await writeFile(ownersFile, ownersRs(declared));
+  };
+
+  await write(SECTIONS);
+  await assert.doesNotReject(assertBlock0SectionOrder(root));
+
+  const attacks = new Map([
+    ['07_runtime zone 改为 Cached', SECTIONS.map(([id, file, zone, order]) => (id === '07_runtime' ? [id, file, 'Cached', order] : [id, file, zone, order]))],
+    ['06 后新增 Cached 段', [...SECTIONS.slice(0, 6), ['06b_extra', '06b_extra.md', 'Cached', 7], ...SECTIONS.slice(6)]],
+    ['04/05 include_str 路径交换', SECTIONS.map(([id, file, zone, order]) => [
+      id,
+      id === '04_actions' ? '05_using_tools.md' : id === '05_using_tools' ? '04_actions.md' : file,
+      zone, order,
+    ])],
+  ]);
+  for (const [name, sections] of attacks) {
+    await write(sections);
+    await assert.rejects(assertBlock0SectionOrder(root), /BASE_SECTIONS/u, name);
+  }
+
+  await write(SECTIONS);
+  await writeFile(modFile, modRsWithSpecs(SECTIONS).replace('sections::ENV', 'sections::MISSING'));
+  await assert.rejects(assertBlock0SectionOrder(root), /未声明的 SectionSpec/u);
+
+  await write(SECTIONS, [...SECTIONS, ['01_intro', '01_intro.md', 'Cached', 1]]);
+  await assert.rejects(assertBlock0SectionOrder(root), /重复声明/u);
 });
