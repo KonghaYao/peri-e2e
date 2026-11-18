@@ -2,7 +2,7 @@
  * world 快照与当前源码之间的显式映射。迁移、world:sync 与 drift 校验共用同一份定义，
  * 避免“哪个 leaf 可以变化”出现两套口径。
  */
-import { readFile } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { canonicalJson } from '../llm-replay/matcher.mjs';
 import { AGENT_LEAF_PREFIX, STABLE_LEAVES } from '../llm-replay/world-mapping.mjs';
@@ -47,32 +47,98 @@ export const BASE_SECTION_LAYOUT = Object.freeze([
   Object.freeze({ id: 'env', zone: 'Environment', order: 0 }),
 ]);
 
-const sectionFile = (root, id) => path.join(root, 'peri-acp/prompts/sections', `${id}.md`);
+/**
+ * #443 把 section 文件从 peri-acp 迁到 peri-middlewares。目录都不存在时显式失败，
+ * 避免把“源码布局不认识”误判成“内容未变化”。
+ */
+export const SECTION_DIR_CANDIDATES = Object.freeze([
+  'peri-middlewares/prompts/sections',
+  'peri-acp/prompts/sections',
+]);
+
+export async function resolveSectionsDir(periRoot) {
+  for (const relative of SECTION_DIR_CANDIDATES) {
+    try {
+      if ((await stat(path.join(periRoot, relative))).isDirectory()) return relative;
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
+  }
+  throw new Error(`Peri 源码缺少 prompt sections 目录，已尝试：${SECTION_DIR_CANDIDATES.join(', ')}`);
+}
+
 const sectionRelativePath = (id) => `peri-acp/prompts/sections/${id}.md`;
+const currentSectionSuffix = (id) => `prompts/sections/${id}.md`;
 
 /**
  * 组合 block0。trim 对齐 wire 侧 split_system_blocks：单 block 的 system 文本会被 trim，
  * 因此组合后必须整体 trim 才能与请求中的 system[0] 逐字节一致。
  */
-export async function composeBlock0(periRoot) {
+export async function composeBlock0(periRoot, sectionsDir) {
+  const relative = sectionsDir ?? await resolveSectionsDir(periRoot);
   const texts = [];
   for (const id of BLOCK0_SECTIONS) {
-    const text = await readFile(sectionFile(periRoot, id), 'utf8');
+    const text = await readFile(path.join(periRoot, relative, `${id}.md`), 'utf8');
     if (text.trim()) texts.push(text);
   }
   return texts.join('\n\n').trim();
 }
 
+const OWNERS_SOURCE = 'peri-acp-types/src/meta_harness/owners.rs';
+
+/** 从 declare_owners! 宏体解析 SectionSpec；缺失、未闭合、重复或空集合都显式失败。 */
+function parseSectionSpecs(source) {
+  const marker = /declare_owners!\s*\{/u.exec(source);
+  if (!marker) throw new Error('无法解析 peri-acp-types declare_owners，拒绝同步 block0');
+  const start = marker.index + marker[0].length;
+  let depth = 1;
+  let end = -1;
+  for (let index = start; index < source.length; index += 1) {
+    if (source[index] === '{') depth += 1;
+    else if (source[index] === '}' && --depth === 0) { end = index; break; }
+  }
+  if (end < 0) throw new Error('peri-acp-types declare_owners 宏体未闭合，拒绝同步 block0');
+  const specs = new Map();
+  for (const match of source.slice(start, end).matchAll(/([A-Z][A-Z0-9_]*)\("([a-z0-9_]+)",\s*(Cached|Uncached|Environment),\s*(\d+)\)/gu)) {
+    const [, name, id, zone, order] = match;
+    if (specs.has(name)) throw new Error(`declare_owners 中 SectionSpec ${name} 重复声明，拒绝同步 block0`);
+    specs.set(name, { id, zone, order: Number(order) });
+  }
+  if (specs.size === 0) throw new Error('declare_owners 中没有 SectionSpec 声明，拒绝同步 block0');
+  return specs;
+}
+
 /** BASE_SECTIONS 的顺序/zone/路径变化会让 block0 组合或请求结构失效，必须在同步前显式失败。 */
 export async function assertBlock0SectionOrder(periRoot) {
   const source = await readFile(path.join(periRoot, 'peri-middlewares/src/default_system_prompt/mod.rs'), 'utf8');
-  const table = /const BASE_SECTIONS[^=]*=\s*\[([\s\S]*?)\n\];/u.exec(source)?.[1];
+  const table = /const BASE_SECTIONS[^=]*=\s*&?\s*\[([\s\S]*?)\n\];/u.exec(source)?.[1];
   if (!table) throw new Error('无法解析 peri-middlewares BASE_SECTIONS，拒绝同步 block0');
-  const entries = [...table.matchAll(/\(\s*"([a-z0-9_]+)",\s*include_str!\(([\s\S]*?)\),\s*PromptSectionZone::(\w+),\s*(\d+),\s*\)/gu)]
-    .map((match) => ({ id: match[1], includeSource: match[2], zone: match[3], order: Number(match[4]) }));
-  const zoneMentions = table.match(/PromptSectionZone::/gu)?.length ?? 0;
-  if (entries.length !== BASE_SECTION_LAYOUT.length || zoneMentions !== entries.length) {
-    throw new Error(`BASE_SECTIONS 条目集合与预期不一致：期望 ${BASE_SECTION_LAYOUT.length} 项，解析到 ${entries.length} 项 / ${zoneMentions} 个 zone 声明`);
+  const legacyShape = /PromptSectionZone::/u.test(table);
+  const specShape = /sections::/u.test(table);
+  if (legacyShape === specShape) {
+    throw new Error('BASE_SECTIONS 声明形状无法识别（zone/order 四元组与 SectionSpec 引用必须二选一），拒绝同步 block0');
+  }
+  let entries;
+  if (legacyShape) {
+    entries = [...table.matchAll(/\(\s*"([a-z0-9_]+)",\s*include_str!\(([\s\S]*?)\),\s*PromptSectionZone::(\w+),\s*(\d+),\s*\)/gu)]
+      .map((match) => ({ id: match[1], includeSource: match[2], zone: match[3], order: Number(match[4]) }));
+    const zoneMentions = table.match(/PromptSectionZone::/gu)?.length ?? 0;
+    if (entries.length !== BASE_SECTION_LAYOUT.length || zoneMentions !== entries.length) {
+      throw new Error(`BASE_SECTIONS 条目集合与预期不一致：期望 ${BASE_SECTION_LAYOUT.length} 项，解析到 ${entries.length} 项 / ${zoneMentions} 个 zone 声明`);
+    }
+  } else {
+    const matches = [...table.matchAll(/\(\s*sections::([A-Z][A-Z0-9_]*)\s*,\s*include_str!\(([\s\S]*?)\)\s*,?\s*\)/gu)];
+    const specRefs = table.match(/sections::/gu)?.length ?? 0;
+    const includeRefs = table.match(/include_str!/gu)?.length ?? 0;
+    if (matches.length !== BASE_SECTION_LAYOUT.length || specRefs !== matches.length || includeRefs !== matches.length) {
+      throw new Error(`BASE_SECTIONS 条目集合与预期不一致：期望 ${BASE_SECTION_LAYOUT.length} 项，解析到 ${matches.length} 项 / ${specRefs} 个 SectionSpec 引用 / ${includeRefs} 个 include_str`);
+    }
+    const specs = parseSectionSpecs(await readFile(path.join(periRoot, OWNERS_SOURCE), 'utf8'));
+    entries = matches.map((match) => {
+      const spec = specs.get(match[1]);
+      if (!spec) throw new Error(`BASE_SECTIONS 引用了未声明的 SectionSpec sections::${match[1]}，拒绝同步 block0`);
+      return { ...spec, includeSource: match[2] };
+    });
   }
   for (const [index, expected] of BASE_SECTION_LAYOUT.entries()) {
     const entry = entries[index];
@@ -80,9 +146,10 @@ export async function assertBlock0SectionOrder(periRoot) {
       .map((match) => match[1].replaceAll('\\', '/'))
       .filter((value) => value.endsWith('.md'))
       .at(-1);
+    const expectedSuffix = legacyShape ? sectionRelativePath(expected.id) : currentSectionSuffix(expected.id);
     if (entry.id !== expected.id || entry.zone !== expected.zone || entry.order !== expected.order
-        || !includePath?.endsWith(sectionRelativePath(expected.id))) {
-      throw new Error(`BASE_SECTIONS 顺序/zone/include_str 与 block0 组合不一致：期望 ${expected.id} ${expected.zone} #${expected.order} ${sectionRelativePath(expected.id)}，实际 ${entry.id} ${entry.zone} #${entry.order} ${includePath ?? '(缺失)'}`);
+        || !includePath?.endsWith(expectedSuffix)) {
+      throw new Error(`BASE_SECTIONS 顺序/zone/include_str 与 block0 组合不一致：期望 ${expected.id} ${expected.zone} #${expected.order} ${expectedSuffix}，实际 ${entry.id} ${entry.zone} #${entry.order} ${includePath ?? '(缺失)'}`);
     }
   }
   return entries.map(({ id, zone, order }) => ({ id, zone, order }));
@@ -139,9 +206,10 @@ async function readAgentSchema(periRoot) {
 /** 所有源派生 leaf 的唯一期望字节；world:sync 与 source-anchored verify 共用。 */
 export async function loadSourceLeaves(world, periRoot) {
   await assertBlock0SectionOrder(periRoot);
+  const sectionsDir = await resolveSectionsDir(periRoot);
   const [block0, skills, compactSummary, compactUserSource, agentDescription, agentSchema] = await Promise.all([
-    composeBlock0(periRoot),
-    readFile(path.join(periRoot, SOURCE_FILES.skills), 'utf8'),
+    composeBlock0(periRoot, sectionsDir),
+    readFile(path.join(periRoot, sectionsDir, '13_skills.md'), 'utf8'),
     readFile(path.join(periRoot, SOURCE_FILES.compactSummary), 'utf8'),
     readFile(path.join(periRoot, SOURCE_FILES.compactUser), 'utf8'),
     readFile(path.join(periRoot, SOURCE_FILES.agentDescription), 'utf8'),

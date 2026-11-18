@@ -49,6 +49,35 @@ function modRs(sections) {
 
 const MOD_RS = modRs(SECTIONS);
 
+const SECTION_CONSTANTS = Object.freeze({
+  '01_intro': 'INTRO',
+  '02_system': 'SYSTEM',
+  '03_doing_tasks': 'TASKS',
+  '04_actions': 'ACTIONS',
+  '05_using_tools': 'TOOLS',
+  '06_tone_style': 'STYLE',
+  '07_runtime': 'RUNTIME',
+  env: 'ENV',
+});
+
+function sectionConstant(id) {
+  return SECTION_CONSTANTS[id] ?? `EXTRA_${id.replace(/[^a-z0-9]+/giu, '_').toUpperCase()}`;
+}
+
+/** 生成 #443 后的 SectionSpec 声明形状（常量引用 + 相对 include_str）。 */
+function modRsWithSpecs(sections) {
+  const entries = sections.map(([id, file]) => `    (
+        sections::${sectionConstant(id)},
+        include_str!("../../prompts/sections/${file}"),
+    ),`).join('\n');
+  return `const BASE_SECTIONS: &[(SectionSpec, &str)] = &[\n${entries}\n];`;
+}
+
+function ownersRs(sections) {
+  const entries = sections.map(([id, , zone, order]) => `        ${sectionConstant(id)}("${id}", ${zone}, ${order}),`).join('\n');
+  return `declare_owners! {\n    DefaultSystemPrompt("DefaultSystemPromptMiddleware", true, true) [] {\n${entries}\n    },\n}`;
+}
+
 async function temporary(t, prefix = 'peri-verify-drift-') {
   const directory = await mkdtemp(path.join(os.tmpdir(), prefix));
   t.after(() => rm(directory, { recursive: true, force: true }));
@@ -169,7 +198,8 @@ test('source-anchored 放行与源等值的 mapped drift，strict 仍失败', as
   assert.ok(anchored.report.approvedDrift.some((item) => item.leaf === 'sys.block0.main'));
   // 基线中也可能存在 pin 更新后的 Agent 源等值 drift；只允许 SYNCED/Agent leaf。
   assert.ok(anchored.report.approvedDrift.every((item) =>
-    item.leaf === 'sys.block0.main' || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
+    item.leaf === 'sys.block0.main' || item.leaf === 'sys.skills'
+    || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
   for (const item of anchored.report.approvedDrift) assert.equal(item.sourceSha, item.currentSha);
 });
 
@@ -198,7 +228,8 @@ test('compact user prompt 源变化只改 sys.compact.user 与 seal，source-anc
   assert.equal(anchored.report.passed, true);
   assert.ok(anchored.report.approvedDrift.some((item) => item.leaf === 'sys.compact.user' && item.sourceSha === item.currentSha));
   assert.ok(anchored.report.approvedDrift.every((item) => item.leaf === 'sys.compact.user'
-    || item.leaf === 'sys.block0.main' || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
+    || item.leaf === 'sys.block0.main' || item.leaf === 'sys.skills'
+    || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
 });
 
 test('compact system prompt 源变化仍只改 sys.compact.summary 与 seal', async (t) => {
@@ -268,7 +299,8 @@ test('旧布局只有 define.rs 时仍能解析 Agent schema', async (t) => {
   assert.equal(anchored.report.passed, true);
   assert.ok(anchored.report.approvedDrift.some((item) => item.leaf === 'sys.block0.main'));
   assert.ok(anchored.report.approvedDrift.every((item) =>
-    item.leaf === 'sys.block0.main' || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
+    item.leaf === 'sys.block0.main' || item.leaf === 'sys.skills'
+    || item.leaf === 'sys.compact.summary' || item.leaf.startsWith('tools.Agent.')));
 });
 
 test('source-anchored 拒绝 world 与源不等值，未映射 leaf 两种策略都失败', async (t) => {
@@ -325,7 +357,7 @@ test('篡改 tools.Agent.* 非管理字段时 source-anchored 失败，正常 Ag
   assert.equal(anchored.report.passed, true);
   assert.ok(anchored.report.approvedDrift.length > 0);
   // S01 只录制了 Anthropic 请求；responses leaf 虽同步但不在本 cassette 的录制引用中。
-  assert.deepEqual([...new Set(anchored.report.approvedDrift.map((item) => item.leaf))], ['sys.block0.main', 'tools.Agent.anthropic']);
+  assert.deepEqual([...new Set(anchored.report.approvedDrift.map((item) => item.leaf))], ['sys.block0.main', 'sys.skills', 'tools.Agent.anthropic']);
 });
 
 test('BASE_SECTIONS 完整集合、zone 或 include_str 路径变化时拒绝组合 block0', async (t) => {
@@ -348,4 +380,40 @@ test('BASE_SECTIONS 完整集合、zone 或 include_str 路径变化时拒绝组
     await writeFile(modFile, modRs(sections));
     await assert.rejects(assertBlock0SectionOrder(root), /BASE_SECTIONS/u, name);
   }
+});
+
+test('#443 SectionSpec 形状的 BASE_SECTIONS 仍严格校验声明、zone 与 include_str', async (t) => {
+  const root = await temporary(t, 'peri-section-spec-');
+  const modFile = path.join(root, 'peri-middlewares/src/default_system_prompt/mod.rs');
+  const ownersFile = path.join(root, 'peri-acp-types/src/meta_harness/owners.rs');
+  await mkdir(path.dirname(modFile), { recursive: true });
+  await mkdir(path.dirname(ownersFile), { recursive: true });
+  const write = async (sections, declared = sections) => {
+    await writeFile(modFile, modRsWithSpecs(sections));
+    await writeFile(ownersFile, ownersRs(declared));
+  };
+
+  await write(SECTIONS);
+  await assert.doesNotReject(assertBlock0SectionOrder(root));
+
+  const attacks = new Map([
+    ['07_runtime zone 改为 Cached', SECTIONS.map(([id, file, zone, order]) => (id === '07_runtime' ? [id, file, 'Cached', order] : [id, file, zone, order]))],
+    ['06 后新增 Cached 段', [...SECTIONS.slice(0, 6), ['06b_extra', '06b_extra.md', 'Cached', 7], ...SECTIONS.slice(6)]],
+    ['04/05 include_str 路径交换', SECTIONS.map(([id, file, zone, order]) => [
+      id,
+      id === '04_actions' ? '05_using_tools.md' : id === '05_using_tools' ? '04_actions.md' : file,
+      zone, order,
+    ])],
+  ]);
+  for (const [name, sections] of attacks) {
+    await write(sections);
+    await assert.rejects(assertBlock0SectionOrder(root), /BASE_SECTIONS/u, name);
+  }
+
+  await write(SECTIONS);
+  await writeFile(modFile, modRsWithSpecs(SECTIONS).replace('sections::ENV', 'sections::MISSING'));
+  await assert.rejects(assertBlock0SectionOrder(root), /未声明的 SectionSpec/u);
+
+  await write(SECTIONS, [...SECTIONS, ['01_intro', '01_intro.md', 'Cached', 1]]);
+  await assert.rejects(assertBlock0SectionOrder(root), /重复声明/u);
 });
