@@ -44,18 +44,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           }
         }
       ],
@@ -79,7 +79,7 @@
           {
             "offset": 0,
             "length": 929,
-            "atMs": 10.347167000001718,
+            "atMs": 10.491667000002053,
             "sha256": "75a09a7c76ae5bf5521d094f789d38370eefb15063803ebccdd6c760c5d5c199"
           }
         ],
@@ -88,9 +88,9 @@
         "sha256": "75a09a7c76ae5bf5521d094f789d38370eefb15063803ebccdd6c760c5d5c199",
         "terminal": {
           "kind": "complete",
-          "atMs": 10.499625000000378
+          "atMs": 10.608707999999751
         },
-        "headersAtMs": 10.26812500000051,
+        "headersAtMs": 10.426542000001064,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -136,18 +136,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           }
         }
       ],
@@ -171,7 +171,7 @@
           {
             "offset": 0,
             "length": 943,
-            "atMs": 8.521500000000742,
+            "atMs": 9.860207999998238,
             "sha256": "d2c20fc86f884fd9e5620db17d6d36bb1378911fce74928843d54a815762f826"
           }
         ],
@@ -180,9 +180,9 @@
         "sha256": "d2c20fc86f884fd9e5620db17d6d36bb1378911fce74928843d54a815762f826",
         "terminal": {
           "kind": "complete",
-          "atMs": 8.66504200000054
+          "atMs": 9.951374999996915
         },
-        "headersAtMs": 8.460917000000336,
+        "headersAtMs": 9.801041999999143,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -224,12 +224,12 @@
           ],
           "patternSha256": "24ef2010652dd11f5908d889ffd327da7131bae129d04ea1fb6f66d3a7ac3ab3",
           "recorded": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           },
           "live": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           }
         },
         {
@@ -260,18 +260,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           }
         }
       ],
@@ -295,7 +295,7 @@
           {
             "offset": 0,
             "length": 760,
-            "atMs": 9.463125000000218,
+            "atMs": 8.834834000001138,
             "sha256": "e38221cdf5bfca424fce36fd21071172614eef94897167fe48ef4969b28acdda"
           }
         ],
@@ -304,9 +304,9 @@
         "sha256": "e38221cdf5bfca424fce36fd21071172614eef94897167fe48ef4969b28acdda",
         "terminal": {
           "kind": "complete",
-          "atMs": 9.578457999999955
+          "atMs": 8.95087500000227
         },
-        "headersAtMs": 9.403249999999389,
+        "headersAtMs": 8.782333999999537,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -348,12 +348,12 @@
           ],
           "patternSha256": "24ef2010652dd11f5908d889ffd327da7131bae129d04ea1fb6f66d3a7ac3ab3",
           "recorded": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           },
           "live": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           }
         },
         {
@@ -384,14 +384,14 @@
           ],
           "patternSha256": "85c8357d34f72c6ed6ea9e44267174245b7506b795d0224cf09ef40fea9f6c0b",
           "recorded": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           },
           "live": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           }
         },
         {
@@ -422,18 +422,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           }
         }
       ],
@@ -457,18 +457,18 @@
           {
             "offset": 0,
             "length": 970,
-            "atMs": 13.686250000000655,
-            "sha256": "078ef25612490ffbd3d9fe446b737360cb98ab181305575f58011fa02a70622d"
+            "atMs": 13.415250000001834,
+            "sha256": "0b37e194fa06cf4020128112ac69fd61a27118771a357f117d0dcf4fc3742f62"
           }
         ],
         "size": 970,
         "submittedBytes": 970,
-        "sha256": "078ef25612490ffbd3d9fe446b737360cb98ab181305575f58011fa02a70622d",
+        "sha256": "0b37e194fa06cf4020128112ac69fd61a27118771a357f117d0dcf4fc3742f62",
         "terminal": {
           "kind": "complete",
-          "atMs": 13.905250000001615
+          "atMs": 13.659500000001572
         },
-        "headersAtMs": 13.587625000000116,
+        "headersAtMs": 13.303459000002476,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -510,12 +510,12 @@
           ],
           "patternSha256": "24ef2010652dd11f5908d889ffd327da7131bae129d04ea1fb6f66d3a7ac3ab3",
           "recorded": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           },
           "live": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           }
         },
         {
@@ -546,14 +546,14 @@
           ],
           "patternSha256": "85c8357d34f72c6ed6ea9e44267174245b7506b795d0224cf09ef40fea9f6c0b",
           "recorded": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           },
           "live": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           }
         },
         {
@@ -568,10 +568,10 @@
           ],
           "patternSha256": "2209c7b5aa19fc887368651743fa3b6ff3f7b5db294550896d3cd7be17bfa2ab",
           "recorded": {
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           },
           "live": {
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           }
         },
         {
@@ -602,18 +602,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           }
         },
         {
@@ -627,10 +627,10 @@
           ],
           "patternSha256": "17c3f5d17a2bb1d5bcd64e8c8a4b37b4a8f7b78c76c57ee298dd6a024aff78f9",
           "recorded": {
-            "timestamp:monitor-m05-event-1-ts": "2026-11-11T02:12:58.279457+00:00"
+            "timestamp:monitor-m05-event-1-ts": "2026-11-18T03:57:30.376478+00:00"
           },
           "live": {
-            "timestamp:monitor-m05-event-1-ts": "2026-11-11T02:12:58.279457+00:00"
+            "timestamp:monitor-m05-event-1-ts": "2026-11-18T03:57:30.376478+00:00"
           }
         }
       ],
@@ -654,18 +654,18 @@
           {
             "offset": 0,
             "length": 970,
-            "atMs": 13.138875000000553,
-            "sha256": "c2a824283c888522ebc003f70968a5afa6c4f909d3720b7f13326521e44bf637"
+            "atMs": 12.110541999998532,
+            "sha256": "220ed74308faffc2bc2e526fbc065f0fd3d6e4d979553a5495e0bcf07d28da16"
           }
         ],
         "size": 970,
         "submittedBytes": 970,
-        "sha256": "c2a824283c888522ebc003f70968a5afa6c4f909d3720b7f13326521e44bf637",
+        "sha256": "220ed74308faffc2bc2e526fbc065f0fd3d6e4d979553a5495e0bcf07d28da16",
         "terminal": {
           "kind": "complete",
-          "atMs": 13.318499999999403
+          "atMs": 12.257458000000042
         },
-        "headersAtMs": 13.05291600000055,
+        "headersAtMs": 12.034041999999317,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -707,12 +707,12 @@
           ],
           "patternSha256": "24ef2010652dd11f5908d889ffd327da7131bae129d04ea1fb6f66d3a7ac3ab3",
           "recorded": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           },
           "live": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           }
         },
         {
@@ -743,14 +743,14 @@
           ],
           "patternSha256": "85c8357d34f72c6ed6ea9e44267174245b7506b795d0224cf09ef40fea9f6c0b",
           "recorded": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           },
           "live": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           }
         },
         {
@@ -765,10 +765,10 @@
           ],
           "patternSha256": "2209c7b5aa19fc887368651743fa3b6ff3f7b5db294550896d3cd7be17bfa2ab",
           "recorded": {
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           },
           "live": {
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           }
         },
         {
@@ -783,10 +783,10 @@
           ],
           "patternSha256": "2209c7b5aa19fc887368651743fa3b6ff3f7b5db294550896d3cd7be17bfa2ab",
           "recorded": {
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           },
           "live": {
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           }
         },
         {
@@ -817,18 +817,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           }
         },
         {
@@ -842,10 +842,10 @@
           ],
           "patternSha256": "17c3f5d17a2bb1d5bcd64e8c8a4b37b4a8f7b78c76c57ee298dd6a024aff78f9",
           "recorded": {
-            "timestamp:monitor-m05-event-1-ts": "2026-11-11T02:12:58.279457+00:00"
+            "timestamp:monitor-m05-event-1-ts": "2026-11-18T03:57:30.376478+00:00"
           },
           "live": {
-            "timestamp:monitor-m05-event-1-ts": "2026-11-11T02:12:58.279457+00:00"
+            "timestamp:monitor-m05-event-1-ts": "2026-11-18T03:57:30.376478+00:00"
           }
         },
         {
@@ -859,10 +859,10 @@
           ],
           "patternSha256": "f08701611de81a618faa1d6ea116a415b9b784cc016c193f88319d7dc0fd3b96",
           "recorded": {
-            "timestamp:monitor-m05-event-2-ts": "2026-11-11T02:12:58.279473+00:00"
+            "timestamp:monitor-m05-event-2-ts": "2026-11-18T03:57:30.376492+00:00"
           },
           "live": {
-            "timestamp:monitor-m05-event-2-ts": "2026-11-11T02:12:58.279473+00:00"
+            "timestamp:monitor-m05-event-2-ts": "2026-11-18T03:57:30.376492+00:00"
           }
         }
       ],
@@ -886,18 +886,18 @@
           {
             "offset": 0,
             "length": 970,
-            "atMs": 10.587417000000642,
-            "sha256": "0f900d3537fff0a7100f84a358b427894972669c00ba3c76631bc4733866d8c9"
+            "atMs": 10.700082999999722,
+            "sha256": "b93bb1bdc3db14b6674803513c6563ea6c88bcf4bdf902281a9ae67e6216fab9"
           }
         ],
         "size": 970,
         "submittedBytes": 970,
-        "sha256": "0f900d3537fff0a7100f84a358b427894972669c00ba3c76631bc4733866d8c9",
+        "sha256": "b93bb1bdc3db14b6674803513c6563ea6c88bcf4bdf902281a9ae67e6216fab9",
         "terminal": {
           "kind": "complete",
-          "atMs": 10.764000000001033
+          "atMs": 10.808333000000857
         },
-        "headersAtMs": 10.505417000000307,
+        "headersAtMs": 10.630000000001019,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -939,12 +939,12 @@
           ],
           "patternSha256": "24ef2010652dd11f5908d889ffd327da7131bae129d04ea1fb6f66d3a7ac3ab3",
           "recorded": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           },
           "live": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           }
         },
         {
@@ -975,14 +975,14 @@
           ],
           "patternSha256": "85c8357d34f72c6ed6ea9e44267174245b7506b795d0224cf09ef40fea9f6c0b",
           "recorded": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           },
           "live": {
-            "task:monitor-m05-host": "mcp-01a1c861-3cb0-7a90-a60e-3ce38ab4bc68",
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "task:monitor-m05-host": "mcp-01a1eccd-7509-70f2-beef-6c59bce1891a",
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           }
         },
         {
@@ -997,10 +997,10 @@
           ],
           "patternSha256": "2209c7b5aa19fc887368651743fa3b6ff3f7b5db294550896d3cd7be17bfa2ab",
           "recorded": {
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           },
           "live": {
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           }
         },
         {
@@ -1015,10 +1015,10 @@
           ],
           "patternSha256": "2209c7b5aa19fc887368651743fa3b6ff3f7b5db294550896d3cd7be17bfa2ab",
           "recorded": {
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           },
           "live": {
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           }
         },
         {
@@ -1033,10 +1033,10 @@
           ],
           "patternSha256": "2209c7b5aa19fc887368651743fa3b6ff3f7b5db294550896d3cd7be17bfa2ab",
           "recorded": {
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           },
           "live": {
-            "task:monitor-m05-raw": "monitor-01a1c861-3cad-7e52-82f8-50cfab765cce"
+            "task:monitor-m05-raw": "monitor-01a1eccd-7506-7df3-bdd8-ecafdde98982"
           }
         },
         {
@@ -1067,18 +1067,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fuVIgd/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-DDh469/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c861-3b1d-7703-972f-8effcbd89b0f"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccd-6f89-7512-abb3-8cefaa249118"
           }
         },
         {
@@ -1092,10 +1092,10 @@
           ],
           "patternSha256": "17c3f5d17a2bb1d5bcd64e8c8a4b37b4a8f7b78c76c57ee298dd6a024aff78f9",
           "recorded": {
-            "timestamp:monitor-m05-event-1-ts": "2026-11-11T02:12:58.279457+00:00"
+            "timestamp:monitor-m05-event-1-ts": "2026-11-18T03:57:30.376478+00:00"
           },
           "live": {
-            "timestamp:monitor-m05-event-1-ts": "2026-11-11T02:12:58.279457+00:00"
+            "timestamp:monitor-m05-event-1-ts": "2026-11-18T03:57:30.376478+00:00"
           }
         },
         {
@@ -1109,10 +1109,10 @@
           ],
           "patternSha256": "f08701611de81a618faa1d6ea116a415b9b784cc016c193f88319d7dc0fd3b96",
           "recorded": {
-            "timestamp:monitor-m05-event-2-ts": "2026-11-11T02:12:58.279473+00:00"
+            "timestamp:monitor-m05-event-2-ts": "2026-11-18T03:57:30.376492+00:00"
           },
           "live": {
-            "timestamp:monitor-m05-event-2-ts": "2026-11-11T02:12:58.279473+00:00"
+            "timestamp:monitor-m05-event-2-ts": "2026-11-18T03:57:30.376492+00:00"
           }
         }
       ],
@@ -1136,7 +1136,7 @@
           {
             "offset": 0,
             "length": 764,
-            "atMs": 10.288375000000087,
+            "atMs": 10.376333000000159,
             "sha256": "51fbc3640193186dfefcea14e90837e5be780279bf3e64658839b040b79d7078"
           }
         ],
@@ -1145,9 +1145,9 @@
         "sha256": "51fbc3640193186dfefcea14e90837e5be780279bf3e64658839b040b79d7078",
         "terminal": {
           "kind": "complete",
-          "atMs": 10.435417000000598
+          "atMs": 10.460291999999754
         },
-        "headersAtMs": 10.232041999999637,
+        "headersAtMs": 10.325749999999971,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",

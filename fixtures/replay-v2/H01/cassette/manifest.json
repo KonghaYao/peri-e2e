@@ -44,18 +44,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646"
           }
         }
       ],
@@ -79,7 +79,7 @@
           {
             "offset": 0,
             "length": 1136,
-            "atMs": 15.436125000000061,
+            "atMs": 17.91300000000001,
             "sha256": "20d836ab0e5e800499348929700c65cd4d3e689cc1d854e29e1dc756acbc9243"
           }
         ],
@@ -88,9 +88,9 @@
         "sha256": "20d836ab0e5e800499348929700c65cd4d3e689cc1d854e29e1dc756acbc9243",
         "terminal": {
           "kind": "complete",
-          "atMs": 15.89554099999998
+          "atMs": 18.375125000000025
         },
-        "headersAtMs": 15.205625000000055,
+        "headersAtMs": 17.671708999999964,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -124,10 +124,10 @@
           ],
           "patternSha256": "0315662fc2f01eb47d020443bb85cad9f0950297a22971fdc18a31c4878835bb",
           "recorded": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5"
           },
           "live": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5"
           }
         },
         {
@@ -158,18 +158,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646"
           }
         }
       ],
@@ -193,7 +193,7 @@
           {
             "offset": 0,
             "length": 760,
-            "atMs": 11.633249999999975,
+            "atMs": 12.591957999999977,
             "sha256": "7c6aefdf87cea3fb13cd368769186f22548c02844d7a1f95fcc7d346d9ec92af"
           }
         ],
@@ -202,9 +202,9 @@
         "sha256": "7c6aefdf87cea3fb13cd368769186f22548c02844d7a1f95fcc7d346d9ec92af",
         "terminal": {
           "kind": "complete",
-          "atMs": 11.942249999999945
+          "atMs": 12.761040999999977
         },
-        "headersAtMs": 11.524707999999919,
+        "headersAtMs": 12.486957999999959,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -238,10 +238,10 @@
           ],
           "patternSha256": "0315662fc2f01eb47d020443bb85cad9f0950297a22971fdc18a31c4878835bb",
           "recorded": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5"
           },
           "live": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5"
           }
         },
         {
@@ -280,18 +280,18 @@
           ],
           "patternSha256": "3a7a657c1e886b89c4706580e1c210b0d56f82b7d83456e6a8b63217e9980c1e",
           "recorded": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200",
-            "task:shell-h01-remote": "shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121",
-            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4f87eb5d-ffad-4142-ae82-3fd07ddfd390-stdout.log",
-            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4724da9d-2a1c-425b-9c3a-daedafadc2b8-stderr.log"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5",
+            "task:shell-h01-remote": "shell-01a1eccc-c73c-7563-9936-696fb8fd0d62",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646",
+            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-a7424421-e32f-498a-97b1-22961d373e38-stdout.log",
+            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-3d6db2df-eb31-432a-ae3a-f6ea6cb1d272-stderr.log"
           },
           "live": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200",
-            "task:shell-h01-remote": "shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121",
-            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4f87eb5d-ffad-4142-ae82-3fd07ddfd390-stdout.log",
-            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4724da9d-2a1c-425b-9c3a-daedafadc2b8-stderr.log"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5",
+            "task:shell-h01-remote": "shell-01a1eccc-c73c-7563-9936-696fb8fd0d62",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646",
+            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-a7424421-e32f-498a-97b1-22961d373e38-stdout.log",
+            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-3d6db2df-eb31-432a-ae3a-f6ea6cb1d272-stderr.log"
           }
         },
         {
@@ -322,18 +322,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646"
           }
         }
       ],
@@ -357,18 +357,18 @@
           {
             "offset": 0,
             "length": 998,
-            "atMs": 10.611124999999902,
-            "sha256": "a75b76e34792536a0c57c2bb34369489e0a18ddf7b2de23c4e20fd169eada6f2"
+            "atMs": 10.526041999999961,
+            "sha256": "44a859ed93216f1790aa74307de19d1e249fd8aad63a1f1a9b867fa24bba23a5"
           }
         ],
         "size": 998,
         "submittedBytes": 998,
-        "sha256": "a75b76e34792536a0c57c2bb34369489e0a18ddf7b2de23c4e20fd169eada6f2",
+        "sha256": "44a859ed93216f1790aa74307de19d1e249fd8aad63a1f1a9b867fa24bba23a5",
         "terminal": {
           "kind": "complete",
-          "atMs": 10.966792000000169
+          "atMs": 10.688124999999673
         },
-        "headersAtMs": 10.523499999999785,
+        "headersAtMs": 10.421124999999847,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -402,10 +402,10 @@
           ],
           "patternSha256": "0315662fc2f01eb47d020443bb85cad9f0950297a22971fdc18a31c4878835bb",
           "recorded": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5"
           },
           "live": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5"
           }
         },
         {
@@ -444,18 +444,18 @@
           ],
           "patternSha256": "3a7a657c1e886b89c4706580e1c210b0d56f82b7d83456e6a8b63217e9980c1e",
           "recorded": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200",
-            "task:shell-h01-remote": "shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121",
-            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4f87eb5d-ffad-4142-ae82-3fd07ddfd390-stdout.log",
-            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4724da9d-2a1c-425b-9c3a-daedafadc2b8-stderr.log"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5",
+            "task:shell-h01-remote": "shell-01a1eccc-c73c-7563-9936-696fb8fd0d62",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646",
+            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-a7424421-e32f-498a-97b1-22961d373e38-stdout.log",
+            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-3d6db2df-eb31-432a-ae3a-f6ea6cb1d272-stderr.log"
           },
           "live": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200",
-            "task:shell-h01-remote": "shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121",
-            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4f87eb5d-ffad-4142-ae82-3fd07ddfd390-stdout.log",
-            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4724da9d-2a1c-425b-9c3a-daedafadc2b8-stderr.log"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5",
+            "task:shell-h01-remote": "shell-01a1eccc-c73c-7563-9936-696fb8fd0d62",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646",
+            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-a7424421-e32f-498a-97b1-22961d373e38-stdout.log",
+            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-3d6db2df-eb31-432a-ae3a-f6ea6cb1d272-stderr.log"
           }
         },
         {
@@ -470,10 +470,10 @@
           ],
           "patternSha256": "8d40a405e5c9195024bd28d2bcf4c8ba8b34b965ff5a6f334189501432ddaebf",
           "recorded": {
-            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4f87eb5d-ffad-4142-ae82-3fd07ddfd390-stdout.log"
+            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-a7424421-e32f-498a-97b1-22961d373e38-stdout.log"
           },
           "live": {
-            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4f87eb5d-ffad-4142-ae82-3fd07ddfd390-stdout.log"
+            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-a7424421-e32f-498a-97b1-22961d373e38-stdout.log"
           }
         },
         {
@@ -504,18 +504,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646"
           }
         }
       ],
@@ -539,18 +539,18 @@
           {
             "offset": 0,
             "length": 998,
-            "atMs": 10.893000000000029,
-            "sha256": "56948e01a52be9c76f1a4c52c70229417a7b2c399626a57f12681d4215d6f5bf"
+            "atMs": 10.416083000000071,
+            "sha256": "0e6a178849526b88d60350e29d5165d3ea6c486505e5b0ec70455a9ecac0030a"
           }
         ],
         "size": 998,
         "submittedBytes": 998,
-        "sha256": "56948e01a52be9c76f1a4c52c70229417a7b2c399626a57f12681d4215d6f5bf",
+        "sha256": "0e6a178849526b88d60350e29d5165d3ea6c486505e5b0ec70455a9ecac0030a",
         "terminal": {
           "kind": "complete",
-          "atMs": 11.076207999999951
+          "atMs": 10.535249999999905
         },
-        "headersAtMs": 10.788708000000042,
+        "headersAtMs": 10.360208000000057,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -584,10 +584,10 @@
           ],
           "patternSha256": "0315662fc2f01eb47d020443bb85cad9f0950297a22971fdc18a31c4878835bb",
           "recorded": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5"
           },
           "live": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5"
           }
         },
         {
@@ -626,18 +626,18 @@
           ],
           "patternSha256": "3a7a657c1e886b89c4706580e1c210b0d56f82b7d83456e6a8b63217e9980c1e",
           "recorded": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200",
-            "task:shell-h01-remote": "shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121",
-            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4f87eb5d-ffad-4142-ae82-3fd07ddfd390-stdout.log",
-            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4724da9d-2a1c-425b-9c3a-daedafadc2b8-stderr.log"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5",
+            "task:shell-h01-remote": "shell-01a1eccc-c73c-7563-9936-696fb8fd0d62",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646",
+            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-a7424421-e32f-498a-97b1-22961d373e38-stdout.log",
+            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-3d6db2df-eb31-432a-ae3a-f6ea6cb1d272-stderr.log"
           },
           "live": {
-            "task:shell-h01": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200",
-            "task:shell-h01-remote": "shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121",
-            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4f87eb5d-ffad-4142-ae82-3fd07ddfd390-stdout.log",
-            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4724da9d-2a1c-425b-9c3a-daedafadc2b8-stderr.log"
+            "task:shell-h01": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5",
+            "task:shell-h01-remote": "shell-01a1eccc-c73c-7563-9936-696fb8fd0d62",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646",
+            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-a7424421-e32f-498a-97b1-22961d373e38-stdout.log",
+            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-3d6db2df-eb31-432a-ae3a-f6ea6cb1d272-stderr.log"
           }
         },
         {
@@ -652,10 +652,10 @@
           ],
           "patternSha256": "8d40a405e5c9195024bd28d2bcf4c8ba8b34b965ff5a6f334189501432ddaebf",
           "recorded": {
-            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4f87eb5d-ffad-4142-ae82-3fd07ddfd390-stdout.log"
+            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-a7424421-e32f-498a-97b1-22961d373e38-stdout.log"
           },
           "live": {
-            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4f87eb5d-ffad-4142-ae82-3fd07ddfd390-stdout.log"
+            "path:shell-h01-stdout": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-a7424421-e32f-498a-97b1-22961d373e38-stdout.log"
           }
         },
         {
@@ -670,10 +670,10 @@
           ],
           "patternSha256": "7a058731db023047ce494f8b083f59000345c2fba18e22c01f0d411ed40e601d",
           "recorded": {
-            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4724da9d-2a1c-425b-9c3a-daedafadc2b8-stderr.log"
+            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-3d6db2df-eb31-432a-ae3a-f6ea6cb1d272-stderr.log"
           },
           "live": {
-            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4724da9d-2a1c-425b-9c3a-daedafadc2b8-stderr.log"
+            "path:shell-h01-stderr": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-3d6db2df-eb31-432a-ae3a-f6ea6cb1d272-stderr.log"
           }
         },
         {
@@ -704,18 +704,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646"
           },
           "live": {
-            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/work",
             "platform:platform": "macos",
             "os_version:os_version": "macOS 26.5.1",
-            "date:today": "2026-11-11",
-            "session:root": "01a1c85b-9d6b-71a0-805f-b60972f27121"
+            "date:today": "2026-11-18",
+            "session:root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646"
           }
         }
       ],
@@ -739,7 +739,7 @@
           {
             "offset": 0,
             "length": 763,
-            "atMs": 9.815499999999702,
+            "atMs": 8.509541999999783,
             "sha256": "6f66ec120a974fd80195c67271c62a1aa89be2472f667122ac584000c4161b36"
           }
         ],
@@ -748,9 +748,9 @@
         "sha256": "6f66ec120a974fd80195c67271c62a1aa89be2472f667122ac584000c4161b36",
         "terminal": {
           "kind": "complete",
-          "atMs": 9.984332999999879
+          "atMs": 8.623999999999796
         },
-        "headersAtMs": 9.732124999999996,
+        "headersAtMs": 8.462416999999732,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",

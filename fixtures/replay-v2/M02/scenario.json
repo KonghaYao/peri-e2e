@@ -13,6 +13,8 @@
     "directories": [
       "home",
       "home/.peri",
+      "home/runtime",
+      "home/state",
       "home/tmp",
       "work"
     ],
@@ -32,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-5F8aAr",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-5F8aAr/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-5F8aAr/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fl7QRl",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fl7QRl/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fl7QRl/work"
   },
   "recordedSessionIds": {
-    "root": "01a1c861-1bb2-7872-bbf3-42421296fcfe"
+    "root": "01a1eccd-2e39-74c1-b4ee-773e0fbd6ed8"
   },
   "configurationFingerprint": "5fc743ad8e5b8f0a1723442f2a27e2c521831857be840c2c9e8c2364098f6618",
   "bindings": [
@@ -45,28 +47,28 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-5F8aAr",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fl7QRl",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-5F8aAr/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fl7QRl/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-5F8aAr/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fl7QRl/work",
       "anchor": "isolated scenario work"
     },
     {
       "owner": "world",
       "kind": "date",
       "alias": "today",
-      "recorded": "2026-11-11",
+      "recorded": "2026-11-18",
       "anchor": "ambient UTC date in system environment"
     },
     {
@@ -87,35 +89,35 @@
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1c861-1bb2-7872-bbf3-42421296fcfe",
+      "recorded": "01a1eccd-2e39-74c1-b4ee-773e0fbd6ed8",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m02-host",
-      "recorded": "mcp-01a1c861-1d44-7221-8e88-596a337c3e54",
+      "recorded": "mcp-01a1eccd-33d0-7821-ae7b-71dcb376536e",
       "anchor": "monitor_start host receipt M02-start"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m02-raw",
-      "recorded": "monitor-01a1c861-1d42-74e2-b91d-ce53ed36bc28",
+      "recorded": "monitor-01a1eccd-33cd-7233-a36a-1959ac3f9535",
       "anchor": "monitor_start raw receipt M02-start"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m02-event-1-ts",
-      "recorded": "2026-11-11T02:12:50.231810+00:00",
+      "recorded": "2026-11-18T03:57:13.672401+00:00",
       "anchor": "monitor M02-start event seq 1 capture timestamp"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m02-event-2-ts",
-      "recorded": "2026-11-11T02:12:50.234224+00:00",
+      "recorded": "2026-11-18T03:57:13.674939+00:00",
       "anchor": "monitor M02-start event seq 2 capture timestamp"
     }
   ],
@@ -153,7 +155,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "135a476e9707b477616176558fd13993453c845861a8c4a9a292d61205192dda"
+      "sourceSha256": "88f7d1f73518c13fb9b95f24f8f62458eaf9a22ba167292dce9597db96447b0b"
     },
     {
       "identity": {
@@ -188,7 +190,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "7ff0720640cc24985e988d72f3cad9030b91ab44237fac9636338e3379efdc2a"
+      "sourceSha256": "aad9f394a60a069a124d16b236052cb9394b3c950e0001ecaf8cf5e8b36bb498"
     }
   ]
 }

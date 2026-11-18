@@ -13,6 +13,8 @@
     "directories": [
       "home",
       "home/.peri",
+      "home/runtime",
+      "home/state",
       "home/tmp",
       "work"
     ],
@@ -26,12 +28,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-4wVCzE",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-4wVCzE/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-4wVCzE/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fll8wm",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fll8wm/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fll8wm/work"
   },
   "recordedSessionIds": {
-    "root": "01a1c866-c89b-7a51-8409-ce36bc9606ff"
+    "root": "01a1eccc-6d39-7a12-b413-a5f06e1d3367"
   },
   "configurationFingerprint": "2db5e06102399f3795e3a3e1122e26b818b3656a08223d85c71c7f02fa2baa21",
   "bindings": [
@@ -39,28 +41,28 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-4wVCzE",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fll8wm",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-4wVCzE/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fll8wm/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-4wVCzE/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-fll8wm/work",
       "anchor": "isolated scenario work"
     },
     {
       "owner": "world",
       "kind": "date",
       "alias": "today",
-      "recorded": "2026-11-11",
+      "recorded": "2026-11-18",
       "anchor": "ambient UTC date in system environment"
     },
     {
@@ -81,14 +83,14 @@
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1c866-c89b-7a51-8409-ce36bc9606ff",
+      "recorded": "01a1eccc-6d39-7a12-b413-a5f06e1d3367",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-h10",
-      "recorded": "mcp-01a1c866-c924-77d1-a501-d7896c39c4b1",
+      "recorded": "mcp-01a1eccc-71c8-7291-ad66-c50811d8f721",
       "anchor": "Bash tool receipt H10-bash"
     }
   ],

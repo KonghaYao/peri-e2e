@@ -13,6 +13,8 @@
     "directories": [
       "home",
       "home/.peri",
+      "home/runtime",
+      "home/state",
       "home/tmp",
       "work"
     ],
@@ -26,12 +28,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/work"
   },
   "recordedSessionIds": {
-    "root": "01a1c85b-9d6b-71a0-805f-b60972f27121"
+    "root": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646"
   },
   "configurationFingerprint": "424fb1f189498d7e38c6476c81716b4fdc3b1e3252cb25b42d043a46088edb93",
   "bindings": [
@@ -39,28 +41,28 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/work",
       "anchor": "isolated scenario work"
     },
     {
       "owner": "world",
       "kind": "date",
       "alias": "today",
-      "recorded": "2026-11-11",
+      "recorded": "2026-11-18",
       "anchor": "ambient UTC date in system environment"
     },
     {
@@ -81,35 +83,35 @@
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1c85b-9d6b-71a0-805f-b60972f27121",
+      "recorded": "01a1eccc-c1fb-71a2-bbd0-ecfe712d6646",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-h01",
-      "recorded": "mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200",
+      "recorded": "mcp-01a1eccc-c73f-7d21-918e-0279d74832d5",
       "anchor": "Bash tool receipt H01-bash"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-h01-remote",
-      "recorded": "shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a",
+      "recorded": "shell-01a1eccc-c73c-7563-9936-696fb8fd0d62",
       "anchor": "MCP remote task linked to Bash tool H01-bash"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "shell-h01-stdout",
-      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4f87eb5d-ffad-4142-ae82-3fd07ddfd390-stdout.log",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-a7424421-e32f-498a-97b1-22961d373e38-stdout.log",
       "anchor": "terminal stdout reference for H01-bash"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "shell-h01-stderr",
-      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4724da9d-2a1c-425b-9c3a-daedafadc2b8-stderr.log",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-cYtmSe/home/tmp/peri-bg-shell-01a1eccc-c73c-7563-9936-696fb8fd0d62-3d6db2df-eb31-432a-ae3a-f6ea6cb1d272-stderr.log",
       "anchor": "terminal stderr reference for H01-bash"
     }
   ],
@@ -142,7 +144,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "a75b76e34792536a0c57c2bb34369489e0a18ddf7b2de23c4e20fd169eada6f2"
+      "sourceSha256": "44a859ed93216f1790aa74307de19d1e249fd8aad63a1f1a9b867fa24bba23a5"
     },
     {
       "identity": {
@@ -172,7 +174,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "56948e01a52be9c76f1a4c52c70229417a7b2c399626a57f12681d4215d6f5bf"
+      "sourceSha256": "0e6a178849526b88d60350e29d5165d3ea6c486505e5b0ec70455a9ecac0030a"
     }
   ]
 }

@@ -29,13 +29,13 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YibL3F",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YibL3F/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YibL3F/work"
   },
   "recordedSessionIds": {
-    "A": "01a1c868-17ea-76d3-aed2-36e7da756bd0",
-    "B": "01a1c868-1820-7b73-8f4c-9b6d3af912f6"
+    "A": "01a1eccc-25ac-7123-a033-dfa4a36704fe",
+    "B": "01a1eccc-29da-7773-a988-0cff7929ed52"
   },
   "configurationFingerprint": "c75ae9c8f29a365fa7fe698a517edf922d2cd53a563ab96ad0badacf24a232cc",
   "bindings": [
@@ -43,28 +43,28 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YibL3F",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YibL3F/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YibL3F/work",
       "anchor": "isolated scenario work"
     },
     {
       "owner": "world",
       "kind": "date",
       "alias": "today",
-      "recorded": "2026-11-11",
+      "recorded": "2026-11-18",
       "anchor": "ambient UTC date in system environment"
     },
     {
@@ -85,70 +85,70 @@
       "owner": "world",
       "kind": "session",
       "alias": "A",
-      "recorded": "01a1c868-17ea-76d3-aed2-36e7da756bd0",
+      "recorded": "01a1eccc-25ac-7123-a033-dfa4a36704fe",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "B",
-      "recorded": "01a1c868-1820-7b73-8f4c-9b6d3af912f6",
+      "recorded": "01a1eccc-29da-7773-a988-0cff7929ed52",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-A",
-      "recorded": "mcp-01a1c868-20ba-7ee1-a574-4f37cbac83a3",
+      "recorded": "mcp-01a1eccc-2ea2-7523-823f-242a5667ff45",
       "anchor": "Bash tool receipt H07-A"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-B",
-      "recorded": "mcp-01a1c868-211a-79a2-9ae9-56da40ba8033",
+      "recorded": "mcp-01a1eccc-2f00-72a3-bd24-976661c4f467",
       "anchor": "Bash tool receipt H07-B"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-B-remote",
-      "recorded": "shell-01a1c868-2117-7730-82cc-de9ac61bc9a0",
+      "recorded": "shell-01a1eccc-2efd-72f0-ba82-3de6dbe0f53d",
       "anchor": "MCP remote task linked to Bash tool H07-B"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "shell-B-stdout",
-      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/home/tmp/peri-bg-shell-01a1c868-2117-7730-82cc-de9ac61bc9a0-a75a5694-205c-42b7-b4e9-750bdf531e4c-stdout.log",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YibL3F/home/tmp/peri-bg-shell-01a1eccc-2efd-72f0-ba82-3de6dbe0f53d-46da478a-5f52-4a96-ad70-cf8ee98cec3a-stdout.log",
       "anchor": "terminal stdout reference for H07-B"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "shell-B-stderr",
-      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/home/tmp/peri-bg-shell-01a1c868-2117-7730-82cc-de9ac61bc9a0-63687c00-6ef4-4fb4-9717-0d6683d1536c-stderr.log",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YibL3F/home/tmp/peri-bg-shell-01a1eccc-2efd-72f0-ba82-3de6dbe0f53d-fab202f4-cb7e-47be-a103-c5cb7a9a5186-stderr.log",
       "anchor": "terminal stderr reference for H07-B"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "shell-A-remote",
-      "recorded": "shell-01a1c868-20b6-73f3-bf81-852438a11912",
+      "recorded": "shell-01a1eccc-2e9f-7881-930d-3eb1c23ad757",
       "anchor": "MCP remote task linked to Bash tool H07-A"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "shell-A-stdout",
-      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/home/tmp/peri-bg-shell-01a1c868-20b6-73f3-bf81-852438a11912-e8dcf45f-46d2-4718-8673-6be87041ac03-stdout.log",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YibL3F/home/tmp/peri-bg-shell-01a1eccc-2e9f-7881-930d-3eb1c23ad757-e672e320-42cb-44fc-8aec-09d29114efc4-stdout.log",
       "anchor": "terminal stdout reference for H07-A"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "shell-A-stderr",
-      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-Az2e7I/home/tmp/peri-bg-shell-01a1c868-20b6-73f3-bf81-852438a11912-b3a6879e-3bc3-457b-acff-abe50e710752-stderr.log",
+      "recorded": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YibL3F/home/tmp/peri-bg-shell-01a1eccc-2e9f-7881-930d-3eb1c23ad757-87ecf2e4-376f-44cd-b6fd-74222507bc26-stderr.log",
       "anchor": "terminal stderr reference for H07-A"
     }
   ],
@@ -181,7 +181,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "47f0194e08c6b7418403d28199c490958f68f15b8db1111a1be27d6635d28fa0"
+      "sourceSha256": "12504de1c45e9b0e55ee60109acbd825b7df8f4b80bfde67af02ddfbcedc4a2b"
     },
     {
       "identity": {
@@ -211,7 +211,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "0f0b32fe1d5ae247373e1249658b5496e9046ceddc3f5fbb61c264cc8366cf31"
+      "sourceSha256": "99262e1ea19fad6371198d1a0a09918e8858bfd897cff2a5edeaaff47f6f7933"
     }
   ]
 }

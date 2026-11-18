@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 65444,
-  "rawSha256": "c59061a077b75a89f116995d0178d25a2bcf918d76c7f2c606f884a4b774e5a8",
+  "rawBytes": 71974,
+  "rawSha256": "85244bbf902eaa0e768ac801047ae9747b7d551b716f2b648efc975bb5fd4d0d",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B07_FIRST_RUN\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B07-first-write\",\"name\":\"Write\",\"input\":{\"content\":\"B07_FIRST_FILE\\n\",\"file_path\":\"b07-first.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B07-first-write\",\"tool_use_id\":\"B07-first-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b07-first.txt\\n[Execution status: completed]\"}],\"is_error\":false}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"B07_FIRST_CHILD_REPORT\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B07_RESUMED_RUN\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B07-child-read\",\"name\":\"Read\",\"input\":{\"file_path\":\"b07-first.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B07-child-read\",\"tool_use_id\":\"B07-child-read\",\"content\":[{\"type\":\"text\",\"text\":\"     1\\tB07_FIRST_FILE\\n     2\\t\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B07-resumed-write\",\"name\":\"Write\",\"input\":{\"content\":\"B07_HISTORY_REUSED\\n\",\"file_path\":\"b07-resumed.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B07-resumed-write\",\"tool_use_id\":\"B07-resumed-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b07-resumed.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -10,7 +10,7 @@
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.subagent.t13",
+      "recipe": "sys.block1.subagent.t28",
       "as": "json-string"
     },
     "}],\"tools\":",
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "627789b018ff79b42ea587ae58c095a911fceef894182139524455d34f5c500a"
+  "canonicalSha256": "be9462c8cf0c5d7aa705adb26d07d9122ee21620c2138e55e90434358f21f9e0"
 }

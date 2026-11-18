@@ -1,23 +1,24 @@
 {
   "v": 2,
-  "rawBytes": 103975,
-  "rawSha256": "ab4da0f3f6d5532f0874d75c0508a8d7f5faf79a369448191e7b5372cf23f097",
+  "rawBytes": 105299,
+  "rawSha256": "b0c6385551c299d225bc4f9a597c925eb5a07039276a88461a41068b1b543343",
   "parts": [
-    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B07 first run.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B07-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B07_FIRST_RUN\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B07-spawn\",\"tool_use_id\":\"B07-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1c858-dbce-7e11-a8d7-5201f678b8ee started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1c858-dbce-7e11-a8d7-51fd4b94c566 (resume with Agent(resume_thread_id: 01a1c858-dbce-7e11-a8d7-51fd4b94c566))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
+    "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B07 first run.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B07-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B07_FIRST_RUN\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B07-spawn\",\"tool_use_id\":\"B07-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1ecc9-f60b-7611-8b3a-185bab43030c started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1ecc9-f60b-7611-8b3a-184b88217461 (resume with Agent(resume_thread_id: 01a1ecc9-f60b-7611-8b3a-184b88217461))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
       "leaf": "sys.block0.main",
       "as": "json-string"
     },
     ",\"cache_control\":{\"type\":\"ephemeral\"}},{\"type\":\"text\",\"text\":",
     {
-      "recipe": "sys.block1.replay-worker.t12",
+      "recipe": "sys.block1.replay-worker.t24",
       "as": "json-string"
     },
     "}],\"tools\":",
     {
-      "recipe": "tools.anthropic.main"
+      "recipe": "tools.anthropic.main",
+      "as": "raw"
     },
     "}"
   ],
-  "canonicalSha256": "f0557caa145d98b725e2b15dfbf6d93e53cafd2566e39cc6deaed01b3b02431b"
+  "canonicalSha256": "876374a783ac17fe896a72fdb032731779ce9f2e70c5809c441779dec0ebec82"
 }

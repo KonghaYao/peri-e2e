@@ -13,6 +13,8 @@
     "directories": [
       "home",
       "home/.peri",
+      "home/runtime",
+      "home/state",
       "home/tmp",
       "work"
     ],
@@ -32,12 +34,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YsmY24",
-    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YsmY24/home",
-    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YsmY24/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-zjup6Q",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-zjup6Q/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-zjup6Q/work"
   },
   "recordedSessionIds": {
-    "root": "01a1c861-458e-7473-8ebb-adea078e9a4f"
+    "root": "01a1eccd-8552-7b93-b660-8da8f19120f6"
   },
   "configurationFingerprint": "ca17415e029f1fa7fa1e517eb5cb91e1f299a9602d82186b85206f4c4197b4ab",
   "bindings": [
@@ -45,28 +47,28 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YsmY24",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-zjup6Q",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YsmY24/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-zjup6Q/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-YsmY24/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-zjup6Q/work",
       "anchor": "isolated scenario work"
     },
     {
       "owner": "world",
       "kind": "date",
       "alias": "today",
-      "recorded": "2026-11-11",
+      "recorded": "2026-11-18",
       "anchor": "ambient UTC date in system environment"
     },
     {
@@ -87,28 +89,28 @@
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1c861-458e-7473-8ebb-adea078e9a4f",
+      "recorded": "01a1eccd-8552-7b93-b660-8da8f19120f6",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m12-host",
-      "recorded": "mcp-01a1c861-4704-7001-a06c-b38238f8e47f",
+      "recorded": "mcp-01a1eccd-8ad0-7882-bfd1-10382ea9173a",
       "anchor": "monitor_start host receipt M12-start"
     },
     {
       "owner": "world",
       "kind": "task",
       "alias": "monitor-m12-raw",
-      "recorded": "monitor-01a1c861-4701-7e21-8096-6ee211df56d5",
+      "recorded": "monitor-01a1eccd-8acd-76b2-8527-dc2c7f86c495",
       "anchor": "monitor_start raw receipt M12-start"
     },
     {
       "owner": "world",
       "kind": "timestamp",
       "alias": "monitor-m12-event-1-ts",
-      "recorded": "2026-11-11T02:13:00.910753+00:00",
+      "recorded": "2026-11-18T03:57:35.931842+00:00",
       "anchor": "monitor M12-start event seq 1 capture timestamp"
     }
   ],
@@ -146,7 +148,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "90171e1c194fde99b6476f82d766cac2360e888cd1e5155716177d1b34386e24"
+      "sourceSha256": "a0fe3a45a24304adfe4ed8e89f8635256e46385a9ed310ee3a6827b4cf82f1fc"
     },
     {
       "identity": {
@@ -181,7 +183,7 @@
         "kind": "utf8",
         "maxBytes": 128
       },
-      "sourceSha256": "12a0f46a4d9b3c1f2119d1edbb02d3c64490f7c88e2a92c78055c992cf06ac1a"
+      "sourceSha256": "a3a19b2abd90df3123e41035fde6aa09803981030691699c25b385f8d472c6cc"
     }
   ]
 }
