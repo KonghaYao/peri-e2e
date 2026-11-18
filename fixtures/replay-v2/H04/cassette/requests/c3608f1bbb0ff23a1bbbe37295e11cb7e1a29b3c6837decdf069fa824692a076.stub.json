@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 99256,
-  "rawSha256": "4b42d847cccb4794dc90efe9f9f2c4a168fd3b04761cf368dba35e156532e550",
+  "rawBytes": 103932,
+  "rawSha256": "59e7247839614173ebe47c57cfd1716408c06eb7b3d7b0f02eb6a82f35330b2d",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H04 background shell.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H04-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h04.pid; printf 'started\\\\n' >> h04.starts; for i in {1..6000}; do [ -f h04.release ] && break; sleep 0.01; done; [ -f h04.release ] || exit 70; printf 'H04_ACTUAL_STDOUT\\\\n'; printf 'H04_ACTUAL_STDERR\\\\n' >&2; printf 'H04_SIDE_EFFECT\\\\n' > h04.result; exit 0\",\"run_in_background\":false,\"timeout\":1}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H04-bash\",\"tool_use_id\":\"H04-bash\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1c85b-c100-7060-853c-18ece9aaf25e. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1c85b-c100-7060-853c-18ece9aaf25e]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.fa0732b9d1ef2f4971464991f9714bdfb89446aa6189d9cb551c47bf6eb839dc",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "7a65bc38c486be7f1697b84e229d94b0ffa05a42ae8076f92558e66c1b8e0d16"
+  "canonicalSha256": "c1112b5f69e6733afe3691ebbdd635f043584a2e3e6e2552401ed265d74b2e6b"
 }

@@ -20,6 +20,7 @@ const fixtures = path.join(e2eRoot, 'fixtures/replay-v2');
 const SYNCED_LEAVES = new Set([
   'sys.block0.main', 'sys.block1.main.prefix', 'sys.block1.replay-worker.prefix',
   'sys.block1.subagent.prefix', 'sys.skills', 'sys.compact.summary', 'sys.compact.user',
+  'tools.Bash.anthropic', 'tools.Bash.responses',
 ]);
 const isSyncedLeaf = (id) => SYNCED_LEAVES.has(id) || id.startsWith('tools.Agent.');
 
@@ -161,6 +162,7 @@ async function syntheticPeriRoot(t, worldDir, { block0, legacySchema = false } =
   await mkdir(path.join(root, 'peri-agent/src/agent/compact_v2/descriptions'), { recursive: true });
   await mkdir(path.join(root, 'peri-middlewares/src/default_system_prompt'), { recursive: true });
   await mkdir(path.join(root, 'peri-middlewares/src/subagent/tool/define'), { recursive: true });
+  await mkdir(path.join(root, 'mcp-packages/workspace/src/descriptions'), { recursive: true });
   const world = await loadWorld(worldDir);
   const block = block0 ?? world.leafBytes('sys.block0.main').toString('utf8');
   await writeFile(path.join(root, 'Cargo.toml'), '');
@@ -180,6 +182,11 @@ async function syntheticPeriRoot(t, worldDir, { block0, legacySchema = false } =
   const agentId = world.leaves.find((id) => id.startsWith('tools.Agent.'));
   const agent = JSON.parse(world.leafBytes(agentId).toString('utf8'));
   await writeFile(path.join(root, 'peri-middlewares/src/subagent/tool/descriptions/agent.md'), agent.description);
+  const bash = JSON.parse(world.leafBytes('tools.Bash.anthropic').toString('utf8'));
+  await writeFile(
+    path.join(root, 'mcp-packages/workspace/src/descriptions/bash.md'),
+    bash.description.replace(/^\[MCP:peri\] /u, ''),
+  );
   const definition = legacySchema
     ? 'peri-middlewares/src/subagent/tool/define.rs'
     : 'peri-middlewares/src/subagent/tool/define/sub_agent_tool.rs';
@@ -388,7 +395,7 @@ test('篡改 tools.Agent.* 非管理字段时 source-anchored 失败，正常 Ag
   assert.ok(anchored.report.approvedDrift.length > 0);
   // S01 只录制了 Anthropic 请求；responses leaf 虽同步但不在本 cassette 的录制引用中。
   assert.deepEqual([...new Set(anchored.report.approvedDrift.map((item) => item.leaf))], [
-    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic',
+    'sys.block0.main', 'sys.block1.main.prefix', 'sys.skills', 'tools.Agent.anthropic', 'tools.Bash.anthropic',
   ]);
 });
 

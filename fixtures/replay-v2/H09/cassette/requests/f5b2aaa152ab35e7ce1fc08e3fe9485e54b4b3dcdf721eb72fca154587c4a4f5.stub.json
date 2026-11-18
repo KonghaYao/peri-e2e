@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 100836,
-  "rawSha256": "038636a67ebb0812ed83d680e3c9cc7b945985390a716a727948a105b1cebf02",
+  "rawBytes": 105512,
+  "rawSha256": "48cd001a1aec7495d0145e4e2f7b02f8ef41793fc7206ad073b5c654b65d150c",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H09 with a real background deadline.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H09-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h09.pid; printf 'started\\\\n' >> h09.starts; for i in {1..6000}; do [ -f h09.release ] && break; sleep 0.01; done; [ -f h09.release ] || exit 70; printf 'H09_FORBIDDEN_LATE_WRITE\\\\n' > h09.late\",\"run_in_background\":true,\"timeout\":3000}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H09-bash\",\"tool_use_id\":\"H09-bash\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1c85c-3788-7aa3-a558-bea08fb359c1. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1c85c-3788-7aa3-a558-bea08fb359c1]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"H09_TIMEOUT_ARMED\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"task\\\" source=\\\"shell\\\" kind=\\\"failed\\\" severity=\\\"error\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;automation&quot;]\\\" summary=\\\"&quot;Shell task timed_out&quot;\\\" metadata=\\\"{&quot;server&quot;:&quot;workspace&quot;,&quot;task_id&quot;:&quot;mcp-01a1c85c-3788-7aa3-a558-bea08fb359c1&quot;,&quot;remote_task_id&quot;:&quot;shell-01a1c85c-3785-7243-aa42-9d68b4425ad1&quot;,&quot;initiator&quot;:&quot;01a1c85c-35eb-7110-9435-45c52c31ab9e&quot;,&quot;task_owner&quot;:&quot;01a1c85c-35eb-7110-9435-45c52c31ab9e&quot;,&quot;delivery&quot;:&quot;initiator&quot;}\\\">后台任务结果\\ntask_id: mcp-01a1c85c-3788-7aa3-a558-bea08fb359c1\\nagent: bg-shell\\ncommand: printf &apos;%s\\\\n&apos; &quot;$$&quot; &gt; h09.pid; printf &apos;started\\\\n&apos; &gt;&gt; h09.starts; for i in {1..600\\nstate: timed_out\\nexit_code: unknown\\nstdout: /var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-BvOO2W/home/tmp/peri-bg-shell-01a1c85c-3785-7243-aa42-9d68b4425ad1-2b529145-4fbe-4aec-aca4-35b60a05d380-stdout.log\\nstderr: /var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-BvOO2W/home/tmp/peri-bg-shell-01a1c85c-3785-7243-aa42-9d68b4425ad1-1bdb6d0e-3a81-4a37-8d0a-cc079e4b8ddb-stderr.log\\ndiagnostic: 超时被终止；进程组已终止，逃逸子进程可能存活。\\n完整输出已保存到文件系统。需要检查结果时，请使用 `Read` 工具按需读取；大文件分段读取。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.fa0732b9d1ef2f4971464991f9714bdfb89446aa6189d9cb551c47bf6eb839dc",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "eb882faf36b6ecaee1828c09e0a20820fa0975f5d80df97a6d696ebf69f0387f"
+  "canonicalSha256": "a91a9c4f94d9edade7c6ebc040e2ad59c23d61a2352ae544f4e996c82ce2d1cb"
 }

@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 100784,
-  "rawSha256": "8d4df4bcbf080f7baded1b7b567db8286e6bfdae4ad19aa8fab7276553ec98ab",
+  "rawBytes": 105460,
+  "rawSha256": "a4bc76f49b82943d34e248df610649ca9d28d2f3b253f97d8924694760f1a88d",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H01 background shell.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H01-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h01.pid; printf 'started\\\\n' >> h01.starts; for i in {1..6000}; do [ -f h01.release ] && break; sleep 0.01; done; [ -f h01.release ] || exit 70; printf 'H01_ACTUAL_STDOUT\\\\n'; printf 'H01_ACTUAL_STDERR\\\\n' >&2; printf 'H01_SIDE_EFFECT\\\\n' > h01.result; exit 0\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H01-bash\",\"tool_use_id\":\"H01-bash\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"H01_PARENT_IDLE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"task\\\" source=\\\"shell\\\" kind=\\\"completed\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;automation&quot;]\\\" summary=\\\"&quot;Shell task succeeded&quot;\\\" metadata=\\\"{&quot;server&quot;:&quot;workspace&quot;,&quot;task_id&quot;:&quot;mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200&quot;,&quot;remote_task_id&quot;:&quot;shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a&quot;,&quot;initiator&quot;:&quot;01a1c85b-9d6b-71a0-805f-b60972f27121&quot;,&quot;task_owner&quot;:&quot;01a1c85b-9d6b-71a0-805f-b60972f27121&quot;,&quot;delivery&quot;:&quot;initiator&quot;}\\\">后台任务结果\\ntask_id: mcp-01a1c85b-9ed7-7521-a05e-dcf0aa806200\\nagent: bg-shell\\ncommand: printf &apos;%s\\\\n&apos; &quot;$$&quot; &gt; h01.pid; printf &apos;started\\\\n&apos; &gt;&gt; h01.starts; for i in {1..600\\nstate: succeeded\\nexit_code: 0\\nstdout: /var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4f87eb5d-ffad-4142-ae82-3fd07ddfd390-stdout.log\\nstderr: /var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-P5dXtI/home/tmp/peri-bg-shell-01a1c85b-9ed4-71c3-bd69-826a2c3d134a-4724da9d-2a1c-425b-9c3a-daedafadc2b8-stderr.log\\n完整输出已保存到文件系统。需要检查结果时，请使用 `Read` 工具按需读取；大文件分段读取。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.fa0732b9d1ef2f4971464991f9714bdfb89446aa6189d9cb551c47bf6eb839dc",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "d4f94b3ab1208040f597f3315403784482b015b20a1e052c9bbcb28db7e539f7"
+  "canonicalSha256": "e0b4f0cf1c19c2a552279bab3e13226955dfab939903893efa04964d572382d4"
 }

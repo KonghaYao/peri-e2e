@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 99905,
-  "rawSha256": "500d5ac031a8d3d5b6835cc2733068bb468cfa9be4f32e3185381f0f164b6999",
+  "rawBytes": 104581,
+  "rawSha256": "a1108ea68476168d07e3964ea88bceab67ef849494bc759ebadc947cb87f7632",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run both H06 shells in parallel.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H06-a\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h06-a.pid; printf 'started\\\\n' >> h06-a.starts; for i in {1..6000}; do [ -f h06-a.release ] && break; sleep 0.01; done; [ -f h06-a.release ] || exit 70; printf 'H06_A_OUTPUT\\\\n'; printf 'a\\\\n' > h06-a.result\",\"run_in_background\":true}},{\"type\":\"tool_use\",\"id\":\"H06-b\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h06-b.pid; printf 'started\\\\n' >> h06-b.starts; for i in {1..6000}; do [ -f h06-b.release ] && break; sleep 0.01; done; [ -f h06-b.release ] || exit 70; printf 'H06_B_OUTPUT\\\\n'; printf 'b\\\\n' > h06-b.result\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H06-a\",\"tool_use_id\":\"H06-a\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1c85c-2576-7dc2-9dc5-987eacaf4375. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1c85c-2576-7dc2-9dc5-987eacaf4375]\"}],\"is_error\":false},{\"type\":\"tool_result\",\"id\":\"H06-b\",\"tool_use_id\":\"H06-b\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1c85c-2577-7ac0-9f67-238b561a5986. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1c85c-2577-7ac0-9f67-238b561a5986]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.fa0732b9d1ef2f4971464991f9714bdfb89446aa6189d9cb551c47bf6eb839dc",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "8292be6ef319317044350a9e9b85e10c39a9aafcfaebbaf8483e1ad26d66cc41"
+  "canonicalSha256": "ba4b6980f2f37c154b610ce9cc0429f76c270eee674767d6f47f25f4ceb7403d"
 }

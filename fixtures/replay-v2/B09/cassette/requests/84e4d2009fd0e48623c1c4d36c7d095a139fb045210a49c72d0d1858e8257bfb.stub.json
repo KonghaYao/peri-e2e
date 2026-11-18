@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 64543,
-  "rawSha256": "15f50f1b9c3b2498356c4866749f8fa7aa0149b520c3418e5e84973745f90349",
+  "rawBytes": 71218,
+  "rawSha256": "e9508ccc17b9f44dca1d3faf99c1ab67d6d4646fa8de4e2c2ccc6eff057dd3fc",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B09_FALSE_BACKGROUND\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B09-write-explicit\",\"name\":\"Write\",\"input\":{\"content\":\"B09_explicit_FILE\\n\",\"file_path\":\"b09-explicit.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B09-write-explicit\",\"tool_use_id\":\"B09-write-explicit\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b09-explicit.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3d3c59702664da7edca09c7337bd568810c4f0ca7d213b5f387e08bec13d43c1",
-      "as": "raw"
+      "recipe": "tools.anthropic.sub"
     },
     "}"
   ],
-  "canonicalSha256": "24aa00fb90cc87c4ea1135cada0030affdffc5cf142eee43bf2536dbb4c3cc12"
+  "canonicalSha256": "ddd52ddc58fac6baac2540000920d57c7d0a80323d904eb23e90b9826541730f"
 }

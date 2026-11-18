@@ -5,12 +5,13 @@
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { canonicalJson } from '../llm-replay/matcher.mjs';
-import { AGENT_LEAF_PREFIX, BLOCK1_PREFIX_LEAVES, STABLE_LEAVES } from '../llm-replay/world-mapping.mjs';
+import { AGENT_LEAF_PREFIX, BASH_TOOL_LEAVES, BLOCK1_PREFIX_LEAVES, STABLE_LEAVES } from '../llm-replay/world-mapping.mjs';
 
-export { AGENT_LEAF_PREFIX, BLOCK1_PREFIX_LEAVES, STABLE_LEAVES };
+export { AGENT_LEAF_PREFIX, BASH_TOOL_LEAVES, BLOCK1_PREFIX_LEAVES, STABLE_LEAVES };
 
 export const SOURCE_FILES = Object.freeze({
   skills: 'peri-acp/prompts/sections/13_skills.md',
+  bashDescription: 'mcp-packages/workspace/src/descriptions/bash.md',
   agentDescription: 'peri-middlewares/src/subagent/tool/descriptions/agent.md',
   agentSchema: 'peri-middlewares/src/subagent/tool/define/sub_agent_tool.rs',
   // v5 把 define.rs 拆成 mod 声明与具体定义；旧 pin 仍只有单文件布局。
@@ -245,6 +246,43 @@ async function loadAgentToolTemplates() {
   return templates;
 }
 
+/**
+ * Bash description 由内置 MCP 的 bash.md 加固定 server 前缀组成；name/input_schema 来自
+ * 录制 wire 模板。模板 description 只是录制快照，同步时会被源文本整体替换。
+ */
+export const BASH_DESCRIPTION_PREFIX = '[MCP:peri] ';
+export const BASH_TOOL_TEMPLATES = Object.freeze({
+  [BASH_TOOL_LEAVES.anthropic]: 'Bash.anthropic.json',
+  [BASH_TOOL_LEAVES.responses]: 'Bash.responses.json',
+});
+
+async function loadBashToolTemplates() {
+  const templates = new Map();
+  for (const [id, file] of Object.entries(BASH_TOOL_TEMPLATES)) {
+    const source = await readFile(new URL(file, AGENT_TOOL_TEMPLATE_DIR), 'utf8');
+    let tool;
+    try { tool = JSON.parse(source); }
+    catch { throw new Error(`${id}: Bash 全量模板 ${file} 不是合法 JSON`); }
+    if (typeof tool.description !== 'string' || !tool.description.startsWith(BASH_DESCRIPTION_PREFIX)) {
+      throw new Error(`${id}: Bash 模板 description 必须以 ${BASH_DESCRIPTION_PREFIX} 开头，拒绝同步`);
+    }
+    templates.set(id, tool);
+  }
+  return templates;
+}
+
+/** description 是唯一管理字段；name/schema 等必须与录制模板逐字段一致。 */
+function assertBashToolAnchored(id, current, template) {
+  const nonManaged = (tool) => {
+    const copy = structuredClone(tool);
+    delete copy.description;
+    return copy;
+  };
+  if (canonicalJson(nonManaged(current)) !== canonicalJson(nonManaged(template))) {
+    throw new Error(`${id}: name/schema 等非管理字段与录制模板不一致；非管理字段变化必须重录并显式更新模板，不能由 world:sync 放行`);
+  }
+}
+
 /** 只允许说明与 send_only 由源码同步；其余字段必须与全量模板逐字段一致。 */
 function assertAgentToolAnchored(id, current, template) {
   const nonManaged = (tool) => {
@@ -272,11 +310,12 @@ async function readAgentSchema(periRoot) {
 export async function loadSourceLeaves(world, periRoot) {
   await assertBlock0SectionOrder(periRoot);
   const sectionsDir = await resolveSectionsDir(periRoot);
-  const [block0, skills, compactSummary, compactUserSource, agentDescription, agentSchema] = await Promise.all([
+  const [block0, skills, compactSummary, compactUserSource, bashDescription, agentDescription, agentSchema] = await Promise.all([
     composeBlock0(periRoot, sectionsDir),
     readFile(path.join(periRoot, sectionsDir, '13_skills.md'), 'utf8'),
     readFile(path.join(periRoot, SOURCE_FILES.compactSummary), 'utf8'),
     readFile(path.join(periRoot, SOURCE_FILES.compactUser), 'utf8'),
+    readFile(path.join(periRoot, SOURCE_FILES.bashDescription), 'utf8'),
     readFile(path.join(periRoot, SOURCE_FILES.agentDescription), 'utf8'),
     readAgentSchema(periRoot),
   ]);
@@ -325,10 +364,24 @@ export async function loadSourceLeaves(world, periRoot) {
     agentSchemaOf(next).properties.send_only = structuredClone(sendOnly);
     expected.set(id, Buffer.from(JSON.stringify(next), 'utf8'));
   }
+  const bashTemplates = await loadBashToolTemplates();
+  const bashTemplateIds = Object.keys(BASH_TOOL_TEMPLATES).sort();
+  for (const id of bashTemplateIds) {
+    if (!world.hasLeaf(id)) throw new Error(`world 缺少稳定 leaf ${id}，无法映射 Bash description`);
+    const currentText = world.leafBytes(id).toString('utf8');
+    let current;
+    try { current = JSON.parse(currentText); }
+    catch { throw new Error(`${id}: leaf 不是合法 JSON，拒绝改写`); }
+    if (JSON.stringify(current) !== currentText) throw new Error(`${id}: leaf JSON 无法无损往返，拒绝改写`);
+    assertBashToolAnchored(id, current, bashTemplates.get(id));
+    const next = structuredClone(bashTemplates.get(id));
+    next.description = `${BASH_DESCRIPTION_PREFIX}${bashDescription}`;
+    expected.set(id, Buffer.from(JSON.stringify(next), 'utf8'));
+  }
   return expected;
 }
 
-/** Agent 工具 description 的稳定来源；其他 tool 文本仍是录制内容，不做源码同步。 */
+/** Agent 与 Bash 工具 description 有稳定来源；其余 tool 文本仍是录制内容，不做源码同步。 */
 export function agentDescriptionLeafIds(world) {
   const ids = world.leaves.filter((id) => id.startsWith(AGENT_LEAF_PREFIX));
   if (!ids.length) throw new Error(`world 缺少 ${AGENT_LEAF_PREFIX}* leaf，无法映射 Agent description`);

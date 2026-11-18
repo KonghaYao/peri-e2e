@@ -101,6 +101,7 @@ cassette `formatVersion` 为 2 时，请求正文不再各存一份完整 system
 - `world/system/skills.txt` 对应 `peri-middlewares/prompts/sections/13_skills.md`（旧 pin 为 `peri-acp`），稳定 leaf 为 `sys.skills`；
 - `world/system/compact.summary.txt` 对应 compact summary system prompt；
 - `world/tools/Agent.*.json` 保存 Agent tool schema（description 与 `send_only`）；
+- `world/tools/Bash.*.json` 保存 Bash tool schema；description 对应 `mcp-packages/workspace/src/descriptions/bash.md` 加 `[MCP:peri] ` 前缀，name/schema 固定在 `llm-replay/world-source-templates/Bash.*.json`；
 - `world/system/block0.main.txt` 对应 `01_intro`…`06_tone_style` 六个源段按 `BASE_SECTIONS` 顺序用 `\n\n` 组合并整体 trim，稳定 leaf 为 `sys.block0.main`；顺序或 zone 变化会让 `world:sync` 直接失败；
 - `world/system/block1.<class>.prefix.txt` 对应 `07_runtime`、`10_hitl`、`11_subagent`、`12_ask_user` 四个源段；agent catalog 与 subagent persona 是录制快照，固定在 `llm-replay/world-source-templates/block1.*`，稳定 leaf 为 `sys.block1.<class>.prefix`；
 - `world/system/block1.*.tail.txt`、其余 `world/tools/*.json` 由录制内容按字节拆分；
@@ -111,6 +112,7 @@ cassette `formatVersion` 为 2 时，请求正文不再各存一份完整 system
 ### literal → ref 迁移与录制约束
 
 - 历史 cassette 里完全字面量的 stub 用 `npm run e2e:replay:migrate-refs -- --dry-run` 迁移。脚本逐条断言 raw/canonical/response 三类字节等价，只允许 world 新增 leaf/recipe，响应文件原样复制；迁移与替换都在 staging 中完成并支持回滚。
+- 遗留的整体工具数组 leaf（`tools.sha256.*`）用 `node scripts/migrate-tool-leaves.mjs --write` 迁移为 `tools.anthropic.*` recipe；脚本只允许旧 leaf 与 recipe 在 Bash description 上不同，并同步更新 stub 哈希、seal 文件哈希与 `requestMeta`，默认 dry-run。
 - `e2e:replay:record` 必须基于已封存的共享 world（缺失时先 `world:sync`）。录制使用 `.lock-world` 串行化，结束时先校验 staging world 与 cassette，再原子替换 world、最后发布 cassette；新 stub 出现 literal 或 block0 落到 `sys.sha256.*` 会直接失败。同内容重复录制不会改写 world。
 - `e2e:replay:verify` 默认 `--drift-policy=strict`：任何 worldDrift 都失败。CI 使用 `--drift-policy=source-anchored --peri-root <peri>`，只放行 `world-mapping.mjs` 中映射且当前 world 字节与源派生字节完全相等的 leaf；其余映射差异或未映射差异仍失败。报告中的 `approvedDrift` 列出录制哈希、当前哈希与源哈希。
 
@@ -118,7 +120,7 @@ cassette `formatVersion` 为 2 时，请求正文不再各存一份完整 system
 
 1. `npm --prefix e2e run e2e:replay:world-check` 查看是否有 stale leaf；它同时用 cassette seal 的录制 `worldRefs` 交叉校验当前 world，未映射或缺失 leaf 不一致会直接失败。
 2. `npm --prefix e2e run e2e:replay:world-sync` 写入映射 leaf 与 `world/seal.json`。
-3. 审核 `git diff --stat`：`01_intro`–`06_tone_style` 任一变化应只出现 2 个文件（block0 leaf + seal）；`13_skills.md` 变化为 skills leaf + seal；`07_runtime` / `10_hitl` / `11_subagent` / `12_ask_user` 变化为 3 个 block1 prefix leaf + seal（未出现该分类的 leaf 不会被改写）；Agent description/`send_only` 为 2 个 Agent leaf + seal；compact summary 为 1 个 leaf + seal。
+3. 审核 `git diff --stat`：`01_intro`–`06_tone_style` 任一变化应只出现 2 个文件（block0 leaf + seal）；`13_skills.md` 变化为 skills leaf + seal；`07_runtime` / `10_hitl` / `11_subagent` / `12_ask_user` 变化为 3 个 block1 prefix leaf + seal（未出现该分类的 leaf 不会被改写）；Agent description/`send_only` 为 2 个 Agent leaf + seal；Bash description 为 2 个 Bash leaf + seal；compact summary 为 1 个 leaf + seal。
 4. `npm --prefix e2e run e2e:replay:verify -- --drift-policy=source-anchored --peri-root <peri>` 应通过，`approvedDrift` 只包含上述映射 leaf；默认 strict 会要求重录，这是提交前的显式审核点。映射 leaf 差异在 `world:check` 中列为 `sourceAnchoredDrift`（`requiresRerecord: false`），非源等值差异列为 `unanchoredDrift`（`requiresRerecord: true`）。
 
 限制：单条消息（如 U06 compact 用户指令）和 `summary_user_prompt.md` 不在 world 映射内，变化必须重录；只改 stub 字面量会被 `requestCoreSha256` 拒绝。`world:sync` 只同步上述源文件，未映射的 prompt 内容变化仍需重录。

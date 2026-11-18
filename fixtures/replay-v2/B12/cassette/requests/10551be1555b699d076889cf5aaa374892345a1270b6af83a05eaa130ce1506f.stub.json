@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 100521,
-  "rawSha256": "9683da5e59635f2dcca2587741a84fd5c810b4c782b9d4d550a110d9e17d79cd",
+  "rawBytes": 105197,
+  "rawSha256": "735323dc7cc3697d867ce40c90f5a693142b875c9031299b060242039c4498b2",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B12 first process.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B12-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B12_COMPLETED_CHILD_HISTORY\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B12-spawn\",\"tool_use_id\":\"B12-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1c85a-c871-7173-84d7-aa09c9f7ca9c started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1c85a-c871-7173-84d7-a9f412dff955 (resume with Agent(resume_thread_id: 01a1c85a-c871-7173-84d7-a9f412dff955))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"B12_PARENT_WAITING\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"task\\\" source=\\\"subagent\\\" kind=\\\"completed\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;replay-worker completed&quot;\\\" metadata=\\\"{&quot;task_id&quot;:&quot;bg-01a1c85a-c871-7173-84d7-aa09c9f7ca9c&quot;,&quot;agent_name&quot;:&quot;replay-worker&quot;,&quot;success&quot;:true,&quot;timed_out&quot;:false,&quot;child_thread_id&quot;:&quot;01a1c85a-c871-7173-84d7-a9f412dff955&quot;,&quot;subagent_failure&quot;:null}\\\">后台任务结果\\ntask_id: bg-01a1c85a-c871-7173-84d7-aa09c9f7ca9c\\nagent: replay-worker\\nstate: succeeded\\nexit_code: unknown\\nstdout: unknown\\nstderr: unknown\\nresult:\\nB12_CHILD_HISTORY_REPORT\\nchild_thread_id: 01a1c85a-c871-7173-84d7-a9f412dff955 (resume with Agent(resume_thread_id: 01a1c85a-c871-7173-84d7-a9f412dff955))</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"B12_FIRST_PROCESS_COMPLETE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B12 verify stored history.\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.fa0732b9d1ef2f4971464991f9714bdfb89446aa6189d9cb551c47bf6eb839dc",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "66d8001ef6b0957b3d9b5ee8d3d80f6e572259bf9d1b4b5076bedddd7b01f12a"
+  "canonicalSha256": "a7582bf4f4c1a31b9795a416db6d047885780854aa53e7ff0397fd3afc0c02b2"
 }

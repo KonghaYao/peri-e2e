@@ -12,6 +12,15 @@ export const STABLE_LEAVES = Object.freeze({
 export const AGENT_LEAF_PREFIX = 'tools.Agent.';
 
 /**
+ * Bash tool 的 description 来自内置 workspace MCP 的 bash.md；name/schema 仍由录制模板锚定。
+ * 两个协议各有一个 leaf，必须显式列出，不能用前缀通配其它工具。
+ */
+export const BASH_TOOL_LEAVES = Object.freeze({
+  anthropic: 'tools.Bash.anthropic',
+  responses: 'tools.Bash.responses',
+});
+
+/**
  * block1 prefix 的固定分类 leaf。prefix 由源码段（07_runtime / 10_hitl /
  * 11_subagent / 12_ask_user）加固定 catalog/persona 模板组合；带内容哈希的
  * `sys.block1.<class>.prefix.<sha8>` 变体不在映射内，仍按录制内容严格校验。
@@ -29,6 +38,7 @@ const SYNCED = new Set([
   STABLE_LEAVES.compactSummary,
   STABLE_LEAVES.compactUser,
   ...Object.values(BLOCK1_PREFIX_LEAVES),
+  ...Object.values(BASH_TOOL_LEAVES),
 ]);
 
 /** 只有 world:sync 能更新这些 leaf；其余 leaf 必须与录制快照逐字节一致。 */
