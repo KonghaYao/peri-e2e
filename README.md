@@ -46,13 +46,13 @@ npm run e2e:replay:verify:strict  # strict：任何 drift 都失败
 npm run e2e:replay:migrate-refs -- --dry-run  # literal stub → world ref 等价迁移预演
 PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:world-check
 PERI_BINARY=/path/to/peri npm run e2e:replay
-EXPECTED_REPLAY_SCENARIOS=66 node scripts/check-replay-catalog.mjs
+EXPECTED_REPLAY_SCENARIOS=67 node scripts/check-replay-catalog.mjs
 ```
 
 `check-replay-catalog.mjs` 要求场景 ID 与封存 fixture 一一对应，零测试、重复 ID、
 缺失/多余 fixture 和新增 skip 都会失败。回放后加 `--results <invocation 目录>`
 可再核对每个场景都有 `passed` 的 `report.json`，避免 Vitest 对 skip 仍以 0 退出。
-66 是当前 catalog 场景数（既有 30 + 第一批 B/H/M 36）；其中 B02、H05、H12、M10、M11 为固定 Peri pin 上的产品阻塞，原断言保留在 `*.blocked.ts`，不进入默认回放。D/J/L 接回后必须再显式改为 94。
+67 是当前 catalog 场景数（既有 30 + 第一批 B/H/M 36 + 插件动态加载 P01）；其中 B02、H05、H12、M10、M11 为固定 Peri pin 上的产品阻塞，原断言保留在 `*.blocked.ts`，不进入默认回放。D/J/L 接回后必须再显式改为 95（原 94 预留 + P01）。
 
 `e2e:replay:verify` 是 Peri CI 调用的入口，默认使用 source-anchored：只放行
 与当前 `PERI_SOURCE_ROOT` 源等值的 mapped leaf drift（`SYNCED` 或 Agent schema），
