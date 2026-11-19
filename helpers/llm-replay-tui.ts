@@ -323,6 +323,14 @@ export class ReplayTui {
 
   async typeText(text: string): Promise<void> { this.input(text); }
 
+  /** SGR 1006 左键点击（1-based 屏幕坐标）；消息区的可折叠 header 按行命中。 */
+  async clickAt(column: number, row: number): Promise<void> {
+    if (!Number.isInteger(column) || !Number.isInteger(row) || column < 1 || row < 1) {
+      throw new Error(`invalid click coordinates: (${column}, ${row})`);
+    }
+    this.input(`\x1b[<0;${column};${row}M\x1b[<0;${column};${row}m`);
+  }
+
   async paste(text: string): Promise<void> { this.input(`\x1b[200~${text}\x1b[201~`); }
 
   async resize(cols: number, rows: number): Promise<void> {
