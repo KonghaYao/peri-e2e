@@ -52,7 +52,7 @@ describe("正文空档折叠组行解析", () => {
 describe("展开折叠组", () => {
   it("点击标题匹配组行的 header，等待原位出现 ▾", async () => {
     const collapsed = ["    ▸  Reminder · Agent", "    ▸  Agent"].join("\n");
-    const expanded = ["    ▾  Reminder · Agent", "    ✓  Agent  A01-spawn", "    ▸  Agent"].join("\n");
+    const expanded = ["    ▾  Reminder · Agent", "    ▾  Agent  A01-spawn", "    ▸  Agent"].join("\n");
     const { tui, clicks } = fakeTranscript([collapsed, expanded]);
     expect(await expandCollapsedGroup(tui, /Agent$/u)).toBe(expanded);
     expect(clicks).toEqual([[5, 1]]);
@@ -61,12 +61,12 @@ describe("展开折叠组", () => {
   it("逐组展开到没有 ▸ 行为止，每次点击都落在对应行", async () => {
     const frames = [
       ["  ▸  Agent", "  ▸  Read · Reminder"].join("\n"),
-      ["  ▾  Agent", "  ✓  Agent", "  ▸  Read · Reminder"].join("\n"),
-      ["  ▾  Agent", "  ✓  Agent", "  ▾  Read · Reminder", "  ✓  Read  a03-child.txt"].join("\n"),
+      ["  ▾  Agent", "  ▾  Agent  A01-spawn", "  ▸  Read · Reminder"].join("\n"),
+      ["  ▾  Agent", "  ▾  Agent  A01-spawn", "  ▾  Read · Reminder", "  ▾  Read  a03-child.txt — 3 lines"].join("\n"),
     ];
     const { tui, clicks } = fakeTranscript(frames);
     const expanded = await expandCollapsedGroups(tui);
-    expect(expanded).toContain("✓  Read  a03-child.txt");
+    expect(expanded).toContain("Read  a03-child.txt — 3 lines");
     expect(collapsedGroupRows(expanded)).toEqual([]);
     expect(clicks).toEqual([[3, 1], [3, 3]]);
   });

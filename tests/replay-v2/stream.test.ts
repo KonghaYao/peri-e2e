@@ -173,7 +173,8 @@ describe("S01-S06 真实 TUI 流式业务录制与独立离线重放", () => {
         await finalScreen(ctx, tui, "S02_WRITE_DONE");
         // Write 卡默认折进正文空档组（如 `▸ Reminder · Write`）；展开后核对完成态与路径。
         const expanded = await expandCollapsedGroup(tui, /\bWrite\b/u);
-        expect(expanded).toMatch(/✓\s+Write/);
+        // 组成员卡展开后统一为 ▾；`· +N` diff 后缀才是完成态证据。
+        expect(expanded).toMatch(/▾\s+Write\b[^\n]*·\s+\+\d+/u);
         // 单出口连接摘要占用一行后，卡片路径按 TUI 宽度截断；匹配可见前缀。
         expect(expanded).toMatch(/split-参数/u);
         expect(await readFile(path.join(ctx.world.work, "split-参数.txt"), "utf8")).toBe("STREAMED_ARGUMENTS_OK\n中文🚀\n");
@@ -359,7 +360,8 @@ describe("S01-S06 真实 TUI 流式业务录制与独立离线重放", () => {
         await finalScreen(ctx, tui, "S06_RESPONSES_DONE");
         // Write 卡默认折进正文空档组；展开后核对完成态与路径。
         const expanded = await expandCollapsedGroup(tui, /\bWrite\b/u);
-        expect(expanded).toMatch(/✓\s+Write/);
+        // 组成员卡展开后统一为 ▾；`· +N` diff 后缀才是完成态证据。
+        expect(expanded).toMatch(/▾\s+Write\b[^\n]*·\s+\+\d+/u);
         // 单出口连接摘要占用一行后，卡片路径按 TUI 宽度截断；匹配可见前缀。
         expect(expanded).toMatch(/responses\.t/u);
         expect(expanded.split("S06_RESPONSES_DONE")).toHaveLength(2);
