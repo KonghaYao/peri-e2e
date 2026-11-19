@@ -1,7 +1,7 @@
 {
   "formatVersion": 2,
   "kind": "world",
-  "generation": "world-2dc941692d045174",
+  "generation": "world-c376b0a838a1fc73",
   "leaves": {
     "sys.block0.main": {
       "file": "system/block0.main.txt"
@@ -269,6 +269,12 @@
     },
     "sys.block1.main.t17.tail": {
       "file": "system/block1.main.t17.tail.txt"
+    },
+    "sys.block1.main.t170.tail": {
+      "file": "system/block1.main.t170.tail.txt"
+    },
+    "sys.block1.main.t171.tail": {
+      "file": "system/block1.main.t171.tail.txt"
     },
     "sys.block1.main.t18.tail": {
       "file": "system/block1.main.t18.tail.txt"
@@ -2055,6 +2061,28 @@
       },
       {
         "leaf": "sys.block1.main.t17.tail"
+      }
+    ],
+    "sys.block1.main.t170": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t170.tail"
+      }
+    ],
+    "sys.block1.main.t171": [
+      {
+        "leaf": "sys.block1.main.prefix"
+      },
+      {
+        "leaf": "sys.skills"
+      },
+      {
+        "leaf": "sys.block1.main.t171.tail"
       }
     ],
     "sys.block1.main.t18": [
