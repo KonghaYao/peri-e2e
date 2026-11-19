@@ -3,6 +3,7 @@ import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { runReplayScenario } from "../../helpers/llm-replay-suite.js";
+import { expandCollapsedGroup } from "./transcript-groups.js";
 
 function event(type: string, data: object): string { return `event: ${type}\ndata: ${JSON.stringify(data)}\n\n`; }
 function prefix(text: string): string {
@@ -209,6 +210,9 @@ describe("replay v2 · sessions and terminal lifecycle", () => {
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 1); ctx.identity.finish(ctx.sessionIds.root!);
       ctx.identity.arm(ctx.sessionIds.root!, "manual-compact", { purpose: "compact", call: "compact-command:0" });
       await tui.command("compact");
+      // 压缩完成提示默认折进正文空档组：先等组行出现，展开后再核对提示文本。
+      await tui.waitFor(ctx.checked((s: string) => /▸\s+Note\b/u.test(s)), "compaction note is summarized in a collapsed group");
+      await expandCollapsedGroup(tui, /\bNote\b/u);
       await tui.waitFor(ctx.checked((s: string) => /已压缩|压缩完成|compaction completed|Compacted/.test(s)), "manual compaction committed");
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 2);
       expect(ctx.requests[1].context.purpose).toBe("compact"); ctx.identity.finish(ctx.sessionIds.root!); await tui.save("compacted");

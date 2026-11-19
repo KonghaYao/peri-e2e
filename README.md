@@ -145,6 +145,16 @@ await runReplayScenario({
 `configure` 的源码及默认配置有签名；变化后必须重录。闭包值或外部配置变化还应
 修改 `configVersion`。seed 中不得写入录制 world 的绝对路径或会话数据库。
 
+### TUI 断言与正文空档分组
+
+一段正文到下一段正文之间的工具、thinking 与普通通知默认合并为一行折叠组
+（如 `▸ Read · 1 failed`、`▸ Reminder · Write`），点击组行后整组展开为 `▾`，
+组内工具行才可见。需要工具级证据的用例用
+`tests/replay-v2/transcript-groups.ts` 的 `expandCollapsedGroup` /
+`expandCollapsedGroups`：先定位组行，再按组行坐标点击并等待原位变为 `▾`，不用
+固定 sleep。等待条件应等组行或展开后的目标行；错误级通知、required / warning
+提醒、交互块与子 Agent 组保持可见，不参与折叠。
+
 ## 结果与时延
 
 每场景结果写入 `results/replay-v2/<invocation>/<id>/report.json`，同时保留屏幕

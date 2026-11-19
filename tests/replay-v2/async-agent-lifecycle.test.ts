@@ -6,6 +6,7 @@ import {
   healthy, identity, options, oscStates, persistedTrace, read, requestBody, rootCall, rootPayloads, text, threadState,
   tools, unexpected, waitCall, write,
 } from "./async-agent-fixture.js";
+import { expandCollapsedGroups } from "./transcript-groups.js";
 
 describe("B01–B05 async Agent completion, independent cancellation and real Tasks UI", () => {
   it("B01 suspended parent stays working and consumes one child result without another user prompt", async () => {
@@ -106,8 +107,11 @@ describe("B01–B05 async Agent completion, independent cancellation and real Ta
         await waitCall(ctx, child, "client_abort");
         await tui.waitFor(healthy(ctx, (screen) => screen.includes("interrupted") && screen.includes("replay-worker")), "cancelled child is visibly interrupted after Tasks closes");
         ctx.run.release(parent);
-        const screen = await completed(ctx, tui, "B04_CANCEL_CONFIRMED_NO_SIDE_EFFECT");
-        expect(screen).toMatch(/[✗✕×]\s+Read/u);
+        await completed(ctx, tui, "B04_CANCEL_CONFIRMED_NO_SIDE_EFFECT");
+        // 失败 Read 折进正文空档组，组行保留 `· 1 failed`；展开后核对工具级失败状态。
+        await tui.waitFor(healthy(ctx, (screen) => /▸\s+Read\b.*·\s+1\s+failed/u.test(screen)),
+          "failed Read is summarized in a collapsed group");
+        expect(await expandCollapsedGroups(tui)).toMatch(/[✗✕×]\s+Read/u);
         await assertMissingFile(ctx, "b04-forbidden.txt");
         expectResult(requestBody(ctx, rootCall("reason:3")), "B04-probe", "File not found", true);
         expect(threadState(ctx, actors.children.get("worker")!).agent_status).toBe("cancelled");
