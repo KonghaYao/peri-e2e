@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createWorldBuilder, encodeRequestStub } from './world-store.mjs';
-import { createSlotResolver } from './world-slots.mjs';
+import { createSlotResolver, promptSourcePart } from './world-slots.mjs';
 import { sha256 } from './matcher.mjs';
 
 const BLOCK0 = 'BLOCK0: strict instructions';
@@ -97,6 +97,31 @@ test('新 tail 分配确定性 recipe；相同内容再次出现时复用', () =
   assert.equal(stats.addedLeaves.length, added);
   assert.equal(stats.addedRecipes.filter((id) => id === 'sys.block1.main.t02').length, 1);
   assert.ok(second.parts.some((part) => part?.recipe === 'sys.block1.main.t02'));
+});
+
+test('源锚定 recipe 没有 .tail leaf 时仍保留它的编号', () => {
+  const builder = fixture();
+  const sourceRecipe = 'sys.block1.main.t02';
+  builder.addLeaf(`${sourceRecipe}.head`, '<agent_instructions>\n');
+  builder.addLeaf(`${sourceRecipe}.prompt`, 'recorded instructions\n');
+  builder.addLeaf(`${sourceRecipe}.suffix`, '\n</agent_instructions>');
+  const sourceParts = [
+    { leaf: 'sys.block1.main.prefix' },
+    { leaf: 'sys.skills' },
+    { leaf: `${sourceRecipe}.head` },
+    promptSourcePart(`${sourceRecipe}.prompt`, {
+      sourceId: 'tuiSessionInstructions', field: '/system/1/text', session: 'interactive-fresh',
+    }),
+    { leaf: `${sourceRecipe}.suffix` },
+  ];
+  builder.addRecipe(sourceRecipe, sourceParts);
+  const { slots } = createSlotResolver({ world: builder });
+  const raw = body({ block1: `${PREFIX}${SKILLS}${TAIL.replace('/tmp/work', '/tmp/new')}` });
+  const stub = encodeRequestStub(raw, { world: builder, slots });
+  assert.deepEqual(builder.recipeParts(sourceRecipe), sourceParts);
+  assert.ok(!builder.hasLeaf(`${sourceRecipe}.tail`));
+  assert.ok(stub.parts.some((part) => part?.recipe === 'sys.block1.main.t03'));
+  assert.ok(builder.renderParts(stub.parts).equals(raw));
 });
 
 test('未知 prefix 使用内容寻址 prefix leaf，不与其他 class 合并', () => {
