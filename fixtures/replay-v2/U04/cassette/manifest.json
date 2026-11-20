@@ -44,18 +44,18 @@
           ],
           "patternSha256": "3d58e766c90987bf71987d289711756a69621d67808232cd0ae9104c41dfe1e2",
           "recorded": {
-            "path:work": "/private/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ZXV6cC/work",
             "platform:platform": "macos",
-            "os_version:os_version": "macOS 26.6.2",
-            "date:today": "2026-11-19",
-            "session:fresh": "01a1f5f2-715a-78a3-9d74-f9b616b50f93"
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-20",
+            "session:fresh": "01a1f6b9-5554-7661-b280-5e37806f1ada"
           },
           "live": {
-            "path:work": "/private/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ZXV6cC/work",
             "platform:platform": "macos",
-            "os_version:os_version": "macOS 26.6.2",
-            "date:today": "2026-11-19",
-            "session:fresh": "01a1f5f2-715a-78a3-9d74-f9b616b50f93"
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-20",
+            "session:fresh": "01a1f6b9-5554-7661-b280-5e37806f1ada"
           }
         }
       ],
@@ -79,7 +79,7 @@
           {
             "offset": 0,
             "length": 719,
-            "atMs": 15.265041999999994,
+            "atMs": 12.402000000000044,
             "sha256": "490f40b13284bc3a82ce0fbd5bc19e1db9cc751beb306f0075c4834a77014a88"
           }
         ],
@@ -88,9 +88,9 @@
         "sha256": "490f40b13284bc3a82ce0fbd5bc19e1db9cc751beb306f0075c4834a77014a88",
         "terminal": {
           "kind": "complete",
-          "atMs": 15.436416999999892
+          "atMs": 12.583165999999892
         },
-        "headersAtMs": 15.182834000000184,
+        "headersAtMs": 12.314875000000029,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",
@@ -136,18 +136,18 @@
           ],
           "patternSha256": "f0bbb3969a718a44a396941367e401b9e9f3fcd97fed905612176eefaaffa0ed",
           "recorded": {
-            "path:work": "/private/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ZXV6cC/work",
             "platform:platform": "macos",
-            "os_version:os_version": "macOS 26.6.2",
-            "date:today": "2026-11-19",
-            "session:root": "01a1f5f2-679b-79a3-89f9-d25b4ab028e5"
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-20",
+            "session:root": "01a1f6b9-4bb5-7860-9995-fe522145a0df"
           },
           "live": {
-            "path:work": "/private/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei/work",
+            "path:work": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ZXV6cC/work",
             "platform:platform": "macos",
-            "os_version:os_version": "macOS 26.6.2",
-            "date:today": "2026-11-19",
-            "session:root": "01a1f5f2-679b-79a3-89f9-d25b4ab028e5"
+            "os_version:os_version": "macOS 26.5.1",
+            "date:today": "2026-11-20",
+            "session:root": "01a1f6b9-4bb5-7860-9995-fe522145a0df"
           }
         }
       ],
@@ -171,7 +171,7 @@
           {
             "offset": 0,
             "length": 725,
-            "atMs": 22.049332999999933,
+            "atMs": 20.968041000000085,
             "sha256": "c77cdc23edb7e0fdc99e8c8f8d63f985f4d1d61c3759b207271c405ddf159500"
           }
         ],
@@ -180,9 +180,9 @@
         "sha256": "c77cdc23edb7e0fdc99e8c8f8d63f985f4d1d61c3759b207271c405ddf159500",
         "terminal": {
           "kind": "complete",
-          "atMs": 22.49370799999997
+          "atMs": 21.650125000000116
         },
-        "headersAtMs": 21.80604200000016,
+        "headersAtMs": 20.690500000000156,
         "protocolFacts": {
           "protocol": "anthropic",
           "basis": "captured_body",

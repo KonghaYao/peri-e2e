@@ -28,12 +28,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei",
-    "home": "/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei/home",
-    "work": "/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei/work"
+    "root": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ZXV6cC",
+    "home": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ZXV6cC/home",
+    "work": "/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ZXV6cC/work"
   },
   "recordedSessionIds": {
-    "root": "01a1f5f2-679b-79a3-89f9-d25b4ab028e5"
+    "root": "01a1f6b9-4bb5-7860-9995-fe522145a0df"
   },
   "configurationFingerprint": "064824d7e12ef51b5ca40a47f4501683b3a277a9366d51e5aa628281dc1f8081",
   "bindings": [
@@ -41,28 +41,28 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/private/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ZXV6cC",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/private/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei/home",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ZXV6cC/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/private/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei/work",
+      "recorded": "/private/var/folders/d5/gpfmkm2s4sqgwz5wwnj44p500000gn/T/peri-wire-e2e-ZXV6cC/work",
       "anchor": "isolated scenario work"
     },
     {
       "owner": "world",
       "kind": "date",
       "alias": "today",
-      "recorded": "2026-11-19",
+      "recorded": "2026-11-20",
       "anchor": "ambient UTC date in system environment"
     },
     {
@@ -76,21 +76,21 @@
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "macOS 26.6.2",
+      "recorded": "macOS 26.5.1",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1f5f2-679b-79a3-89f9-d25b4ab028e5",
+      "recorded": "01a1f6b9-4bb5-7860-9995-fe522145a0df",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "fresh",
-      "recorded": "01a1f5f2-715a-78a3-9d74-f9b616b50f93",
+      "recorded": "01a1f6b9-5554-7661-b280-5e37806f1ada",
       "anchor": "only new persisted root after explicit /clear and user submission"
     }
   ],
