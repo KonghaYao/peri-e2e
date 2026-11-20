@@ -161,12 +161,17 @@ await runReplayScenario({
 ### TUI 断言与正文空档分组
 
 一段正文到下一段正文之间的工具、thinking 与普通通知默认合并为一行折叠组
-（如 `▸ Read · 1 failed`、`▸ Reminder · Write`），点击组行后整组展开为 `▾`，
-组内工具行才可见。需要工具级证据的用例用
-`tests/replay-v2/transcript-groups.ts` 的 `expandCollapsedGroup` /
-`expandCollapsedGroups`：先定位组行，再按组行坐标点击并等待原位变为 `▾`，不用
-固定 sleep。等待条件应等组行或展开后的目标行；错误级通知、required / warning
-提醒、交互块与子 Agent 组保持可见，不参与折叠。
+（如 `▸ Read · 1 failed`、`▸ Reminder · Write`），点击组行后整组展开为 `▾`。
+组展开后成员保留各自的折叠态：工具卡仍是单行 `✓ Read … — N lines` /
+`✓ Write … · +N`，提醒成员仍带 `▸`；需要卡体证据时再点击该成员标题单独展开
+（`▾` + 内容），组头仍折叠时成员不可见。
+
+需要工具级证据的用例用 `tests/replay-v2/transcript-groups.ts` 的
+`expandCollapsedGroup` / `expandCollapsedGroups`：先定位组行，再按组行坐标点击并
+等待同名组行出现 `▾`，不用固定 sleep；`expandCollapsedGroups` 只展开组行，不会
+顺手展开成员。成员证据用 `expandGroupMember` 点开对应成员标题。等待条件应等组行
+或展开后的目标行；错误级通知、required / warning 提醒、交互块与子 Agent 组保持
+可见，不参与折叠。
 
 ## 结果与时延
 

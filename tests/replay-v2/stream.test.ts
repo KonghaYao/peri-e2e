@@ -3,7 +3,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { runReplayScenario } from "../../helpers/llm-replay-suite.js";
-import { expandCollapsedGroup } from "./transcript-groups.js";
+import { expandCollapsedGroup, expandGroupMember } from "./transcript-groups.js";
 
 function event(type: string, data: object): string {
   return `event: ${type}\ndata: ${JSON.stringify(data)}\n\n`;
@@ -171,12 +171,15 @@ describe("S01-S06 真实 TUI 流式业务录制与独立离线重放", () => {
         const tui = await ctx.startTui("root");
         await beginTurn(ctx, tui, "turn-1", "S02_STREAMED_WRITE");
         await finalScreen(ctx, tui, "S02_WRITE_DONE");
-        // Write 卡默认折进正文空档组（如 `▸ Reminder · Write`）；展开后核对完成态与路径。
+        // Write 卡默认折进正文空档组（如 `▸ Reminder · Write`）；组展开后成员
+        // 保持自身折叠，`✓ … · +N` 行即完成态证据。
         const expanded = await expandCollapsedGroup(tui, /\bWrite\b/u);
-        // 组成员卡展开后统一为 ▾；`· +N` diff 后缀才是完成态证据。
-        expect(expanded).toMatch(/▾\s+Write\b[^\n]*·\s+\+\d+/u);
-        // 单出口连接摘要占用一行后，卡片路径按 TUI 宽度截断；匹配可见前缀。
-        expect(expanded).toMatch(/split-参数/u);
+        expect(expanded).toMatch(/✓\s+Write split-参数\.txt\s+·\s+\+\d+/u);
+        // 成员标题可单独点开：`▾` 头 + diff 卡体行（本录制只有计数，无 hunk 行；
+        // 文件内容由真实磁盘断言核对）。路径按 TUI 宽度截断，匹配可见前缀。
+        const member = await expandGroupMember(tui, /Write\b/u);
+        expect(member).toMatch(/▾\s+Write\b[^\n]*·\s+\+\d+/u);
+        expect(member).toMatch(/│\s+\S*split-参数\.tx[^\n]*\+\d+/u);
         expect(await readFile(path.join(ctx.world.work, "split-参数.txt"), "utf8")).toBe("STREAMED_ARGUMENTS_OK\n中文🚀\n");
         await tui.save("split-arguments-tool-completed");
         await finishTurn(ctx, 2);
@@ -358,13 +361,16 @@ describe("S01-S06 真实 TUI 流式业务录制与独立离线重放", () => {
         const tui = await ctx.startTui("root");
         await beginTurn(ctx, tui, "turn-1", "S06_RESPONSES_WRITE");
         await finalScreen(ctx, tui, "S06_RESPONSES_DONE");
-        // Write 卡默认折进正文空档组；展开后核对完成态与路径。
+        // Write 卡默认折进正文空档组；组展开后成员保持自身折叠，
+        // `✓ … · +N` 行即完成态证据。
         const expanded = await expandCollapsedGroup(tui, /\bWrite\b/u);
-        // 组成员卡展开后统一为 ▾；`· +N` diff 后缀才是完成态证据。
-        expect(expanded).toMatch(/▾\s+Write\b[^\n]*·\s+\+\d+/u);
-        // 单出口连接摘要占用一行后，卡片路径按 TUI 宽度截断；匹配可见前缀。
-        expect(expanded).toMatch(/responses\.t/u);
-        expect(expanded.split("S06_RESPONSES_DONE")).toHaveLength(2);
+        expect(expanded).toMatch(/✓\s+Write responses\.txt\s+·\s+\+\d+/u);
+        // 成员标题可单独点开：`▾` 头 + diff 卡体行（路径 + 计数）；文件内容由
+        // 真实磁盘断言核对。
+        const member = await expandGroupMember(tui, /Write\b/u);
+        expect(member).toMatch(/▾\s+Write\b[^\n]*·\s+\+\d+/u);
+        expect(member).toMatch(/│\s+\S*responses\.txt[^\n]*\+\d+/u);
+        expect(member.split("S06_RESPONSES_DONE")).toHaveLength(2);
         expect(await readFile(path.join(ctx.world.work, "responses.txt"), "utf8")).toBe("RESPONSES_TOOL_EFFECT\n");
         await tui.save("responses-tool-completed");
         await finishTurn(ctx, 2);
