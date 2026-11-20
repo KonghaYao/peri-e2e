@@ -113,7 +113,7 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
         await waitCompletedCall(context, heldLeft);
         context.run.release(heldRoot);
         await completed(context, tui, "A02_BOTH_RESULTS_CORRECTLY_OWNED");
-        // 展开后成员卡为 ▾；两个同名 child 的完成态按常驻任务区行计数。
+        // 组展开后成员保持折叠；两个同名 child 的完成态按常驻任务区行计数。
         const expanded = await expandCollapsedGroups(tui);
         expect((expanded.match(/✔\s+agent\s+A02_IDENTICAL_CHILD_TASK/gu) ?? []).length).toBe(2);
         for (const alias of ["left", "right"]) {
