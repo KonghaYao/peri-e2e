@@ -10,7 +10,7 @@ import { STABLE_LEAVES, classifyBlock1Prefix } from './world-mapping.mjs';
 
 const BLOCK1_CLASSES = ['main', 'replay-worker', 'subagent'];
 const escape = (value) => value.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
-const tailPattern = (cls) => new RegExp(`^sys\\.block1\\.${escape(cls)}\\.t([0-9]+)\\.tail$`, 'u');
+const tailPattern = (cls) => new RegExp(`^sys\\.block1\\.${escape(cls)}\\.t([0-9]+)(?:\\.tail)?$`, 'u');
 const prefixLeaf = (cls) => `sys.block1.${cls}.prefix`;
 const recipePrefix = (cls) => `sys.block1.${cls}`;
 
@@ -85,12 +85,15 @@ export function createSlotResolver({ world, builder = world, allowCreate = true 
   const indexTails = () => {
     if (tailIndexed) return;
     tailIndexed = true;
+    const ids = [...world.leafIds(), ...world.recipeIds()];
     for (const cls of BLOCK1_CLASSES) {
       const pattern = tailPattern(cls);
-      for (const id of world.leafIds()) {
+      for (const id of ids) {
         const match = pattern.exec(id);
         if (!match) continue;
         nextTail.set(cls, Math.max(nextTail.get(cls) ?? 0, Number(match[1])));
+        // 源锚定 recipe 占用编号，但拆分后的正文没有 .tail leaf 可复用。
+        if (!id.endsWith('.tail') || !world.hasLeaf(id)) continue;
         const recipe = id.slice(0, -'.tail'.length);
         const parts = world.recipeParts(recipe);
         if (parts) {

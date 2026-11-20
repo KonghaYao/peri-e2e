@@ -50,8 +50,9 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
         actors.arm("turn-1"); await tui.prompt("Execute A01.");
         await completed(context, tui, "A01_PARENT_ACCEPTED_CHILD_RESULT");
         // 组展开后成员保持自身折叠（`✓` 头 + 摘要），完成态由常驻任务区行佐证。
+        // capability 提醒到达时刻不定，可能并入本组并把组名写成 `Reminder · Agent`。
         const expanded = await expandCollapsedGroups(tui);
-        expect(expanded).toMatch(/▾\s+Agent\b/u);
+        expect(expanded).toMatch(/▾\s+(?:[^\s·]+(?: ×\d+)? · )*Agent(?: ×\d+)?/u);
         expect(expanded).toMatch(/✓\s+Agent replay-worker A01_CHILD_TASK/u);
         expect(expanded).toMatch(/✔\s+agent\s+A01_CHILD_TASK/u);
         await assertFile(context, "a01-child.txt", "A01_CHILD_SIDE_EFFECT\n");
