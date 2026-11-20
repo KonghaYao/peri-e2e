@@ -4,6 +4,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { runReplayScenario } from "../../helpers/llm-replay-suite.js";
 import { expandCollapsedGroup } from "./transcript-groups.js";
+import { waitForTurnReply } from "./turn-evidence.js";
 
 function event(type: string, data: object): string { return `event: ${type}\ndata: ${JSON.stringify(data)}\n\n`; }
 function prefix(text: string): string {
@@ -57,7 +58,7 @@ describe("replay v2 · sessions and terminal lifecycle", () => {
     await runReplayScenario({ id: "U01", title: "进程重启后恢复历史并在原会话续聊", upstream: async () => model((body) => ({ text: JSON.stringify(body.messages).includes("AFTER_PROCESS_RESTART") ? "RESTART_CONTINUATION_DONE" : "BEFORE_RESTART_STORED" })), async run(ctx) {
       ctx.identity.arm(ctx.sessionIds.root!, "before-restart");
       let tui = await ctx.startTui("root", { label: "first-process" }); await tui.prompt("BEFORE_PROCESS_RESTART");
-      await tui.waitFor((s) => s.includes("BEFORE_RESTART_STORED") && s.includes("Brewed for"), "first turn persisted");
+      await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, "BEFORE_RESTART_STORED", "first turn persisted");
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 1);
       ctx.identity.finish(ctx.sessionIds.root!); await tui.save("before-exit"); await tui.stop();
       expect(persisted(ctx.world).filter((r) => r.thread_id === ctx.sessionIds.root && r.content.includes("BEFORE_RESTART_STORED"))).toHaveLength(1);
@@ -65,7 +66,7 @@ describe("replay v2 · sessions and terminal lifecycle", () => {
       await tui.waitFor((s) => s.includes("BEFORE_RESTART_STORED"), "history restored in a fresh process");
       expect(ctx.requests).toHaveLength(1);
       ctx.identity.arm(ctx.sessionIds.root!, "after-restart"); await tui.prompt("AFTER_PROCESS_RESTART");
-      await tui.waitFor((s) => s.includes("RESTART_CONTINUATION_DONE") && s.includes("Brewed for"), "continued same session");
+      await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, "RESTART_CONTINUATION_DONE", "continued same session");
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 2);
       expect(JSON.stringify(bodyOf(ctx.requests[1]).messages)).toContain("BEFORE_RESTART_STORED");
       expect(ctx.requests[1].context.owner).toBe(ctx.requests[0].context.owner);
@@ -84,7 +85,7 @@ describe("replay v2 · sessions and terminal lifecycle", () => {
       }), runOptions: () => ({ gates: [{ identity: key("active-a", "A"), afterBytes: Buffer.byteLength(prefix("A_STREAM_PREFIX")) }] }), async run(ctx) {
         ctx.identity.arm(ctx.sessionIds.B!, "seed-b");
         let tui = await ctx.startTui("B", { label: "seed" }); await tui.prompt("B_SEED_HISTORY");
-        await tui.waitFor((s) => s.includes("B_HISTORY_ANCHOR") && s.includes("Brewed for"), "B initial history");
+        await waitForTurnReply(tui, ctx.world, ctx.sessionIds.B!, "B_HISTORY_ANCHOR", "B initial history");
         await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 1);
         ctx.identity.finish(ctx.sessionIds.B!); await tui.stop();
         tui = await ctx.startTui("A", { label: "switching" });
@@ -98,7 +99,7 @@ describe("replay v2 · sessions and terminal lifecycle", () => {
         ctx.identity.finish(ctx.sessionIds.A!);
         await tui.save("b-focused-after-a-closed");
         ctx.identity.arm(ctx.sessionIds.B!, "focused-b"); await tui.prompt("B_CONTINUE_IN_FOCUS");
-        await tui.waitFor((s) => s.includes("B_FOCUSED_REPLY") && s.includes("Brewed for"), "B completes after the route switch");
+        await waitForTurnReply(tui, ctx.world, ctx.sessionIds.B!, "B_FOCUSED_REPLY", "B completes after the route switch");
         ctx.identity.finish(ctx.sessionIds.B!);
         await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 3);
         expect(await tui.screen()).not.toContain("A_STREAM_FINISHED");
@@ -106,7 +107,7 @@ describe("replay v2 · sessions and terminal lifecycle", () => {
         const screen = await tui.waitFor((s) => s.split("\n").some((line) => /│\s+A_STREAM_IN_BACKGROUND\s*$/.test(line)) && !s.includes("B_FOCUSED_REPLY"), "return to A user history after its stream was closed");
         expect(screen).not.toContain("B_FOCUSED_REPLY"); expect(screen).not.toContain("A_STREAM_FINISHED");
         ctx.identity.arm(ctx.sessionIds.A!, "returned-a"); await tui.prompt("A_CONTINUE_AFTER_SWITCH");
-        await tui.waitFor((s) => s.includes("A_RETURNED_CONTINUATION") && s.includes("Brewed for"), "new execution in A");
+        await waitForTurnReply(tui, ctx.world, ctx.sessionIds.A!, "A_RETURNED_CONTINUATION", "new execution in A");
         await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 4);
         expect(JSON.stringify(bodyOf(ctx.requests[3]).messages)).toContain("A_STREAM_IN_BACKGROUND");
         expect(JSON.stringify(bodyOf(ctx.requests[3]).messages)).not.toContain("A_STREAM_FINISHED");
@@ -131,7 +132,7 @@ describe("replay v2 · sessions and terminal lifecycle", () => {
       expect(ctx.requests).toHaveLength(1); await tui.save("two-inputs-queued");
       ctx.identity.queue(ctx.sessionIds.root!, "second"); ctx.identity.queue(ctx.sessionIds.root!, "third");
       ctx.run.release(key("first"));
-      const screen = await tui.waitFor((s) => s.includes("THIRD_QUEUE_REPLY") && s.includes("Brewed for"), "queued turns completed");
+      const screen = await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, "THIRD_QUEUE_REPLY", "queued turns completed");
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 3);
       const bodies = ctx.requests.map(bodyOf).map((b: any) => JSON.stringify(b.messages));
       expect(bodies[0]).not.toContain("QUEUE_SECOND_INPUT"); expect(bodies[1]).toContain("QUEUE_SECOND_INPUT");
@@ -161,12 +162,12 @@ describe("replay v2 · sessions and terminal lifecycle", () => {
       } }), async run(ctx) {
       const tui = await ctx.startTui("root"); ctx.identity.arm(ctx.sessionIds.root!, "old");
       await tui.prompt("BEFORE_CLEAR_INPUT");
-      await tui.waitFor((s) => s.includes("PRIVATE_OLD_SESSION_REPLY") && s.includes("Brewed for"), "old session complete");
+      await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, "PRIVATE_OLD_SESSION_REPLY", "old session complete");
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 1);
       ctx.identity.finish(ctx.sessionIds.root!); await tui.command("clear");
       await tui.waitFor((s) => !s.includes("PRIVATE_OLD_SESSION_REPLY") && !s.includes("BEFORE_CLEAR_INPUT"), "clear hides previous transcript");
       awaitingFresh = true; await tui.prompt("AFTER_CLEAR_INPUT");
-      await tui.waitFor(ctx.checked((s: string) => s.includes("FRESH_SESSION_REPLY") && s.includes("Brewed for")), "fresh session completes");
+      await waitForTurnReply(tui, ctx.world, () => freshId, "FRESH_SESSION_REPLY", "fresh session completes", { predicate: ctx.checked(() => true) });
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 2);
       expect(freshId).not.toBe(""); expect(freshId).not.toBe(ctx.sessionIds.root);
       const body = JSON.stringify(bodyOf(ctx.requests[1]).messages);
@@ -180,7 +181,7 @@ describe("replay v2 · sessions and terminal lifecycle", () => {
     const markdown = "# Layout case\n\n| Name | Value |\n|---|---|\n| Unicode | 中文 🚀 |\n\n```ts\nconst stable = true;\n```\n\n" + Array.from({ length: 35 }, (_, i) => `Line ${i + 1}: preserved history`).join("\n") + "\nLAYOUT_REPLY_END";
     await runReplayScenario({ id: "U05", title: "长 Markdown 窄屏缩放后草稿与上下文保持", upstream: async () => model((body) => ({ text: JSON.stringify(body.messages).includes("DRAFT_SURVIVES_RESIZE") ? "RESIZED_INPUT_CONSUMED" : markdown })), async run(ctx) {
       const tui = await ctx.startTui("root", { rows: 60 }); ctx.identity.arm(ctx.sessionIds.root!, "layout"); await tui.prompt("RENDER_LONG_MARKDOWN");
-      const rendered = await tui.waitFor((s) => s.includes("LAYOUT_REPLY_END") && s.includes("Brewed for"), "long markdown completed");
+      const rendered = await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, "LAYOUT_REPLY_END", "long markdown completed");
       expect(rendered).toContain("Name"); expect(rendered).toContain("Value");
       expect(rendered).toContain("中文 🚀"); expect(rendered).toContain("const stable = true;");
       await tui.save("markdown-before-resize");
@@ -192,7 +193,7 @@ describe("replay v2 · sessions and terminal lifecycle", () => {
       expect(ctx.requests).toHaveLength(1); await tui.save("narrow-draft");
       await tui.resize(120, 40); await tui.waitFor((s) => s.includes("DRAFT_SURVIVES_RESIZE"), "draft restored at wide width");
       ctx.identity.arm(ctx.sessionIds.root!, "resized-input"); await tui.key("Enter");
-      await tui.waitFor((s) => s.includes("RESIZED_INPUT_CONSUMED") && s.includes("Brewed for"), "draft submits once");
+      await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, "RESIZED_INPUT_CONSUMED", "draft submits once");
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 2);
       const body = JSON.stringify(bodyOf(ctx.requests[1]).messages); expect(body).toContain("中文 🚀"); expect(body).toContain("const stable = true;");
       expect((body.match(/DRAFT_SURVIVES_RESIZE/g) ?? []).length).toBe(1);
@@ -206,7 +207,7 @@ describe("replay v2 · sessions and terminal lifecycle", () => {
       return { text: JSON.stringify(body.messages).includes("CONTINUE_AFTER_COMPACT") ? "COMPACT_CONTINUATION_DONE" : "ORIGINAL_LONG_REPLY_731 " + "history detail ".repeat(300) };
     }), async run(ctx) {
       let tui = await ctx.startTui("root"); ctx.identity.arm(ctx.sessionIds.root!, "seed-history"); await tui.prompt("COMPACT_SEED_INPUT_731");
-      await tui.waitFor((s) => s.includes("Brewed for"), "history seed completed");
+      await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, "history detail", "history seed completed");
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 1); ctx.identity.finish(ctx.sessionIds.root!);
       ctx.identity.arm(ctx.sessionIds.root!, "manual-compact", { purpose: "compact", call: "compact-command:0" });
       await tui.command("compact");
@@ -220,7 +221,7 @@ describe("replay v2 · sessions and terminal lifecycle", () => {
       tui = await ctx.startTui("root", { label: "after-compact-restart" });
       expect(ctx.requests).toHaveLength(2);
       ctx.identity.arm(ctx.sessionIds.root!, "after-compact"); await tui.prompt("CONTINUE_AFTER_COMPACT");
-      await tui.waitFor((s) => s.includes("COMPACT_CONTINUATION_DONE") && s.includes("Brewed for"), "compaction continuation complete");
+      await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, "COMPACT_CONTINUATION_DONE", "compaction continuation complete");
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 3);
       const body = JSON.stringify(bodyOf(ctx.requests[2]).messages);
       expect(body).toContain("COMPACT_SUMMARY_KEPT"); expect(body).not.toContain("history detail ".repeat(100));

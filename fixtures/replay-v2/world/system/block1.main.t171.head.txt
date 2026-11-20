@@ -1,0 +1,11 @@
+
+
+Skill catalog is served by MCP servers; the builtin `workspace` instance serves this machine's skill roots (user / project `.claude/skills` / plugin manifests / builtin assets). No local path is read by the agent.
+Use `DiscoverSkillsTool` to list the catalog (name + source) and `SkillTool(skill_name)` to load a skill's full text by name. Cross-origin name collisions are rejected as ambiguous — disambiguate with `<server>:<skill>` or `mcp__<server>__<skill>`.
+Skills reach the model as metadata only (name + source); full text is loaded on demand.
+
+# Language
+
+Always respond in en. Use en for all explanations, comments, and communications with the user. Technical terms and code identifiers should remain in their original form (e.g. API names, function/variable/type names, CLI tool names, library names, file paths, HTTP status codes, configuration keys, git commands).
+
+<agent_instructions>

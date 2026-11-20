@@ -14,7 +14,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
 import {
-  STABLE_LEAVES, loadSourceLeaves,
+  STABLE_LEAVES, describePromptSources, loadSourceLeaves,
 } from './replay-world-sources.mjs';
 import { compareRecordedWorldRefs, readRecordedWorldRefs } from './replay-world-recorded.mjs';
 import { replaceWorldDirectory } from './world-sync-swap.mjs';
@@ -60,15 +60,24 @@ if (!skillsReferenced) throw new Error('world 中没有 recipe 引用 sys.skills
 
 const changed = [...updates].filter(([id, bytes]) => !world.hasLeaf(id) || !bytes.equals(world.leafBytes(id)));
 const unmappedLeaves = world.leaves.filter((id) => id.startsWith('sys.sha256.') || id.startsWith('tools.sha256.'));
+const promptSources = await describePromptSources(world, periRoot);
+const promptSourceErrors = promptSources.filter((item) => item.error);
 const report = {
   updated: changed.map(([id]) => id),
   stable: updates.size - changed.length,
   unmappedLeaves,
+  promptSources,
   world: { leaves: world.leaves.length, recipes: world.recipes.length, generation: world.manifest.generation },
 };
 
 if (values.check) {
-  const recorded = compareRecordedWorldRefs(world, await readRecordedWorldRefs(path.dirname(worldDir)));
+  const recordedCassettes = await readRecordedWorldRefs(path.dirname(worldDir));
+  const recorded = compareRecordedWorldRefs(world, recordedCassettes);
+  for (const item of promptSources) {
+    item.cassettes = recordedCassettes
+      .filter((cassette) => cassette.refs.some((ref) => ref.id === item.leaf))
+      .map((cassette) => cassette.id);
+  }
   // 源派生且已与源等值的 mapped drift 只需重封引用，不要求重录；其余 drift 仍要求重录。
   const sourceAnchoredDrift = recorded.mappedDrift.filter((id) => updates.get(id)?.equals(world.leafBytes(id)));
   const unanchoredDrift = recorded.mappedDrift.filter((id) => !sourceAnchoredDrift.includes(id));
@@ -76,6 +85,8 @@ if (values.check) {
   if (changed.length) staleReasons.push('source_not_synced');
   if (recorded.unmappedDrift.length) staleReasons.push('cassette_unmapped_drift');
   if (recorded.missingLeaves.length) staleReasons.push('cassette_missing_leaf');
+  // 提示词正文随 checkout 变化是允许的回放输入，不构成 stale；缺文件才无法比对。
+  if (promptSourceErrors.length) staleReasons.push('prompt_source_unavailable');
   const stale = staleReasons.length > 0;
   console.log(JSON.stringify({
     ...report,
@@ -89,6 +100,11 @@ if (values.check) {
     stale,
   }, null, 2));
   process.exit(stale ? 1 : 0);
+}
+// 正文源缺失时不能静默同步其它 leaf：world 已登记的 source 引用在该 checkout 上不可回放。
+if (promptSourceErrors.length) {
+  console.log(JSON.stringify({ ...report, errors: promptSourceErrors }, null, 2));
+  process.exit(1);
 }
 if (!changed.length) {
   console.log(JSON.stringify({ ...report, written: 0 }, null, 2));

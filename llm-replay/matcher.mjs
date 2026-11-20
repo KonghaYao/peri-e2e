@@ -189,15 +189,54 @@ export function canonicalBody(bytes, { bindings, owner, rules = [] } = {}) {
   return canonicalJson(tree);
 }
 
+const summarize = (value) => {
+  const text = JSON.stringify(value) ?? String(value);
+  return text.length > 160 ? `${text.slice(0, 160)}…(${text.length})` : text;
+};
+
+/** 只用于诊断：返回第一个不同的 JSON Pointer 与两侧摘要，不复制整段正文。 */
+function firstDifference(expected, actual, pointer = '') {
+  if (Object.is(expected, actual)) return null;
+  if (Array.isArray(expected) && Array.isArray(actual)) {
+    if (expected.length !== actual.length) {
+      return { path: pointer || '/', expectedLength: expected.length, actualLength: actual.length };
+    }
+    for (let index = 0; index < expected.length; index += 1) {
+      const found = firstDifference(expected[index], actual[index], `${pointer}/${index}`);
+      if (found) return found;
+    }
+    return null;
+  }
+  if (expected && actual && typeof expected === 'object' && typeof actual === 'object'
+      && !Array.isArray(expected) && !Array.isArray(actual)) {
+    const keys = [...new Set([...Object.keys(expected), ...Object.keys(actual)])].sort();
+    for (const key of keys) {
+      if (!Object.hasOwn(expected, key) || !Object.hasOwn(actual, key)) {
+        return { path: `${pointer}/${key.replace(/~/gu, '~0').replace(/\//gu, '~1')}`, expected: summarize(expected[key]), actual: summarize(actual[key]), missing: !Object.hasOwn(expected, key) ? 'expected' : 'actual' };
+      }
+      const found = firstDifference(expected[key], actual[key], `${pointer}/${key.replace(/~/gu, '~0').replace(/\//gu, '~1')}`);
+      if (found) return found;
+    }
+    return null;
+  }
+  return { path: pointer || '/', expected: summarize(expected), actual: summarize(actual) };
+}
+
 export function assertRequestMatches(expected, actual, normalization = {}) {
   const actualCanonical = canonicalBody(actual.body, normalization);
   const differences = [];
+  let difference = null;
   for (const field of ['method', 'target']) if (expected[field] !== actual[field]) differences.push(field);
   if (canonicalJson(expected.headers) !== canonicalJson(actual.headers)) differences.push('headers');
-  if (expected.canonicalBody !== actualCanonical) differences.push('body');
+  if (expected.canonicalBody !== actualCanonical) {
+    differences.push('body');
+    try { difference = firstDifference(JSON.parse(expected.canonicalBody), JSON.parse(actualCanonical)); }
+    catch { difference = null; }
+  }
   if (differences.length) throw new ReplayError('request_mismatch', '当前请求与录制不一致', {
     fields: differences,
     expectedBodyHash: sha256(expected.canonicalBody),
     actualBodyHash: sha256(actualCanonical),
+    ...(difference ? { difference } : {}),
   });
 }

@@ -4,6 +4,7 @@ import { expect } from "vitest";
 import type { ReplayScenarioContext, ReplayRequestObservation } from "../../helpers/llm-replay-suite.js";
 import type { ReplayTui, ReplayWorld } from "../../helpers/llm-replay-tui.js";
 import { contentText, resultText, tool, type CallIdentity } from "./agents-fixture.js";
+import { waitForTurnReply } from "./turn-evidence.js";
 
 export const monitorNames = ["monitor_start", "monitor_read", "monitor_stop", "monitor_list"];
 export const portableMonitorTools = { ExecuteExtraTool: ["/params/task_id"] };
@@ -99,10 +100,10 @@ export async function noMonitorFile(ctx: ReplayScenarioContext, file: string) {
   await expect(access(path.join(ctx.world.work, file))).rejects.toMatchObject({ code: "ENOENT" });
 }
 export async function monitorDone(ctx: ReplayScenarioContext, tui: ReplayTui, marker: string) {
-  const screen = await tui.waitFor(ctx.checked((screen: string) => {
-    if (ctx.upstream?.errors.length) throw new Error(ctx.upstream.errors.join("\n"));
-    return screen.includes(marker) && screen.includes("Brewed for");
-  }), marker, 45_000);
+  const screen = await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, marker, marker, {
+    timeoutMs: 45_000,
+    predicate: ctx.checked(() => true),
+  });
   await ctx.waitForCalls((state) => state.active === 0);
   return screen;
 }

@@ -6,9 +6,9 @@ import { promisify } from 'node:util';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadWorld } from '../llm-replay/world-store.mjs';
+import { collectPromptSourceParts, loadWorld } from '../llm-replay/world-store.mjs';
 import { sha256 } from '../llm-replay/matcher.mjs';
-import { assertBlock0SectionOrder, COMPACT_USER_PLACEHOLDER, COMPACT_USER_TARGET_TOKENS, loadSourceLeaves } from './replay-world-sources.mjs';
+import { assertBlock0SectionOrder, COMPACT_USER_PLACEHOLDER, COMPACT_USER_TARGET_TOKENS, PROMPT_SOURCES, loadSourceLeaves } from './replay-world-sources.mjs';
 
 const execute = promisify(execFile);
 const e2eRoot = fileURLToPath(new URL('..', import.meta.url));
@@ -192,6 +192,14 @@ async function syntheticPeriRoot(t, worldDir, { block0, legacySchema = false } =
     : 'peri-middlewares/src/subagent/tool/define/sub_agent_tool.rs';
   await writeFile(path.join(root, definition), SEND_ONLY);
   await writeFile(path.join(root, 'peri-middlewares/src/default_system_prompt/mod.rs'), MOD_RS);
+  // 提示词正文不属于 world:sync 管理集合；合成源必须复制录制快照才能比对摘要。
+  for (const recipeId of world.recipeIds()) {
+    for (const part of collectPromptSourceParts(world, [{ recipe: recipeId }])) {
+      const relative = PROMPT_SOURCES[part.source].path;
+      await mkdir(path.dirname(path.join(root, relative)), { recursive: true });
+      await writeFile(path.join(root, relative), world.leafBytes(part.leaf));
+    }
+  }
   return root;
 }
 

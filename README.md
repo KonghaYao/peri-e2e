@@ -24,15 +24,16 @@ npm ci
 | --- | --- |
 | `PERI_BINARY` | 已构建 `peri` 的绝对路径，优先级最高；启动前校验存在且可执行 |
 | `PERI_E2E_BINARY` | 兼容旧名；`PERI_BINARY` 未设置时使用 |
-| `PERI_SOURCE_ROOT` | Peri checkout 绝对路径；`world:sync` / `world-check` 与 replay 单测中的 world-check 用例必须显式设置。legacy helper 在未设置时才尝试本仓父目录 |
+| `PERI_SOURCE_ROOT` | Peri checkout 绝对路径；离线回放必须显式设置，且必须与 `PERI_BINARY` 同次构建，用于读取交互式会话的客户端提示词正文。`world:sync` / `world-check` 与 replay 单测中的 world-check 用例同样必须设置。legacy helper 在未设置时才尝试本仓父目录 |
 | `PERI_E2E_REPLAY_FIXTURES` | 可选，覆盖 fixture 根目录（默认 `fixtures/replay-v2`） |
 | `PERI_E2E_REPLAY_RESULTS` | 可选，覆盖报告根目录（默认 `results/replay-v2/<invocation>`） |
 | `PERI_E2E_REPLAY_INVOCATION` | 可选，命名一次回放运行 |
 
 二进制解析顺序：`PERI_BINARY` → `PERI_E2E_BINARY` →
-`PERI_SOURCE_ROOT/target/debug/peri`。replay-v2 只需要二进制；legacy 套件、
-`world:sync` / `world-check` / `migrate` 还需要 `PERI_SOURCE_ROOT`。没有源码根
-时，legacy 套件会在 vitest 配置中显式跳过并告警。
+`PERI_SOURCE_ROOT/target/debug/peri`。replay-v2 的请求匹配需要二进制与源码根来自
+同一次构建；`npm run e2e:replay` 在缺少 `PERI_SOURCE_ROOT` 时直接失败。legacy 套件、
+`world:sync` / `world-check` / `migrate` 也读取 `PERI_SOURCE_ROOT`。没有源码根时，
+legacy 套件会在 vitest 配置中显式跳过并告警。
 
 `.env` 从本仓根读取，仅用于 legacy judge；不得提交。
 
@@ -45,9 +46,16 @@ PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:verify  # fixture/world 完整
 npm run e2e:replay:verify:strict  # strict：任何 drift 都失败
 npm run e2e:replay:migrate-refs -- --dry-run  # literal stub → world ref 等价迁移预演
 PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay:world-check
-PERI_BINARY=/path/to/peri npm run e2e:replay
+PERI_BINARY=/path/to/peri PERI_SOURCE_ROOT=/path/to/peri npm run e2e:replay
 EXPECTED_REPLAY_SCENARIOS=67 node scripts/check-replay-catalog.mjs
 ```
+
+交互式新会话的客户端提示词正文（`peri-tui/prompts/tui.md`）不再逐字节冻结在
+tail 里：world recipe 只冻结固定前段与固定后段，正文 leaf 保存录制快照并登记唯一
+源码路径与会话范围。回放期望侧从 `PERI_SOURCE_ROOT` 原样读取当前 UTF-8 正文（含
+末尾换行），实际请求仍原样送入匹配器；恢复会话继续使用创建时冻结的录制 tail。
+因此同一 pin 下只改这段文案不需要改 fixture、重录或换 pin。`world-check` 输出
+`promptSources` 的录制/当前摘要，源文件缺失才判 stale；正文差异由回放匹配拒绝。
 
 `check-replay-catalog.mjs` 要求场景 ID 与封存 fixture 一一对应，零测试、重复 ID、
 缺失/多余 fixture 和新增 skip 都会失败。回放后加 `--results <invocation 目录>`
@@ -98,7 +106,12 @@ node scripts/refresh-cassettes.mjs --peri-root /path/to/peri [--check]
 `send_only` 从源同步；非管理字段变化会判为未锚定并拒绝。只改这些源文件时，e2e 侧
 只产生对应 leaf 与 `world/seal.json`；`01_intro`–`06_tone_style` 任一变化固定为 2 个文件。
 `world-check` 把与源等值的 mapped drift 列为 `sourceAnchoredDrift`
-（`requiresRerecord: false`），其余列为 `unanchoredDrift`。
+（`requiresRerecord: false`），其余列为 `unanchoredDrift`。报告同时列出
+`promptSources`：每个 source-anchored 正文 leaf 的录制摘要、当前 checkout 摘要、
+会话范围与引用它的 cassette。正文变化是合法回放输入，不构成 stale；文件缺失才会
+让 `world-check` 非零退出。`scripts/migrate-prompt-source.mjs` 是 U04 tail 拆分的
+一次性迁移工具：默认 dry-run，先证明 raw/canonical/response 三类字节等价，再在
+`--apply` 时原子替换 world 并重写 cassette `worldRefs`。
 
 未映射 leaf 变化不能由 `world:sync` 解释，必须重录或走受控迁移；不要在未审核的
 情况下手工重封。录制必须基于已封存的共享 world（`.lock-world` 串行化），新 stub

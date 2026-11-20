@@ -3,6 +3,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { runReplayScenario, type ReplayScenarioContext } from "../../helpers/llm-replay-suite.js";
 import { assertToolResult, startToolsFixture, toolsPlan, type ToolCaseId } from "./tools-fixture.js";
+import { waitForTurnReply } from "./turn-evidence.js";
 
 const cases: Array<{ id: ToolCaseId; title: string; file?: string; content?: string; visibleTool: RegExp }> = [
   { id: "T01", title: "Write 后实际 Read 回同一文件", file: "note.txt", content: "T01_WRITTEN_AND_READ\n", visibleTool: /Read/ },
@@ -22,7 +23,7 @@ async function assertBusiness(ctx: ReplayScenarioContext, business: typeof cases
   const tui = await ctx.startTui("root");
   ctx.identity.arm(sessionId, "business-turn");
   await tui.prompt(`${business.id}_BUSINESS_CASE`);
-  const screen = await tui.waitFor(ctx.checked((value: string) => value.includes(`${business.id}_BUSINESS_DONE`) && value.includes("Brewed for")), "tool result and completed business turn", 60_000);
+  const screen = await waitForTurnReply(tui, ctx.world, sessionId, `${business.id}_BUSINESS_DONE`, "tool result and completed business turn", { timeoutMs: 60_000, predicate: ctx.checked(() => true) });
   expect(screen).toMatch(business.visibleTool);
   const expectedCalls = plan.length + 1 + Number(business.id === "T06");
   await ctx.waitForCalls((state) => state.active === 0 && state.calls.length === expectedCalls, 15_000);

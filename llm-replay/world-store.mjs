@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto';
 import path from 'node:path';
 import { canonicalBody, canonicalJson, ReplayError, sha256 } from './matcher.mjs';
 import { createBindingRegistry } from './bindings.mjs';
+import { promptSourceRecord } from './prompt-sources.mjs';
 import { tokenBoundary } from './template-text.mjs';
 import { isSyncedWorldLeaf, STABLE_LEAVES } from './world-mapping.mjs';
 
@@ -56,6 +57,25 @@ function relativeFile(file, root) {
   return resolved;
 }
 
+const PART_KEYS = new Set(['leaf', 'recipe', 'raw', 'as', 'source', 'field', 'session']);
+const POINTER = /^(?:\/(?:[^/~]|~[01])+)+$/u;
+
+/** source part 把录制正文 leaf 锚到唯一源码路径；field/session 固定使用范围。 */
+function validateSourcePart(part, recipeId) {
+  const record = promptSourceRecord(part.source);
+  if (part.leaf === undefined || part.recipe !== undefined || part.raw !== undefined) {
+    fail('invalid_world_part', 'source part 必须且只能引用 recorded leaf', { recipe: recipeId, source: part.source });
+  }
+  if (typeof part.field !== 'string' || !POINTER.test(part.field)) {
+    fail('invalid_world_part', 'source part 必须声明精确 JSON Pointer field', { recipe: recipeId, source: part.source });
+  }
+  if (part.session !== record.scope) {
+    fail('prompt_source_scope_mismatch', 'source part 的会话范围与注册表不符', {
+      recipe: recipeId, source: part.source, expected: record.scope, actual: part.session ?? null,
+    });
+  }
+}
+
 function validatePart(part, { recipeId, allowAs = false } = {}) {
   if (typeof part === 'string') {
     if (!part) fail('invalid_world_recipe', 'recipe 字面量不能为空', { recipe: recipeId });
@@ -67,13 +87,17 @@ function validatePart(part, { recipeId, allowAs = false } = {}) {
   if (refs.length !== 1) fail('invalid_world_part', 'part 必须且只能引用一种来源', { recipe: recipeId });
   if (!allowAs && Object.hasOwn(part, 'as')) fail('invalid_world_part', 'recipe 内部不能用 as 二次转义', { recipe: recipeId });
   if (Object.hasOwn(part, 'as') && !PART_AS.has(part.as)) fail('invalid_world_part', '未知 part 编码', { as: part.as });
-  if (Object.keys(part).some((key) => !['leaf', 'recipe', 'raw', 'as'].includes(key))) {
+  if (keys.some((key) => !PART_KEYS.has(key))) {
     fail('invalid_world_part', 'part 含未知字段', { recipe: recipeId });
   }
   if (part.leaf !== undefined) validId(part.leaf, 'leaf');
   if (part.recipe !== undefined) validId(part.recipe, 'recipe');
   if (part.raw !== undefined) {
     if (typeof part.raw !== 'string' || !part.raw) fail('invalid_request_stub', 'raw part 必须指向文件');
+  }
+  if (Object.hasOwn(part, 'source')) validateSourcePart(part, recipeId);
+  else if (Object.hasOwn(part, 'field') || Object.hasOwn(part, 'session')) {
+    fail('invalid_world_part', 'field/session 只能与 source 一起声明', { recipe: recipeId });
   }
 }
 
@@ -90,6 +114,26 @@ function validateGraph(leaves, recipes) {
     for (const part of parts) {
       if (part.leaf !== undefined && !leaves.has(part.leaf)) fail('unknown_world_leaf', 'recipe 引用了不存在的 leaf', { recipe: id, leaf: part.leaf });
       if (part.recipe !== undefined && !recipes.has(part.recipe)) fail('unknown_world_recipe', 'recipe 引用了不存在的 recipe', { recipe: id, missing: part.recipe });
+    }
+  }
+  // 同一正文 leaf 只能由一个 source part 引用；普通 leaf 引用也不能复用它，
+  // 否则源码替换范围有歧义。
+  const sourceUses = new Map();
+  const plainUses = new Map();
+  for (const [id, parts] of recipes) {
+    for (const part of parts) {
+      if (part.leaf === undefined) continue;
+      const bucket = part.source === undefined ? plainUses : sourceUses;
+      if (!bucket.has(part.leaf)) bucket.set(part.leaf, []);
+      bucket.get(part.leaf).push({ recipe: id, source: part.source ?? null, field: part.field ?? null });
+    }
+  }
+  for (const [leaf, uses] of sourceUses) {
+    if (uses.length > 1) {
+      fail('prompt_source_ambiguous', '同一提示词正文 leaf 被多个 source part 引用', { leaf, uses });
+    }
+    if (plainUses.has(leaf)) {
+      fail('prompt_source_ambiguous', '提示词正文 leaf 同时被普通 recipe 引用', { leaf, source: uses[0], plain: plainUses.get(leaf) });
     }
   }
   const state = new Map();
@@ -115,14 +159,20 @@ function encodeAs(bytes, as = 'raw') {
 }
 
 function createRenderer(leaves, recipes) {
-  const render = (part, stack = []) => {
+  /**
+   * resolveSource 只替换声明了 source 的 leaf；其余引用仍走封存快照。
+   * 录制侧不传 resolveSource，保证 seal 校验始终对录制字节。
+   */
+  const render = (part, stack = [], resolveSource = null) => {
     if (typeof part === 'string') return Buffer.from(part, 'utf8');
     if (!isPlainObject(part)) fail('invalid_world_part', 'part 必须是字面量或引用');
     const as = part.as ?? 'raw';
     if (part.leaf !== undefined) {
-      const leaf = leaves.get(part.leaf);
-      if (!leaf) fail('unknown_world_leaf', '引用了不存在的 world leaf', { leaf: part.leaf });
-      return encodeAs(leaf.bytes, as);
+      const bytes = part.source !== undefined && resolveSource
+        ? resolveSource(part)
+        : leaves.get(part.leaf)?.bytes;
+      if (!bytes) fail('unknown_world_leaf', '引用了不存在的 world leaf', { leaf: part.leaf });
+      return encodeAs(bytes, as);
     }
     if (part.recipe !== undefined) {
       if (stack.includes(part.recipe) || stack.length >= MAX_RECIPE_DEPTH) {
@@ -130,12 +180,16 @@ function createRenderer(leaves, recipes) {
       }
       const parts = recipes.get(part.recipe);
       if (!parts) fail('unknown_world_recipe', '引用了不存在的 world recipe', { recipe: part.recipe });
-      const bytes = Buffer.concat(parts.map((child) => render(child, [...stack, part.recipe])));
+      const bytes = Buffer.concat(parts.map((child) => render(child, [...stack, part.recipe], resolveSource)));
       return encodeAs(bytes, as);
     }
     fail('invalid_world_part', 'world 渲染只接受 leaf 或 recipe 引用');
   };
-  return { render, renderParts: (parts) => Buffer.concat(parts.map((part) => render(part))) };
+  return {
+    render,
+    renderParts: (parts) => Buffer.concat(parts.map((part) => render(part))),
+    renderPartsWithSources: (parts, resolveSource) => Buffer.concat(parts.map((part) => render(part, [], resolveSource))),
+  };
 }
 
 /** 迁移与录制使用：内存中构建 world，seal 后一次性落到目录。 */
@@ -179,6 +233,7 @@ export function createWorldBuilder({ generation } = {}) {
     recipeIds: () => [...recipes.keys()],
     render: renderer.render,
     renderParts: renderer.renderParts,
+    renderPartsWithSources: renderer.renderPartsWithSources,
     async seal(directory) {
       validateGraph(leaves, recipes);
       const requested = path.resolve(directory);
@@ -309,6 +364,7 @@ export async function loadWorld(directory) {
     recipeIds: () => [...recipes.keys()],
     render: renderer.render,
     renderParts: renderer.renderParts,
+    renderPartsWithSources: renderer.renderPartsWithSources,
   });
 }
 
@@ -628,8 +684,53 @@ function explainWorldDrift(stub, { world, worldRefs, syncedLeaf, mismatch }) {
   return [...new Set(changed)];
 }
 
-/** 由 stub 重建 raw body；legacy part 必须由调用方提供受 seal 覆盖的读取器。 */
-export async function decodeRequestStub(stub, { world, readRaw, worldRefs, syncedLeaf = isSyncedWorldLeaf } = {}) {
+/**
+ * 展开 stub 引用到的 source part。source 只能出现在 recipe 内（或顶层字段），
+ * 由 field 声明它在请求正文中的位置，用于校验替换范围唯一。
+ */
+export function collectPromptSourceParts(world, parts, stack = []) {
+  const out = [];
+  const visit = (part, recipeId) => {
+    if (!isPlainObject(part)) return;
+    if (part.source !== undefined) {
+      out.push({ recipe: recipeId, leaf: part.leaf, source: part.source, field: part.field, session: part.session });
+      return;
+    }
+    if (part.recipe === undefined) return;
+    if (stack.includes(part.recipe)) fail('world_recipe_cycle', 'world recipe 存在循环引用', { recipe: part.recipe });
+    const inner = world?.recipeParts?.(part.recipe);
+    if (!inner) fail('unknown_world_recipe', '引用了不存在的 world recipe', { recipe: part.recipe });
+    for (const child of inner) visit(child, part.recipe);
+  };
+  for (const part of parts) visit(part, null);
+  return out;
+}
+
+function assertSourceField(bytes, entry, bodyBytes, side, context) {
+  let body;
+  try { body = JSON.parse(toBuffer(bytes).toString('utf8')); }
+  catch { fail('invalid_request_stub', '请求正文不是合法 JSON', { ...context, field: entry.field, side }); }
+  const field = valueAtPointer(body, entry.field);
+  if (typeof field !== 'string') {
+    fail('prompt_source_scope_mismatch', '提示词正文未落在声明的系统块字段', {
+      ...context, field: entry.field, source: entry.source, side, reason: 'field_missing',
+    });
+  }
+  const text = toBuffer(bodyBytes).toString('utf8');
+  if (!text) fail('prompt_source_invalid', '提示词正文为空', { ...context, field: entry.field, source: entry.source, side });
+  let occurrences = 0;
+  for (let at = field.indexOf(text); at !== -1; at = field.indexOf(text, at + text.length)) occurrences += 1;
+  if (occurrences !== 1) {
+    fail('prompt_source_ambiguous', '提示词正文在声明字段中必须恰好出现一次', {
+      ...context, field: entry.field, source: entry.source, side, occurrences,
+    });
+  }
+}
+
+/** 由 stub 重建 raw body；source part 在录制侧用 leaf、期望侧用当前 checkout。 */
+export async function decodeRequestStub(stub, {
+  world, readRaw, worldRefs, syncedLeaf = isSyncedWorldLeaf, sources = null, requireSources = false, context = {},
+} = {}) {
   validateStubHeader(stub);
   const rawParts = stub.parts.filter((part) => isPlainObject(part) && Object.hasOwn(part, 'raw'));
   if (rawParts.length) {
@@ -640,7 +741,7 @@ export async function decodeRequestStub(stub, { world, readRaw, worldRefs, synce
     const mismatch = verifyRaw(stub, bytes);
     if (mismatch === 'length') fail('corrupt_cassette', 'request body 长度不符', { rawSha256: stub.rawSha256 });
     if (mismatch) fail('corrupt_cassette', 'request body 校验失败', { rawSha256: stub.rawSha256 });
-    return { bytes, legacy: true, legacyFile: rawParts[0].raw, drifted: false, driftLeaves: [] };
+    return { bytes, recordedBytes: bytes, legacy: true, legacyFile: rawParts[0].raw, drifted: false, driftLeaves: [], sourceDrift: [] };
   }
   const chunks = stub.parts.map((part) => {
     if (typeof part === 'string') return Buffer.from(part, 'utf8');
@@ -649,11 +750,65 @@ export async function decodeRequestStub(stub, { world, readRaw, worldRefs, synce
     if (part.raw !== undefined) fail('invalid_request_stub', 'legacy body 必须独占 parts');
     return world.render(part);
   });
-  const bytes = Buffer.concat(chunks);
-  const mismatch = verifyRaw(stub, bytes);
-  if (!mismatch) return { bytes, legacy: false, drifted: false, driftLeaves: [] };
-  const driftLeaves = explainWorldDrift(stub, { world, worldRefs, syncedLeaf, mismatch });
-  return { bytes, legacy: false, drifted: true, driftLeaves };
+  const recordedBytes = Buffer.concat(chunks);
+  const mismatch = verifyRaw(stub, recordedBytes);
+  let drifted = false;
+  let driftLeaves = [];
+  if (mismatch) {
+    driftLeaves = explainWorldDrift(stub, { world, worldRefs, syncedLeaf, mismatch });
+    drifted = true;
+  }
+  const sourceParts = world ? collectPromptSourceParts(world, stub.parts) : [];
+  const seenFields = new Set();
+  for (const entry of sourceParts) {
+    if (seenFields.has(entry.field)) {
+      fail('prompt_source_ambiguous', '同一字段只能锚定一个提示词正文', { ...context, field: entry.field, source: entry.source });
+    }
+    seenFields.add(entry.field);
+    const recordedLeaf = world.leafBytes(entry.leaf);
+    if (!recordedLeaf) fail('unknown_world_leaf', 'source part 引用了不存在的录制 leaf', { ...context, leaf: entry.leaf });
+    assertSourceField(recordedBytes, entry, recordedLeaf, 'recorded', context);
+  }
+  if (!sourceParts.length) {
+    return { bytes: recordedBytes, recordedBytes, legacy: false, drifted, driftLeaves, sourceDrift: [] };
+  }
+  if (!sources) {
+    if (requireSources) {
+      const entry = sourceParts[0];
+      fail('prompt_source_root_missing', '回放提示词正文需要显式设置 PERI_SOURCE_ROOT', {
+        ...context, source: entry.source, field: entry.field, path: promptSourceRecord(entry.source).path,
+      });
+    }
+    return { bytes: recordedBytes, recordedBytes, legacy: false, drifted, driftLeaves, sourceDrift: [] };
+  }
+  const sourceDrift = [];
+  const expectedBytes = world.renderPartsWithSources(stub.parts, (part) => {
+    const current = sources.get(part.source);
+    if (!current) {
+      fail('prompt_source_missing', `提示词源未加载: ${part.source}`, {
+        ...context, source: part.source, field: part.field, path: promptSourceRecord(part.source).path,
+      });
+    }
+    return current.bytes;
+  });
+  for (const entry of sourceParts) {
+    const current = sources.get(entry.source);
+    if (!current) {
+      fail('prompt_source_missing', `提示词源未加载: ${entry.source}`, {
+        ...context, source: entry.source, field: entry.field, path: promptSourceRecord(entry.source).path,
+      });
+    }
+    assertSourceField(expectedBytes, entry, current.bytes, 'current', context);
+    const recordedSha = sha256(world.leafBytes(entry.leaf));
+    const currentSha = sha256(current.bytes);
+    if (recordedSha !== currentSha) {
+      sourceDrift.push({
+        source: entry.source, leaf: entry.leaf, field: entry.field, session: entry.session,
+        path: current.path, recordedSha256: recordedSha, currentSha256: currentSha,
+      });
+    }
+  }
+  return { bytes: expectedBytes, recordedBytes, legacy: false, drifted, driftLeaves, sourceDrift };
 }
 
 const recordedKey = (kind, alias) => `${kind}:${alias}`;
@@ -847,12 +1002,8 @@ export function expandTypedTemplateRules(rules, rawBytes) {
   return { rules: expanded, bindings };
 }
 
-/** 用 live 值定位、recorded 侧重建 canonical body；写入时已断言两者与原始字段一致。 */
-export function canonicalRecordedBody(rawBytes, rules, bindingList) {
-  if (!rules.length) return canonicalBody(rawBytes);
-  const owners = new Set(rules.map((rule) => rule.owner ?? 'world'));
-  if (owners.size !== 1) fail('corrupt_cassette', 'cassette 规则不能跨 owner', { owners: [...owners] });
-  const owner = [...owners][0];
+/** 由 cassette 展开后的绑定值重建 registry；回放代理与请求层测试共用。 */
+export function createCassetteBindingRegistry(bindingList) {
   const unique = new Map();
   for (const binding of bindingList) {
     const key = JSON.stringify([binding.owner, binding.kind, binding.alias]);
@@ -872,5 +1023,15 @@ export function canonicalRecordedBody(rawBytes, rules, bindingList) {
     const binding = unique.get(JSON.stringify([declaration.owner, declaration.kind, declaration.alias]));
     registry.bind({ ...declaration, live: binding.live ?? binding.recorded });
   }
+  return registry;
+}
+
+/** 用 live 值定位、recorded 侧重建 canonical body；写入时已断言两者与原始字段一致。 */
+export function canonicalRecordedBody(rawBytes, rules, bindingList) {
+  if (!rules.length) return canonicalBody(rawBytes);
+  const owners = new Set(rules.map((rule) => rule.owner ?? 'world'));
+  if (owners.size !== 1) fail('corrupt_cassette', 'cassette 规则不能跨 owner', { owners: [...owners] });
+  const owner = [...owners][0];
+  const registry = createCassetteBindingRegistry(bindingList);
   return canonicalBody(rawBytes, { bindings: registry, owner, rules });
 }

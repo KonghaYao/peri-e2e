@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { runReplayScenario } from "../../helpers/llm-replay-suite.js";
+import { waitForTurnReply } from "./turn-evidence.js";
 
 function event(type: string, data: object): string { return `event: ${type}\ndata: ${JSON.stringify(data)}\n\n`; }
 function answer(value: string | { id: string; name: string; input: object }): string {
@@ -45,7 +46,7 @@ describe("replay v2 · user interaction ownership", () => {
       await tui.key("Down"); await tui.key("Space");
       await tui.waitFor((s) => /●.*Beta/.test(s), "Beta selected");
       await tui.save("selected"); await tui.key("Enter");
-      await tui.waitFor((s) => s.includes("SINGLE_CHOICE_CONSUMED") && s.includes("Brewed for"), "single-choice complete");
+      await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, "SINGLE_CHOICE_CONSUMED", "single-choice complete");
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 2);
       const requests = ctx.requests.map((r: any) => JSON.parse(r.request.body.toString()));
       const result = requests.flatMap(results).find((r: any) => r.tool_use_id === "single-question");
@@ -70,7 +71,7 @@ describe("replay v2 · user interaction ownership", () => {
       await tui.key("Down"); await tui.key("Down"); await tui.key("Space");
       await tui.waitFor((s) => /●.*Gamma/.test(s), "Gamma selected");
       await tui.key("Enter");
-      await tui.waitFor((s) => s.includes("MULTI_CHOICE_CONSUMED") && s.includes("Brewed for"), "multi-choice complete");
+      await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, "MULTI_CHOICE_CONSUMED", "multi-choice complete");
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 2);
       const result = ctx.requests.map((r: any) => JSON.parse(r.request.body.toString())).flatMap(results).find((r: any) => r.tool_use_id === "multi-question");
       expect(result).toBeDefined();
@@ -93,14 +94,14 @@ describe("replay v2 · user interaction ownership", () => {
       ctx.identity.arm(ctx.sessionIds.root!, "denied"); await tui.prompt("RUN_DENY_TOOL");
       await tui.waitFor((s) => s.includes("Approval Required") || s.includes("审批请求"), "approval before denied tool");
       await tui.save("deny-prompt"); await tui.key("Escape");
-      await tui.waitFor((s) => s.includes("DENIED_ACTION_COMPLETE") && s.includes("Brewed for"), "denied action settled");
+      await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, "DENIED_ACTION_COMPLETE", "denied action settled");
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 2);
       await expect(readFile(path.join(ctx.world.work, "approval.txt"), "utf8")).rejects.toMatchObject({ code: "ENOENT" });
       ctx.identity.finish(ctx.sessionIds.root!);
       ctx.identity.arm(ctx.sessionIds.root!, "allowed"); await tui.prompt("RUN_ALLOW_TOOL");
       await tui.waitFor((s) => s.includes("Approval Required") || s.includes("审批请求"), "separate approval for later tool");
       await tui.save("allow-prompt"); await tui.key("Enter");
-      await tui.waitFor((s) => s.includes("APPROVED_ACTION_COMPLETE") && s.includes("Brewed for"), "allowed action settled");
+      await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, "APPROVED_ACTION_COMPLETE", "allowed action settled");
       await ctx.proxy.waitFor(ctx.runId, (s: any) => s.active === 0 && s.calls.length === 4);
       expect(await readFile(path.join(ctx.world.work, "approval.txt"), "utf8")).toBe("ALLOW\n");
       const all = ctx.requests.map((r: any) => JSON.parse(r.request.body.toString())).flatMap(results);

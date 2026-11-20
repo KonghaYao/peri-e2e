@@ -106,12 +106,14 @@ cassette `formatVersion` 为 2 时，请求正文不再各存一份完整 system
 - `world/system/block0.main.txt` 对应 `01_intro`…`06_tone_style` 六个源段按 `BASE_SECTIONS` 顺序用 `\n\n` 组合并整体 trim，稳定 leaf 为 `sys.block0.main`；顺序或 zone 变化会让 `world:sync` 直接失败；
 - `world/system/block1.<class>.prefix.txt` 对应 `07_runtime`、`10_hitl`、`11_subagent`、`12_ask_user` 四个源段；agent catalog 与 subagent persona 是录制快照，固定在 `llm-replay/world-source-templates/block1.*`，稳定 leaf 为 `sys.block1.<class>.prefix`；
 - `world/system/block1.*.tail.txt`、其余 `world/tools/*.json` 由录制内容按字节拆分；
+- `world/system/block1.main.t171.{head,prompt,suffix}.txt` 是 U04 fresh block1 tail 的三段拆分：`head`/`suffix` 是固定前后段（含外层标签与环境块），`prompt` 是 `peri-tui/prompts/tui.md` 的录制快照并登记为 source-anchored leaf。回放期望侧从 `PERI_SOURCE_ROOT` 读取当前正文，恢复会话仍按录制 tail 逐字节匹配；正文 leaf 不参与 `world:sync`；
 - 其余无法映射的 system 段（如 T06 hook prompt）走内容寻址 leaf，`world:sync` 会列出这些未映射 leaf。
 
 请求 stub 只保留 messages/参数等 per-request 字节与 leaf/recipe 引用；`rawSha256`、`canonicalSha256` 与 response 哈希仍逐条校验，`requestRules` 的 typed-template pattern 在加载时按录制边界重新展开。cassette seal 的 `requestMeta` 保存每个 stub 的语义摘要与录制时 leaf 哈希序列；只有 stub 未变且变化的 leaf 全部属于 `world:sync` 映射时，加载器才报告 `report.worldDrift`。未映射 leaf（block1 tail、T06 hook prompt 等）变化、stub 字面量/哈希字段变化都会让 verify 非零退出。
 
 ### literal → ref 迁移与录制约束
 
+- U04 fresh tail 的提示词正文拆分是一次性迁移：`node scripts/migrate-prompt-source.mjs` 默认 dry-run，要求录制 tail 中的正文与 `PERI_SOURCE_ROOT` 当前字节逐字一致且位置唯一，并证明 raw/canonical/response 哈希不变后才在 `--apply` 时替换 world 与 cassette `worldRefs`。
 - 历史 cassette 里完全字面量的 stub 用 `npm run e2e:replay:migrate-refs -- --dry-run` 迁移。脚本逐条断言 raw/canonical/response 三类字节等价，只允许 world 新增 leaf/recipe，响应文件原样复制；迁移与替换都在 staging 中完成并支持回滚。
 - 遗留的整体工具数组 leaf（`tools.sha256.*`）用 `node scripts/migrate-tool-leaves.mjs --write` 迁移为 `tools.anthropic.*` recipe；脚本只允许旧 leaf 与 recipe 在 Bash description 上不同，并同步更新 stub 哈希、seal 文件哈希与 `requestMeta`，默认 dry-run。
 - `e2e:replay:record` 必须基于已封存的共享 world（缺失时先 `world:sync`）。录制使用 `.lock-world` 串行化，结束时先校验 staging world 与 cassette，再原子替换 world、最后发布 cassette；新 stub 出现 literal 或 block0 落到 `sys.sha256.*` 会直接失败。同内容重复录制不会改写 world。

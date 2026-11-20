@@ -5,6 +5,7 @@
  * 语义 id 让 prompt-only 变更只改 leaf 文件，不扩散到 stub。
  */
 import { ReplayError, sha256 } from './matcher.mjs';
+import { promptSourceRecord } from './prompt-sources.mjs';
 import { STABLE_LEAVES, classifyBlock1Prefix } from './world-mapping.mjs';
 
 const BLOCK1_CLASSES = ['main', 'replay-worker', 'subagent'];
@@ -17,6 +18,42 @@ const fail = (code, message, details) => { throw new ReplayError(code, message, 
 const textOf = (bytes) => bytes.toString('utf8');
 const sha8 = (value) => sha256(Buffer.from(value, 'utf8')).slice(0, 8);
 const padded = (index) => String(index).padStart(2, '0');
+
+/**
+ * 把 block1 tail 中唯一出现的客户端提示词正文拆出，前后字节保持原样。
+ * source 只由注册表声明；正文缺失或出现多次时显式失败，避免把错误范围锚到源码。
+ */
+export function splitPromptSourceTail(text, { sourceId, body, field, session }) {
+  const record = promptSourceRecord(sourceId);
+  if (session !== record.scope) {
+    fail('prompt_source_scope_mismatch', '提示词正文的会话范围与注册表不符', {
+      source: sourceId, expected: record.scope, actual: session ?? null, field,
+    });
+  }
+  const source = Buffer.isBuffer(body) ? textOf(body) : body;
+  if (typeof source !== 'string' || !source.length) {
+    fail('prompt_source_invalid', '提示词正文为空，拒绝拆分 tail', { source: sourceId, field });
+  }
+  const at = text.indexOf(source);
+  if (at < 0) {
+    fail('prompt_source_missing', '提示词正文未出现在 tail 中', { source: sourceId, field });
+  }
+  if (text.indexOf(source, at + source.length) >= 0) {
+    fail('prompt_source_ambiguous', '提示词正文在 tail 中出现多次', { source: sourceId, field });
+  }
+  return { head: text.slice(0, at), body: source, suffix: text.slice(at + source.length) };
+}
+
+/** 供 world recipe 使用；field/session 与实际请求字段和注册表范围一并冻结。 */
+export function promptSourcePart(leaf, { sourceId, field, session }) {
+  const record = promptSourceRecord(sourceId);
+  if (session !== record.scope) {
+    fail('prompt_source_scope_mismatch', '提示词正文的会话范围与注册表不符', {
+      source: sourceId, expected: record.scope, actual: session ?? null, field,
+    });
+  }
+  return { leaf, source: sourceId, field, session };
+}
 
 function assertView(world, label) {
   for (const method of ['hasLeaf', 'leafBytes', 'leafIds', 'recipeParts', 'recipeIds', 'renderParts']) {
