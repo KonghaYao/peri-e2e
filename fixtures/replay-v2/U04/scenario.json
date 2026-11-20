@@ -28,12 +28,12 @@
     ]
   },
   "recordedWorld": {
-    "root": "/tmp/peri-wire-e2e-KFC7ep",
-    "home": "/tmp/peri-wire-e2e-KFC7ep/home",
-    "work": "/tmp/peri-wire-e2e-KFC7ep/work"
+    "root": "/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei",
+    "home": "/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei/home",
+    "work": "/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei/work"
   },
   "recordedSessionIds": {
-    "root": "01a1edd8-2dd9-77e3-a6b4-cd1be079bef0"
+    "root": "01a1f5f2-679b-79a3-89f9-d25b4ab028e5"
   },
   "configurationFingerprint": "064824d7e12ef51b5ca40a47f4501683b3a277a9366d51e5aa628281dc1f8081",
   "bindings": [
@@ -41,56 +41,56 @@
       "owner": "world",
       "kind": "path",
       "alias": "root",
-      "recorded": "/tmp/peri-wire-e2e-KFC7ep",
+      "recorded": "/private/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei",
       "anchor": "isolated scenario root"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "home",
-      "recorded": "/tmp/peri-wire-e2e-KFC7ep/home",
+      "recorded": "/private/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei/home",
       "anchor": "isolated scenario home"
     },
     {
       "owner": "world",
       "kind": "path",
       "alias": "work",
-      "recorded": "/tmp/peri-wire-e2e-KFC7ep/work",
+      "recorded": "/private/var/folders/fl/_w0l1wpd2892_p6w4rn_p6n40000gn/T/peri-wire-e2e-Xr7Uei/work",
       "anchor": "isolated scenario work"
     },
     {
       "owner": "world",
       "kind": "date",
       "alias": "today",
-      "recorded": "2026-11-18",
+      "recorded": "2026-11-19",
       "anchor": "ambient UTC date in system environment"
     },
     {
       "owner": "world",
       "kind": "platform",
       "alias": "platform",
-      "recorded": "linux",
+      "recorded": "macos",
       "anchor": "ambient OS platform in system environment"
     },
     {
       "owner": "world",
       "kind": "os_version",
       "alias": "os_version",
-      "recorded": "Ubuntu 24.04.5 LTS",
+      "recorded": "macOS 26.6.2",
       "anchor": "ambient OS version in system environment"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "root",
-      "recorded": "01a1edd8-2dd9-77e3-a6b4-cd1be079bef0",
+      "recorded": "01a1f5f2-679b-79a3-89f9-d25b4ab028e5",
       "anchor": "ACP session/new result"
     },
     {
       "owner": "world",
       "kind": "session",
       "alias": "fresh",
-      "recorded": "01a1edd8-37c4-7603-8663-fabe4c74785f",
+      "recorded": "01a1f5f2-715a-78a3-9d74-f9b616b50f93",
       "anchor": "only new persisted root after explicit /clear and user submission"
     }
   ],
