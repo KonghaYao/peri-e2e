@@ -6,7 +6,7 @@ import {
   read, resultText, text, tool, tools, write,
   type CallIdentity, type ChildAnchor, type Reply,
 } from "./agents-fixture.js";
-import { collapsedGroupCount, expandCollapsedGroups } from "./transcript-groups.js";
+import { collapsedGroupCount, expandCollapsedGroups, expandGroupMember } from "./transcript-groups.js";
 
 function unexpected(call: CallIdentity): never { throw new Error(`unexpected business model call: ${JSON.stringify(call)}`); }
 function options(context: ReplayScenarioContext, anchors: ChildAnchor[], gates: CallIdentity[] = []) {
@@ -49,9 +49,10 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
         const tui = await context.startTui("root", { rows: 50 });
         actors.arm("turn-1"); await tui.prompt("Execute A01.");
         await completed(context, tui, "A01_PARENT_ACCEPTED_CHILD_RESULT");
-        // 组成员卡展开后统一为 ▾（✓ 只在折叠卡头）；完成态由常驻任务区行佐证。
+        // 组展开后成员保持自身折叠（`✓` 头 + 摘要），完成态由常驻任务区行佐证。
         const expanded = await expandCollapsedGroups(tui);
-        expect(expanded).toMatch(/▾\s+Agent[^\n]*A01_CHILD_TASK/u);
+        expect(expanded).toMatch(/▾\s+Agent\b/u);
+        expect(expanded).toMatch(/✓\s+Agent replay-worker A01_CHILD_TASK/u);
         expect(expanded).toMatch(/✔\s+agent\s+A01_CHILD_TASK/u);
         await assertFile(context, "a01-child.txt", "A01_CHILD_SIDE_EFFECT\n");
         const trace = assertChildTrace(context, actors, "worker", "A01-spawn", "a01-child.txt", "A01_CHILD_REPORT_READY");
@@ -161,10 +162,13 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
         await tui.waitFor(healthy(context, (screen) => /✔\s+agent\s+A03_BACKGROUND_CHILD/u.test(screen)), "durable background completion reached the real TUI task area");
         context.run.release(heldParent);
         await completed(context, tui, "A03_PARENT_RECEIVED_BACKGROUND_REPORT");
-        // `— N lines` 是完成态后缀，卡体只在展开的完成卡里渲染。
+        // 组展开后成员保持自身折叠（`✓` 头 + 摘要）；`— N lines` 是完成态后缀。
         const expanded = await expandCollapsedGroups(tui);
-        expect(expanded).toMatch(/▾\s+Read\s+a03-child\.txt\s+—\s+\d+ lines/u);
-        expect(expanded).toContain("A03_BACKGROUND_FILE");
+        expect(expanded).toMatch(/✓\s+Read a03-child\.txt\s+—\s+\d+ lines/u);
+        // 成员标题可单独点开：`▾` 头出现后卡体内容才渲染。
+        const member = await expandGroupMember(tui, /Read a03-child\.txt/u);
+        expect(member).toMatch(/▾\s+Read a03-child\.txt\s+—\s+\d+ lines/u);
+        expect(member).toContain("A03_BACKGROUND_FILE");
         await assertFile(context, "a03-child.txt", "A03_BACKGROUND_FILE\n");
         assertChildTrace(context, actors, "worker", "A03-spawn", "a03-child.txt", "A03_CHILD_FINISHED_REPORT");
         const trace = persistedTrace(context);
@@ -217,7 +221,7 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
         actors.arm("turn-2"); await tui.prompt("Execute A04 second phase.");
         await completed(context, tui, "A04_RESUMED_EXISTING_CHILD_CONFIRMED");
         const expanded = await expandCollapsedGroups(tui);
-        expect(expanded).toMatch(/▾\s+Agent[^\n]*A04_RESUMED_CHILD_TASK/u);
+        expect(expanded).toMatch(/✓\s+Agent resume A04_RESUMED_CHILD_TASK/u);
         expect(expanded).toMatch(/✔\s+agent\s+A04_RESUMED_CHILD_TASK/u);
         expect(actors.children.get("worker")).toBe(originalChild);
         expect(persistedTrace(context).children).toHaveLength(1);
@@ -258,7 +262,7 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
         actors.arm("turn-1"); await tui.prompt("Execute A05.");
         await completed(context, tui, "A05_RECOVERED_CHILD_RESULT_ACCEPTED");
         const expanded = await expandCollapsedGroups(tui);
-        expect(expanded).toMatch(/▾\s+Agent[^\n]*A05_RECOVER_CHILD_TASK/u);
+        expect(expanded).toMatch(/✓\s+Agent replay-worker A05_RECOVER_CHILD_TASK/u);
         expect(expanded).toMatch(/✔\s+agent\s+A05_RECOVER_CHILD_TASK/u);
         await assertFile(context, "a05-recovered.txt", "A05_RECOVERY_SIDE_EFFECT\n");
         assertChildTrace(context, actors, "worker", "A05-spawn", "a05-recovered.txt", "A05_CHILD_RECOVERED_REPORT");
@@ -313,10 +317,12 @@ describe("A01–A06 real Agent delegation through recorded HTTP and offline TUI 
         await assertFile(context, "a06-shared.txt", "A06_CHILD_AFTER_PARENT\n");
         context.run.release(heldParent);
         await completed(context, tui, "A06_CAUSAL_FINAL_FILE_CONFIRMED");
-        // `— N lines` 是完成态后缀，卡体只在展开的完成卡里渲染。
+        // 组展开后成员保持自身折叠（`✓` 头 + `— N lines`）；成员标题可单独点开。
         const expanded = await expandCollapsedGroups(tui);
-        expect(expanded).toMatch(/▾\s+Read\s+a06-shared\.txt\s+—\s+\d+ lines/u);
-        expect(expanded).toContain("A06_CHILD_AFTER_PARENT");
+        expect(expanded).toMatch(/✓\s+Read a06-shared\.txt\s+—\s+\d+ lines/u);
+        const member = await expandGroupMember(tui, /Read a06-shared\.txt/u);
+        expect(member).toMatch(/▾\s+Read a06-shared\.txt\s+—\s+\d+ lines/u);
+        expect(member).toContain("A06_CHILD_AFTER_PARENT");
         assertChildTrace(context, actors, "worker", "A06-spawn", "a06-shared.txt", "A06_CHILD_FINAL_WRITE_REPORT");
         rootResult(context, "A06_CAUSAL_FINAL_FILE_CONFIRMED");
         context.observe("independent-oracle", { beforeChildRelease: "A06_PARENT_BEFORE_CHILD", finalFile: "A06_CHILD_AFTER_PARENT", parentReadConfirmedFinal: true });
