@@ -1,5 +1,6 @@
 import { posix as path } from 'node:path';
 import { BindingError } from './binding-error.mjs';
+import { sha256 } from './matcher.mjs';
 
 export { BindingError } from './binding-error.mjs';
 
@@ -7,8 +8,23 @@ const KINDS = new Set(['session', 'thread', 'task', 'execution', 'tool_call', 'p
 const PROTECTED_KEYS = new Set(['signature', 'encrypted_content', 'provider_state', 'providerState', 'reasoning_content', 'thoughtSignature', 'thought_signature']);
 const PROTECTED_TYPES = new Set(['thinking', 'redacted_thinking', 'reasoning', 'redacted_reasoning', 'provider_state']);
 
-function fail(code, message) {
-  throw new BindingError(code, message);
+function fail(code, message, details = {}) {
+  throw new BindingError(code, message, details);
+}
+
+/** 只报告字段与摘要，避免把整段提示词复制进 CI 日志。 */
+function mismatchDetails(pointer, expected, actual) {
+  const left = Buffer.from(expected, 'utf8');
+  const right = Buffer.from(actual, 'utf8');
+  let offset = 0;
+  const shared = Math.min(left.length, right.length);
+  while (offset < shared && left[offset] === right[offset]) offset += 1;
+  return {
+    path: pointer,
+    expectedSha256: sha256(left), actualSha256: sha256(right),
+    expectedLength: left.length, actualLength: right.length,
+    firstDifferenceByte: offset,
+  };
 }
 
 function name(value, field) {
@@ -183,7 +199,10 @@ export function createBindingRegistry({ runId, declarations = [] } = {}) {
           return resolve(part)[side];
         }).join('');
         const expected = render(direction === 'response' || source === 'recorded' ? 'recorded' : 'live');
-        if (parent[property] !== expected) fail('binding_value_mismatch', `模板文字或绑定值与声明不符: ${rule.path}`);
+        if (parent[property] !== expected) {
+          fail('binding_value_mismatch', `模板文字或绑定值与声明不符: ${rule.path}`,
+            mismatchDetails(rule.path, expected, String(parent[property] ?? '')));
+        }
         parent[property] = render(direction === 'response' ? 'live' : 'recorded');
         continue;
       }
@@ -192,12 +211,16 @@ export function createBindingRegistry({ runId, declarations = [] } = {}) {
       const to = direction === 'response' ? binding.live : binding.recorded;
       const actual = parent[property];
       if (mode === 'exact') {
-        if (actual !== from) fail('binding_value_mismatch', `绑定字段不符合其声明身份: ${rule.path}`);
+        if (actual !== from) {
+          fail('binding_value_mismatch', `绑定字段不符合其声明身份: ${rule.path}`,
+            mismatchDetails(rule.path, String(from), String(actual ?? '')));
+        }
         parent[property] = to;
       } else if (mode === 'path-prefix' && binding.kind === 'path') {
         if (typeof actual !== 'string' || path.normalize(actual) !== actual ||
             (actual !== from && !actual.startsWith(`${from}/`))) {
-          fail('binding_value_mismatch', `路径不属于声明的工作区: ${rule.path}`);
+          fail('binding_value_mismatch', `路径不属于声明的工作区: ${rule.path}`,
+            mismatchDetails(rule.path, String(from), String(actual ?? '')));
         }
         parent[property] = to + actual.slice(from.length);
       } else {

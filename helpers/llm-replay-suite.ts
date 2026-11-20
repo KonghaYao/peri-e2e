@@ -226,6 +226,7 @@ export async function runReplayScenario(definition: ReplayScenarioDefinition): P
     const cassetteDir = path.join(staging ?? fixtureDirectory, "cassette");
     const proxyBootStarted = performance.now();
     proxy = await startReplayProxy({ mode, cassetteDir, requestTimeoutMs: definition.requestTimeoutMs,
+      sourceRoot: process.env.PERI_SOURCE_ROOT,
       ...(mode === "record" ? { upstreams: [{ logicalOrigin: definition.logicalOrigin ?? FIXTURE_MODEL_ORIGIN, transportOrigin: upstream.url }] } : {}),
       ...(mode === "record" && recordWorld ? { world: recordWorld.builder, slots: recordWorld.slots } : {}),
       provenance: { ...manifest.provenance, scenario: definition.id },

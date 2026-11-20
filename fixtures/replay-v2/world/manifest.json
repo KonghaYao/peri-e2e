@@ -1,7 +1,7 @@
 {
   "formatVersion": 2,
   "kind": "world",
-  "generation": "world-c376b0a838a1fc73",
+  "generation": "world-717cf90e3b979b95",
   "leaves": {
     "sys.block0.main": {
       "file": "system/block0.main.txt"
@@ -273,8 +273,14 @@
     "sys.block1.main.t170.tail": {
       "file": "system/block1.main.t170.tail.txt"
     },
-    "sys.block1.main.t171.tail": {
-      "file": "system/block1.main.t171.tail.txt"
+    "sys.block1.main.t171.head": {
+      "file": "system/block1.main.t171.head.txt"
+    },
+    "sys.block1.main.t171.prompt": {
+      "file": "system/block1.main.t171.prompt.txt"
+    },
+    "sys.block1.main.t171.suffix": {
+      "file": "system/block1.main.t171.suffix.txt"
     },
     "sys.block1.main.t18.tail": {
       "file": "system/block1.main.t18.tail.txt"
@@ -2082,7 +2088,16 @@
         "leaf": "sys.skills"
       },
       {
-        "leaf": "sys.block1.main.t171.tail"
+        "leaf": "sys.block1.main.t171.head"
+      },
+      {
+        "leaf": "sys.block1.main.t171.prompt",
+        "source": "tuiSessionInstructions",
+        "field": "/system/1/text",
+        "session": "interactive-fresh"
+      },
+      {
+        "leaf": "sys.block1.main.t171.suffix"
       }
     ],
     "sys.block1.main.t18": [

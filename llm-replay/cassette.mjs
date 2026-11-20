@@ -4,9 +4,11 @@ import { createHash, randomUUID } from 'node:crypto';
 import path from 'node:path';
 import { canonicalBody, canonicalJson, identityKey, ReplayError, sha256 } from './matcher.mjs';
 import {
-  CASSETTE_FORMAT_VERSION, canonicalRecordedBody, collectWorldRefs, compactTypedTemplateRules, decodeRequestStub,
-  encodeRequestStub, expandTypedTemplateRules, loadWorld, requestCoreSha256, serializeRequestStub,
+  CASSETTE_FORMAT_VERSION, canonicalRecordedBody, collectPromptSourceParts, collectWorldRefs,
+  compactTypedTemplateRules, decodeRequestStub, encodeRequestStub, expandTypedTemplateRules, loadWorld,
+  requestCoreSha256, serializeRequestStub,
 } from './world-store.mjs';
+import { createPromptSourceCache } from './prompt-sources.mjs';
 
 const FORMAT_VERSION = 1;
 const TERMINALS = new Set(['complete', 'client_abort', 'upstream_abort', 'upstream_error']);
@@ -237,7 +239,9 @@ async function verifyResponseBody(root, entry) {
   if (actual.size !== body.size || actual.sha256 !== body.sha256) throw new ReplayError('corrupt_cassette', 'cassette body 校验失败', { file: body.file });
 }
 
-async function loadCassetteV2(root, manifestBytes, seal, { world: suppliedWorld, worldDir } = {}) {
+async function loadCassetteV2(root, manifestBytes, seal, {
+  world: suppliedWorld, worldDir, sourceRoot, sources: suppliedSources, requireSources = false,
+} = {}) {
   if (!seal.files || typeof seal.files !== 'object' || Array.isArray(seal.files)) {
     throw new ReplayError('corrupt_cassette', 'cassette seal 缺少文件清单');
   }
@@ -259,6 +263,9 @@ async function loadCassetteV2(root, manifestBytes, seal, { world: suppliedWorld,
   const entries = new Map();
   const legacy = [];
   const worldDrift = [];
+  const sourceDrift = [];
+  const scenario = manifest.provenance?.scenario ?? path.basename(path.dirname(root));
+  const sourceCache = suppliedSources ? null : createPromptSourceCache(sourceRoot, { scenario });
   let worldPromise;
   const resolveWorld = () => {
     if (!worldPromise) {
@@ -302,10 +309,27 @@ async function loadCassetteV2(root, manifestBytes, seal, { world: suppliedWorld,
     }
     const needsWorld = Array.isArray(stub?.parts) && stub.parts.some((part) => part && typeof part === 'object'
       && !Array.isArray(part) && (part.leaf !== undefined || part.recipe !== undefined));
+    const world = needsWorld ? await resolveWorld() : undefined;
+    const sourceParts = world ? collectPromptSourceParts(world, stub.parts) : [];
+    let entrySources = suppliedSources ?? null;
+    if (sourceParts.length && !entrySources && sourceRoot) {
+      entrySources = new Map();
+      for (const part of sourceParts) {
+        if (entrySources.has(part.source)) continue;
+        try { entrySources.set(part.source, await sourceCache.load(part.source)); }
+        catch (error) {
+          if (error instanceof ReplayError) {
+            throw new ReplayError(error.code, error.message, { ...error.details, scenario, entry: id, field: part.field });
+          }
+          throw error;
+        }
+      }
+    }
     let decoded;
     try {
       decoded = await decodeRequestStub(stub, {
-        world: needsWorld ? await resolveWorld() : undefined, readRaw, worldRefs: meta.worldRefs,
+        world, readRaw, worldRefs: meta.worldRefs, sources: entrySources, requireSources,
+        context: { scenario, entry: id },
       });
     } catch (error) {
       if (error instanceof ReplayError) throw new ReplayError(error.code, error.message, { ...error.details, entry: id });
@@ -313,12 +337,15 @@ async function loadCassetteV2(root, manifestBytes, seal, { world: suppliedWorld,
     }
     if (decoded.legacy) legacy.push({ entry: id, reason: stub.fallback ?? 'legacy_body' });
     if (decoded.drifted) worldDrift.push({ entry: id, leaves: decoded.driftLeaves });
-    let expanded;
-    try { expanded = expandTypedTemplateRules(entry.requestRules ?? [], decoded.bytes); }
-    catch (error) {
-      if (error instanceof ReplayError) throw new ReplayError(error.code, error.message, { ...error.details, entry: id });
-      throw error;
-    }
+    for (const item of decoded.sourceDrift) sourceDrift.push({ entry: id, ...item });
+    const expand = (bytes) => {
+      try { return expandTypedTemplateRules(entry.requestRules ?? [], bytes); }
+      catch (error) {
+        if (error instanceof ReplayError) throw new ReplayError(error.code, error.message, { ...error.details, entry: id });
+        throw error;
+      }
+    };
+    const expanded = expand(decoded.bytes);
     const canonical = (() => {
       try { return canonicalRecordedBody(decoded.bytes, expanded.rules, expanded.bindings); }
       catch (error) {
@@ -326,9 +353,13 @@ async function loadCassetteV2(root, manifestBytes, seal, { world: suppliedWorld,
         throw error;
       }
     })();
-    // 世界漂移时 stub 中的 canonicalSha256 是录制值；以当前 world 重建的 canonical 作为期望。
-    if (!decoded.drifted && (typeof stub.canonicalSha256 !== 'string' || sha256(canonical) !== stub.canonicalSha256)) {
-      throw new ReplayError('corrupt_cassette', 'cassette canonical body 校验失败', { entry: id });
+    // 封存完整性始终按录制字节校验；source 替换只影响当前期望，不改变封存值。
+    if (!decoded.drifted) {
+      const recorded = decoded.bytes === decoded.recordedBytes ? expanded : expand(decoded.recordedBytes);
+      const recordedCanonical = canonicalRecordedBody(decoded.recordedBytes, recorded.rules, recorded.bindings);
+      if (typeof stub.canonicalSha256 !== 'string' || sha256(recordedCanonical) !== stub.canonicalSha256) {
+        throw new ReplayError('corrupt_cassette', 'cassette canonical body 校验失败', { entry: id });
+      }
     }
     try { await verifyResponseBody(root, entry); }
     catch (error) {
@@ -338,12 +369,18 @@ async function loadCassetteV2(root, manifestBytes, seal, { world: suppliedWorld,
     entry.request = {
       method: entry.request.method, target: entry.request.target, headers: entry.request.headers,
       canonicalBody: canonical, stub: entry.request.stub,
+      expectedBody: decoded.bytes, recordedBody: decoded.recordedBytes,
     };
     entry.requestRules = expanded.rules;
+    entry.bindings = expanded.bindings;
+    entry.sourceDrift = decoded.sourceDrift;
     if (canonicalJson(entry.request.headers) === undefined) throw new ReplayError('corrupt_cassette', 'cassette 请求匹配信息缺失');
     entries.set(key, entry);
   }
-  return { directory: root, manifest, entries, report: { formatVersion: CASSETTE_FORMAT_VERSION, legacy, worldDrift } };
+  return {
+    directory: root, manifest, entries,
+    report: { formatVersion: CASSETTE_FORMAT_VERSION, legacy, worldDrift, sourceDrift, scenario },
+  };
 }
 
 export async function loadCassette(directory, options = {}) {

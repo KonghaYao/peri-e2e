@@ -136,6 +136,7 @@ export async function startReplayProxy({
   mode, cassetteDir, upstreams = [], host = '127.0.0.1', port = 0,
   timing = 'fast', maxRequestBytes = 16 * 1024 * 1024,
   maxResponseBytes = 64 * 1024 * 1024, requestTimeoutMs = 30000, provenance = {}, world, worldDir, slots,
+  sourceRoot,
 } = {}) {
   if (!['record', 'replay'].includes(mode)) throw new ReplayError('invalid_mode', 'mode 只能为 record 或 replay');
   if (!cassetteDir) throw new ReplayError('invalid_directory', '必须指定 cassetteDir');
@@ -148,7 +149,12 @@ export async function startReplayProxy({
     if (logical.origin !== mapping.logicalOrigin || transport.origin !== mapping.transportOrigin) throw new ReplayError('invalid_mapping', '上游映射仅允许 origin');
   }
   const writer = mode === 'record' ? await createCassetteWriter(cassetteDir, { provenance, maxResponseBytes, world, slots }) : null;
-  const cassette = mode === 'replay' ? await loadCassette(cassetteDir, { worldDir }) : null;
+  // 回放必须用与 PERI_BINARY 同次构建的 checkout 读取提示词正文；录制侧不重算。
+  const cassette = mode === 'replay'
+    ? await loadCassette(cassetteDir, {
+      worldDir, sourceRoot: sourceRoot ?? process.env.PERI_SOURCE_ROOT, requireSources: true,
+    })
+    : null;
   const runs = new Map();
   const globalErrors = [];
   const active = new Set();

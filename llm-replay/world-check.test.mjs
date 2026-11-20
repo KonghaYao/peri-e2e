@@ -7,8 +7,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sha256 } from './matcher.mjs';
-import { loadWorld } from './world-store.mjs';
-import { COMPACT_USER_PLACEHOLDER, COMPACT_USER_TARGET_TOKENS, BASH_DESCRIPTION_PREFIX, loadSourceLeaves } from '../scripts/replay-world-sources.mjs';
+import { collectPromptSourceParts, loadWorld } from './world-store.mjs';
+import { COMPACT_USER_PLACEHOLDER, COMPACT_USER_TARGET_TOKENS, BASH_DESCRIPTION_PREFIX, PROMPT_SOURCES, loadSourceLeaves } from '../scripts/replay-world-sources.mjs';
 
 const execute = promisify(execFile);
 const e2eRoot = fileURLToPath(new URL('..', import.meta.url));
@@ -165,6 +165,14 @@ async function syntheticPeriSource(t, worldDir, { block0 } = {}) {
   );
   await writeFile(path.join(root, 'peri-middlewares/src/subagent/tool/define/sub_agent_tool.rs'), SEND_ONLY);
   await writeFile(path.join(root, 'peri-middlewares/src/default_system_prompt/mod.rs'), MOD_RS);
+  // 提示词正文不属于 world:sync 管理集合；合成源必须原样复制录制快照，world:check 才能比对摘要。
+  for (const recipeId of world.recipeIds()) {
+    for (const part of collectPromptSourceParts(world, [{ recipe: recipeId }])) {
+      const relative = PROMPT_SOURCES[part.source].path;
+      await mkdir(path.dirname(path.join(root, relative)), { recursive: true });
+      await writeFile(path.join(root, relative), world.leafBytes(part.leaf));
+    }
+  }
   return root;
 }
 
@@ -237,6 +245,35 @@ test('block0 源等价变化经 world:sync 只改 leaf 与 seal 两个文件', a
   assert.equal(check.report.stale, false);
   assert.ok(check.report.recorded.sourceAnchoredDrift.includes('sys.block0.main'));
   assert.deepEqual(check.report.recorded.unanchoredDrift, []);
+});
+
+test('提示词正文只改源码时 world:check 报告摘要但不 stale，源缺失才失败', async (t) => {
+  const { world } = await fixture(t);
+  const source = await syntheticPeriSource(t, world);
+  const promptFile = path.join(source, 'peri-tui/prompts/tui.md');
+  const recorded = await readFile(promptFile, 'utf8');
+  await writeFile(promptFile, recorded.replace(
+    'This session runs inside the Peri terminal UI.',
+    'This session runs inside the Peri terminal UI. UPDATED.',
+  ));
+
+  const changed = await run(['--check', '--world', world, '--peri-root', source]);
+  assert.equal(changed.code, 0);
+  assert.equal(changed.report.stale, false);
+  assert.deepEqual(changed.report.staleReasons, []);
+  assert.equal(changed.report.promptSources.length, 1);
+  assert.equal(changed.report.promptSources[0].changed, true);
+  assert.equal(changed.report.promptSources[0].source, 'tuiSessionInstructions');
+  assert.equal(changed.report.promptSources[0].field, '/system/1/text');
+  assert.equal(changed.report.promptSources[0].session, 'interactive-fresh');
+  assert.notEqual(changed.report.promptSources[0].currentSha256, changed.report.promptSources[0].recordedSha256);
+
+  await rm(promptFile);
+  const missing = await run(['--check', '--world', world, '--peri-root', source]);
+  assert.equal(missing.code, 1);
+  assert.equal(missing.report.stale, true);
+  assert.deepEqual(missing.report.staleReasons, ['prompt_source_unavailable']);
+  assert.equal(missing.report.promptSources[0].error.code, 'prompt_source_missing');
 });
 
 test('block1 prefix 源变化同步三个分类 leaf 与 seal，catalog 保持录制快照', async (t) => {

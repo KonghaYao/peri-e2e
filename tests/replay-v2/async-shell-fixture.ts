@@ -4,6 +4,7 @@ import { expect } from "vitest";
 import type { ReplayScenarioContext } from "../../helpers/llm-replay-suite.js";
 import type { ReplayTui, ReplayWorld } from "../../helpers/llm-replay-tui.js";
 import { contentText, resultText, type CallIdentity } from "./agents-fixture.js";
+import { waitForTurnReply } from "./turn-evidence.js";
 
 export interface ShellSpec { id: string; alias: string; command: string }
 export interface ShellResult { id: string; text: string; stdout?: string; stderr?: string; state?: string; exitCode?: string; remoteTaskId?: string }
@@ -113,7 +114,9 @@ export class ShellBindings {
 }
 
 export async function finished(ctx: ReplayScenarioContext, tui: ReplayTui, marker: string): Promise<string> {
-  return tui.waitFor(ctx.checked((screen: string) => screen.includes(marker) && screen.includes("Brewed for")), marker, 40_000);
+  return waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, marker, marker, {
+    timeoutMs: 40_000, predicate: ctx.checked(() => true),
+  });
 }
 
 export async function assertReceipt(ctx: ReplayScenarioContext, toolId: string, execution = "start"): Promise<string> {

@@ -5,6 +5,7 @@ import {
   P01_PLUGIN_NAME, P01_REUSE_CASE, P01_REUSE_DONE, P01_SERVER_KEY,
   startDynamicMcpFixture, startDynamicModelFixture, writeDynamicPluginSeed,
 } from "./dynamic-plugin-fixture.js";
+import { waitForTurnReply } from "./turn-evidence.js";
 
 function reasonRequests(ctx: ReplayScenarioContext): any[] {
   return ctx.requests.filter((request: any) => request.context.purpose === "reason");
@@ -68,8 +69,8 @@ it("P01 选择插件后经 ToolSearch/ToolInvoke 动态加载真实 MCP 并复�
 
         ctx.identity.arm(ctx.sessionIds.root!, "business");
         await tui.prompt(P01_BUSINESS_CASE);
-        await tui.waitFor(ctx.checked((screen: string) => screen.includes(P01_BUSINESS_DONE) && screen.includes("Brewed for")),
-          "first business turn completed", 90_000);
+        await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, P01_BUSINESS_DONE,
+          "first business turn completed", { timeoutMs: 90_000, predicate: ctx.checked(() => true) });
         ctx.identity.finish(ctx.sessionIds.root!);
 
         const first = reasonRequests(ctx);
@@ -107,8 +108,8 @@ it("P01 选择插件后经 ToolSearch/ToolInvoke 动态加载真实 MCP 并复�
         // 第二轮不再选择插件，也不再调用 Loader：沿用同一会话目录与连接。
         ctx.identity.arm(ctx.sessionIds.root!, "reuse");
         await tui.prompt(P01_REUSE_CASE);
-        await tui.waitFor(ctx.checked((screen: string) => screen.includes(P01_REUSE_DONE) && screen.includes("Brewed for")),
-          "reused business turn completed", 90_000);
+        await waitForTurnReply(tui, ctx.world, ctx.sessionIds.root!, P01_REUSE_DONE,
+          "reused business turn completed", { timeoutMs: 90_000, predicate: ctx.checked(() => true) });
         ctx.identity.finish(ctx.sessionIds.root!);
 
         const all = reasonRequests(ctx);

@@ -105,6 +105,7 @@ jobs:
       - name: Run offline replay
         env:
           PERI_BINARY: ${{ github.workspace }}/peri-src/target/debug/peri
+          PERI_SOURCE_ROOT: ${{ github.workspace }}/peri-src
           PERI_E2E_REPLAY_RESULTS: ${{ github.workspace }}/results/replay-v2/ci
         run: npm run e2e:replay
 

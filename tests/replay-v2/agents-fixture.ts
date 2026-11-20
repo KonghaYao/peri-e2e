@@ -5,6 +5,7 @@ import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { expect } from "vitest";
 import type { ReplayScenarioContext } from "../../helpers/llm-replay-suite.js";
+import { waitForTurnReply } from "./turn-evidence.js";
 
 export interface CallIdentity {
   owner: string; execution: string; call: string; purpose: string; attempt: number;
@@ -203,7 +204,9 @@ export function healthy(context: ReplayScenarioContext, predicate: (screen: stri
   };
 }
 export async function completed(context: ReplayScenarioContext, tui: Awaited<ReturnType<ReplayScenarioContext["startTui"]>>, answer: string): Promise<string> {
-  return tui.waitFor(healthy(context, (screen) => screen.includes(answer) && screen.includes("Brewed for")), `completed root answer ${answer}`, 45_000);
+  return waitForTurnReply(tui, context.world, context.sessionIds.root!, answer, `completed root answer ${answer}`, {
+    timeoutMs: 45_000, predicate: healthy(context, () => true),
+  });
 }
 export async function assertFile(context: ReplayScenarioContext, name: string, expected: string) {
   expect(await readFile(path.join(context.world.work, name), "utf8")).toBe(expected);

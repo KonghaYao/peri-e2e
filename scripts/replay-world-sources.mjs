@@ -4,10 +4,12 @@
  */
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
-import { canonicalJson } from '../llm-replay/matcher.mjs';
+import { canonicalJson, sha256 } from '../llm-replay/matcher.mjs';
+import { loadPromptSource, PROMPT_SOURCES } from '../llm-replay/prompt-sources.mjs';
+import { collectPromptSourceParts } from '../llm-replay/world-store.mjs';
 import { AGENT_LEAF_PREFIX, BASH_TOOL_LEAVES, BLOCK1_PREFIX_LEAVES, STABLE_LEAVES } from '../llm-replay/world-mapping.mjs';
 
-export { AGENT_LEAF_PREFIX, BASH_TOOL_LEAVES, BLOCK1_PREFIX_LEAVES, STABLE_LEAVES };
+export { AGENT_LEAF_PREFIX, BASH_TOOL_LEAVES, BLOCK1_PREFIX_LEAVES, PROMPT_SOURCES, STABLE_LEAVES };
 
 export const SOURCE_FILES = Object.freeze({
   skills: 'peri-acp/prompts/sections/13_skills.md',
@@ -386,6 +388,40 @@ export function agentDescriptionLeafIds(world) {
   const ids = world.leaves.filter((id) => id.startsWith(AGENT_LEAF_PREFIX));
   if (!ids.length) throw new Error(`world 缺少 ${AGENT_LEAF_PREFIX}* leaf，无法映射 Agent description`);
   return ids;
+}
+
+/**
+ * 客户端提示词正文不属于 world:sync 的管理集合：leaf 永远是录制快照，期望侧在回放
+ * 时从当前 checkout 读取。这里只报告录制与当前摘要，源缺失时由 world:check 判 stale。
+ */
+export async function describePromptSources(world, periRoot) {
+  const seen = new Set();
+  const report = [];
+  for (const recipeId of world.recipeIds()) {
+    for (const part of collectPromptSourceParts(world, [{ recipe: recipeId }])) {
+      const key = `${part.leaf}\u0000${part.source}\u0000${part.field}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const recorded = world.leafBytes(part.leaf);
+      const item = {
+        recipe: recipeId, leaf: part.leaf, source: part.source, field: part.field, session: part.session,
+        path: PROMPT_SOURCES[part.source]?.path ?? null,
+        recordedSha256: recorded ? sha256(recorded) : null,
+        recordedBytes: recorded?.length ?? null,
+        currentSha256: null, currentBytes: null, changed: null,
+      };
+      try {
+        const source = await loadPromptSource(part.source, periRoot, { recipe: recipeId, field: part.field });
+        item.currentSha256 = source.sha256;
+        item.currentBytes = source.bytes.length;
+        item.changed = item.currentSha256 !== item.recordedSha256;
+      } catch (error) {
+        item.error = { code: error.code ?? 'prompt_source_invalid', message: error.message };
+      }
+      report.push(item);
+    }
+  }
+  return report;
 }
 
 /**
