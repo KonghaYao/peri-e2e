@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103601,
-  "rawSha256": "3981631b60655cefbf9c9f1ce59bf9c38e93a9fd09f62eb7b0b50a232443149e",
+  "rawBytes": 103599,
+  "rawSha256": "f0bbcfe71d20ab68bd7857a9c6a04dfdd643ea026b4633199ac6dd29fa208dbf",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"RUN_DENY_TOOL\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"denied-shell\",\"name\":\"Bash\",\"input\":{\"command\":\"printf 'DENY\\\\n' >> approval.txt\",\"description\":\"Append isolated approval evidence\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"denied-shell\",\"tool_use_id\":\"denied-shell\",\"content\":[{\"type\":\"text\",\"text\":\"Cancelled by user\"}],\"is_error\":true}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"DENIED_ACTION_COMPLETE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"RUN_ALLOW_TOOL\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"allowed-shell\",\"name\":\"Bash\",\"input\":{\"command\":\"printf 'ALLOW\\\\n' >> approval.txt\",\"description\":\"Append isolated approval evidence\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"allowed-shell\",\"tool_use_id\":\"allowed-shell\",\"content\":[{\"type\":\"text\",\"text\":\"[Command completed with exit code 0]\\n[Execution status: completed, exit_code: 0]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "ea0511446e2d67241ca35924273f3a313d8064425a277cd43e5a7da9ae4d843c"
+  "canonicalSha256": "f3944b3c193c84f7ba105c4e007a97ab55fea0d637f29d689dee1312534126f5"
 }

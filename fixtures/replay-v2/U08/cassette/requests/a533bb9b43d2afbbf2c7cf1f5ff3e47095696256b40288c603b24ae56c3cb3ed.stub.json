@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103499,
-  "rawSha256": "494f16ed9ecd4628887f6b0d8900bf0f84c55fd0f6686e411546e5ea6dce013a",
+  "rawBytes": 103497,
+  "rawSha256": "bc25b80c86473eb36d7baabe36d45feed6501592d9f6367772e89ed852daca42",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"RUN_MULTIPLE_CHOICE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"multi-question\",\"name\":\"AskUserQuestion\",\"input\":{\"questions\":[{\"header\":\"MULTIPLE_TARGET\",\"question\":\"Choose MULTIPLE_TARGET\",\"multiSelect\":true,\"options\":[{\"label\":\"Alpha\",\"description\":\"First option\"},{\"label\":\"Beta\",\"description\":\"Second option\"},{\"label\":\"Gamma\",\"description\":\"Third option\"}]},{\"header\":\"SECOND_TARGET\",\"question\":\"Choose SECOND_TARGET\",\"multiSelect\":false,\"options\":[{\"label\":\"Alpha\",\"description\":\"First option\"},{\"label\":\"Beta\",\"description\":\"Second option\"},{\"label\":\"Gamma\",\"description\":\"Third option\"}]}]}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"multi-question\",\"tool_use_id\":\"multi-question\",\"content\":[{\"type\":\"text\",\"text\":\"[问: MULTIPLE_TARGET]\\n回答: Alpha, Beta\\n\\n[问: SECOND_TARGET]\\n回答: Gamma\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "b8fbb25995754bdd23230735d16fd4c8f8e772eedb690865efc886022f6bbc93"
+  "canonicalSha256": "1164e2810fb200590b8e4d401e93959bfa0ca1229ad7971cf925c7d8f5098e39"
 }

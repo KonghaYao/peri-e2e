@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103737,
-  "rawSha256": "8e6ff9669e17102f8c7b6a6cf4c792d45f689d10e6219a6441a50d869eefc0fd",
+  "rawBytes": 103735,
+  "rawSha256": "44f01d3317d7bbff853eb992c04c9d23b299ceec81958e6f9a8591bbedbb768d",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"P01_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"guidance\\\" source=\\\"plugin_usage\\\" kind=\\\"plugin_guidance\\\" severity=\\\"info\\\" delivery=\\\"required\\\" audiences=\\\"[&quot;model&quot;]\\\" summary=\\\"null\\\" metadata=\\\"{}\\\">The selected plugin is fixture-plugin. To use its MCP capabilities, call ToolInvoke with name &quot;LoadMCP__plugin_fixture_plugin_fixture_449b82199ddc2ad0&quot; and arguments {}. After loading succeeds, use ToolSearch in a subsequent model step to find the tools needed for the task.</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n- plugin:fixture-plugin:fixture (uninitialized)\\n- 1 台未连接\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "fff9fed55a13bd1393321691e7349a09dcb035979be064c20d39d5915e317f14"
+  "canonicalSha256": "8f40ea0e964d8d77cfa99188b9c67cfd28cc028362f40c1842333d00afba61c0"
 }

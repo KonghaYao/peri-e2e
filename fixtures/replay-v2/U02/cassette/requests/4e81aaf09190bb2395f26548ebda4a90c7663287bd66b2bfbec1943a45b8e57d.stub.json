@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 102717,
-  "rawSha256": "d9582c466bd611b03e1459cbf28198d0859900ef63a6089aae6dd6ebcef931f6",
+  "rawBytes": 102715,
+  "rawSha256": "4c5157be69141d0572eb41edb69737602115888cfe12fcbc122cbb3726e9a38e",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"A_STREAM_IN_BACKGROUND\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "bfca4f4746684b4317b01b8267537b8e4e8cff9d4e87371a988777d75d3cb5c9"
+  "canonicalSha256": "87b3f6b7605f16a85d9629bf4b4e75013ad1f033fcd4c36463b26da3e64c08cb"
 }

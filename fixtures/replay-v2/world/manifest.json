@@ -1,7 +1,7 @@
 {
   "formatVersion": 2,
   "kind": "world",
-  "generation": "world-d227ed7901f10a0f",
+  "generation": "world-52299ace3bc57962",
   "leaves": {
     "sys.block0.main": {
       "file": "system/block0.main.txt"
@@ -978,8 +978,8 @@
     "sys.sha256.47346c8d8ff6d2c7c2cd4453354bb8cd7725576d4d32e4341fc0a5fc992f5571": {
       "file": "system/sha256.47346c8d8ff6d2c7c2cd4453354bb8cd7725576d4d32e4341fc0a5fc992f5571.txt"
     },
-    "sys.sha256.644ebd721c487be5c2b3530809cb40ef3f01176e658ce91b2056f69e4f066b9d": {
-      "file": "system/sha256.644ebd721c487be5c2b3530809cb40ef3f01176e658ce91b2056f69e4f066b9d.txt"
+    "sys.sha256.7483c1cadbd99bd4d258ac0412dba1be7398f51c4a6d37e6cccedcb2b4684bf9": {
+      "file": "system/sha256.7483c1cadbd99bd4d258ac0412dba1be7398f51c4a6d37e6cccedcb2b4684bf9.txt"
     },
     "sys.skills": {
       "file": "system/skills.txt"

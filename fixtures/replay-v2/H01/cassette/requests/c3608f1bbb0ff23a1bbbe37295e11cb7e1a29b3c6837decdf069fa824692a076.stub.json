@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103507,
-  "rawSha256": "0149d3e4307c44eda90b425d47ee6d7337520a5eefb9089d71fd094e6bf2b77b",
+  "rawBytes": 103505,
+  "rawSha256": "d8b13dd92355cd32907fb056cc6197be4a7227374e36f6b0df1cc100e3f5c652",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H01 background shell.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H01-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h01.pid; printf 'started\\\\n' >> h01.starts; for i in {1..6000}; do [ -f h01.release ] && break; sleep 0.01; done; [ -f h01.release ] || exit 70; printf 'H01_ACTUAL_STDOUT\\\\n'; printf 'H01_ACTUAL_STDERR\\\\n' >&2; printf 'H01_SIDE_EFFECT\\\\n' > h01.result; exit 0\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H01-bash\",\"tool_use_id\":\"H01-bash\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1eddc-8059-7211-8178-42f2914f4cef. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1eddc-8059-7211-8178-42f2914f4cef]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "ca595ab4f670b710d55352f8c8628d7720c40a5138af0f37b3193ab2da5c7f95"
+  "canonicalSha256": "7385b7db2bf8230d3d8bd697645b34093d1c22386d2dd9e7ad42bdca930b5a0e"
 }
