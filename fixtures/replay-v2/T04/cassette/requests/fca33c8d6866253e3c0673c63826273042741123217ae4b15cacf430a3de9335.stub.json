@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103997,
-  "rawSha256": "22ba79783af3da69f0afbeb8cdcd5f0700b8e8bc915fb384fc376e9201359a5f",
+  "rawBytes": 103995,
+  "rawSha256": "d5c4e61c0d5d48ed8308ca7e6fb01d86b6e50ac0e6fce8fbd4d851e613b90299",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T04_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t04-missing\",\"name\":\"Read\",\"input\":{\"file_path\":\"/tmp/peri-wire-e2e-3E4npG/work/missing.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t04-missing\",\"tool_use_id\":\"t04-missing\",\"content\":[{\"type\":\"text\",\"text\":\"MCP 服务器 \\\"peri\\\" 工具 \\\"Read\\\" 调用失败: tool `Read` failed to execute; Error: File not found at /tmp/peri-wire-e2e-3E4npG/work/missing.txt\\nRecovery: File not found. Verify file_path or locate the file with Glob.\\n[Execution status: failed]\"}],\"is_error\":true}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t04-repair\",\"name\":\"Write\",\"input\":{\"content\":\"T04_REPAIRED_CONTENT\\n\",\"file_path\":\"/tmp/peri-wire-e2e-3E4npG/work/missing.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t04-repair\",\"tool_use_id\":\"t04-repair\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line missing.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t04-read-fixed\",\"name\":\"Read\",\"input\":{\"file_path\":\"/tmp/peri-wire-e2e-3E4npG/work/missing.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t04-read-fixed\",\"tool_use_id\":\"t04-read-fixed\",\"content\":[{\"type\":\"text\",\"text\":\"     1\\tT04_REPAIRED_CONTENT\\n     2\\t\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "fa1d2978705f1234795cb6814c22c2fc1651a5fc645d6c9fdfa855efc2acd4b3"
+  "canonicalSha256": "515da4809625fb6f0f6daee8a0f777d941125b23ec60305133c16682f3df892c"
 }

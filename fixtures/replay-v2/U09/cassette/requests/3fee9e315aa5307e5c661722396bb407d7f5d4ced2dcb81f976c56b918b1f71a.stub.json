@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103169,
-  "rawSha256": "909ea3cd9109e4e25cd534a905b7d4722aaf0478851c7e0d6dab12ff84dddece",
+  "rawBytes": 103167,
+  "rawSha256": "9b1225dbc9d668bc25e97c6c6d34c9b5f3dde0f2344edee8d371c0ba2a87dd84",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"RUN_DENY_TOOL\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"denied-shell\",\"name\":\"Bash\",\"input\":{\"command\":\"printf 'DENY\\\\n' >> approval.txt\",\"description\":\"Append isolated approval evidence\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"denied-shell\",\"tool_use_id\":\"denied-shell\",\"content\":[{\"type\":\"text\",\"text\":\"Cancelled by user\"}],\"is_error\":true,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"DENIED_ACTION_COMPLETE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"RUN_ALLOW_TOOL\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "88255fb963de9aa1366ef7784845a6663267d66df4b563e243764c62d70a29bf"
+  "canonicalSha256": "d3e33326d4ca8c436099f68352c59dc837590cb413f1c890805fe4d244e21461"
 }

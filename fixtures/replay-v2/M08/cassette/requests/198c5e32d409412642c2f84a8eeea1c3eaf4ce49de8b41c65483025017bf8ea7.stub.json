@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 102730,
-  "rawSha256": "7d8b46b33b7cb520e34e8ae1111aecd027e799331424651bb972da51592943e4",
+  "rawBytes": 102728,
+  "rawSha256": "ff2c0fb91a3dd881ee8be74ec72b09c2208ef55f91ef4b6fb868b18117262a77",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run M08 invalid regex and recovery.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "dca5cc3c6d5c236bddc6a85e0dc3ef4b1efbf5e8ff5983b4efcc499a7a1b02c8"
+  "canonicalSha256": "e24a4fcc461514e6084f918783a18ef3fe0268a1a87599655dcd501db0672d3d"
 }

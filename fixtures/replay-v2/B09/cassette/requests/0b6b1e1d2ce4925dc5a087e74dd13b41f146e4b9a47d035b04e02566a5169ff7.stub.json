@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 104240,
-  "rawSha256": "a60edd5acdcd149680a4616f6bd54b713570fd5773f6c6a7351d47e50a82de92",
+  "rawBytes": 104238,
+  "rawSha256": "39509fd5f39b24775e9cd326d32084d7c71d61480b2a63b1acd44c41ea642d5d",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B09.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B09-omitted\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B09_OMITTED_BACKGROUND\",\"subagent_type\":\"replay-worker\"}},{\"type\":\"tool_use\",\"id\":\"B09-explicit\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B09_FALSE_BACKGROUND\",\"run_in_background\":false,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B09-omitted\",\"tool_use_id\":\"B09-omitted\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1edd9-b495-7d31-9098-a6653798a9e8 started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1edd9-b495-7d31-9098-a65837e54aef (resume with Agent(resume_thread_id: 01a1edd9-b495-7d31-9098-a65837e54aef))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false},{\"type\":\"tool_result\",\"id\":\"B09-explicit\",\"tool_use_id\":\"B09-explicit\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1edd9-b496-7143-bb32-beb6d9bdd985 started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1edd9-b496-7143-bb32-bea1a9f2f179 (resume with Agent(resume_thread_id: 01a1edd9-b496-7143-bb32-bea1a9f2f179))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "71001f911af3afb4f5545f5d32beb3472ce9bcc2f40417b6accc62b46ecdc63b"
+  "canonicalSha256": "95700dd115923d5b0c0315c5866cf3e44a65a2df56d5d8108898b896dff92ce4"
 }
