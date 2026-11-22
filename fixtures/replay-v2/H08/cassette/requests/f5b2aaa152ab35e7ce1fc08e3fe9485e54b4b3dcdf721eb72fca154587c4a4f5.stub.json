@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103615,
-  "rawSha256": "07b8091427c0625d0cc75e6739a6746164d6a30836ac633e2fc688d9e1bd37fc",
+  "rawBytes": 103687,
+  "rawSha256": "6615d2d444da92a67e84acf0568490926a5aaf7ff145797a139419a474afac25",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Start H08 background process.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H08-background\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h08.pid; printf 'started\\\\n' >> h08.starts; for i in {1..6000}; do [ -f h08.release ] && break; sleep 0.01; done; [ -f h08.release ] || exit 70; printf 'H08_BG_ACTUAL\\\\n' > h08.result\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H08-background\",\"tool_use_id\":\"H08-background\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1eddc-190b-7003-b01f-77ae4c93dac5. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1eddc-190b-7003-b01f-77ae4c93dac5]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"H08_PARENT_IDLE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Read H08 result during my next turn.\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "ffcce127c37f7a83b2853e5c6ba68ac608d3b3be0277cbb9b701921c1bbe3d3f"
+  "canonicalSha256": "af9972f89236fa85a04178b937421d57325523dcf7f761b18c556af328ba4f0a"
 }

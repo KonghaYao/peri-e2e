@@ -14,7 +14,8 @@ const cassetteDir = path.join(e2eRoot, 'fixtures/replay-v2/U04/cassette');
 const worldDir = path.join(e2eRoot, 'fixtures/replay-v2/world');
 const RECIPE = 'sys.block1.main.t171';
 const SOURCE_LEAF = 'sys.block1.main.t171.prompt';
-const OLD_TAIL_SHA256 = 'c58b8d2d5299f7a5913663c825576bcbccd7dcf32db1d6bd8a6fe194bf4e2234';
+// codemode builtin skill 进入系统提示词后，t171 tail 增加 catalog 行、resource URI 与资源计数（+71 字节）。
+const OLD_TAIL_SHA256 = '3b7b04a1be4392e17b64e4b8cb2638b21841b0fb3d30b200de6d514167cfcd04';
 const UPDATED = 'This session runs inside the Peri terminal UI. SOURCE_UPDATED.';
 
 /** 用录制快照或改写的正文搭一个最小 checkout，避免单测依赖本机 Peri 仓库。 */
