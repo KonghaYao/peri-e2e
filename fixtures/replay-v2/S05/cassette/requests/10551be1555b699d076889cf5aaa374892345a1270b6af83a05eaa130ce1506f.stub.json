@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103425,
-  "rawSha256": "4ed16396cae39cd354ad66d9e549efcb7b022f380c9f694dd7fd423677257a09",
+  "rawBytes": 103497,
+  "rawSha256": "9be347c2ab3f8c54b1086eb8747206e1b9669a76db144e3cd234415a1100013e",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"S05_OLD_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"S05_PREFIX_VISIBLE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"guidance\\\" source=\\\"model_runtime\\\" kind=\\\"stream_interrupted\\\" severity=\\\"warning\\\" delivery=\\\"required\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;模型流中断，正在继续。&quot;\\\" metadata=\\\"{&quot;reason&quot;:&quot;stream_interrupted&quot;}\\\">上一条回复在流式传输中被上游切断，并非你主动结束。从保存的断点继续，不要重复已输出内容或已完成的工具调用；参数被截断的工具调用需要重新发起。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"S05_NEW_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "556cc1d5812325879fc266cdc80170de88fa3a80030501b02c87eabf808d270f"
+  "canonicalSha256": "9cc62dc1b6ffc9392073eaa7aee318a7de30ae58c662cf219e51d13a0d5a7c75"
 }

@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 70910,
-  "rawSha256": "d2514429a329f4664f0c28dbd0ead971dd2f591fa4522ba8c8bf36b7fa10ad32",
+  "rawBytes": 70982,
+  "rawSha256": "9409a6654b668e12bfca51dadc7e418cb2716d16a38d18f93c3c93815522f459",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B12_COMPLETED_CHILD_HISTORY\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "fd690ba11100cec57ba7795efa97a6c4964cfa8bc6fb628b6312f8f2b7028b77"
+  "canonicalSha256": "2cd87ab5c86cd0c4bbf023a6c5fcf2572bbdaf6a8d33c3089f0babfd3098c0cd"
 }

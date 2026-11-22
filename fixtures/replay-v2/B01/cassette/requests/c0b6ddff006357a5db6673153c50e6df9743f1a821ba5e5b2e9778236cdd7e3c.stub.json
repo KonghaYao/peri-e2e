@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 71197,
-  "rawSha256": "bec9637e9acfaa1e1111418247088178cf4d02523a520adcff8a928fe802f858",
+  "rawBytes": 71269,
+  "rawSha256": "5f575a3b25dc472285ce0f8f89606d0d679d14311414e191c83a0c233d3704b3",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B01_BACKGROUND_WORK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B01-write\",\"name\":\"Write\",\"input\":{\"content\":\"B01_CHILD_FILE\\n\",\"file_path\":\"b01.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B01-write\",\"tool_use_id\":\"B01-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b01.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "a186d20e631062310e77599a9548f85d458a439ce7cae0399774dd8753c9f42a"
+  "canonicalSha256": "ecc34c598ee2aa93c39e026f94829b2b94590fd60a0cda1adca42d55765b19cf"
 }

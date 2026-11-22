@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 71232,
-  "rawSha256": "16e56396468156ee4e3412f942670524a8cda40ab9d816f1d965aa71eee9caeb",
+  "rawBytes": 71304,
+  "rawSha256": "6bfcdc847f7d723f1461f603895209ee47e8718164f86e9dde5620b3b55fa72e",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B10_WAIT_BEYOND_PARENT_TURN\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B10-write\",\"name\":\"Write\",\"input\":{\"content\":\"B10_AFTER_TURN_DONE\\n\",\"file_path\":\"b10-after-turn.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B10-write\",\"tool_use_id\":\"B10-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b10-after-turn.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -20,5 +20,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "b3804219f9e7d98bd52531529e8758006f4571b8008013fc02feaf4b44633082"
+  "canonicalSha256": "601f0e73c3764f20c3b620ba4701f8b2fe9973b52a3d5b4584390c9620a4c79d"
 }
