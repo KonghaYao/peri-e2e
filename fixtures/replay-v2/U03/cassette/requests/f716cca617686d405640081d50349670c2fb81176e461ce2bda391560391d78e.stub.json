@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103045,
-  "rawSha256": "d6bd871bd7fbdc89fea149a78395523c7f6d579406bc227ab0906a1718cd7b2f",
+  "rawBytes": 84227,
+  "rawSha256": "02507fd365a126d2e6322888862aeded0389164f303e43e4169c42047e43eb24",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"QUEUE_FIRST_INPUT\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"FIRST_QUEUE_PREFIX FIRST_QUEUE_DONE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"QUEUE_SECOND_INPUT\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"SECOND_QUEUE_REPLY\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"QUEUE_THIRD_INPUT\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "935685983ceaa2f072497c4fccbe903cf4cdacb418ee3879d8fcccbb926ac090"
+  "canonicalSha256": "95a2d763d522dae0a6a36743cfff642552271652655288573d15cf0af23d3a93"
 }

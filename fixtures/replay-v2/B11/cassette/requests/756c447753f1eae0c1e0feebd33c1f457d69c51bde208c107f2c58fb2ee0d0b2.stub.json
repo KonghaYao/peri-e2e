@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 71301,
-  "rawSha256": "3a5ac87b67044f9a37496afee5e9574fafd72430c911655d109e3a3b0ee6b2a8",
+  "rawBytes": 52483,
+  "rawSha256": "c6d6d9cf6c1246103edd79fbcf528d3997b4c540d07e89ee3d8065e2ab1ef1ad",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B11_SECOND_WORK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B11-write-second\",\"name\":\"Write\",\"input\":{\"content\":\"B11_second_FILE\\n\",\"file_path\":\"b11-second.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B11-write-second\",\"tool_use_id\":\"B11-write-second\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b11-second.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.87383f89ea2ca7125f427ae936e09efe86da4ce2fd4e1bc77ae18157525a9331",
-      "as": "raw"
+      "recipe": "tools.anthropic.sub"
     },
     "}"
   ],
-  "canonicalSha256": "ff35cd09acd84361db2a08426ac1764b74fcb19a36074001b8a95e184fd69dfa"
+  "canonicalSha256": "cf8bc7b9486469c2a4602b311f26528c7be2acdd4056783e675e09457e90a24b"
 }

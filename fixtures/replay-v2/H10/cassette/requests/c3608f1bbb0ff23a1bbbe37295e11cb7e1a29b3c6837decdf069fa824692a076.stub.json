@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103533,
-  "rawSha256": "2d1ad75c7a491ca51c91d1f38e55fa94f53c8eb69876a93028e7d19df654760f",
+  "rawBytes": 84715,
+  "rawSha256": "53b9f9411ca9dfc8ecb0d6501eb3d2d0170c2c780bacf1b92a7b14bde0e70524",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Start H10 shell, then close the owning session.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H10-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h10.pid; printf 'started\\\\n' >> h10.starts; for i in {1..6000}; do [ -f h10.release ] && break; sleep 0.01; done; [ -f h10.release ] || exit 70; printf 'H10_FORBIDDEN_AFTER_CLOSE\\\\n' > h10.late\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H10-bash\",\"tool_use_id\":\"H10-bash\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1eddc-310e-7e82-86fa-43535a715280. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1eddc-310e-7e82-86fa-43535a715280]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "7b511a309a924e47910b9b810ac1945063d29529bb6f465ae47fd0d24969af09"
+  "canonicalSha256": "c94fb06560be26e61dad06c5f5b2c1bb552a12b664aaa867a270a7b32839d00c"
 }

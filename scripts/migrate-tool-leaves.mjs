@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
  * 一次性迁移：把遗留的整体工具数组 leaf（tools.sha256.*）替换为命名 recipe，
- * 让 Bash/Agent 的 source-anchored leaf 能进入这些录制。
+ * 让工具 description 的 source-anchored leaf 与受控重锚文案能进入这些录制。
  *
- * 迁移是显式重锚：只允许目标 recipe 与旧 leaf 在受管 description 上不同，
+ * 迁移是显式重锚：只允许工具 description（含 schema 内嵌 description）与旧 leaf 不同，
  * 其余工具字段必须逐字段一致；stub 的 raw/canonical 哈希、seal 文件哈希与
  * requestMeta 同步更新。默认 dry-run，--write 才落盘。
  */
@@ -30,27 +30,46 @@ const { values } = parseArgs({
 const fixturesRoot = path.resolve(values.fixtures);
 const world = await loadWorld(path.join(fixturesRoot, 'world'));
 
-const RECIPE_CANDIDATES = ['tools.anthropic.main', 'tools.anthropic.sub'];
+const RECIPE_CANDIDATES = ['tools.anthropic.main', 'tools.anthropic.sub', 'tools.responses.main'];
 const LEGACY_PREFIX = 'tools.sha256.';
 
-/** 只允许 Bash 的 description 不同；其余工具字段必须完全一致。 */
-function assertOnlyBashDescriptionDiff(legacyBytes, recipeBytes, id, recipe) {
+/** 允许 description（含 schema 内嵌）差异；key 顺序与其余字段必须逐项一致。 */
+function assertDescriptionOnly(left, right, at) {
+  if (Array.isArray(left) || Array.isArray(right)) {
+    if (!Array.isArray(left) || !Array.isArray(right) || left.length !== right.length) {
+      throw new Error(`${at}: 数组结构不一致，拒绝迁移`);
+    }
+    left.forEach((value, index) => assertDescriptionOnly(value, right[index], `${at}[${index}]`));
+    return;
+  }
+  if (left && typeof left === 'object' && right && typeof right === 'object') {
+    const leftKeys = Object.keys(left);
+    const rightKeys = Object.keys(right);
+    if (leftKeys.join('\u0000') !== rightKeys.join('\u0000')) {
+      throw new Error(`${at}: key 集合或顺序不一致（${leftKeys} != ${rightKeys}），拒绝迁移`);
+    }
+    for (const key of leftKeys) {
+      // 参数名本身可以叫 description；只有 schema 关键字上的字符串 description 才可放宽。
+      if (key === 'description' && typeof left[key] === 'string' && typeof right[key] === 'string') continue;
+      assertDescriptionOnly(left[key], right[key], `${at}.${key}`);
+    }
+    return;
+  }
+  if (!Object.is(left, right)) throw new Error(`${at}: 非 description 字段不一致，拒绝迁移`);
+}
+
+/** 逐工具允许 description 差异；工具 name/顺序与其余字段必须完全一致。 */
+function assertOnlyDescriptionDiff(legacyBytes, recipeBytes, id, recipe) {
   const legacy = JSON.parse(legacyBytes.toString('utf8'));
   const current = JSON.parse(recipeBytes.toString('utf8'));
   if (!Array.isArray(legacy) || !Array.isArray(current) || legacy.length !== current.length) {
     throw new Error(`${id}: 工具数组与 ${recipe} 结构不一致，拒绝迁移`);
   }
-  const describe = (tool) => JSON.stringify({ ...tool, description: undefined });
   for (let index = 0; index < legacy.length; index += 1) {
     const left = legacy[index];
     const right = current[index];
     if (left?.name !== right?.name) throw new Error(`${id}: 工具顺序 ${index} 不一致，拒绝迁移`);
-    if (left?.name !== 'Bash' && JSON.stringify(left) !== JSON.stringify(right)) {
-      throw new Error(`${id}: 工具 ${left?.name} 与 ${recipe} 不一致，拒绝迁移`);
-    }
-    if (left?.name === 'Bash' && describe(left) !== describe(right)) {
-      throw new Error(`${id}: Bash 非 description 字段与 ${recipe} 不一致，拒绝迁移`);
-    }
+    assertDescriptionOnly(left, right, `${recipe}[${index}].${left?.name}`);
   }
 }
 
@@ -83,12 +102,12 @@ for (const cassetteId of cassettes) {
       for (const recipe of RECIPE_CANDIDATES) {
         const recipeBytes = world.render({ recipe });
         try {
-          assertOnlyBashDescriptionDiff(legacyBytes, recipeBytes, part.leaf, recipe);
+          assertOnlyDescriptionDiff(legacyBytes, recipeBytes, part.leaf, recipe);
           selected = recipe;
           break;
         } catch { /* 尝试下一个候选，全部失败时由下方显式报错 */ }
       }
-      if (!selected) throw new Error(`${part.leaf}: 与已知工具 recipe 的差异超出 Bash description，拒绝迁移`);
+      if (!selected) throw new Error(`${part.leaf}: 与已知工具 recipe 的差异超出 description，拒绝迁移`);
       nextStub.parts[index] = { recipe: selected };
       replaced = true;
       console.log(`${cassetteId} ${entry.identity.call}: ${part.leaf} -> ${selected}`);

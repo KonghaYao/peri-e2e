@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103147,
-  "rawSha256": "41e5501b0581fcc5ac3a39a0222a1b5b95265a0d54e17aebf12cf54dd35dc666",
+  "rawBytes": 84329,
+  "rawSha256": "2d286ae3eb86bce25b5a9be62c67d80aff08ebf45baf8e7dfb514d8f227eb5db",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"S02_STREAMED_WRITE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"s02-write\",\"name\":\"Write\",\"input\":{\"content\":\"STREAMED_ARGUMENTS_OK\\n中文🚀\\n\",\"file_path\":\"/tmp/peri-wire-e2e-nDLnHd/work/split-参数.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"s02-write\",\"tool_use_id\":\"s02-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 2 lines split-参数.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "2393af9fdb566a11597e7ab6127e0d79dca07b54d93b73259653591c84cf59c8"
+  "canonicalSha256": "9e3cd23b5b4f83520d4f2fb1925798a5220908d3888c9f5f40ad6ef18ee94bed"
 }

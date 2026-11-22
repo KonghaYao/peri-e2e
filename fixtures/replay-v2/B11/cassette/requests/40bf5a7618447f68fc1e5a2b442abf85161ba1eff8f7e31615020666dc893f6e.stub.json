@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 70969,
-  "rawSha256": "0b06b7f5b891d93212ad6615c34ac64deed2549f375f68b4aa7906f41a6e5517",
+  "rawBytes": 52151,
+  "rawSha256": "4d3e0d4b79794382712f247b4cb04aed22ec94ff7a4e8210075de3a4aaf82b03",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B11_FIRST_WORK\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.87383f89ea2ca7125f427ae936e09efe86da4ce2fd4e1bc77ae18157525a9331",
-      "as": "raw"
+      "recipe": "tools.anthropic.sub"
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "0fc77ca5011de86a7205fbc1c8c3c3786fa098e279a7ff60531f9917d3bed02c"
+  "canonicalSha256": "0471ef4020fc4a71bb441dd7e07ab27ca59e5bbd99e087308f680eea8a4bad96"
 }

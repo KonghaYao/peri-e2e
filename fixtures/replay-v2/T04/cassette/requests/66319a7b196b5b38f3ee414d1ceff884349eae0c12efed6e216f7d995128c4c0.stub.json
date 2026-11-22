@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103683,
-  "rawSha256": "79260c95679fa1ea7138c9bc99d42b14c65254a01f8424ffb470b6384bfbc136",
+  "rawBytes": 84865,
+  "rawSha256": "55ce63aab6c22e29f45e13031a5a066e5973b0aedbc77d92bb877a43d6a45036",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T04_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t04-missing\",\"name\":\"Read\",\"input\":{\"file_path\":\"/tmp/peri-wire-e2e-3E4npG/work/missing.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t04-missing\",\"tool_use_id\":\"t04-missing\",\"content\":[{\"type\":\"text\",\"text\":\"MCP 服务器 \\\"peri\\\" 工具 \\\"Read\\\" 调用失败: tool `Read` failed to execute; Error: File not found at /tmp/peri-wire-e2e-3E4npG/work/missing.txt\\nRecovery: File not found. Verify file_path or locate the file with Glob.\\n[Execution status: failed]\"}],\"is_error\":true,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t04-repair\",\"name\":\"Write\",\"input\":{\"content\":\"T04_REPAIRED_CONTENT\\n\",\"file_path\":\"/tmp/peri-wire-e2e-3E4npG/work/missing.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t04-repair\",\"tool_use_id\":\"t04-repair\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line missing.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "283bcc0fe6a24c34bde54317db7f4c8d12a6a203a38ac0155cc318d18c3e3c0d"
+  "canonicalSha256": "1a3399b8b903fe52f5e4321af2b6e875ba694625f0197ed5e65201cb18ac2224"
 }
