@@ -448,10 +448,10 @@ test('Agent description 正常源同步后 world:check 通过且不要求重录'
   const after = await run(['--check', '--world', world, '--peri-root', periRoot]);
   assert.equal(after.code, 0);
   assert.equal(after.report.stale, false);
-  // 当前 cassette 的工具声明使用内容寻址 leaf，不再引用 tools.Agent.*；
-  // 源同步本身仍必须更新 leaf 且不要求重录。
-  assert.deepEqual(after.report.recorded.mappedDrift, []);
-  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, []);
+  // cassette 经 tools.* recipe 引用工具 leaf，源同步属于可解释的 mapped drift；
+  // 只要 leaf 与当前源等值就不要求重录。
+  assert.deepEqual(after.report.recorded.mappedDrift, ['tools.Agent.anthropic']);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['tools.Agent.anthropic']);
   assert.equal(after.report.recorded.requiresRerecord, false);
 });
 
@@ -485,6 +485,7 @@ test('篡改 tools.Bash.* 非管理字段时源码锚定拒绝，description 源
   const after = await run(['--check', '--world', world, '--peri-root', periRoot]);
   assert.equal(after.code, 0);
   assert.equal(after.report.stale, false);
-  assert.deepEqual(after.report.recorded.mappedDrift, []);
+  assert.deepEqual(after.report.recorded.mappedDrift, ['tools.Bash.anthropic']);
+  assert.deepEqual(after.report.recorded.sourceAnchoredDrift, ['tools.Bash.anthropic']);
   assert.equal(after.report.recorded.requiresRerecord, false);
 });

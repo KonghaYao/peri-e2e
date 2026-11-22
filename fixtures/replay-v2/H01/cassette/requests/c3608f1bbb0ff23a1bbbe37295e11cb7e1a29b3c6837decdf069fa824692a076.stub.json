@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103577,
-  "rawSha256": "e50d4b61503818593cd3dfda6ea5b3848938a0c435e7340a9d5bc64e336c6440",
+  "rawBytes": 84759,
+  "rawSha256": "7ddd5b17de6a40b58fbdeb67425c7f2f63a1f064c0a24a2faef96f67fb4f0f0a",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H01 background shell.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H01-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h01.pid; printf 'started\\\\n' >> h01.starts; for i in {1..6000}; do [ -f h01.release ] && break; sleep 0.01; done; [ -f h01.release ] || exit 70; printf 'H01_ACTUAL_STDOUT\\\\n'; printf 'H01_ACTUAL_STDERR\\\\n' >&2; printf 'H01_SIDE_EFFECT\\\\n' > h01.result; exit 0\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H01-bash\",\"tool_use_id\":\"H01-bash\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1eddc-8059-7211-8178-42f2914f4cef. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1eddc-8059-7211-8178-42f2914f4cef]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "3b595bbe18fc7907ed65e8b87fa9d1a3bfaef5a65bee366842feaa0290c85d77"
+  "canonicalSha256": "8c0b4d24a53b6f36247703dc9a692146333a1c9a4b88bb0b622d33d0dccd9430"
 }

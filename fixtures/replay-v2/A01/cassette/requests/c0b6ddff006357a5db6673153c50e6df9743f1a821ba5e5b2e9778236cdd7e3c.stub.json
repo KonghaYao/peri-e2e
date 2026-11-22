@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 71283,
-  "rawSha256": "7aa1bdfc952a7c60826ed9bac187673afc58f8c29a1ac45aec011000a2a4403f",
+  "rawBytes": 52465,
+  "rawSha256": "6042bb1471e36b6f3351d70d2c4733dd87e973c69fdf59afe0a928e56bf96ede",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"A01_CHILD_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"A01-write\",\"name\":\"Write\",\"input\":{\"content\":\"A01_CHILD_SIDE_EFFECT\\n\",\"file_path\":\"a01-child.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"A01-write\",\"tool_use_id\":\"A01-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line a01-child.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.87383f89ea2ca7125f427ae936e09efe86da4ce2fd4e1bc77ae18157525a9331",
-      "as": "raw"
+      "recipe": "tools.anthropic.sub"
     },
     "}"
   ],
-  "canonicalSha256": "68afa9add5d125ec1673e322631759578c55dfbe7b8ca60c6a1ab5bb36f056e8"
+  "canonicalSha256": "3dab5a3ce0c3f85b65a1bbfdd49cb7801845bbc0d684ea183847ff2d0b534e80"
 }

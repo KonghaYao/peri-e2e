@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103715,
-  "rawSha256": "6bd50f807610a7e09cd2118c085cc5f1362e688511a1f77a9e3706ddd5eb032b",
+  "rawBytes": 84897,
+  "rawSha256": "766ca813e7d775e877ab6a5b173e77b55aaa214b5e029c879b0e5905351a59e9",
   "parts": [
     "{\"model\":\"fixture-model\",\"input\":[{\"type\":\"message\",\"role\":\"developer\",\"content\":[{\"type\":\"input_text\",\"text\":",
     {
@@ -10,10 +10,9 @@
     },
     "}]},{\"type\":\"message\",\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"S06_RESPONSES_WRITE\"}]},{\"type\":\"message\",\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"id\":\"s06-tool\",\"type\":\"function_call\",\"call_id\":\"s06-call\",\"name\":\"Write\",\"arguments\":\"{\\\"file_path\\\":\\\"/tmp/peri-wire-e2e-Fve9LR/work/responses.txt\\\",\\\"content\\\":\\\"RESPONSES_TOOL_EFFECT\\\\n\\\"}\",\"status\":\"completed\"},{\"type\":\"function_call_output\",\"call_id\":\"s06-call\",\"output\":[{\"type\":\"input_text\",\"text\":\"Wrote 1 line responses.txt\\n[Execution status: completed]\"}]}],\"stream\":true,\"store\":false,\"include\":[\"reasoning.encrypted_content\"],\"tools\":",
     {
-      "leaf": "tools.sha256.6ed14ff697dea1fd9f94190b7f8f9272de488bdc4de74cede9d8df1b842c9daa",
-      "as": "raw"
+      "recipe": "tools.responses.main"
     },
     ",\"tool_choice\":\"auto\",\"reasoning\":{\"effort\":\"medium\",\"summary\":\"auto\"},\"max_output_tokens\":32000}"
   ],
-  "canonicalSha256": "018615943c0e6f1623ec613f11606d3008ccd69de9b20037de055e5434e77bbf"
+  "canonicalSha256": "ee55540a5d53578c89b2a0a7a7bd00f1732c6c9108f5e94def9ec6b9e24b27ff"
 }

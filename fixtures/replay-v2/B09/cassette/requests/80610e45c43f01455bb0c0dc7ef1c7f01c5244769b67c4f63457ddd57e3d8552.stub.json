@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 71314,
-  "rawSha256": "c299424f74ffa015efcf2018a26aa8f4e1ee3fb2dc2c47b9e9954bd961b0ecdf",
+  "rawBytes": 52496,
+  "rawSha256": "96f0221cf35bc0bf26950e7084863685eca3d873ef976ae9bc07612e94195313",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B09_OMITTED_BACKGROUND\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B09-write-omitted\",\"name\":\"Write\",\"input\":{\"content\":\"B09_omitted_FILE\\n\",\"file_path\":\"b09-omitted.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B09-write-omitted\",\"tool_use_id\":\"B09-write-omitted\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b09-omitted.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.87383f89ea2ca7125f427ae936e09efe86da4ce2fd4e1bc77ae18157525a9331",
-      "as": "raw"
+      "recipe": "tools.anthropic.sub"
     },
     "}"
   ],
-  "canonicalSha256": "c660db535ca5526b1fe9f583907012d2b8d7c9f55cdc98443a0cf3b46417bf7e"
+  "canonicalSha256": "74d7af0f818a19e23f3ca5a9ea801607eb8873749badc5d1e223ac9f044fc326"
 }

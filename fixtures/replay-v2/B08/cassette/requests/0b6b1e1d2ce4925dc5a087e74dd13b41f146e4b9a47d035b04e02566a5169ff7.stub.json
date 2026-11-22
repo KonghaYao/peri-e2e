@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103388,
-  "rawSha256": "f7f3204543b5725971347e5d8ca2d4ad59c2fe35fac3671f68f7fb035b5528fc",
+  "rawBytes": 84570,
+  "rawSha256": "5f2ae5eaef32489e3120ef779a889415720b8410c30dc12ff58f8c731ccf4414",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B08.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B08-invalid\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B08_NO_CHILD\",\"run_in_background\":true,\"subagent_type\":\"B08-undefined-agent\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B08-invalid\",\"tool_use_id\":\"B08-invalid\",\"content\":[{\"type\":\"text\",\"text\":\"Error: cannot find agent definition 'B08-undefined-agent': cannot find agent definition 'B08-undefined-agent'. Check .claude/agents/ directory or configured plugin agents\"}],\"is_error\":true,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "3baa7c49bd2a8fd7b746a714dcfc578841305d8c6b7f89753a391b364dcb9b78"
+  "canonicalSha256": "8ed021a068de31a03a511bc2805b285ccfd108e9e678b0174e77b952c57e6c74"
 }

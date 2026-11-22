@@ -1,7 +1,7 @@
 {
   "formatVersion": 2,
   "kind": "world",
-  "generation": "world-2572fff47a6064dd",
+  "generation": "world-abd283f2ac83df0c",
   "leaves": {
     "sys.block0.main": {
       "file": "system/block0.main.txt"
@@ -1094,6 +1094,24 @@
     },
     "tools.TodoWrite.responses": {
       "file": "tools/TodoWrite.responses.json"
+    },
+    "tools.ToolInvoke.anthropic.main": {
+      "file": "tools/ToolInvoke.anthropic.main.json"
+    },
+    "tools.ToolInvoke.anthropic.sub": {
+      "file": "tools/ToolInvoke.anthropic.sub.json"
+    },
+    "tools.ToolInvoke.responses": {
+      "file": "tools/ToolInvoke.responses.json"
+    },
+    "tools.ToolSearch.anthropic.main": {
+      "file": "tools/ToolSearch.anthropic.main.json"
+    },
+    "tools.ToolSearch.anthropic.sub": {
+      "file": "tools/ToolSearch.anthropic.sub.json"
+    },
+    "tools.ToolSearch.responses": {
+      "file": "tools/ToolSearch.responses.json"
     },
     "tools.WebFetch.anthropic": {
       "file": "tools/WebFetch.anthropic.json"
@@ -4621,10 +4639,6 @@
       },
       ",",
       {
-        "leaf": "tools.ExecuteExtraTool.anthropic.main"
-      },
-      ",",
-      {
         "leaf": "tools.Glob.anthropic"
       },
       ",",
@@ -4641,15 +4655,19 @@
       },
       ",",
       {
-        "leaf": "tools.SearchExtraTools.anthropic.main"
-      },
-      ",",
-      {
         "leaf": "tools.SkillTool.anthropic"
       },
       ",",
       {
         "leaf": "tools.TodoWrite.anthropic"
+      },
+      ",",
+      {
+        "leaf": "tools.ToolInvoke.anthropic.main"
+      },
+      ",",
+      {
+        "leaf": "tools.ToolSearch.anthropic.main"
       },
       ",",
       {
@@ -4688,10 +4706,6 @@
       },
       ",",
       {
-        "leaf": "tools.ExecuteExtraTool.anthropic.sub"
-      },
-      ",",
-      {
         "leaf": "tools.Glob.anthropic"
       },
       ",",
@@ -4704,15 +4718,19 @@
       },
       ",",
       {
-        "leaf": "tools.SearchExtraTools.anthropic.sub"
-      },
-      ",",
-      {
         "leaf": "tools.SkillTool.anthropic"
       },
       ",",
       {
         "leaf": "tools.TodoWrite.anthropic"
+      },
+      ",",
+      {
+        "leaf": "tools.ToolInvoke.anthropic.sub"
+      },
+      ",",
+      {
+        "leaf": "tools.ToolSearch.anthropic.sub"
       },
       ",",
       {
@@ -4759,10 +4777,6 @@
       },
       ",",
       {
-        "leaf": "tools.ExecuteExtraTool.responses"
-      },
-      ",",
-      {
         "leaf": "tools.Glob.responses"
       },
       ",",
@@ -4779,15 +4793,19 @@
       },
       ",",
       {
-        "leaf": "tools.SearchExtraTools.responses"
-      },
-      ",",
-      {
         "leaf": "tools.SkillTool.responses"
       },
       ",",
       {
         "leaf": "tools.TodoWrite.responses"
+      },
+      ",",
+      {
+        "leaf": "tools.ToolInvoke.responses"
+      },
+      ",",
+      {
+        "leaf": "tools.ToolSearch.responses"
       },
       ",",
       {

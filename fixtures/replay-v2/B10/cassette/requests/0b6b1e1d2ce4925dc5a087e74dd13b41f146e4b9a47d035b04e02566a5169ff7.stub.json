@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103668,
-  "rawSha256": "002c91c82a1f21d0ed45fae8f762d51ca310e5faa974681a2519eec3e1b9549b",
+  "rawBytes": 84850,
+  "rawSha256": "80d4c9ba60a205a722fa4758063b8be1179f0ef21a7d46a27564e20cc91bd139",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B10 without any second user prompt.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B10-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B10_WAIT_BEYOND_PARENT_TURN\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B10-spawn\",\"tool_use_id\":\"B10-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1edd9-c124-7ff0-ac42-ea3d5bde6681 started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1edd9-c124-7ff0-ac42-ea2fdeb27db3 (resume with Agent(resume_thread_id: 01a1edd9-c124-7ff0-ac42-ea2fdeb27db3))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "42398317e4185be99e320fe3be7b3a53acf532c516ce0083418426748ed66a81"
+  "canonicalSha256": "2bf95a6254d38e942678b87ebb45cc663c65cdbebaeb9e6b85aabef8d5eb6800"
 }
