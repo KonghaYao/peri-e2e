@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 71233,
-  "rawSha256": "e6a3fd31f34e7f047f3108fc083593827c67ec51d9c3009e7391b81384e26054",
+  "rawBytes": 52415,
+  "rawSha256": "4393418d5d6c176099f463300200243f6951c7501ad8d81a48d717070e4ea626",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"A04_FIRST_CHILD_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"A04-write-first\",\"name\":\"Write\",\"input\":{\"content\":\"A04_FIRST_EXECUTION\\n\",\"file_path\":\"a04-first.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"A04-write-first\",\"tool_use_id\":\"A04-write-first\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line a04-first.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.87383f89ea2ca7125f427ae936e09efe86da4ce2fd4e1bc77ae18157525a9331",
-      "as": "raw"
+      "recipe": "tools.anthropic.sub"
     },
     "}"
   ],
-  "canonicalSha256": "dec2d01a00683188698fcf1dab46b72d7105a72d72ea77cdcb34ddc7c22dbe82"
+  "canonicalSha256": "d856711ef4c9e0ad57f1d33b848a6f1367fccae71732c554fc9fee8460d64e04"
 }

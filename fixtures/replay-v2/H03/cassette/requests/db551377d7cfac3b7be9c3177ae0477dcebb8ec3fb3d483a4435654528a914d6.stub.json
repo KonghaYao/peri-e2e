@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 105439,
-  "rawSha256": "960c4b193cf0af9b2d8318a0680e903916c7b29c7befa2f3474d9279074e6aac",
+  "rawBytes": 86621,
+  "rawSha256": "2df8b931f0ca85ed9cca9f2a3bd95398796ac574303159fe5810a5c869329e14",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H03 background shell.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H03-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h03.pid; printf 'started\\\\n' >> h03.starts; for i in {1..6000}; do [ -f h03.release ] && break; sleep 0.01; done; [ -f h03.release ] || exit 70; cat payload.txt; printf 'H03_ACTUAL_STDERR\\\\n' >&2; printf 'H03_SIDE_EFFECT\\\\n' > h03.result; exit 0\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H03-bash\",\"tool_use_id\":\"H03-bash\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1eddc-a7f8-7ed0-be19-eb1f4d198a00. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1eddc-a7f8-7ed0-be19-eb1f4d198a00]\"}],\"is_error\":false}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"H03_PARENT_IDLE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"task\\\" source=\\\"shell\\\" kind=\\\"completed\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;automation&quot;]\\\" summary=\\\"&quot;Shell task succeeded&quot;\\\" metadata=\\\"{&quot;server&quot;:&quot;workspace&quot;,&quot;task_id&quot;:&quot;mcp-01a1eddc-a7f8-7ed0-be19-eb1f4d198a00&quot;,&quot;remote_task_id&quot;:&quot;shell-01a1eddc-a7f4-7aa3-868e-528fb3e4d6ba&quot;,&quot;initiator&quot;:&quot;01a1eddc-a21d-7d80-a5cf-d943fac4fa71&quot;,&quot;task_owner&quot;:&quot;01a1eddc-a21d-7d80-a5cf-d943fac4fa71&quot;,&quot;delivery&quot;:&quot;initiator&quot;}\\\">后台任务结果\\ntask_id: mcp-01a1eddc-a7f8-7ed0-be19-eb1f4d198a00\\nagent: bg-shell\\ncommand: printf &apos;%s\\\\n&apos; &quot;$$&quot; &gt; h03.pid; printf &apos;started\\\\n&apos; &gt;&gt; h03.starts; for i in {1..600\\nstate: succeeded\\nexit_code: 0\\nstdout: /tmp/peri-wire-e2e-yVYyH3/home/tmp/peri-bg-shell-01a1eddc-a7f4-7aa3-868e-528fb3e4d6ba-b5653c2f-e3fb-4bfc-bdbc-74b8b4ac1788-stdout.log\\nstderr: /tmp/peri-wire-e2e-yVYyH3/home/tmp/peri-bg-shell-01a1eddc-a7f4-7aa3-868e-528fb3e4d6ba-b88953a2-bc14-4443-956c-ffb632c39a8c-stderr.log\\n完整输出已保存到文件系统。需要检查结果时，请使用 `Read` 工具按需读取；大文件分段读取。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H03-read-stdout\",\"name\":\"Read\",\"input\":{\"file_path\":\"/tmp/peri-wire-e2e-yVYyH3/home/tmp/peri-bg-shell-01a1eddc-a7f4-7aa3-868e-528fb3e4d6ba-b5653c2f-e3fb-4bfc-bdbc-74b8b4ac1788-stdout.log\",\"limit\":1,\"offset\":4001}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H03-read-stdout\",\"tool_use_id\":\"H03-read-stdout\",\"content\":[{\"type\":\"text\",\"text\":\"  4001\\tH03_UNICODE_TAIL_终点\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "c3ee43c579b457529d2e50357dafa1f7c77016e7690ddfaa283300c304457986"
+  "canonicalSha256": "d4f972109b1e9942cdc898a69c8b6957023e661c0769ddc69150e39998af5484"
 }

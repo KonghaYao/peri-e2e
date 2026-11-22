@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 71239,
-  "rawSha256": "1ffbb5d9c4bf578e71d301be9873898fe5be5113c859b7366d18e37bfdf3a57e",
+  "rawBytes": 52421,
+  "rawSha256": "12db6c521b6dc2832135ea7bd7308bf338c239bf9ab42bfaed160c7c79c5b114",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"A06_SHARED_FILE_CHILD\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"A06-child-write\",\"name\":\"Write\",\"input\":{\"content\":\"A06_CHILD_AFTER_PARENT\\n\",\"file_path\":\"a06-shared.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"A06-child-write\",\"tool_use_id\":\"A06-child-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line a06-shared.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.87383f89ea2ca7125f427ae936e09efe86da4ce2fd4e1bc77ae18157525a9331",
-      "as": "raw"
+      "recipe": "tools.anthropic.sub"
     },
     "}"
   ],
-  "canonicalSha256": "13279d4827926c50638ce8dacf1cf885cb966a8f497037156c58f95941610597"
+  "canonicalSha256": "69f7820f974c71765928f8a52198a4a272a4f0df8402f0a38f8e6e395ae3e919"
 }

@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 104589,
-  "rawSha256": "6f9a0291dbf4cd63f4bf976521525d4d6d1cbc36918e0526ba742fb5e3d3eacf",
+  "rawBytes": 85771,
+  "rawSha256": "bf50ee58583e6609ac00b43f49c7ec0f67d2b034f72673f95c835ae04bfd6153",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B07 first run.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B07-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B07_FIRST_RUN\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B07-spawn\",\"tool_use_id\":\"B07-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1edd9-9b8c-77a2-a2bc-a09fad3b49c7 started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1edd9-9b8c-77a2-a2bc-a08c6397175a (resume with Agent(resume_thread_id: 01a1edd9-9b8c-77a2-a2bc-a08c6397175a))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"B07_FIRST_WAITING\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"task\\\" source=\\\"subagent\\\" kind=\\\"completed\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;replay-worker completed&quot;\\\" metadata=\\\"{&quot;task_id&quot;:&quot;bg-01a1edd9-9b8c-77a2-a2bc-a09fad3b49c7&quot;,&quot;agent_name&quot;:&quot;replay-worker&quot;,&quot;success&quot;:true,&quot;timed_out&quot;:false,&quot;child_thread_id&quot;:&quot;01a1edd9-9b8c-77a2-a2bc-a08c6397175a&quot;,&quot;subagent_failure&quot;:null}\\\">后台任务结果\\ntask_id: bg-01a1edd9-9b8c-77a2-a2bc-a09fad3b49c7\\nagent: replay-worker\\nstate: succeeded\\nexit_code: unknown\\nstdout: unknown\\nstderr: unknown\\nresult:\\nB07_FIRST_CHILD_REPORT\\nchild_thread_id: 01a1edd9-9b8c-77a2-a2bc-a08c6397175a (resume with Agent(resume_thread_id: 01a1edd9-9b8c-77a2-a2bc-a08c6397175a))</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "65f15e31cea1c64dd8fdf391f68803bd28425a07f5892cafc80cabb4ca6e0fe0"
+  "canonicalSha256": "25dc99bcaa7fa43aadd9f8cbeabe26d6fd62b7ac2a27b6ba1b0467086e31c3c1"
 }

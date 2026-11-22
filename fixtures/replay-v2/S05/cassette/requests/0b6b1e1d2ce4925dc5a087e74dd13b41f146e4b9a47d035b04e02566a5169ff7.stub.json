@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103359,
-  "rawSha256": "5988e8b5cad428122e8d06a38fd958561f6568d39d578c8b5237020b7df495fa",
+  "rawBytes": 84541,
+  "rawSha256": "2e9c590a348c3e43979c7152972b1fbd99516dd1be0b3caa364ae59db249270c",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"S05_OLD_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"S05_PREFIX_VISIBLE\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"guidance\\\" source=\\\"model_runtime\\\" kind=\\\"stream_interrupted\\\" severity=\\\"warning\\\" delivery=\\\"required\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;模型流中断，正在继续。&quot;\\\" metadata=\\\"{&quot;reason&quot;:&quot;stream_interrupted&quot;}\\\">上一条回复在流式传输中被上游切断，并非你主动结束。从保存的断点继续，不要重复已输出内容或已完成的工具调用；参数被截断的工具调用需要重新发起。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "3aff2aa67337f9eaa8eb85505db3fa59d3b9a1251853e3750aeaedf45d7fdde9"
+  "canonicalSha256": "5281882fb8ce758ef0f560b2c108b73cc3a01b85913044611d9786a802592fc7"
 }

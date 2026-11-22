@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 104248,
-  "rawSha256": "0f01285dc654a3066228b28d7e89761f43acd45bd49bec1868de360eb050b283",
+  "rawBytes": 85430,
+  "rawSha256": "e5fd3b3c5f2d1bd5226da6df84c6b798c06a56d067bba1b918626885ed5c27f0",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B11 first turn.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B11-first\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B11_FIRST_WORK\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}},{\"type\":\"tool_use\",\"id\":\"B11-second\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B11_SECOND_WORK\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B11-first\",\"tool_use_id\":\"B11-first\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1eddb-a6de-74f0-892e-20f0bcd97e9f started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1eddb-a6de-74f0-892e-20eef7641eca (resume with Agent(resume_thread_id: 01a1eddb-a6de-74f0-892e-20eef7641eca))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false},{\"type\":\"tool_result\",\"id\":\"B11-second\",\"tool_use_id\":\"B11-second\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1eddb-a6df-7b81-a9cf-89429b28feba started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1eddb-a6df-7b81-a9cf-893ef37c63af (resume with Agent(resume_thread_id: 01a1eddb-a6df-7b81-a9cf-893ef37c63af))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "bf3a1f16ed944a3c5d1183e98faba95cafa8d4884c848cc9ee6725dddbd6c0be"
+  "canonicalSha256": "5bc14e474a3f099e717629ca2e2a14172dc7cf717b04032f66008728f2cd735f"
 }

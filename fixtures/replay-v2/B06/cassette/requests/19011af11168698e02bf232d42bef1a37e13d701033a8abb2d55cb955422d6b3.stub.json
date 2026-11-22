@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 72193,
-  "rawSha256": "c48ee028e6394fdd7d3b4c9f2616e7714b08bdd55cd1b014c3362b836925edda",
+  "rawBytes": 53375,
+  "rawSha256": "1b095d2564b78ce2fefeb6d90d6f87f653d3cee2024b7d447f2a4a8a8545cc22",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"B06_INITIAL_WORK\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B06-first-write\",\"name\":\"Write\",\"input\":{\"content\":\"B06_INITIAL_FILE\\n\",\"file_path\":\"b06-first.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B06-first-write\",\"tool_use_id\":\"B06-first-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b06-first.txt\\n[Execution status: completed]\"}],\"is_error\":false}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"task\\\" source=\\\"subagent\\\" kind=\\\"parent_message\\\" severity=\\\"info\\\" delivery=\\\"required\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;]\\\" summary=\\\"&quot;Parent agent message&quot;\\\" metadata=\\\"{&quot;child_thread_id&quot;:&quot;01a1edd9-8ec8-7f53-bb43-a556a28e7ff6&quot;,&quot;task_id&quot;:&quot;bg-01a1edd9-8ec8-7f53-bb43-a564dffbe989&quot;}\\\">Supplemental message from the parent agent:\\nB06_SUPPLEMENT_WRITE_SECOND_FILE</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B06-second-write\",\"name\":\"Write\",\"input\":{\"content\":\"B06_SUPPLEMENT_APPLIED\\n\",\"file_path\":\"b06-second.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B06-second-write\",\"tool_use_id\":\"B06-second-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b06-second.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.87383f89ea2ca7125f427ae936e09efe86da4ce2fd4e1bc77ae18157525a9331",
-      "as": "raw"
+      "recipe": "tools.anthropic.sub"
     },
     "}"
   ],
-  "canonicalSha256": "b294fb8c6db757d3bc8c92ee47b2ef615f98143ea90734ed6ff8928c10e521ff"
+  "canonicalSha256": "04bc6410dbe1dcd63698469e1cc28dcdad91aec024c3b47ca9b190c32299733c"
 }

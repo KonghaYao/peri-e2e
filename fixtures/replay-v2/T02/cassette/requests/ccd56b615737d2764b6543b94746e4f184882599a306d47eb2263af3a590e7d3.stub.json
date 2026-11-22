@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103054,
-  "rawSha256": "bb9fe24ae8e8dd1597bd6c73f2ad395322f4597a0cc8d9bcc0005e27e8897016",
+  "rawBytes": 84236,
+  "rawSha256": "a4059cc138e1ebd2789ce00a60c648fb3a47813bafc0024d4142562e1f754983",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T02_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t02-read-before\",\"name\":\"Read\",\"input\":{\"file_path\":\"/tmp/peri-wire-e2e-B44Wg2/work/config.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t02-read-before\",\"tool_use_id\":\"t02-read-before\",\"content\":[{\"type\":\"text\",\"text\":\"     1\\tmode=old\\n     2\\tkeep=stable\\n     3\\t\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "d50d7f7668683117b3fee840c6f0986fdcb3f33e39b24419d288d89acbcc5d84"
+  "canonicalSha256": "144ff20583e7f6f740957d776107d681a8ab7a8b44745e20129801f8412268ef"
 }

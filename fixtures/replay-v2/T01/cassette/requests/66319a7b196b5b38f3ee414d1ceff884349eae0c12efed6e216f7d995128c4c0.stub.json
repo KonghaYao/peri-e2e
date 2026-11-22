@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103407,
-  "rawSha256": "d5362eb6f80ef9e683f8b44ec49152fe3d29457b90fa35775d4a06ec27c3c614",
+  "rawBytes": 84589,
+  "rawSha256": "483017109e36673340688eff85772d3de32c7543b56a901df087b9aa5c58e5b1",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T01_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t01-write\",\"name\":\"Write\",\"input\":{\"content\":\"T01_WRITTEN_AND_READ\\n\",\"file_path\":\"/tmp/peri-wire-e2e-NilOWY/work/note.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t01-write\",\"tool_use_id\":\"t01-write\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line note.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t01-read\",\"name\":\"Read\",\"input\":{\"file_path\":\"/tmp/peri-wire-e2e-NilOWY/work/note.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t01-read\",\"tool_use_id\":\"t01-read\",\"content\":[{\"type\":\"text\",\"text\":\"     1\\tT01_WRITTEN_AND_READ\\n     2\\t\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "300cd3b922c46e9774fe74b443fe8216a2fa9da8d44b968079d12638fd43c4ed"
+  "canonicalSha256": "13983b38d3f9fe71480a2fe5b27a5386702827ddfd9f1b153302eb070e223d04"
 }

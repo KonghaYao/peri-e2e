@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 70905,
-  "rawSha256": "252b6660c71e4c0201d4b8ceaabe38bfe18bbc87719fa0971649984e0724addd",
+  "rawBytes": 52087,
+  "rawSha256": "43a1e2a9961ebc91ca85b0d29dbe527c7392e66e35dbbc43ea471cb3da7c14b9",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"A05_RECOVER_CHILD_TASK\",\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.87383f89ea2ca7125f427ae936e09efe86da4ce2fd4e1bc77ae18157525a9331",
-      "as": "raw"
+      "recipe": "tools.anthropic.sub"
     },
     ",\"thinking\":{\"type\":\"enabled\",\"budget_tokens\":10000},\"output_config\":{\"effort\":\"medium\"}}"
   ],
-  "canonicalSha256": "6857e7d249dba91e1bca0d1e893933ef93482607b23b4764349928778d9b109a"
+  "canonicalSha256": "af80492ce3e76b216fec7e0825a04d3f48893e3dab17c87163631dd7524627ae"
 }

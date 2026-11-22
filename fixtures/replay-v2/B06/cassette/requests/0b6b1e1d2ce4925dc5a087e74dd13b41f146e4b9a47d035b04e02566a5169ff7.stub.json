@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 103554,
-  "rawSha256": "449184f780f97d9bf455947f37fcd9fa99f5d00ad3af83225dbb44d2b3afcfad",
+  "rawBytes": 84736,
+  "rawSha256": "bca588ff7659d97e00d6524ce6416f163a599d8e07589686173fbd7cff61c781",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B06.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B06-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B06_INITIAL_WORK\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B06-spawn\",\"tool_use_id\":\"B06-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1edd9-8ec8-7f53-bb43-a564dffbe989 started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1edd9-8ec8-7f53-bb43-a556a28e7ff6 (resume with Agent(resume_thread_id: 01a1edd9-8ec8-7f53-bb43-a556a28e7ff6))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "0945f22c22967c6b2fdbe77d563527adbfce269f3077398270c14fc4315ce554"
+  "canonicalSha256": "b7e12c57a69f96a074b3a910eeb5bf1316591a1f1a56c8c88c040c86dd53e1dd"
 }

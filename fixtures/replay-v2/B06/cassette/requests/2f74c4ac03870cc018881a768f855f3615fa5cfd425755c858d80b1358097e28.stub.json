@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 104350,
-  "rawSha256": "91f8936fb5523cbae367067e98940f0b1f59fb8ffc0ad7cc76f8b79702490c52",
+  "rawBytes": 85532,
+  "rawSha256": "51c5ced7845bfa76f3b4de02b8ed540daca88530b5c90527659d3b14dea446f7",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B06.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B06-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B06_INITIAL_WORK\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B06-spawn\",\"tool_use_id\":\"B06-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1edd9-8ec8-7f53-bb43-a564dffbe989 started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1edd9-8ec8-7f53-bb43-a556a28e7ff6 (resume with Agent(resume_thread_id: 01a1edd9-8ec8-7f53-bb43-a556a28e7ff6))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B06-send\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B06_SUPPLEMENT_WRITE_SECOND_FILE\",\"resume_thread_id\":\"01a1edd9-8ec8-7f53-bb43-a556a28e7ff6\",\"run_in_background\":false}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B06-send\",\"tool_use_id\":\"B06-send\",\"content\":[{\"type\":\"text\",\"text\":\"action: send\\nstatus: queued\\nchild_thread_id: 01a1edd9-8ec8-7f53-bb43-a556a28e7ff6\\ntask_id: bg-01a1edd9-8ec8-7f53-bb43-a564dffbe989\\nSupplemental prompt queued as Defer for the active background sub-agent. No execution was started or resumed. This does not interrupt the current model/tool call; it drives a subsequent model call at Receive. Queued does not mean read: the agent may finish before the model sees this message.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -15,10 +15,9 @@
     },
     "}],\"tools\":",
     {
-      "leaf": "tools.sha256.3e18686aa87cef4d7fa67c8f16a8347768e0c78e3532c493b2ad77bd88538c6e",
-      "as": "raw"
+      "recipe": "tools.anthropic.main"
     },
     "}"
   ],
-  "canonicalSha256": "1e1f14ec8712aa421a576b61c6b5d4c5e1f2a6b301aa239194fceab25cd8a5a5"
+  "canonicalSha256": "704d336e82bdcf7a5dc7bd79872a796988806e806a5982cfe4fbb699867fb0ea"
 }
