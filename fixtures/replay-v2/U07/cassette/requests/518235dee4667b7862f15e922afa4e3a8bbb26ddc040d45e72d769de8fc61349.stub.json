@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 84976,
-  "rawSha256": "a24d189d67d6799aee62f2992c7c5c0e3165d0ec48a4856e0c6d4127e8040c57",
+  "rawBytes": 84965,
+  "rawSha256": "143934af0ad81b7975767860db8721b05af24900d170da326ceb293df5b5736b",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"RUN_SINGLE_CHOICE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"single-question\",\"name\":\"AskUserQuestion\",\"input\":{\"questions\":[{\"header\":\"SINGLE_TARGET\",\"question\":\"Choose SINGLE_TARGET\",\"multiSelect\":false,\"options\":[{\"label\":\"Alpha\",\"description\":\"First option\"},{\"label\":\"Beta\",\"description\":\"Second option\"},{\"label\":\"Gamma\",\"description\":\"Third option\"}]}]}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"single-question\",\"tool_use_id\":\"single-question\",\"content\":[{\"type\":\"text\",\"text\":\"[问: SINGLE_TARGET]\\n回答: Beta\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -19,5 +19,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "328f2cd2c15b0d88b28b7a1443b80fe15089fd38e922c7397a767472da6471c3"
+  "canonicalSha256": "d13aaa5898d640642ef85efd481423241f5da4df436bdec12ca837e40f0900d2"
 }

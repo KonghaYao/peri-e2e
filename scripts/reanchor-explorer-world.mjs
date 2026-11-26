@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 /**
- * 一次性迁移：把 Peri #596 的 explorer/web-researcher 委派路由同步到 cassette 录制侧。
+ * 一次性迁移：把 Peri #596 的 explorer catalog 描述同步到 cassette 录制侧。
  *
- * `world:sync` 已把 `sys.block1.main.prefix` / `sys.block1.replay-worker.prefix` 重渲染为
- * 新的 Exploration 段落，但 62 个 cassette 的 stub rawBytes/rawSha256/canonicalSha256 与
- * cassette seal 的 requestMeta.worldRefs 仍指向旧 world。S06 Responses 场景把整块 system
- * 文本存成内容寻址 leaf，不在源码映射内，必须按同一行变化重算 id。
+ * `world:sync` 已按两个冻结 catalog 模板重渲染 `sys.block1.main.prefix` /
+ * `sys.block1.replay-worker.prefix`，但 62 个 cassette 的 stub rawBytes/rawSha256/
+ * canonicalSha256 与 cassette seal 的 requestMeta.worldRefs 仍指向旧 catalog 的 world。
+ * S06 Responses 场景把整块 system 文本存成内容寻址 leaf，不在源码映射内，必须按同一行
+ * 变化重算 id。
  *
- * 本脚本从新 prefix 逆向还原旧前缀（唯一一次行替换），逐条重渲染 stub 并重封 cassette；
- * 响应字节原样复制。硬断言：差异只允许是 Exploration 这一行的替换、其余 world leaf 与
+ * 本脚本从新 prefix 逆向还原旧 explorer 行，逐条重渲染 stub 并重封 cassette；
+ * 响应字节原样复制。硬断言：差异只允许是 explorer 描述这一行的替换、其余 world leaf 与
  * 全部 response 文件逐字节不变。
  */
 import { mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
@@ -33,8 +34,8 @@ const { replaceWorldDirectory } = await load('scripts/world-sync-swap.mjs');
 const MAIN_PREFIX = 'sys.block1.main.prefix';
 const REPLAY_WORKER_PREFIX = 'sys.block1.replay-worker.prefix';
 const PREFIX_LEAVES = [MAIN_PREFIX, REPLAY_WORKER_PREFIX];
-const OLD_LINE = '- **Exploration:** ordinary locating belongs to the implementation owner. Delegate an independent investigation only when it is worth delivering on its own, for example an unfamiliar subsystem whose findings will steer several downstream tasks. Do not treat `explorer` as a mandatory precursor.';
-const NEW_LINE = '- **Exploration:** when the user needs a read-only finding, choose the owner before opening sources. Answer directly if the current context already establishes it, or if you know the exact source and a single lookup will answer it without following a reference. Otherwise launch one available `explorer` with the whole question. Following a value through code, locating the authoritative document, and comparing implementation with a published contract are investigations even if the final answer is a single value. A missing source tool limits the evidence the explorer can return; give it the accessible part and ask it to identify the gap. If a direct lookup opens a new investigation, delegate before the next search. Command execution, edits and artifact delivery stay with their respective owners.';
+const OLD_LINE = '- explorer [haiku] [writes] | description (untrusted metadata): Read-only codebase investigation: trace unfamiliar behavior, call paths, and change impact. Return evidence with file locations for decisions and implementation. No shell or edits.';
+const NEW_LINE = '- explorer [haiku] [writes] | description (untrusted metadata): Read-only investigation of local code, external sources, or both. Trace behavior, verify claims against primary sources, and return findings with file locations or URLs.';
 const LINE_DELTA = Buffer.byteLength(NEW_LINE) - Buffer.byteLength(OLD_LINE);
 
 const assert = (condition, message) => { if (!condition) throw new Error(message); };
@@ -59,12 +60,14 @@ function assertSingleLineReplacement(label, before, after) {
 function assertSingleRequestReplacement(label, before, after) {
   assert(countOf(before, OLD_LINE) === 1, `${label}: 旧文案应恰好出现一次，实际 ${countOf(before, OLD_LINE)} 次`);
   assert(countOf(after, NEW_LINE) === 1, `${label}: 新文案应恰好出现一次，实际 ${countOf(after, NEW_LINE)} 次`);
-  assert(after === before.split(OLD_LINE).join(NEW_LINE), `${label}: 变化不止 Exploration 段落`);
+  assert(after === before.split(OLD_LINE).join(NEW_LINE), `${label}: 变化不止 explorer 描述行`);
   assert(Buffer.byteLength(after) - Buffer.byteLength(before) === LINE_DELTA,
     `${label}: 字节差应为 ${LINE_DELTA}，实际 ${Buffer.byteLength(after) - Buffer.byteLength(before)}`);
 }
 
-assert(LINE_DELTA === 509, `Exploration 段落替换的字节差应为 509，实际 ${LINE_DELTA}`);
+assert(Buffer.byteLength(OLD_LINE) === 244, `旧 explorer 描述行应为 244 字节，实际 ${Buffer.byteLength(OLD_LINE)}`);
+assert(Buffer.byteLength(NEW_LINE) === 233, `新 explorer 描述行应为 233 字节，实际 ${Buffer.byteLength(NEW_LINE)}`);
+assert(LINE_DELTA === -11, `explorer 描述行替换的字节差应为 -11，实际 ${LINE_DELTA}`);
 
 const manifestBytes = await readFile(path.join(worldDir, 'manifest.json'));
 const manifest = JSON.parse(text(manifestBytes));
@@ -83,12 +86,12 @@ for (const [id, meta] of Object.entries(manifest.leaves)) {
   leafBytes.set(id, bytes);
 }
 
-// 1) 两个 prefix 必须已由 world:sync 写入 #596 文案；逆向还原旧值用于重渲染录制请求。
+// 1) 两个 prefix 必须已由 world:sync 按新 catalog 模板写入；逆向还原旧行用于重渲染录制请求。
 const oldPrefixBytes = new Map();
 for (const id of PREFIX_LEAVES) {
   const current = text(leafBytes.get(id));
-  assert(countOf(current, NEW_LINE) === 1, `${id}: 新 Exploration 段落应恰好出现一次`);
-  assert(countOf(current, OLD_LINE) === 0, `${id}: 不应残留旧 Exploration 段落`);
+  assert(countOf(current, NEW_LINE) === 1, `${id}: 新 explorer 描述行应恰好出现一次`);
+  assert(countOf(current, OLD_LINE) === 0, `${id}: 不应残留旧 explorer 描述行`);
   const previous = current.split(NEW_LINE).join(OLD_LINE);
   assertSingleLineReplacement(`${id} (reverse)`, previous, current);
   oldPrefixBytes.set(id, Buffer.from(previous, 'utf8'));
@@ -162,7 +165,7 @@ const rewritePart = (part) => (part && typeof part === 'object' && part.leaf ===
   ? { ...part, leaf: NEW_SYSTEM_LEAF }
   : part);
 
-// 4) 逐条 cassette 重渲染；响应与 manifest 原样复制，只允许 Exploration 一行差异。
+// 4) 逐条 cassette 重渲染；响应与 manifest 原样复制，只允许 explorer 描述一行差异。
 const stagingBase = await mkdtemp(path.join(fixtures, '.reanchor-explorer-'));
 const stagedWorldDir = path.join(stagingBase, 'world');
 const stagedById = new Map();
@@ -362,7 +365,7 @@ try {
 
   console.log(JSON.stringify({
     command: 'reanchor-explorer-world',
-    oneTimeMigration: 'Peri #596 explorer/web-researcher delegation routing',
+    oneTimeMigration: 'Peri #596 explorer catalog description (frozen block1 templates)',
     world: {
       generation: sealedWorld.generation,
       previousGeneration: manifest.generation,

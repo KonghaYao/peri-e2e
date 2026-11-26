@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 85342,
-  "rawSha256": "01f9f06d9f53fd66aa5ffd52e7b70d4885e68e92cb0ccad52ad36c4d28c6df53",
+  "rawBytes": 85331,
+  "rawSha256": "5da0812cb86b29328fe866f001763a0742862d376b356137a0b816868de22d1f",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B12 first process.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B12-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B12_COMPLETED_CHILD_HISTORY\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B12-spawn\",\"tool_use_id\":\"B12-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1eddb-b8f3-7933-ba0b-35687b1107b4 started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1eddb-b8f3-7933-ba0b-355232c55ce0 (resume with Agent(resume_thread_id: 01a1eddb-b8f3-7933-ba0b-355232c55ce0))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -19,5 +19,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "041659a847b333b36215cc0334faff68aa15255928f46d3bc2a8e57d12a3cb1d"
+  "canonicalSha256": "00768dd77eebf373d3016ae088cbe66511c8d31a9f1a97e514c3bd0acf7103e1"
 }

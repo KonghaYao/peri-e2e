@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 84980,
-  "rawSha256": "6bbc3a9f323c0b51c080e3329891e99cc23fff76c31948b1d41abcceb3eb63e0",
+  "rawBytes": 84969,
+  "rawSha256": "33f89a60e920e1cf7019eb7e5511cfb33e5dd15315a2db6ea2ee6820e50ccb7e",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"T04_BUSINESS_CASE\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"t04-missing\",\"name\":\"Read\",\"input\":{\"file_path\":\"/tmp/peri-wire-e2e-3E4npG/work/missing.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"t04-missing\",\"tool_use_id\":\"t04-missing\",\"content\":[{\"type\":\"text\",\"text\":\"MCP 服务器 \\\"peri\\\" 工具 \\\"Read\\\" 调用失败: tool `Read` failed to execute; Error: File not found at /tmp/peri-wire-e2e-3E4npG/work/missing.txt\\nRecovery: File not found. Verify file_path or locate the file with Glob.\\n[Execution status: failed]\"}],\"is_error\":true,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -19,5 +19,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "65886e8c6203de903c1b8c94c47264e3eecec6628364e8afc13b751fedb0e461"
+  "canonicalSha256": "3ca81e1c590d22af2134cb7fa914458ba40bfdb5e923fc05bfe6a76724ccc825"
 }

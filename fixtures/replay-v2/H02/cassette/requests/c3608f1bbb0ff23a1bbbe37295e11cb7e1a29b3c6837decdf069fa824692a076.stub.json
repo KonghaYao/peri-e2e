@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 85268,
-  "rawSha256": "9e0ac425a0b0200d3a2a5831dfa3f908dcd7c94db628b6a50a3e5010b75b5fcf",
+  "rawBytes": 85257,
+  "rawSha256": "14768807c77a06f1b2d4eceb64d3567f6987f70b55c5ab860bb603a1eeee2f07",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Run H02 background shell.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H02-bash\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h02.pid; printf 'started\\\\n' >> h02.starts; for i in {1..6000}; do [ -f h02.release ] && break; sleep 0.01; done; [ -f h02.release ] || exit 70; printf 'H02_ACTUAL_STDOUT\\\\n'; printf 'H02_ACTUAL_STDERR\\\\n' >&2; printf 'H02_SIDE_EFFECT\\\\n' > h02.result; exit 7\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H02-bash\",\"tool_use_id\":\"H02-bash\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1eddc-944a-7262-961b-b91deaea01dd. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1eddc-944a-7262-961b-b91deaea01dd]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -19,5 +19,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "704658bb15b30891d37d022e768594cd1019d0ca095e2cd1a76d3824405514aa"
+  "canonicalSha256": "4e71dc753442fec64ef3549b2388e6ed9300c8a3ea7211c4f0cf1b680d0bea3b"
 }
