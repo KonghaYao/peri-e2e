@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 84811,
-  "rawSha256": "cce2e2b0a8fdb5f08fef460642b44b8baf3ed46ac20091c7294e73d31072448f",
+  "rawBytes": 85320,
+  "rawSha256": "b6774bbbff2fd5a800aa8efd3dad3316fba32202e584ba892021543ef73d4258",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B01.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B01-spawn\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B01_BACKGROUND_WORK\",\"run_in_background\":true,\"subagent_type\":\"replay-worker\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B01-spawn\",\"tool_use_id\":\"B01-spawn\",\"content\":[{\"type\":\"text\",\"text\":\"Background task bg-01a1eddc-4ec0-7942-acd9-6965747a95e4 started. You will be notified when it completes. You can continue with other tasks in the meantime.\\nchild_thread_id: 01a1eddc-4ebf-73a2-8140-ab4327638312 (resume with Agent(resume_thread_id: 01a1eddc-4ebf-73a2-8140-ab4327638312))\\nWhile active, include a non-empty prompt to send supplemental instructions; omit prompt only when resuming a non-active thread.\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -19,5 +19,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "0e378659c91a35156887bd25b73a0a18b52046aa7c75eb5657008f9bfa72c602"
+  "canonicalSha256": "8a1cf06faedae6714434054faa1eba6729c0e3f1a6d843646776cd2ea4802cc8"
 }

@@ -1,11 +1,11 @@
 {
   "v": 2,
-  "rawBytes": 84897,
-  "rawSha256": "766ca813e7d775e877ab6a5b173e77b55aaa214b5e029c879b0e5905351a59e9",
+  "rawBytes": 85406,
+  "rawSha256": "8cb7590c5d13789eb034619dec3901deb5fee0ca32b4d268c69c503ec148bb24",
   "parts": [
     "{\"model\":\"fixture-model\",\"input\":[{\"type\":\"message\",\"role\":\"developer\",\"content\":[{\"type\":\"input_text\",\"text\":",
     {
-      "leaf": "sys.sha256.b178d3df567b9e44bfdb2f1351ad91ac5831f3953d142e6903c02eea97016c55",
+      "leaf": "sys.sha256.3c8d2033c2f3dea19f1d1db4a295a856dddefe6aa1855ad75ec828378528794d",
       "as": "json-string"
     },
     "}]},{\"type\":\"message\",\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"S06_RESPONSES_WRITE\"}]},{\"type\":\"message\",\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"id\":\"s06-tool\",\"type\":\"function_call\",\"call_id\":\"s06-call\",\"name\":\"Write\",\"arguments\":\"{\\\"file_path\\\":\\\"/tmp/peri-wire-e2e-Fve9LR/work/responses.txt\\\",\\\"content\\\":\\\"RESPONSES_TOOL_EFFECT\\\\n\\\"}\",\"status\":\"completed\"},{\"type\":\"function_call_output\",\"call_id\":\"s06-call\",\"output\":[{\"type\":\"input_text\",\"text\":\"Wrote 1 line responses.txt\\n[Execution status: completed]\"}]}],\"stream\":true,\"store\":false,\"include\":[\"reasoning.encrypted_content\"],\"tools\":",
@@ -14,5 +14,5 @@
     },
     ",\"tool_choice\":\"auto\",\"reasoning\":{\"effort\":\"medium\",\"summary\":\"auto\"},\"max_output_tokens\":32000}"
   ],
-  "canonicalSha256": "ee55540a5d53578c89b2a0a7a7bd00f1732c6c9108f5e94def9ec6b9e24b27ff"
+  "canonicalSha256": "566cd9bfa5f5c41b8e95102176164f4e1b81a0a8c53046fd66f3088700013531"
 }
