@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 84942,
-  "rawSha256": "1f4bc1808a6b917b3fb9d45bf25ae63c0f8f6d87fc0b0574d7548d39e0fc2ae4",
+  "rawBytes": 85440,
+  "rawSha256": "b503b0c3fca30f7c22219685496f2db0b1fd4f21d113f02c6d024da9862c9433",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Execute B08.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B08-invalid\",\"name\":\"Agent\",\"input\":{\"prompt\":\"B08_NO_CHILD\",\"run_in_background\":true,\"subagent_type\":\"B08-undefined-agent\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B08-invalid\",\"tool_use_id\":\"B08-invalid\",\"content\":[{\"type\":\"text\",\"text\":\"Error: cannot find agent definition 'B08-undefined-agent': cannot find agent definition 'B08-undefined-agent'. Check .claude/agents/ directory or configured plugin agents\"}],\"is_error\":true,\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"B08-recover\",\"name\":\"Write\",\"input\":{\"content\":\"B08_NO_PHANTOM\\n\",\"file_path\":\"b08-recovered.txt\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"B08-recover\",\"tool_use_id\":\"B08-recover\",\"content\":[{\"type\":\"text\",\"text\":\"Wrote 1 line b08-recovered.txt\\n[Execution status: completed]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -19,5 +19,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "1c49223ff753f66fb450024bc44acdad71f725c20cc60ed87c8b02d58c964186"
+  "canonicalSha256": "f01157db72b22edbe646d9ee1e73e2c78a991745d9860c93c21b8939dae45e44"
 }

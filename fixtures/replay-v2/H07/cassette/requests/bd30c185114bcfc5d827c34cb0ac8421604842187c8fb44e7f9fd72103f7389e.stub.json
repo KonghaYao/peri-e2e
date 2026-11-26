@@ -1,7 +1,7 @@
 {
   "v": 2,
-  "rawBytes": 84706,
-  "rawSha256": "249c67dcd915a38f62b10c567a88126fc9998e5a41ee5ae097c58e90f6656bad",
+  "rawBytes": 85204,
+  "rawSha256": "391b4597d3168ab4041f01fd2bb87e58cb0bb66a38b8cfc32689296c746e1fb2",
   "parts": [
     "{\"model\":\"fixture-model\",\"max_tokens\":32000,\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Start session A's H07 shell.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"<system-reminder version=\\\"1\\\" category=\\\"capability\\\" source=\\\"mcp\\\" kind=\\\"connection_summary\\\" severity=\\\"info\\\" delivery=\\\"configurable\\\" audiences=\\\"[&quot;model&quot;,&quot;tui&quot;,&quot;diagnostics&quot;]\\\" summary=\\\"&quot;MCP: 1 connected, 0 failed, 0 disabled&quot;\\\" metadata=\\\"{}\\\">MCP: 1 connected, 0 failed, 0 disabled\\n- peri (connected, 21 tools)\\n\\n已直接注入的 system MCP 工具按原始名称调用；其余 MCP 工具经 tool search 发现，名称格式为 mcp__&lt;server&gt;__&lt;tool&gt;。</system-reminder>\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"H07-A\",\"name\":\"Bash\",\"input\":{\"command\":\"printf '%s\\\\n' \\\"$$\\\" > h07-A.pid; printf 'started\\\\n' >> h07-A.starts; for i in {1..6000}; do [ -f h07-A.release ] && break; sleep 0.01; done; [ -f h07-A.release ] || exit 70; printf 'H07_A_REAL_OUTPUT\\\\n'; printf 'A\\\\n' > h07-A.result\",\"run_in_background\":true}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"id\":\"H07-A\",\"tool_use_id\":\"H07-A\",\"content\":[{\"type\":\"text\",\"text\":\"Background task started: mcp-01a1eddb-f05e-7ab0-a26d-1f2ca6b6cb9f. Its completion result will be delivered to the initiating session when it arrives; the delivered result is recorded at that point.\\n[Execution status: running, task_id: mcp-01a1eddb-f05e-7ab0-a26d-1f2ca6b6cb9f]\"}],\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":",
     {
@@ -19,5 +19,5 @@
     },
     "}"
   ],
-  "canonicalSha256": "3604af2c0ac4afcb683d9bb27778fbbc0cafd8c67416372136d5f2edb5b1ee6b"
+  "canonicalSha256": "51b5707594a03a2f96677f046017571b3353d9a9c24112a6b7903592492d0c77"
 }
